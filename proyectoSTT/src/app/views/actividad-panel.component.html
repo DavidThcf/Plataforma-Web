@@ -1,0 +1,338 @@
+<div style="margin-top: 51px; margin-right: 50px;">	
+	<div class="row" >
+		<div class="col-md-2" style="background-color: rgb(50,50,50);">
+			<div style="color: white; ">PUNTOS CRITICOS</div>
+			<div  style="background-color: rgb(153,191,78); margin: 10px 10px; min-height: 80vh">
+				
+
+				<div style="margin: auto;">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Buscar...">
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" aria-label="Left Align">
+								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+							</button>
+						</span>
+					</div>						
+				</div>
+
+				<div class="listaActividades">
+					<ul>					
+						<li><a>Actvividad 1</a></li>
+						<li><a>Actvividad 2</a></li>
+						<li><a>Actvividad 3</a></li>						
+					</ul>					
+				</div>						
+			</div>
+			<nav aria-label="Page navigation" style="display: none;">
+				<ul class="pagination">
+					<li>
+						<a href="#" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						</a>
+					</li>
+					<li><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#">3</a></li>
+					<li>
+						<a href="#" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
+				</ul>
+			</nav>	
+		</div>
+		
+		<div class="col-md-10" style="background-color: rgb(222,220,221);">
+			<div class="menuActividades">
+				<ul>
+					<li (click)="c1()"><a>Sub - Actividades </a></li>
+					<li (click)="c2()"><a>Reporte </a></li>
+					<li (click)="c3()"><a>Multimedia </a></li>
+					<li (click)="c4()"><a>Estadisticas </a></li>
+					<li (click)="c5()"><a>Mapa</a></li>
+				</ul>				
+			</div>
+
+
+			<div style=" min-height: 80vh;">
+				<div *ngIf="subActivity" >
+					<div class="scrollbar row">	
+						<div class=" col-md-6">
+							<div class="row projectCard" style="margin: 10px">		
+								<div class="col-md-3">
+									<div style="background-color: white; margin-top: 30px">
+										<img style="height: 100px; " src="http://www2.udenar.edu.co/recursos/wp-content/uploads/2016/10/udenar.png">				
+									</div>
+								</div>
+								<div class="col-md-9">
+									<h4 style="text-transform: uppercase; height: 30px">SubActividad 1</h4>					
+									<div>
+										<div class="row">
+											<div class="lab1 col-md-3">Lider de Proyecto:</div>
+											<div class="lab2 col-md-8">Lus Alfredo Gomez</div>
+										</div>
+										<div>
+											<div class="lab1">Descripción:</div>
+											<div class="lab2">Subactividad en desarrollo</div>
+										</div>
+										<div class="row">
+											<div class="lab1 col-md-6">
+												<div>Estado:</div>
+												<div class="lab2">Desarrollo</div>
+											</div>
+											<div class="lab1 col-md-6">
+												<div>Progreso:</div>
+												<div class="lab2">10%</div>
+											</div>
+										</div>
+									</div>				
+
+									<button  class="btn btn-primary" (click)="entrar()" style="float:right; background-color: orange">
+										Entrar
+									</button>
+								</div>	
+							</div>
+						</div>
+						<div class=" col-md-6">
+							<div class="row projectCard" style="margin: 10px;">		
+								<div class="col-md-3">
+									<div style="background-color: white; margin-top: 30px">
+										<img style="height: 100px;" src="http://www2.udenar.edu.co/recursos/wp-content/uploads/2016/10/udenar.png">				
+									</div>
+								</div>
+								<div class="col-md-9">
+									<h4 style="text-transform: uppercase;  height: 30px">SubActividad 2</h4>					
+									<div>
+										<div class="row">
+											<div class="lab1 col-md-3">Lider de Proyecto:</div>
+											<div class="lab2 col-md-8">Lus Alfredo Gomez</div>
+										</div>
+										<div>
+											<div class="lab1">Descripción:</div>
+											<div class="lab2">Subactividad en desarrollo</div>
+										</div>
+										<div class="row">
+											<div class="lab1 col-md-6">
+												<div>Estado:</div>
+												<div class="lab2">Desarrollo</div>
+											</div>
+											<div class="lab1 col-md-6">
+												<div>Progreso:</div>
+												<div class="lab2">10%</div>
+											</div>
+										</div>
+									</div>				
+
+									<button  class="btn btn-primary" (click)="entrar()" style="float:right; background-color: orange">
+										Entrar
+									</button>
+								</div>	
+							</div>
+						</div>
+						<div class=" col-md-6">
+							<div class="row projectCard" style="margin: 10px">		
+								<div class="col-md-3">
+									<div style="background-color: white; margin-top: 30px">
+										<img style="height: 100px; " src="http://www2.udenar.edu.co/recursos/wp-content/uploads/2016/10/udenar.png">				
+									</div>
+								</div>
+								<div class="col-md-9">
+									<h4 style="text-transform: uppercase;  height: 30px">SubActividad 3</h4>					
+									<div>
+										<div class="row">
+											<div class="lab1 col-md-3">Lider de Proyecto:</div>
+											<div class="lab2 col-md-8">Lus Alfredo Gomez</div>
+										</div>
+										<div>
+											<div class="lab1">Descripción:</div>
+											<div class="lab2">Subactividad en desarrollo</div>
+										</div>
+										<div class="row">
+											<div class="lab1 col-md-6">
+												<div>Estado:</div>
+												<div class="lab2">Desarrollo</div>
+											</div>
+											<div class="lab1 col-md-6">
+												<div>Progreso:</div>
+												<div class="lab2">10%</div>
+											</div>
+										</div>
+									</div>				
+
+									<button  class="btn btn-primary" (click)="entrar()" style="float:right; background-color: orange">
+										Entrar
+									</button>
+								</div>	
+							</div>
+						</div>
+						<div class=" col-md-6">
+							<div class="row projectCard" style="margin: 10px">		
+								<div class="col-md-3">
+									<div style="background-color: white; margin-top: 30px">
+										<img style="height: 100px; " src="http://www2.udenar.edu.co/recursos/wp-content/uploads/2016/10/udenar.png">				
+									</div>
+								</div>
+								<div class="col-md-9">
+									<h4 style="text-transform: uppercase;  height: 30px">SubActividad 4</h4>					
+									<div>
+										<div class="row">
+											<div class="lab1 col-md-3">Lider de Proyecto:</div>
+											<div class="lab2 col-md-8">Lus Alfredo Gomez</div>
+										</div>
+										<div>
+											<div class="lab1">Descripción:</div>
+											<div class="lab2">Subactividad en desarrollo</div>
+										</div>
+										<div class="row">
+											<div class="lab1 col-md-6">
+												<div>Estado:</div>
+												<div class="lab2">Desarrollo</div>
+											</div>
+											<div class="lab1 col-md-6">
+												<div>Progreso:</div>
+												<div class="lab2">10%</div>
+											</div>
+										</div>
+									</div>				
+
+									<button  class="btn btn-primary" (click)="entrar()" style="float:right; background-color: orange">
+										Entrar
+									</button>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div *ngIf="report" >
+					<embed  src="http://knower.udenar.edu.co/imgSTT/CONVENIO.pdf" style="width: 100%; min-height:80vh;" fullframe >
+				</div>
+
+				<div *ngIf="multimedia" >
+					<button class="btn-select-map" (click)="btnSelMap()">
+						<img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDUzIDUzIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MyA1MzsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+Cjxwb2x5Z29uIHN0eWxlPSJmaWxsOiM0M0IwNUM7IiBwb2ludHM9IjE4LDIzLjI0MyAyLjI1Niw3LjQ5OSAwLDggMCw1MSAyLjA5OSw1MC41MzQgMTgsMzQuNjMyICIvPgo8cG9seWdvbiBzdHlsZT0iZmlsbDojNDhBMERDOyIgcG9pbnRzPSI5LjM3Miw0OC45MTcgMTgsNDcgMTgsNDAuMjg5ICIvPgo8cG9seWdvbiBzdHlsZT0iZmlsbDojNDNCMDVDOyIgcG9pbnRzPSIxOCw0IDYuODg0LDYuNDcgMTgsMTcuNTg2ICIvPgo8cG9seWdvbiBzdHlsZT0iZmlsbDojNDNCMDVDOyIgcG9pbnRzPSI0OS40NDksMy4xODQgMzUsOCAzNSwxNy42MzIgIi8+Cjxwb2x5Z29uIHN0eWxlPSJmaWxsOiM0OEEwREM7IiBwb2ludHM9IjM1LDIzLjI4OSAzNSw1MCA1Myw0MyA1Myw1LjI4OSAiLz4KPHBvbHlnb24gc3R5bGU9ImZpbGw6IzNEOTk0RjsiIHBvaW50cz0iMjYuNTIzLDI2LjEwOSAzNSwxNy42MzIgMzUsOCAxOCw0IDE4LDE3LjU4NiAiLz4KPHBvbHlnb24gc3R5bGU9ImZpbGw6IzNEOTk0RjsiIHBvaW50cz0iMTgsMjMuMjQzIDE4LDM0LjYzMiAyMy42OTUsMjguOTM4ICIvPgo8cG9seWdvbiBzdHlsZT0iZmlsbDojNDM5M0JGOyIgcG9pbnRzPSIxOCw0MC4yODkgMTgsNDcgMzUsNTAgMzUsMjMuMjg5ICIvPgo8cG9seWdvbiBzdHlsZT0iZmlsbDojRUZDRTRBOyIgcG9pbnRzPSIxOCwxNy41ODYgNi44ODQsNi40NyAyLjI1Niw3LjQ5OSAxOCwyMy4yNDMgIi8+Cjxwb2x5Z29uIHN0eWxlPSJmaWxsOiNFRkNFNEE7IiBwb2ludHM9IjE4LDM0LjYzMiAyLjA5OSw1MC41MzQgOS4zNzIsNDguOTE3IDE4LDQwLjI4OSAiLz4KPHBvbHlnb24gc3R5bGU9ImZpbGw6I0VGQ0U0QTsiIHBvaW50cz0iMzUsMjMuMjg5IDUzLDUuMjg5IDUzLDIgNDkuNDQ5LDMuMTg0IDM1LDE3LjYzMiAiLz4KPHBvbHlnb24gc3R5bGU9ImZpbGw6I0Q2QjQ0NTsiIHBvaW50cz0iMjYuNTIzLDI2LjEwOSAxOCwxNy41ODYgMTgsMjMuMjQzIDIzLjY5NSwyOC45MzggMTgsMzQuNjMyIDE4LDQwLjI4OSAzNSwyMy4yODkgMzUsMTcuNjMyICAgIi8+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=" />
+					</button>
+					
+					
+					<button class="btn-add-img" type="file" >						
+						<img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQyIDQyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0MiA0MjsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIzMnB4IiBoZWlnaHQ9IjMycHgiPgo8cGF0aCBkPSJNMzcuMDU5LDE2SDI2VjQuOTQxQzI2LDIuMjI0LDIzLjcxOCwwLDIxLDBzLTUsMi4yMjQtNSw0Ljk0MVYxNkg0Ljk0MUMyLjIyNCwxNiwwLDE4LjI4MiwwLDIxczIuMjI0LDUsNC45NDEsNUgxNnYxMS4wNTkgIEMxNiwzOS43NzYsMTguMjgyLDQyLDIxLDQyczUtMi4yMjQsNS00Ljk0MVYyNmgxMS4wNTlDMzkuNzc2LDI2LDQyLDIzLjcxOCw0MiwyMVMzOS43NzYsMTYsMzcuMDU5LDE2eiIgZmlsbD0iI0ZGRkZGRiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" />					
+					</button>
+
+					
+					<div class="row">
+						<div class="col-xs-6 col-md-3">	
+							<input type="checkbox" *ngIf="isSelAct" class="chk" >						
+							<a  class="thumbnail">
+								<img src="http://knower.udenar.edu.co/imgSTT/95-2-5.jpg" alt="...">
+								<div class="caption">
+									<h3>Imagen 1</h3>																	
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-md-3">
+							<input type="checkbox" *ngIf="isSelAct" class="chk" >
+							<a class="thumbnail">
+								<img src="http://knower.udenar.edu.co/imgSTT/95-3-5.jpg" alt="...">
+								<div class="caption">
+									<h3>Imagen 2</h3>																	
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-md-3">
+							<input type="checkbox" *ngIf="isSelAct" class="chk" >
+							<a class="thumbnail">
+								<img src="http://knower.udenar.edu.co/imgSTT/95-4-5.jpg" alt="...">
+								<div class="caption">
+									<h3>Imagen 3</h3>																	
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-md-3">
+							<input type="checkbox" *ngIf="isSelAct" class="chk" >
+							<a  class="thumbnail">
+								<img src="http://knower.udenar.edu.co/imgSTT/95-5-5.jpg" alt="...">
+								<div class="caption">
+									<h3>Imagen 4</h3>																	
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-md-3">
+							<input type="checkbox" *ngIf="isSelAct" class="chk" >
+							<a class="thumbnail">
+								<img src="http://knower.udenar.edu.co/imgSTT/95-6-5.jpg" alt="...">
+								<div class="caption">
+									<h3>Imagen 5</h3>																		
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-md-3">
+							<input type="checkbox" *ngIf="isSelAct" class="chk" >
+							<a class="thumbnail">
+								<img src="http://knower.udenar.edu.co/imgSTT/95-7-5.jpg" alt="...">
+								<div class="caption">
+									<h3>Imagen 6</h3>																	
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-md-3">
+							<input type="checkbox" *ngIf="isSelAct" class="chk" >
+							<a class="thumbnail">
+								<img src="http://knower.udenar.edu.co/imgSTT/95-1-5.jpg" alt="...">
+								<div class="caption">
+									<h3>Imagen 7</h3>																	
+								</div>
+							</a>
+						</div>
+						<div class="col-xs-6 col-md-3">
+							<input type="checkbox" *ngIf="isSelAct" class="chk" >
+							<a class="thumbnail">
+								<img src="http://knower.udenar.edu.co/imgSTT/95-2-5.jpg" alt="...">
+								<div class="caption">
+									<h3>Imagen 8</h3>																	
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div *ngIf="estadistic" >
+					<div style="display: block">
+						<canvas baseChart
+						[datasets]="barChartData"
+						[labels]="barChartLabels"
+						[options]="barChartOptions"
+						[legend]="barChartLegend"
+						[chartType]="barChartType"
+						[colors] = "barColor"
+						(chartHover)="chartHovered($event)"
+						(chartClick)="chartClicked($event)"></canvas>
+					</div>
+				</div>
+
+				<div *ngIf="map" >
+					<button class="btn-category-1" (click)="btnCat1()">
+						
+					</button>
+					<button class="btn-category-2" (click)="btnCat2()">
+						
+					</button>
+					<button class="btn-category-3" (click)="btnCat3()">
+						
+					</button>					
+					<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"  (mapClick)="mapClicked($event)">
+						<agm-marker *ngFor="let m of markers; let i = index"[latitude]="m.lat" [longitude]="m.lng"[label]="m.label" [iconUrl]="m.url"  (markerClick)="clickedMarker(m.label, i)">							
+						</agm-marker>
+					</agm-map>
+				</div>
+			</div>		
+		</div>
+	</div>
+	<ol class="breadcrumb" style="display: none;">
+		<li><a href="#">Home</a></li>
+		<li><a href="#">Library</a></li>
+		<li class="active">Data</li>
+	</ol>
+</div>
+
+

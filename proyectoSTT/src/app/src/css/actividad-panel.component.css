@@ -1,0 +1,176 @@
+.listaActividades ul {
+	list-style: none;
+	margin-right: 0px;
+}
+
+.listaActividades a{	
+	display: block;	
+	text-decoration: none;
+	padding: 10px 10px;
+	color: white;
+	background-color: rgb(153,191,78);
+	//box-shadow: 0px 0px 5px 1px gray;
+}
+
+.listaActividades a:hover{
+	background-color: rgba(0,0,0,0.2);
+	cursor: pointer;
+}
+
+.listaActividades li{
+	display: block;	
+	border-bottom: 1px solid rgba(44,106,34,.5);
+}
+
+.menuActividades ul{
+	list-style: none;
+}
+
+.menuActividades{
+	background-color: rgb(0,55,85);
+	margin: 0;
+	//position: relative;
+}
+.menuActividades li{
+	display: inline-block;
+	
+}
+
+.menuActividades a{
+	color: white;
+	display: block;
+	text-decoration:none;
+	padding: 20px 20px;
+}
+
+.menuActividades a:hover{
+	background-color: rgba(0,0,0,0.2);
+	cursor: pointer;
+}
+
+agm-map {
+	height: 500px;
+}
+
+
+.projectCard{
+	background-color: rgb(52,122,182);
+	margin: 10px;	
+}
+
+.projectCard h4{
+	color: white;
+}
+
+.lab1{
+	color: white;
+}
+.lab2{
+	background-color: rgb(221,221,221);
+	color: black;
+	border-color: gray;	
+	height: 20px;
+	text-align: left;
+}
+
+.thumbnail{
+	text-decoration: none;
+}
+
+.thumbnail img{
+	width: 242px;
+	height: 200px;
+}
+
+.btn-select-map{
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	right: -38px;
+	top:85px;
+	z-index: 1000;
+	background-color: rgb(255,0,128);
+	border: 1px solid transparent;
+	border-radius: 3px;
+	box-shadow: 1px 1px 15px black;
+}
+
+.btn-select-map img{
+	width: 35px;
+	height: 35px;
+	align-content: center;
+
+}
+
+.chk{
+	box-shadow: 1px 1px 10px black;
+	position: absolute;
+	right: 10px;
+	top:-10px;
+	height: 17px;
+	width: 17px;
+	color: blue;
+	background-color: red;
+}
+
+.caption{
+	text-align: center;
+}
+.btn-add-img{
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	right: -38px;
+	top: 140px;
+	z-index: 1000;
+	background-color: rgb(12,127,8);
+	border: 1px solid transparent;
+	border-radius: 3px;
+	box-shadow: 1px 1px 15px black;
+	color: white;
+}
+.btn-add-img input{
+	position: absolute;
+	filter: alpha(opacity=0);
+}
+
+.btn-category-1{
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	right: -38px;
+	top:85px;
+	z-index: 1000;
+	background-color: green;
+	border: 1px solid transparent;
+	border-radius: 3px;
+	box-shadow: 1px 1px 15px black;
+}
+
+.btn-category-2{
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	right: -38px;
+	top: 140px;
+	z-index: 1000;
+	background-color: yellow;
+	border: 1px solid transparent;
+	border-radius: 3px;
+	box-shadow: 1px 1px 15px black;
+	color: white;
+}
+
+.btn-category-3{
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	right: -38px;
+	top: 195px;
+	z-index: 1000;
+	background-color: red;
+	border: 1px solid transparent;
+	border-radius: 3px;
+	box-shadow: 1px 1px 15px black;
+	color: white;
+}

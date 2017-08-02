@@ -1,0 +1,21 @@
+.bg-image {
+	//background: url(../img/background.jpg) no-repeat center center fixed;
+	//-webkit-background-size: cover;
+	//-moz-background-size: cover;
+	//-o-background-size: cover;
+	//background-size: cover;
+}
+
+agm-map {
+	height: 500px;
+}
+.map{	
+	padding-top: 100px;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.carousel img{
+	width: 242px;
+	height: 200px;
+}
