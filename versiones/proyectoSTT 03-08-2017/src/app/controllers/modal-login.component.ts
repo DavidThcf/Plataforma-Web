@@ -29,7 +29,7 @@ export class Modallogin {
 	hideModal: boolean = false;
 
 	
-	submitted = false;	
+	submitted = false;
 
 	onSubmit() {
 
@@ -37,13 +37,14 @@ export class Modallogin {
 
 		this.servicios.getUsuario(this.usuario.e_mail,this.usuario.pass)
 		.then( 
-			usuario =>
+			cadena =>
 			{
-				this.serviciog.getuser(usuario);
+				this.serviciog.usuario = cadena;
+
+
 				let link = ['proyecto'];
 				this.router.navigate(link);
-			}
-			);
+			});		
 	}
 	
 	

@@ -4,7 +4,6 @@ import { FormsModule }   from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 import { Servicios }         from './services/servicios';
 import { ServiciosGlobales }         from './services/servicios-globales';
-import { PersistenceModule }         from 'angular-persistence';
 
 
 import { AppComponent } from './controllers/app.component';
@@ -28,7 +27,6 @@ import { ChartsModule } from 'ng2-charts';
     HttpModule,
     ChartsModule,
     AppRoutingModule,
-    PersistenceModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBstXoO7yz2v1JKRl2dwht0EvS8r8rBpe0 '
     })
