@@ -65,6 +65,22 @@ router.post('/', function (req, res, next) {
 	res.send(JSON.stringify(usuario));
 });
 
+router.post('/createUser', function (req, res, next) {
+	console.log(req);
+	var email = req.body.email;
+	var password = req.body.password;
+	console.log(email + '  ' + password);
+	var usuario = [{
+		"email": email,
+		"password": password,
+		"nombre": 'Luis',
+		"apellido": 'Perez'
+	}];
+
+	res.header("Access-Control-Allow-Origin", "*");
+	res.send(JSON.stringify(usuario));
+});
+
 
 
 
