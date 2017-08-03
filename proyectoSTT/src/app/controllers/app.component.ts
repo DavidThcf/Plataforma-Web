@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
 	ngOnInit(){
 		this.serviciog.usuario = this.persistenceService.get('user', StorageType.SESSION);
 	}
-
+	
 	logout(){
 		this.persistenceService.remove('user', StorageType.SESSION);
 		this.serviciog.usuario = this.persistenceService.get('user', StorageType.SESSION);
