@@ -27,25 +27,17 @@ export class ModalRegister {
 
 	cadena:string;
 	hideModal: boolean = false;
-
+	imagenName:string = "Imagen de Perfil";
 	
-	submitted = false;	
 
-	onSubmit() {
-
-		this.submitted = true;
-
-		this.servicios.getUsuario(this.usuario.e_mail,this.usuario.pass)
-		.then( 
-			usuario =>
-			{
-				this.serviciog.getuser(usuario);
-				let link = ['proyecto'];
-				this.router.navigate(link);
-			}
-			);
+	onSubmit() {		
+		this.hideModal = true;
+		alert(JSON.stringify(this.usuario));	
 	}
-	
+
+	imageChange(event){		
+		this.imagenName = event.target.files[0].name;	
+	}
 	
 	loginForm: NgForm;
 
@@ -65,10 +57,12 @@ export class ModalRegister {
 	}
 
 	onValueChanged(data?: any) {
+
 		if (!this.loginForm) { return; }
 		const form = this.loginForm.form;
-
+		
 		for (const field in this.formErrors) {
+
 			// clear previous error message (if any)
 			this.formErrors[field] = '';
 			const control = form.get(field);
@@ -83,11 +77,16 @@ export class ModalRegister {
 	}
 
 	formErrors = {
+		'nombre': '',
+		'telefono': '',
 		'email': '',
 		'password': ''
 	};
 
 	validationMessages = {
+		'telefono': {
+			'required': 'Telefono obligatorio - debe contener solo caracteres numericos'	
+		},
 		'email': {
 			'required': 'Email Obligatorio'		
 		},
