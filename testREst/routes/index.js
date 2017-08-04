@@ -67,23 +67,52 @@ router.post('/', function (req, res, next) {
 
 router.post('/createUser', function (req, res, next) {
 	console.log(req);
+	//variables del usuario
 	var email = req.body.email;
 	var password = req.body.password;
-	console.log(email + '  ' + password);
-	var usuario = [{
-		"email": email,
-		"password": password,
-		"nombre": 'Luis',
-		"apellido": 'Perez'
-	}];
+	var nombre =req.body.nombre;
+	var apellido = req.body.apellido;
+	var genero = req.body.genero;
+	var cargo = req.body.cargo;
+	var telefono = req.body.telefono;
+	var entidad = req.body.entidad;
+	//var imagen = req.body.imagen;
 
+	//Insertar en base de datos
+	
+	var usr={"id_usuario":222,
+		"password": this.password,
+		"administrador":false,
+		"e_mail":this.email,
+		"nombre":this.nombre,
+		"apellido":this.apellido,
+		"genero":this.genero,
+		"cargo":this.cargo,
+		"telefono":this.telefono,
+		"entidad":this.entidad,
+		"imagen":'',
+		"diponible":true};
+
+	var usd= Usuario.create({
+		id_usuario:222,
+		pass: password,
+		administrador:false,
+		e_mail:email,
+		nombre:nombre,
+		apellido:apellido,
+		genero:genero,
+		cargo:cargo,
+		telefono:telefono,
+		entidad:entidad,
+		imagen:'',
+		diponible:true
+	}).then(x=>{console.log("exito")}).catch(x=>{console.log("error "+x)});
+
+
+	console.log(usd);
 	res.header("Access-Control-Allow-Origin", "*");
-	res.send(JSON.stringify(usuario));
+	res.send(JSON.stringify(usr));
 });
-
-
-
-
 
 
 
