@@ -36,6 +36,13 @@ export class Servicios {
 
 	private handleError (error: Response | any) {
 		console.log("Error In register");
+	}
 
+	createUser(usuario:Usuario):Promise<any>{
+		return this.http
+	    .post(this.heroesUrl, usuario, {headers: this.headers})
+	    .toPromise()
+	    .then(res => res.json().data as Usuario)
+	    .catch(this.handleError);
 	}
 }

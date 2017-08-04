@@ -9,6 +9,7 @@ import { PersistenceModule }         from 'angular-persistence';
 
 import { AppComponent } from './controllers/app.component';
 import { Modallogin } from './controllers/modal-login.component';
+import { ModalRegister } from './controllers/modal-register.component';
 import { InicioView }   from './controllers/inicio.component';
 import { ProyectoPanel }   from './controllers/proyecto-panel.component';
 import { ActividadPanel }   from './controllers/actividad-panel.component';
@@ -20,6 +21,7 @@ import { AppRoutingModule }     from './routing/app-routing.module';
 
 import { AgmCoreModule } from '@agm/core';
 import { ChartsModule } from 'ng2-charts';
+
 
 @NgModule({
    imports: [
@@ -36,6 +38,7 @@ import { ChartsModule } from 'ng2-charts';
   declarations: [
     AppComponent,
     Modallogin,
+    ModalRegister,
     ProyectoPanel,
     InicioView,
     Mapa,

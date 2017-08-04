@@ -1,4 +1,4 @@
-<div id="mod-log" class="modal fade" role="dialog" [hidden]="hideModal">
+<div id="mod-reg" class="modal fade" role="dialog" [hidden]="hideModal">
   <div class="modal-dialog" style="vertical-align: middle;">
     <!-- Modal content-->
     <div class="modal-content" >
@@ -9,12 +9,28 @@
         </div>
 
         <div style="margin-top:3%">
-          <h1 id="mod-log-tit"  >Iniciar</h1>
-          <p  id="mod-log-tit2" >Sesión</p>
+          <h1 id="mod-log-tit"  >Registrar</h1>
+          <p  id="mod-log-tit2" >Usuario</p>
         </div>
         <hr/> 
 
         <form #loginForm="ngForm" (ngSubmit)="onSubmit()" style="margin-right: 5%; margin-left: 5%;">
+         <div class="form-group">
+            <label for="Nombre" class="lab">Nombre</label>
+            <input type="text" id="nombre" class="form-control" name="email" required [(ngModel)]="usuario.nombre">
+            <div *ngIf="formErrors.nombre" class="alert alert-danger">
+              {{ formErrors.nombre }}
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="Nombre" class="lab">Nombre</label>
+            <input type="text" id="nombre" class="form-control" name="email" required [(ngModel)]="usuario.nombre">
+            <div *ngIf="formErrors.nombre" class="alert alert-danger">
+              {{ formErrors.nombre }}
+            </div>
+          </div>
+
           <div class="form-group">
             <label for="Password" class="lab">Email</label>
             <input type="text" id="email" class="form-control" name="email" required [(ngModel)]="usuario.e_mail">
@@ -44,12 +60,9 @@
             <div class="col-xs-12 col-md-4">
               <button type="submit" class="btn btn-success" name="btnLogin" style="float: right;" [disabled]="!loginForm.form.valid">Login</button>
             </div>
-          </div> 
-
-
+          </div>
         </form>       
       </div>       
     </div>
   </div>
-
 
