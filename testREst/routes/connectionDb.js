@@ -2,8 +2,9 @@ const Sequelize = require('sequelize');
 
 
 function configConnection() {
-    const sequelize = new Sequelize('pstt', 'postgres', 'NJpost2016', {
+    const sequelize = new Sequelize('pstt', 'postgres', 'NJpost2016', {  //'NJpost2016'
         host: 'knower.udenar.edu.co',
+        //host: 'localhost',
         dialect: 'postgres',
         define: {
             timestamps: false
