@@ -7,7 +7,7 @@ var Caracteristica = require('./Caracteristicas');
 
 module.exports.createProject = function (req, res) {
 
-    var keym = req.body.keym;
+    var keym = req.body.keym_car;
     var id_proyecto = 0;
     var id_usuario = req.body.id_usuario_act;
 
@@ -19,7 +19,7 @@ module.exports.createProject = function (req, res) {
     return new Promise((resolve, reject) => {
         Caracteristica.createCharacteristic(req, 'P').
             then(x => {
-                console.log('Proyectos  =>  '+x[0].keym);
+                console.log('Proyectos  =>  '+x.keym);
                 var keym_car = x.keym;
                 var id_caracteristica_car = x.id_caracteristica;
                 var id_usuario_car = x.id_usuario;
@@ -43,7 +43,7 @@ module.exports.createProject = function (req, res) {
                     '`+icon+`',
                     '`+descripcion+`',
                     `+0+`,
-                    `+fecha_ultima_modificacion+`
+                    '`+fecha_ultima_modificacion+`'
                 );
             `;
 

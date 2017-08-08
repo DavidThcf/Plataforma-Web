@@ -151,7 +151,7 @@ function getIdCharacteristic(keym, id_usuario, id_caracteristica, type_char) {
         from proyectos join caracteristicas on proyectos.id_caracteristica=caracteristicas.id_caracteristica
         and proyectos.keym_car=caracteristicas.keym 
         and proyectos.id_usuario_car=caracteristicas.id_usuario
-        where proyectos.keym_car = `+ keym +` and proyectos.id_usuario_car = ` + id_usuario + `
+        where proyectos.keym = `+ keym +` and proyectos.id_usuario = ` + id_usuario + `
         ) as t1
         `;
     }
