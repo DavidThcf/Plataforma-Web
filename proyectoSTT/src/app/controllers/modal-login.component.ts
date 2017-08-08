@@ -23,7 +23,7 @@ export class Modallogin {
 		) {};
 
 
-	usuario = new Usuario(null,'','','','');	
+	usuario = new Usuario(null,'','','','','','','','');	
 
 	cadena:string;
 	hideModal: boolean = false;

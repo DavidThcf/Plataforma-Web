@@ -23,7 +23,7 @@ export class ModalRegister {
 		) {};
 
 
-	usuario = new Usuario(null,'','','','');	
+	usuario = new Usuario(null,'','','','','','','','');	
 
 	cadena:string;
 	hideModal: boolean = false;
@@ -32,7 +32,9 @@ export class ModalRegister {
 
 	onSubmit() {		
 		this.hideModal = true;
-		alert(JSON.stringify(this.usuario));	
+		alert(JSON.stringify(this.usuario));
+		this.servicios.createUser(this.usuario)
+		.then( () => { alert("usuario registrado"); } );	
 	}
 
 	imageChange(event){		

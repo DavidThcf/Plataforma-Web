@@ -7,8 +7,15 @@ var router = express.Router();
 
 module.exports.createUser = function (req, res) {
 	var sequelize = sqlCon.configConnection();
-	//console.log(req);
+	
+	console.log(req.body);
+	console.log(req.body.json);
+
+	var json = JSON.parse(req.body.json);
+	console.log(json.email);
+	
 	//variables del usuario
+	
 	var email = req.body.email;
 	var password = req.body.password;
 	var nombre = req.body.nombre;
