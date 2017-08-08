@@ -5,6 +5,10 @@ export class Usuario {
     public e_mail: string,
     public pass: string,
     public nombre: string,
-    public apellido: string
+    public apellido: string,
+    public genero: string,
+    public cargo: string,
+    public telefono: string,
+    public entidad: string
   ) {  }
 }
