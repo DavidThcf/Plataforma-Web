@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 //Model's Variables 
-var User = require('./Usuarios');
-var Activity =  require('./Actividades');
-var Project = require("./Proyectos")
+var User = require('../model/Usuarios');
+var Activity =  require('../model/Actividades');
+var Project = require("../model/Proyectos")
 
 //POST Services 
 

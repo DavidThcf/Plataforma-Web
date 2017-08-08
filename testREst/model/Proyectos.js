@@ -1,6 +1,6 @@
 var express = require('express');
 var Sequelize = require('sequelize');
-var sqlCon = require('./connectionDb.js');
+var sqlCon = require('../config/connectionDb');
 
 var router = express.Router();
 var Caracteristica = require('./Caracteristicas');
