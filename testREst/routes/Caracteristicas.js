@@ -1,7 +1,7 @@
 var express = require('express');
 var Sequelize = require('sequelize');
 var sqlCon = require('./connectionDb.js');
-var sequelize = sqlCon.configConnection();
+
 var router = express.Router();
 
 
@@ -47,10 +47,10 @@ module.exports.createCharacteristic = function (req, type_char) {
     //Obtenemos el id_caracteristica actual de esta caracteristica
 
     return new Promise((resolve, reject) => {
+        var sequelize = sqlCon.configConnection();
         getIdCharacteristic(keym_padre, id_usuario_padre, id_caracteristica_padre,tipo_caracteristica).then(x => {
             req.body.id_caracteristica = parseInt(x[0].car) + 1;
             id_caracteristica_car = parseInt(x[0].car) + 1;
-            console.log('Car => '+id_caracteristica_car+'  -  '+x[0].car);
 
             if (tipo_caracteristica === 'A')
                 req.body.id_actividad = parseInt(x[0].act) + 1;
@@ -101,12 +101,14 @@ module.exports.createCharacteristic = function (req, type_char) {
                         id_usuario: id_usuario_car,
                         fecha_ultima_modificacion: fecha_ultima_modificacion
                     };
-                    console.log('Hola   =>  '+json_char.keym);
                     resolve(json_char);
                 }).catch(x => {
                     console.log('Error' + x);
                     reject(false);
-                });
+                }).done(x=>{
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });
 
 
 
@@ -121,7 +123,6 @@ module.exports.createCharacteristic = function (req, type_char) {
 
 function getIdCharacteristic(keym, id_usuario, id_caracteristica, type_char) {
     var query1;
-    console.log('Type   => '+type_char);
     if (type_char === 'A') {
         query1 = `
         select max(t1.car) car,max(t1.act) act
@@ -157,12 +158,16 @@ function getIdCharacteristic(keym, id_usuario, id_caracteristica, type_char) {
     }
 
     return new Promise((resolve, reject) => {
+        var sequelize = sqlCon.configConnection();
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
             .then(x => {
                 resolve(x);
             }).catch(x => {
                 console.log('Error getIdCharacteristic() execute query1 ' + x);
                 reject(x);
+            }).done(x=>{
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
             });
     });
 }

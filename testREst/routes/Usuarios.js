@@ -7,8 +7,15 @@ var router = express.Router();
 
 module.exports.createUser = function (req, res) {
 	var sequelize = sqlCon.configConnection();
-	//console.log(req);
+	
+	console.log(req.body);
+	console.log(req.body.json);
+
+	var json = JSON.parse(req.body.json);
+	console.log(json.email);
+	
 	//variables del usuario
+	
 	var email = req.body.email;
 	var password = req.body.password;
 	var nombre = req.body.nombre;
@@ -56,17 +63,21 @@ module.exports.createUser = function (req, res) {
 	//console.log("Pru\n\n\n\n\n\n  "+cad);
 
 	return new Promise((resolve, reject) => {
+		var sequelize = sqlCon.configConnection();
 		sequelize.query(cad, { type: sequelize.QueryTypes.INSERT })
 			.then(x => {
-				console.log('OK');
+				console.log('Se ha creado satisfactoriamente el usuario');
 				resolve(true);
 			}).catch(x => {
 				console.log('Error' + x);
 				reject(false);
+			}).done(x => {
+				sequelize.close();
+				console.log('Se ha cerrado sesion de la conexion a la base de datos')
 			});
 	});
 
-	Console.log("SESION CERRADA !!!!!!!!!!!!!!!!!!!!!!!!!!");
+
 };
 
 
