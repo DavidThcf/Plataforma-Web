@@ -23,22 +23,27 @@ export class ModalRegister {
 		) {};
 
 
-	usuario = new Usuario(null,'','','','','','','','');	
+	usuario = new Usuario(null,'','','','','','','','','','');	
 
 	cadena:string;
 	hideModal: boolean = false;
-	imagenName:string = "Imagen de Perfil";
+	imagenName:string = "Imagen de Perfil";	
+	formData: any = new FormData();
 	
 
 	onSubmit() {		
 		this.hideModal = true;
-		alert(JSON.stringify(this.usuario));
+		
+		
 		this.servicios.createUser(this.usuario)
 		.then( () => { alert("usuario registrado"); } );	
 	}
 
-	imageChange(event){		
-		this.imagenName = event.target.files[0].name;	
+	imageChange(event){
+
+		this.usuario.imagenName = event.target.files[0].name;
+		this.usuario.imagen = event.target.files[0];
+		//this.formData.append("upload", event.target.files[0], event.target.files[0].name);
 	}
 	
 	loginForm: NgForm;
