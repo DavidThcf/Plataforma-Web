@@ -9,7 +9,6 @@ var Caracteristica = require('./Caracteristicas');
 
 
 module.exports.createActivity = function (req, res) {
-	var sequelize = sqlCon.configConnection();
 	//console.log(req);
 	//variables del usuario
 	//==> Informacion de la actividad
@@ -24,6 +23,7 @@ module.exports.createActivity = function (req, res) {
 
 
 	return new Promise((resolve, reject) => {
+		var sequelize = sqlCon.configConnection();
 		var car = Caracteristica.createCharacteristic(req, 'A');
 
 		car.then(x => {
@@ -34,9 +34,8 @@ module.exports.createActivity = function (req, res) {
 			var fecha_ultima_modificacion = x.fecha_ultima_modificacion;
 
 			id_actividad = req.body.id_actividad;
-			//console.log(keym+' - '+id_caracteristica+' - '+id_usuario);
 
-			
+
 
 			var query1 = `
 				insert into actividades values(
@@ -59,13 +58,15 @@ module.exports.createActivity = function (req, res) {
 			`;
 			sequelize.query(query1, { type: sequelize.QueryTypes.INSERT })
 				.then(x => {
-					console.log("OKI  "+x);
 					resolve(true);
 				}).catch(x => {
 					console.log('Error al registrar actividad ' + x);
 					reject(false);
+				}).done(x => {
+					sequelize.close();
+					console.log('Se ha cerrado sesion de la conexion a la base de datos');
 				});
-			
+
 		}).catch(x => {
 			console.log('Error registrar Caracteristica ' + x);
 			reject(false);
