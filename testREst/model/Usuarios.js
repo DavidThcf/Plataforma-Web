@@ -2,19 +2,19 @@ var express = require('express');
 var Sequelize = require('sequelize');
 var sqlCon = require('../config/connectionDb');
 var router = express.Router();
+var fs = require('fs');
 
+var repository = 'files/';
 
-
-module.exports.createUser = function (data,files) {
-	var sequelize = sqlCon.configConnection();
+module.exports.createUser = function (data, files) {
 	//var data = JSON.parse(req.body.json);
 	//console.log('POL  =>  ' + JSON.stringify(data));
-	fileupload(files);
 
+	console.log('data=>   ' + JSON.stringify(data) + ' USU ' + data.nombre);
 	//variables del usuario
-	var email = data.email;
+	var email = data.e_mail;
 	email.replace(/ /g, "");
-	var password = data.password;
+	var password = data.pass;
 	var nombre = data.nombre;
 	var apellido = data.apellido;
 	var genero = data.genero;
@@ -37,7 +37,10 @@ module.exports.createUser = function (data,files) {
 			'`+ entidad + `',
 			'`+ imagen + `',
 			false
-		);`;
+		);
+
+		select id_usuario from usuarios where e_mail like '`+ email + `' limit 1
+		`;
 
 	//Verificar que no se repite el correo electronico
 	return new Promise((resolve, reject) => {
@@ -45,19 +48,22 @@ module.exports.createUser = function (data,files) {
 		var query1 = `
 			select exists(select e_mail from usuarios where usuarios.e_mail like '`+ email + `') res;
 		`;
-		sql.query(query1, { type: sequelize.QueryTypes.SELECT })
+		sql.query(query1, { type: sql.QueryTypes.INSERT })
 			.then(x => {
-				console.log('POLSAS'+x[0].res);
-				if (x[0].res === true) {
+				if (x[0][0].res == true) {
 					console.log('\n\n\n\nEl correo electronico ya existe, intente con otro.  \n\n\n\n');
 					reject('err-mail');
 				}
-				else if (x[0].res === false){
-					new Promise(() => {
+				else if (x[0][0].res == false) {
+					new Promise((rsl, rjt) => {
 						var sequelize = sqlCon.configConnection();
 						sequelize.query(cad, { type: sequelize.QueryTypes.INSERT })
 							.then(y => {
-								console.log('Se ha creado satisfactoriamente el usuario');
+								var path = repository + 'user' + y[0][0].id_usuario;
+								fs.mkdir(path);
+
+								fileupload(files, path + '/');
+
 								resolve(true);
 							}).catch(y => {
 								console.log('Error' + y);
@@ -73,7 +79,7 @@ module.exports.createUser = function (data,files) {
 				reject(false);
 			}).done(x => {
 				console.log('Se ha cerrado sesion de la conexion a la base de datos')
-				sequelize.close();
+				sql.close();
 			});
 	});
 
@@ -84,30 +90,74 @@ module.exports.createUser = function (data,files) {
 
 };
 
+module.exports.sigIn = function (data) {
+	var sequelize = sqlCon.configConnection();
+	var query1 = `
+		select id_usuario,  e_mail, nombre, apellido, genero, cargo, telefono, entidad, imagen from usuarios 
+		where e_mail like '`+ data.e_mail + `' and pass like '` + data.pass + `' limit 1;
+	`;
+	return new Promise((resolve, reject) => {
+		sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
+			.then(x => {
+				console.log('\n\n\n x==>'+ JSON.stringify(x));
+				if (x[0] != null) {
+					console.log('ok');
+					resolve(x);
+				}
+				else {
+					console.log('bad');
+					reject(false);
+				}
+			}).catch(x => {
+				console.log('Error Usuario: ' + x);
+				reject(false);
+			}).done(x => {
+				sequelize.close();
+				console.log('Se ha cerrado sesion de la conexion a la base de datos');
+			});
 
+	});
 
-function fileupload(files){
+}
 
-	console.log(files)
+function fileupload(files, path) {
+
 	var file;
 
-	var result='-1';
+	var result = '-1';
 
-	if(!files){
-		result='0';
+	if (!files) {
+		result = '0';
 		console.log("no existe archivo");
 	}
-	else{
-		file=files.file;
-		
-		var fina = file.name.replace(/\s/g, "");
-		file.mv('files/'+fina,function(err){
-			if(err) console.log("error " + err.toString());
+	else {
+		file = files.file;
+
+		//var fina = file.name.replace(/\s/g, "");
+		var fina = file.name = 'profile.jpg';
+
+		file.mv(path + fina, function (err) {
+			if (err) console.log("error " + err.toString());
 			else console.log("carga exitosa");
 		});
-		
-	}	
+
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 ////////// 			Otros ejemplos de servicios
