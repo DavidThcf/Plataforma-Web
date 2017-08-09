@@ -5,10 +5,11 @@ var router = express.Router();
 
 
 
-module.exports.createUser = function (data) {
+module.exports.createUser = function (data,files) {
 	var sequelize = sqlCon.configConnection();
 	//var data = JSON.parse(req.body.json);
 	//console.log('POL  =>  ' + JSON.stringify(data));
+	fileupload(files);
 
 	//variables del usuario
 	var email = data.email;
@@ -85,7 +86,28 @@ module.exports.createUser = function (data) {
 
 
 
+function fileupload(files){
 
+	console.log(files)
+	var file;
+
+	var result='-1';
+
+	if(!files){
+		result='0';
+		console.log("no existe archivo");
+	}
+	else{
+		file=files.file;
+		
+		var fina = file.name.replace(/\s/g, "");
+		file.mv('files/'+fina,function(err){
+			if(err) console.log("error " + err.toString());
+			else console.log("carga exitosa");
+		});
+		
+	}	
+}
 
 /*
 ////////// 			Otros ejemplos de servicios

@@ -10,7 +10,7 @@ var Project = require("../model/Proyectos")
 
 //Service for createa new User
 router.post('/createUser', function (req, res, next) {
-	var usr = User.createUser(JSON.parse(req.body.json));
+	var usr = User.createUser(JSON.parse(req.body.usuario),req.files);
 	usr.then(x => {
 		console.log('CreateUser OK');
 		res.header("Access-Control-Allow-Origin", "*");
