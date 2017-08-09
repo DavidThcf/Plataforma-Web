@@ -5,27 +5,27 @@ var sqlCon = require('../config/connectionDb');
 var router = express.Router();
 var Caracteristica = require('./Caracteristicas');
 
-module.exports.createProject = function (req, res) {
+module.exports.createProject = function (data) {
 
-    var keym = req.body.keym_car;
+    var keym = data.keym_car;
     var id_proyecto = 0;
-    var id_usuario = req.body.id_usuario_act;
+    var id_usuario = data.id_usuario_act;
 
-    var nombre = req.body.nombre;
-    var descripcion = req.body.descripcion;
-    var icon = req.body.icon;
+    var nombre = data.nombre;
+    var descripcion = data.descripcion;
+    var icon = data.icon;
 
 
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
-        Caracteristica.createCharacteristic(req, 'P').
+        Caracteristica.createCharacteristic(data, 'P').
             then(x => {
                 var keym_car = x.keym;
                 var id_caracteristica_car = x.id_caracteristica;
                 var id_usuario_car = x.id_usuario;
                 var fecha_ultima_modificacion = x.fecha_ultima_modificacion;
 
-                id_proyecto = req.body.id_proyecto;
+                id_proyecto = data.id_proyecto;
 
                 var query1 = `
                 insert into proyectos values (
@@ -66,3 +66,7 @@ module.exports.createProject = function (req, res) {
     });
 
 };
+
+module.exports.createProjectFromActivity = function(data){
+    
+}

@@ -2,29 +2,25 @@ var express = require('express');
 var Sequelize = require('sequelize');
 var sqlCon = require('../config/connectionDb');
 var router = express.Router();
-
 var Caracteristica = require('./Caracteristicas');
 
-
-
-
-module.exports.createActivity = function (req, res) {
+module.exports.createActivity = function (data) {
 	//console.log(req);
 	//variables del usuario
 	//==> Informacion de la actividad
-	var keym = req.body.keym;
-	var id_usuario = req.body.id_usuario_act;
+	var keym = data.keym;
+	var id_usuario = data.id_usuario_act;
 	var id_actividad = 95;
 
-	var nombre = req.body.nombre;
-	var descripcion = req.body.descripcion;
-	var pos = req.body.pos;
-	var folder = req.body.folder;
+	var nombre = data.nombre;
+	var descripcion = data.descripcion;
+	var pos = data.pos;
+	var folder = data.folder;
 
 
 	return new Promise((resolve, reject) => {
 		var sequelize = sqlCon.configConnection();
-		var car = Caracteristica.createCharacteristic(req, 'A');
+		var car = Caracteristica.createCharacteristic(data, 'A');
 
 		car.then(x => {
 
@@ -33,9 +29,7 @@ module.exports.createActivity = function (req, res) {
 			var id_usuario_car = x.id_usuario;
 			var fecha_ultima_modificacion = x.fecha_ultima_modificacion;
 
-			id_actividad = req.body.id_actividad;
-
-
+			id_actividad = data.id_actividad;
 
 			var query1 = `
 				insert into actividades values(
@@ -73,6 +67,5 @@ module.exports.createActivity = function (req, res) {
 		});
 	});
 
-	//Informacion del padre de la actividad (Caracteristica)
 
 }

@@ -6,29 +6,29 @@ var router = express.Router();
 
 
 
-module.exports.createCharacteristic = function (req, type_char) {
+module.exports.createCharacteristic = function (data, type_char) {
 
     //Informacion segun la caracteristica 
 
-    var keym_padre = req.body.keym_car;
-    var id_caracteristica_padre = req.body.id_caracteristica;
-    var id_usuario_padre = req.body.id_usuario_car;
+    var keym_padre = data.keym_car;
+    var id_caracteristica_padre = data.id_caracteristica;
+    var id_usuario_padre = data.id_usuario_car;
 
     //Datos actuales
     var keym_car = 0;
-    var id_usuario_car = req.body.id_usuario_act;
+    var id_usuario_car = data.id_usuario_act;
     var id_caracteristica_car;  //Luego asignamos su respectivo valor
 
     //Al momento de crearse la caracteristica el usuario asignado es el mismo que lo creo    
-    var usuario_asignado = req.body.id_usuario_act;
+    var usuario_asignado = data.id_usuario_act;
 
     var estado = 'Iniciacion';
-    var porcentaje_asignado = req.body.porcentaje_asignado;
-    var porcentaje_cumplido = req.body.porcentaje_cumplido;
-    var recursos = req.body.recursos;
-    var recursos_restantes = req.body.recursos_restantes;
-    var presupuesto = req.body.presupuesto;
-    var costos = req.body.costos;
+    var porcentaje_asignado = data.porcentaje_asignado;
+    var porcentaje_cumplido = data.porcentaje_cumplido;
+    var recursos = data.recursos;
+    var recursos_restantes = data.recursos_restantes;
+    var presupuesto = data.presupuesto;
+    var costos = data.costos;
     var tipo_caracteristica = type_char;
     var visualizar_superior = true;
 
@@ -38,8 +38,8 @@ module.exports.createCharacteristic = function (req, type_char) {
 
     //Date
     var current_date = new Date();
-    var fecha_inicio = req.body.fecha_inicio;
-    var fecha_fin = req.body.fecha_fin;
+    var fecha_inicio = data.fecha_inicio;
+    var fecha_fin = data.fecha_fin;
     var fecha_ultima_modificacion = current_date.toLocaleString();
 
 
@@ -49,13 +49,13 @@ module.exports.createCharacteristic = function (req, type_char) {
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
         getIdCharacteristic(keym_padre, id_usuario_padre, id_caracteristica_padre,tipo_caracteristica).then(x => {
-            req.body.id_caracteristica = parseInt(x[0].car) + 1;
+            data.id_caracteristica = parseInt(x[0].car) + 1;
             id_caracteristica_car = parseInt(x[0].car) + 1;
 
             if (tipo_caracteristica === 'A')
-                req.body.id_actividad = parseInt(x[0].act) + 1;
+                data.id_actividad = parseInt(x[0].act) + 1;
             else
-                req.body.id_proyecto = parseInt(x[0].prj) + 1;
+                data.id_proyecto = parseInt(x[0].prj) + 1;
 
             var query1 = `
             INSERT INTO caracteristicas 
