@@ -67,6 +67,34 @@ module.exports.createProject = function (data) {
 
 };
 
-module.exports.createProjectFromActivity = function(data){
-    
+module.exports.getListProjects = function (id_user) {
+    var sequelize = sqlCon.configConnection();
+    var query1 = `
+        select * from proyectos 
+        join caracteristicas on proyectos.keym_car = caracteristicas.keym 
+        and proyectos.id_usuario_car = caracteristicas.id_usuario 
+        and proyectos.id_caracteristica = caracteristicas.id_caracteristica 
+        where proyectos.id_usuario =` + id_user+   `
+        
+        `;
+
+
+
+    return new Promise((resolve, reject) => {
+        sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
+            .then(x => {
+                resolve (x);
+            }).catch(x => {
+                console.log('Error al registrar actividad ' + x);
+                reject (false);
+            }).done(x => {
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });
+    });
+
+}
+
+module.exports.createProjectFromActivity = function (data) {
+
 }
