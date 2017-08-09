@@ -10,21 +10,24 @@ var Project = require("../model/Proyectos")
 
 //Service for createa new User
 router.post('/createUser', function (req, res, next) {
-	var usr = User.createUser(req, res);
+	var usr = User.createUser(JSON.parse(req.body.json));
 	usr.then(x => {
 		console.log('CreateUser OK');
 		res.header("Access-Control-Allow-Origin", "*");
 		res.send("Se ha registrado correctamente el usuario.");
 	}).catch(x => {
-		console.log('Error:  ' + x);
+		console.log('Error user:  ' + x);
 		res.header("Access-Control-Allow-Origin", "*");
-		res.send("No se podido registrar el usuario.");
+		if(x === 'err-mail')
+			res.send("El correo electronico ya se encuentra registrado, intentelo con otro.");
+		else
+			res.send("No se podido registrar el usuario.");
 	});
 });
 
 //Service for create a new Activity
 router.post('/createActivity', function (req, res, next) {
-	var act = Activity.createActivity(req,res);
+	var act = Activity.createActivity(JSON.parse(req.body.json));
 	act.then(x => {
 		console.log('CreateActivity OK '+x);
 		res.header("Access-Control-Allow-Origin", "*");
@@ -39,7 +42,7 @@ router.post('/createActivity', function (req, res, next) {
 
 //Serice for create a new Project
 router.post('/createProject',function(req,res,next){
-	var prj = Project.createProject(req,res);
+	var prj = Project.createProject(JSON.parse(req.body.json));
 	prj.then(x => {
 		console.log('CreateActivity OK '+x);
 		res.header("Access-Control-Allow-Origin", "*");

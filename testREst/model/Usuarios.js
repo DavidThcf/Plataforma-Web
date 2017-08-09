@@ -5,45 +5,24 @@ var router = express.Router();
 
 
 
-module.exports.createUser = function (req, res) {
+module.exports.createUser = function (data) {
 	var sequelize = sqlCon.configConnection();
-	
-	console.log(req.body);
-	
+	//var data = JSON.parse(req.body.json);
+	//console.log('POL  =>  ' + JSON.stringify(data));
 
-	var json = JSON.parse(req.body.json);
-	
 	//variables del usuario
-	
-	var email = req.body.email;
-	var password = req.body.password;
-	var nombre = req.body.nombre;
-	var apellido = req.body.apellido;
-	var genero = req.body.genero;
-	var cargo = req.body.cargo;
-	var telefono = req.body.telefono;
-	var entidad = req.body.entidad;
-	var imagen = req.body.imagen;
+	var email = data.email;
+	email.replace(/ /g, "");
+	var password = data.password;
+	var nombre = data.nombre;
+	var apellido = data.apellido;
+	var genero = data.genero;
+	var cargo = data.cargo;
+	var telefono = data.telefono;
+	var entidad = data.entidad;
+	var imagen = data.imagen;
 
-	//Insertar en base de datos
-
-
-
-	var usr = {
-		"password": this.password,
-		"administrador": false,
-		"e_mail": this.email,
-		"nombre": this.nombre,
-		"apellido": this.apellido,
-		"genero": this.genero,
-		"cargo": this.cargo,
-		"telefono": this.telefono,
-		"entidad": this.entidad,
-		"imagen": '',
-		"diponible": true
-	};
-
-
+	//Query Insertar en base de datos
 	var cad = `INSERT INTO usuarios 
 	("pass","e_mail","nombre","apellido","genero","cargo","telefono","entidad","imagen","disponible") 
 	  VALUES (
@@ -59,22 +38,47 @@ module.exports.createUser = function (req, res) {
 			false
 		);`;
 
-	//console.log("Pru\n\n\n\n\n\n  "+cad);
-
+	//Verificar que no se repite el correo electronico
 	return new Promise((resolve, reject) => {
-		var sequelize = sqlCon.configConnection();
-		sequelize.query(cad, { type: sequelize.QueryTypes.INSERT })
+		var sql = sqlCon.configConnection();
+		var query1 = `
+			select exists(select e_mail from usuarios where usuarios.e_mail like '`+ email + `') res;
+		`;
+		sql.query(query1, { type: sequelize.QueryTypes.SELECT })
 			.then(x => {
-				console.log('Se ha creado satisfactoriamente el usuario');
-				resolve(true);
+				console.log('POLSAS'+x[0].res);
+				if (x[0].res === true) {
+					console.log('\n\n\n\nEl correo electronico ya existe, intente con otro.  \n\n\n\n');
+					reject('err-mail');
+				}
+				else if (x[0].res === false){
+					new Promise(() => {
+						var sequelize = sqlCon.configConnection();
+						sequelize.query(cad, { type: sequelize.QueryTypes.INSERT })
+							.then(y => {
+								console.log('Se ha creado satisfactoriamente el usuario');
+								resolve(true);
+							}).catch(y => {
+								console.log('Error' + y);
+								reject(false);
+							}).done(y => {
+								sequelize.close();
+								console.log('Se ha cerrado sesion de la conexion a la base de datos')
+							});
+					});
+				}
 			}).catch(x => {
-				console.log('Error' + x);
+				console.log('Correo electronico invalido');
 				reject(false);
 			}).done(x => {
-				sequelize.close();
 				console.log('Se ha cerrado sesion de la conexion a la base de datos')
+				sequelize.close();
 			});
 	});
+
+
+
+
 
 
 };
@@ -122,8 +126,8 @@ router.get('/:id_usuario', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
 	console.log(req);
-	var email = req.body.email;
-	var password = req.body.password;
+	var email = data.email;
+	var password = data.password;
 	console.log(email + '  ' + password);
 	var usuario = [{
 		"email": email,
