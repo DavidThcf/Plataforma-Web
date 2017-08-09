@@ -24,27 +24,32 @@ export class ModalRegister {
 
 
 	usuario = new Usuario(null,'','','','','','','','','','');	
-	imagenName:string = "Imagen de Perfil";	
-	formData: any = new FormData();
+	imagenName:string = "Imagen de Perfil";		
 	submit:boolean = false;
+	files:any;
+	
 	
 
 	onSubmit(loginForm:NgForm) {	
 		this.submit = true;
-		this.formData.append('usuario',JSON.stringify (this.usuario));
-		this.servicios.createUser(this.formData)
+		var formData = new FormData();
+		formData.append('usuario',JSON.stringify (this.usuario));
+		if(this.files){
+			formData.append('file', this.files);
+		}		
+		this.servicios.createUser(formData)
 		.then(message => { 
-			alert("" + message);					
+			alert("" + message);
+			this.submit = false;
+								
 		 } );	
 	}
 
 	onSubmite() {}
 
 	imageChange(event){
-		this.imagenName = event.target.files[0].name;
-		const files = event.target.files[0] || event.srcElement.files[0];    	 	
-    	this.formData.append('file', files);
-    	alert("image change");
+		this.usuario.imagenName = event.target.files[0].name;
+		this.files = event.target.files[0] || event.srcElement.files[0];
 	}
 	
 	loginForm: NgForm;

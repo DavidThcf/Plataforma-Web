@@ -84,7 +84,7 @@
 
         <div class="form-group">          
           <label class="uploader" for="upload">
-            {{imagenName}}           
+            {{this.usuario.imagenName}}           
           </label>
           <input type="file"  id="upload" name="file[]" accept=".jpg" [(ngModel)]="usuario.image"  (change)="imageChange($event)">         
         </div>

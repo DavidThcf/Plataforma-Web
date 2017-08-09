@@ -12,7 +12,7 @@ import { AgmCoreModule } from '@agm/core';
 	styleUrls: [ '../src/css/actividad-panel.component.css' ]
 })
 
-export class ActividadPanel {
+export class ActividadPanel implements OnInit{
 	subActivity:boolean = true;
 	report:boolean = false;
 	multimedia:boolean = false;
@@ -26,15 +26,12 @@ export class ActividadPanel {
 		private serviciog:ServiciosGlobales,
 		private router:Router,
 		private servicios: Servicios	  
-		){
-		if(!serviciog.usuario){
-			//let link = [''];
-			//router.navigate(link);
-		}else{
-			this.servicios.getProyecto(serviciog.usuario.id_usuario + '')
-			.then(cadena => this.serviciog.proyecto = cadena);
-		}	
-	};
+	){ };
+
+	ngOnInit():void {
+		this.servicios.getActividad('1','1','1')
+		.then();		
+	}
 
 
 	public barChartOptions:any = {

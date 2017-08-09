@@ -27,21 +27,26 @@ export class Modallogin {
 
 	cadena:string;
 	hideModal: boolean = false;
-
-	
+	mAlert:boolean= false;	
 	submitted = false;	
 
 	onSubmit() {
 
 		this.submitted = true;
-
-		this.servicios.getUsuario(this.usuario.e_mail,this.usuario.pass)
+		var formData = new FormData();
+		formData.append('usuario',JSON.stringify(this.usuario))
+		this.servicios.getUsuario(formData)
 		.then( 
 			usuario =>
 			{
-				this.serviciog.getuser(usuario);
-				let link = ['proyecto'];
-				this.router.navigate(link);
+				alert(usuario);
+				if(usuario){
+					this.serviciog.getUserSession(usuario);
+					let link = ['proyecto'];
+					this.router.navigate(link);
+				}else{
+					this.mAlert = true;
+				}				
 			}
 			);
 	}
