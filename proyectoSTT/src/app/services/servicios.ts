@@ -12,7 +12,7 @@ export class Servicios {
 
 	private heroesUrl = 'http://localhost:81';  // URL to web api api/heroes http://localhost:81/	
 	private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});	
-	private headersPost = new Headers({'Content-Type': 'application/json'});	
+	private headersPost = new Headers({'Content-Type': 'multipart/form-data'});
 	private options = new RequestOptions({ headers: this.headers });
 
 
@@ -40,6 +40,18 @@ export class Servicios {
 	}
 
 	createUser(usuario:Usuario):Promise<any>{
+		
+
+		var options = new RequestOptions({ headers: this.headers});
+		return this.http
+		.post(this.heroesUrl + "/CreateUser",'json=' + JSON.stringify(usuario) ,options)
+		.toPromise()
+		.then(res => res.json().data as Usuario)
+		.catch(this.handleError);
+	}
+}
+/*
+createUser(usuario:Usuario):Promise<any>{
 		var user = JSON.stringify(	{
 			password: usuario.pass,
 			administrador: false,
@@ -62,6 +74,4 @@ export class Servicios {
 		.toPromise()
 		.then(res => res.json().data as Usuario)
 		.catch(this.handleError);
-	}
-}
-
+	}*/

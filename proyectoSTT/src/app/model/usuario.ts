@@ -9,6 +9,8 @@ export class Usuario {
     public genero: string,
     public cargo: string,
     public telefono: string,
-    public entidad: string
+    public entidad: string,
+    public imagen: any,
+    public imagenName: string
   ) {  }
 }

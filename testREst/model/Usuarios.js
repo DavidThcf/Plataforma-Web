@@ -7,7 +7,6 @@ var router = express.Router();
 
 module.exports.createUser = function (data) {
 	var sequelize = sqlCon.configConnection();
-
 	//var data = JSON.parse(req.body.json);
 	//console.log('POL  =>  ' + JSON.stringify(data));
 

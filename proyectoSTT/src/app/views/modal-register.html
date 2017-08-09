@@ -14,10 +14,10 @@
         </div>
         <hr/> 
 
-        <form #loginForm="ngForm"  style="margin-right: 5%; margin-left: 5%;">
+        <form #loginForm="ngForm"  style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
          <div class="form-group">
           <label for="Nombre" class="lab">Nombres</label>
-          <input type="text" id="nombre" class="form-control" name="nombres" required [(ngModel)]="usuario.nombre">
+          <input type="text" id="nombre" class="form-control" name="nombres" ng-reflect-model="a" required [(ngModel)]="usuario.nombre">
           <div *ngIf="formErrors.nombre" class="alert alert-danger">
             {{ formErrors.nombre }}
           </div>
@@ -25,7 +25,7 @@
 
         <div class="form-group">
           <label for="Apellido" class="lab">Apellidos</label>
-          <input type="text" id="nombre" class="form-control" name="apellidos" required [(ngModel)]="usuario.apellido">
+          <input type="text" id="apellidos" class="form-control" name="apellidos" ng-reflect-model="a" required [(ngModel)]="usuario.apellido">
           <div *ngIf="formErrors.nombre" class="alert alert-danger">
             {{ formErrors.nombre }}
           </div>
@@ -33,7 +33,7 @@
 
         <div class="form-group">
           <label for="Genero" class="lab">Genero</label>
-          <select  id="genero"  class="form-control" name="genero"  [(ngModel)]="usuario.genero" required>            
+          <select  id="genero"  class="form-control" name="genero" ng-reflect-model="M" [(ngModel)]="usuario.genero" required>            
             <option  value="F" >Femenino </option>
             <option  value="M" >Masculino</option>
           </select>
@@ -41,7 +41,7 @@
 
         <div class="form-group">
           <label for="Telefono" class="lab">Telefono</label>
-          <input type="number"  id="telefono" class="form-control" name="telefono"  required [(ngModel)]="usuario.telefono">
+          <input type="number"  id="telefono" class="form-control" name="telefono" ng-reflect-model="a" required [(ngModel)]="usuario.telefono">
           <div *ngIf="formErrors.telefono" class="alert alert-danger">
             {{ formErrors.telefono }}
           </div>
@@ -49,7 +49,7 @@
 
         <div class="form-group">
           <label for="Cargo" class="lab">Cargo</label>
-          <input type="text" id="cargo" class="form-control" name="cargo" required [(ngModel)]="usuario.cargo">
+          <input type="text" id="cargo" class="form-control" name="cargo" ng-reflect-model="a" required [(ngModel)]="usuario.cargo">
           <div *ngIf="formErrors.nombre" class="alert alert-danger">
             {{ formErrors.nombre }}
           </div>
@@ -59,7 +59,7 @@
         
         <div class="form-group">
           <label for="Email" class="lab">Email</label>
-          <input type="email" id="email" class="form-control" name="email" required [(ngModel)]="usuario.e_mail">
+          <input type="email" id="email" class="form-control" name="email" ng-reflect-model="a" required [(ngModel)]="usuario.e_mail">
           <div *ngIf="formErrors.email" class="alert alert-danger">
             {{ formErrors.email }}
           </div>
@@ -68,7 +68,7 @@
 
         <div class="form-group">
           <label for="Password"  class="lab">Password</label>
-          <input type="Password"  class="form-control" id="password" name="password" required [(ngModel)]="usuario.pass">
+          <input type="Password"  class="form-control" id="password" name="password" ng-reflect-model="a" required [(ngModel)]="usuario.pass">
           <div *ngIf="formErrors.password" class="alert alert-danger">
             {{ formErrors.password }}
           </div>
@@ -80,7 +80,7 @@
           <label class="uploader" for="upload">
             {{imagenName}}           
           </label>
-          <input type="file"  id="upload" name="file[]" accept="image" [(ngModel)]="usuario.image"  (change)="imageChange($event)">         
+          <input type="file"  id="upload" name="file[]" accept=".txt" [(ngModel)]="usuario.image"  (change)="imageChange($event)">         
         </div>
 
 
