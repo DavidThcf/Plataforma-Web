@@ -12,7 +12,7 @@ export class ServiciosGlobales {
 	proyecto:Proyecto;
 	constructor(private persistenceService:PersistenceService){}
 
-	getuser(usuario:Usuario){
+	getUserSession(usuario:Usuario){
 		this.persistenceService.set('user',usuario,{type: StorageType.SESSION});
 		this.usuario = usuario;
 	}

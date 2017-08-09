@@ -10,26 +10,36 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class Servicios {
 
-	private heroesUrl = 'http://localhost:81';  // URL to web api api/heroes http://localhost:81/	
+	private url = 'http://10.42.0.1:81';  // URL to web api api/heroes http://localhost:81/	http://10.42.0.1:81/
 	private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});	
 	private headersPost = new Headers({'Content-Type': 'multipart/form-data'});
 	private options = new RequestOptions({ headers: this.headers });
 
-
 	constructor(private http: Http) { }
 
-	getUsuario(email:string, password:string): Promise<Usuario> {
-		const url = `${this.heroesUrl}/${email}/${password}`;		
-		return this.http.get(url,this.options)
+	getUsuario(formdata:FormData): Promise<Usuario> {			
+		return this.http
+		.post(this.url + "/getUser",formdata)
 		.toPromise()
 		.then(response => response.json() as Usuario)
-		.catch(this.handleError);
+		.catch(err => err.toString());
 	}
 
+	getProyecto(id_usuario:string): Promise<any> {			
+		return this.http.post(this.url + "/getUserProjectList", 'id_usuario=' + id_usuario, this.options)
+		.toPromise()
+		.then(response => response.json() as Proyecto[])
+		.catch();
+	}
 
-	getProyecto(id_usuario:string): Promise<any> {
-		const url = `${this.heroesUrl}/${id_usuario}`;		
-		return this.http.get(url,this.options)
+	getActividad(keym:string,id_usuario:string,id_caracteristica:string): Promise<any> {
+		var formData = new FormData();
+
+		formData.append('keym','95');
+		formData.append('id_usuario','2');
+		formData.append('id_caracteristica','1');
+				
+		return this.http.post(this.url + "/getActivityList",formData)
 		.toPromise()
 		.then(response => response.json() as Proyecto[])
 		.catch();
@@ -40,36 +50,10 @@ export class Servicios {
 	}
 
 	createUser(formdata:FormData):Promise<any>{
-		var options = new RequestOptions({ headers: this.headers});
 		return this.http
-		.post(this.heroesUrl + "/CreateUser",formdata)
+		.post(this.url + "/CreateUser",formdata)
 		.toPromise()
-		.then(res => res.json().data as Usuario)
-		.catch(this.handleError);
+		.then(res => JSON.stringify(res)) 
+		.catch(err => err.toString());
 	}
 }
-/*
-createUser(usuario:Usuario):Promise<any>{
-		var user = JSON.stringify(	{
-			password: usuario.pass,
-			administrador: false,
-			email: usuario.e_mail,
-			nombre: usuario.nombre,
-			apellido: usuario.apellido,
-			genero: usuario.genero,
-			cargo: usuario.cargo,
-			telefono: usuario.telefono,
-			entidad: usuario.entidad,
-			imagen: '',
-			diponible: true
-		});
-		alert(user);
-
-		var options = new RequestOptions({ headers: this.headers});
-
-		return this.http
-		.post(this.heroesUrl + "/CreateUser",'json=' + user, options )
-		.toPromise()
-		.then(res => res.json().data as Usuario)
-		.catch(this.handleError);
-	}*/

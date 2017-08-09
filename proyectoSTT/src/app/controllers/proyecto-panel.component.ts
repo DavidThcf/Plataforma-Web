@@ -17,24 +17,12 @@ export class ProyectoPanel implements OnInit{
 		private serviciog:ServiciosGlobales,
 		private router:Router,
 		private servicios: Servicios	  
-		){
-		if(!serviciog.usuario){
-			//let link = [''];
-			//router.navigate(link);
-		}else{
-			//this.servicios.getProyecto(serviciog.usuario.id_usuario + '')
-			//.then(cadena => this.serviciog.proyecto = cadena);
-		}		
-	};
+		){ };
 
-	ngOnInit():void {		
-		
+	ngOnInit():void {
 		this.servicios.getProyecto(this.serviciog.usuario.id_usuario + '')
-		.then(cadena => this.serviciog.proyecto = cadena);
-
-		
-	}
-	
+		.then(cadena => this.serviciog.proyecto = cadena);		
+	}	
 
 	entrar(){
 		let link = ['actividades'];
