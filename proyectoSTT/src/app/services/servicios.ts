@@ -39,12 +39,10 @@ export class Servicios {
 		console.log("Error In register");
 	}
 
-	createUser(usuario:Usuario):Promise<any>{
-		
-
+	createUser(formdata:FormData):Promise<any>{
 		var options = new RequestOptions({ headers: this.headers});
 		return this.http
-		.post(this.heroesUrl + "/CreateUser",'json=' + JSON.stringify(usuario) ,options)
+		.post(this.heroesUrl + "/CreateUser",formdata)
 		.toPromise()
 		.then(res => res.json().data as Usuario)
 		.catch(this.handleError);
