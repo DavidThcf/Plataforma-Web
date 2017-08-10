@@ -29,6 +29,7 @@ export class ActividadPanel implements OnInit{
 	){ };
 
 	ngOnInit():void {
+		alert(JSON.stringify(this.serviciog.proyecto));
 		this.servicios.getActividad('1','1','1')
 		.then();		
 	}
