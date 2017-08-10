@@ -93,11 +93,15 @@ module.exports.getActivityList = function (data) {
 		sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
 			.then(x => {
 				console.log('\n\n\n ACTIVIDADES'+JSON.stringify(x)+'\n\n\n');
-
+/*
 				for(var act in x){
 					//console.log(getRecursiveActivity(act.keym,act.id_caracteristica,act.id_usuario,sequelize));
 					console.log(JSON.stringify(act));
 				}
+*/
+				x.forEach(function(element) {
+					console.log('\n\n'+JSON.stringify(element));
+				}, this);
 
 				resolve(x);
 			}).catch(x => {
