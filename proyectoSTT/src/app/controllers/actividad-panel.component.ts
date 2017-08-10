@@ -13,20 +13,23 @@ import { AgmCoreModule } from '@agm/core';
 })
 
 export class ActividadPanel implements OnInit{
-	subActivity:boolean = true;
+	detalle:boolean = true;
+	subActivity:boolean = false;
 	report:boolean = false;
 	multimedia:boolean = false;
 	estadistic:boolean = false;
 	map:boolean = false;
 	isSelAct:boolean = false;
 	icon_marker:string = 'data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjMycHgiIGhlaWdodD0iMzJweCI+CjxnPgoJPGc+CgkJPHBhdGggZD0iTTI1NiwwQzE1My43NTUsMCw3MC41NzMsODMuMTgyLDcwLjU3MywxODUuNDI2YzAsMTI2Ljg4OCwxNjUuOTM5LDMxMy4xNjcsMTczLjAwNCwzMjEuMDM1ICAgIGM2LjYzNiw3LjM5MSwxOC4yMjIsNy4zNzgsMjQuODQ2LDBjNy4wNjUtNy44NjgsMTczLjAwNC0xOTQuMTQ3LDE3My4wMDQtMzIxLjAzNUM0NDEuNDI1LDgzLjE4MiwzNTguMjQ0LDAsMjU2LDB6IE0yNTYsMjc4LjcxOSAgICBjLTUxLjQ0MiwwLTkzLjI5Mi00MS44NTEtOTMuMjkyLTkzLjI5M1MyMDQuNTU5LDkyLjEzNCwyNTYsOTIuMTM0czkzLjI5MSw0MS44NTEsOTMuMjkxLDkzLjI5M1MzMDcuNDQxLDI3OC43MTksMjU2LDI3OC43MTl6IiBmaWxsPSIjMjc1ZTAwIi8+Cgk8L2c+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg=='
+	actividades:any;
 	actividad:any;
+	flag:boolean=true;
 
 	constructor(
 		private serviciog:ServiciosGlobales,
 		private router:Router,
 		private servicios: Servicios	  
-	){ };
+		){ };
 
 	ngOnInit():void {
 		var keym = this.serviciog.proyecto.keym;
@@ -34,9 +37,16 @@ export class ActividadPanel implements OnInit{
 		var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
 
 		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
-		.then(actividad => this.actividad = actividad);		
+		.then(actividad => { 
+			this.actividades = actividad;
+			this.actividad = this.actividades[0];
+		});		
 	}
 
+	onSelectActivity(activity){
+		this.actividad = activity;
+		alert(JSON.stringify(activity));		
+	}
 
 	public barChartOptions:any = {
 		scaleShowVerticalLines: false,
@@ -67,22 +77,35 @@ export class ActividadPanel implements OnInit{
 	lng: number = -77.267;
 	zoom: number = 14; 
 
-	
+	c0(){		
+		this.detalle = true;
+		this.subActivity = false;
+		this.report = false;
+		this.multimedia = false;
+		this.estadistic = false;
+		this.map = false;
+	}
+
 	c1(){
+		this.detalle = false;
 		this.subActivity = true;
 		this.report = false;
 		this.multimedia = false;
 		this.estadistic = false;
 		this.map = false;
 	}
-	c2(){
+
+	c2(){		
+		this.detalle = false;
 		this.subActivity = false;
 		this.report = true;
 		this.multimedia = false;
 		this.estadistic = false;
 		this.map = false;
 	}
-	c3(){
+
+	c3(){		
+		this.detalle = false;
 		this.subActivity = false;
 		this.report = false;
 		this.multimedia = true;
@@ -91,21 +114,33 @@ export class ActividadPanel implements OnInit{
 	}
 
 	c4(){		
+		this.detalle = false;		
 		this.subActivity = false;
 		this.report = false;
 		this.multimedia = false;
 		this.estadistic = true;
 		this.map = false;
 	}
-	c5(){
+
+	c5(){		
+		this.detalle = false;
 		this.subActivity = false;
 		this.report = false;
 		this.multimedia = false;
 		this.estadistic = false;
 		this.map = true;
 	}
-	entrar(){
 
+	entrar(subActividad){
+		var keym = subActividad.keym;
+		var id_usuario = subActividad.id_usuario;
+		var id_caracteristica = subActividad.id_caracteristica;
+
+		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
+		.then(actividad => { 
+			this.actividades = actividad;
+			this.actividad = this.actividades[0];
+		});
 	}
 
 	btnCat1(){

@@ -1,3 +1,7 @@
+.selected a{
+  background-color: rgba(0,0,0,0.2);
+}
+
 .listaActividades ul {
 	list-style: none;
 	margin-right: 0px;
@@ -8,12 +12,11 @@
 	text-decoration: none;
 	padding: 10px 10px;
 	color: white;
-	background-color: rgb(153,191,78);
-	//box-shadow: 0px 0px 5px 1px gray;
+	//background-color: rgb(153,191,78);
 }
 
 .listaActividades a:hover{
-	background-color: rgba(0,0,0,0.2);
+	background-color: rgba(0,0,0,0.3);
 	cursor: pointer;
 }
 

@@ -10,6 +10,7 @@ export class ServiciosGlobales {
 	
 	usuario:Usuario;
 	proyecto:Proyecto;
+	actividades:any;
 	constructor(private persistenceService:PersistenceService){}
 
 	getUserSession(usuario:Usuario){
