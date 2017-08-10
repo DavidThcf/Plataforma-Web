@@ -60,7 +60,7 @@ router.post('/getUser', function (req, res, next) {
 	var usr = User.sigIn(JSON.parse(req.body.usuario));
 
 	usr.then(x => {
-		
+
 		if (x === false) {
 			res.header("Access-Control-Allow-Origin", "*");
 			res.json(false);
@@ -79,29 +79,36 @@ router.post('/getUser', function (req, res, next) {
 });
 
 //service to get user's project list  
-router.post('/getUserProjectList',(req,res,next)=>{
+router.post('/getUserProjectList', (req, res, next) => {
 	var prj = Project.getListProjects(req.body.id_usuario);
 
 	prj.then(x => {
 		res.header("Access-Control-Allow-Origin", "*");
 		res.send(x);
-	}).catch(x=>{
-		console.log('ERROR =>  '+x)
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
 		res.header("Access-Control-Allow-Origin", "*");
 		res.json(false);
 	});
 });
 
-router.post('/getActivityList',(req,res,next)=>{
-	console.log(JSON.stringify(req.body));
+router.post('/getActivityList', (req, res, next) => {
 	var prj = Activity.getActivityList(req.body);
-
+	//console.log('OK input' + JSON.stringify(req.body));
 	prj.then(x => {
-		console.log(JSON.stringify(x));
-		res.header("Access-Control-Allow-Origin", "*");
-		res.send(x);
-	}).catch(x=>{
-		console.log('ERROR =>  '+x)
+		console.log('\n\n\n OKS!!!!!!!!:   '+JSON.stringify(x));
+		if (x != false) {
+			console.log('TRUE');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.send(x);
+		}
+		else {
+			console.log('FALSO');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.json(false);
+		}
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
 		res.header("Access-Control-Allow-Origin", "*");
 		res.json(false);
 	});
