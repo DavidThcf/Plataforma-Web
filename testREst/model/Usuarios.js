@@ -2,9 +2,9 @@ var express = require('express');
 var Sequelize = require('sequelize');
 var sqlCon = require('../config/connectionDb');
 var router = express.Router();
+var fls = require('../model/Files');
 var fs = require('fs');
 
-var repository = 'files/';
 
 module.exports.createUser = function (data, files) {
 	//var data = JSON.parse(req.body.json);
@@ -62,7 +62,7 @@ module.exports.createUser = function (data, files) {
 								var path = repository + 'user' + y[0][0].id_usuario;
 								fs.mkdir(path);
 
-								fileupload(files, path + '/');
+								fls.fileUpload(files, path + '/');
 
 								resolve(true);
 							}).catch(y => {
@@ -118,30 +118,6 @@ module.exports.sigIn = function (data) {
 
 	});
 
-}
-
-function fileupload(files, path) {
-
-	var file;
-
-	var result = '-1';
-
-	if (!files) {
-		result = '0';
-		console.log("no existe archivo");
-	}
-	else {
-		file = files.file;
-
-		//var fina = file.name.replace(/\s/g, "");
-		var fina = file.name = 'profile.jpg';
-
-		file.mv(path + fina, function (err) {
-			if (err) console.log("error " + err.toString());
-			else console.log("carga exitosa");
-		});
-
-	}
 }
 
 
