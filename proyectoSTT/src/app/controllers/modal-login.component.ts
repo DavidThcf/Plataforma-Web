@@ -39,14 +39,13 @@ export class Modallogin {
 		.then( 
 			usuario =>
 			{
-				alert(usuario);
 				if(usuario){
 					this.serviciog.getUserSession(usuario);
 					let link = ['proyecto'];
 					this.router.navigate(link);
 				}else{
 					this.mAlert = true;
-				}				
+				}		
 			}
 			);
 	}

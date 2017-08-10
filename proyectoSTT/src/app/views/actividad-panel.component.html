@@ -18,9 +18,7 @@
 
 				<div class="listaActividades">
 					<ul>					
-						<li><a>Actvividad 1</a></li>
-						<li><a>Actvividad 2</a></li>
-						<li><a>Actvividad 3</a></li>						
+						<li *ngFor="let activity of this.actividad"  style="height: 200px;" ><a >{{activity.nombre}}</a></li>
 					</ul>					
 				</div>						
 			</div>
