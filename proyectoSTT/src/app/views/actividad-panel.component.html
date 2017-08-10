@@ -17,7 +17,7 @@
 
 				<div class="listaActividades">
 					<ul>
-						<li *ngFor="let activity of this.actividades" [class.selected]="activity === this.actividad" (click)="onSelectActivity(activity)"><a>{{activity.nombre}}</a></li>
+						<li *ngFor="let activity of this.actividades" [class.selected]="activity === this.actividad" (click)="onSelectActivity(activity)"><a>{{activity.nom_act}}</a></li>
 					</ul>					
 				</div>						
 			</div>
@@ -153,7 +153,7 @@
 									</div>
 								</div>
 								<div class="col-md-9">
-									<h4 style="text-transform: uppercase;  height: 30px">{{subActividad.nombre}}</h4>					
+									<h4 style="text-transform: uppercase;  height: 30px">{{subActividad.nom_act}}</h4>					
 									<div>
 										<div class="row">
 											<div class="lab1 col-md-3">Lider de Proyecto:</div>
@@ -175,7 +175,7 @@
 										</div>
 									</div>				
 
-									<button  class="btn btn-primary" (click)="entrar()" style="float:right; background-color: orange">
+									<button  class="btn btn-primary" (click)="entrar(subActividad)" style="float:right; background-color: orange">
 										Entrar
 									</button>
 								</div>	

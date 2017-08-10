@@ -45,7 +45,7 @@ export class ActividadPanel implements OnInit{
 
 	onSelectActivity(activity){
 		this.actividad = activity;
-		alert(JSON.stringify(activity));		
+		alert("ACTIVIDAD "+JSON.stringify(activity));		
 	}
 
 	public barChartOptions:any = {
@@ -87,6 +87,7 @@ export class ActividadPanel implements OnInit{
 	}
 
 	c1(){
+		alert("SUB ACTIVIDAD " + JSON.stringify(this.actividad.actividades));
 		this.detalle = false;
 		this.subActivity = true;
 		this.report = false;
