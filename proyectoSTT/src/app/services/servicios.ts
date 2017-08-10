@@ -22,14 +22,14 @@ export class Servicios {
 		.post(this.url + "/getUser",formdata)
 		.toPromise()
 		.then(response => response.json() as Usuario)
-		.catch(err => err.toString());
+		.catch(err => false);
 	}
 
 	getProyecto(id_usuario:string): Promise<any> {			
 		return this.http.post(this.url + "/getUserProjectList", 'id_usuario=' + id_usuario, this.options)
 		.toPromise()
 		.then(response => response.json() as Proyecto[])
-		.catch();
+		.catch(err => false);
 	}
 
 	getActividad(keym:string,id_usuario:string,id_caracteristica:string): Promise<any> {
@@ -42,7 +42,7 @@ export class Servicios {
 		return this.http.post(this.url + "/getActivityList",formData)
 		.toPromise()
 		.then(response => response.json() as Proyecto[])
-		.catch();
+		.catch(err => false);
 	}
 
 	private handleError (error: Response | any) {
