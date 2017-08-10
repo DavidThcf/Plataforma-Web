@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Headers, Http,  RequestOptions, Request, RequestMethod } from '@angular/http';
 import { Usuario } from '../model/usuario'
 import { Proyecto } from '../model/proyecto'
+import { Actividad } from '../model/actividad'
 
 
 import 'rxjs/add/operator/toPromise';
@@ -10,14 +11,15 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class Servicios {
 
-	private url = 'http://localhost:81/';  // URL to web api api/heroes http://localhost:81/	http://10.42.0.1:81/
+	private url = 'http://10.42.0.1:81';  // URL to web api api/heroes http://localhost:81	http://10.42.0.1:81
 	private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});	
 	private headersPost = new Headers({'Content-Type': 'multipart/form-data'});
 	private options = new RequestOptions({ headers: this.headers });
 
 	constructor(private http: Http) { }
 
-	getUsuario(formdata:FormData): Promise<Usuario> {			
+	getUsuario(formdata:FormData): Promise<Usuario> {
+		alert("getuserSevice RUN")			
 		return this.http
 		.post(this.url + "/getUser",formdata)
 		.toPromise()
@@ -32,16 +34,16 @@ export class Servicios {
 		.catch(err => false);
 	}
 
-	getActividad(keym:string,id_usuario:string,id_caracteristica:string): Promise<any> {
+	getActividad(keym:number,id_usuario:number,id_caracteristica:number): Promise<any> {
 		var formData = new FormData();
 
-		formData.append('keym','95');
-		formData.append('id_usuario','2');
-		formData.append('id_caracteristica','1');
+		formData.append('keym',keym+'');
+		formData.append('id_usuario',id_usuario+'');
+		formData.append('id_caracteristica',id_caracteristica+'');
 				
 		return this.http.post(this.url + "/getActivityList",formData)
 		.toPromise()
-		.then(response => response.json() as Proyecto[])
+		.then(response => response.json())
 		.catch(err => false);
 	}
 
