@@ -4,7 +4,8 @@ var router = express.Router();
 //Model's Variables 
 var User = require('../model/Usuarios');
 var Activity = require('../model/Actividades');
-var Project = require("../model/Proyectos")
+var Project = require("../model/Proyectos");
+var files = require("../model/Files");
 
 //POST Services 
 
@@ -59,6 +60,7 @@ router.post('/getUser', function (req, res, next) {
 	var usr = User.sigIn(JSON.parse(req.body.usuario));
 
 	usr.then(x => {
+		
 		if (x === false) {
 			res.header("Access-Control-Allow-Origin", "*");
 			res.json(false);
@@ -95,6 +97,7 @@ router.post('/getActivityList',(req,res,next)=>{
 	var prj = Activity.getActivityList(req.body);
 
 	prj.then(x => {
+		console.log(JSON.stringify(x));
 		res.header("Access-Control-Allow-Origin", "*");
 		res.send(x);
 	}).catch(x=>{

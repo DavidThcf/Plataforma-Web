@@ -70,9 +70,7 @@ module.exports.createActivity = function (data) {
 
 }
 
-
 module.exports.getActivityList = function (data) {
-	//console.log(req);
 	//variables del usuario
 	//==> Informacion de la actividad
 	var keym = data.keym;
@@ -86,23 +84,29 @@ module.exports.getActivityList = function (data) {
  				on 	a.keym_car = c.keym
 				and 	a.id_usuario_car = c.id_usuario
 				and 	a.id_caracteristica = c.id_caracteristica
-				where c.keym_padre = `+keym+` 
-				and c.id_caracteristica_padre = `+id_caracteristica+` 
-				and c.id_usuario_padre = `+id_usuario+` ; `;
-		console.log(query1);
+				where c.keym_padre = `+ keym + ` 
+				and c.id_caracteristica_padre = `+ id_caracteristica + ` 
+				and c.id_usuario_padre = `+ id_usuario + ` ; `;
+		
 		sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
 			.then(x => {
-				console.log('\n\n\n ACTIVIDADES'+JSON.stringify(x)+'\n\n\n');
-/*
-				for(var act in x){
-					//console.log(getRecursiveActivity(act.keym,act.id_caracteristica,act.id_usuario,sequelize));
-					console.log(JSON.stringify(act));
-				}
-*/
-				x.forEach(function(element) {
-					console.log('\n\n'+JSON.stringify(element));
-				}, this);
 
+				x.forEach(function (element) {
+					getRecursiveActivity(element.keym,
+						element.id_caracteristica,
+						element.id_usuario,
+						sequelize).then( y =>{
+							if(Object.keys(y).length > 0){
+								console.log('\nBefore'+JSON.stringify(element));
+								element.actividades = y;
+								console.log('\nAfter'+JSON.stringify(element));
+							}
+								
+						}).catch(y =>{
+
+						});
+				}, this);
+				console.log('\n\n\n\nXXX'+JSON.stringify(x));
 				resolve(x);
 			}).catch(x => {
 				console.log('Error al registrar actividad ' + x);
@@ -115,20 +119,23 @@ module.exports.getActivityList = function (data) {
 	});
 }
 
-function  getRecursiveActivity(keym,car,usu,sequelize){
+function getRecursiveActivity(keym, car, usu, sequelize) {
 	var query1 = `
 				select * from actividades a join caracteristicas c
  				on 	a.keym_car = c.keym
 				and 	a.id_usuario_car = c.id_usuario
 				and 	a.id_caracteristica = c.id_caracteristica
-				where c.keym_padre = `+keym+` 
-				and c.id_caracteristica_padre = `+car+` 
-				and c.id_usuario_padre = `+usu+` ; `;
-		console.log(query1);
+				where c.keym_padre = `+ keym + ` 
+				and c.id_caracteristica_padre = `+ car + ` 
+				and c.id_usuario_padre = `+ usu + ` ; `;
+	return new Promise((resolve, reject) => {
 		sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
 			.then(x => {
-				console.log('\n\n\n\n RECURSIVE ==>\n  '+x+'\n\n\n\n')
-				return(x);
+				resolve(x);
+
+			}).catch(x => {
+				reject(false);
 			});
+	});
 
 }
