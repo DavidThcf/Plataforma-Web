@@ -19,7 +19,7 @@ export class Servicios {
 	constructor(private http: Http) { }
 
 	getUsuario(formdata:FormData): Promise<Usuario> {
-		alert("getuserSevice RUN")			
+		//alert("getuserSevice RUN")			
 		return this.http
 		.post(this.url + "/getUser",formdata)
 		.toPromise()
@@ -41,7 +41,7 @@ export class Servicios {
 		formData.append('id_usuario',id_usuario+'');
 		formData.append('id_caracteristica',id_caracteristica+'');
 
-		alert(formData);
+		//alert(formData);
 				
 		return this.http.post(this.url + "/getActivityList",formData)
 		.toPromise()

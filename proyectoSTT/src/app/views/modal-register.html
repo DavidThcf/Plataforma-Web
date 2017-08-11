@@ -60,8 +60,6 @@
             {{ formErrors.nombre }}
           </div>
         </div>
-
-
         
         <div class="form-group">
           <label for="Email" class="lab">Email</label>
@@ -71,16 +69,13 @@
           </div>
         </div>
 
-
         <div class="form-group">
           <label for="Password"  class="lab">Password</label>
           <input type="Password"  class="form-control" id="password" name="password"  required [(ngModel)]="usuario.pass">
           <div *ngIf="formErrors.password" class="alert alert-danger">
             {{ formErrors.password }}
           </div>
-        </div>
-
-        
+        </div>        
 
         <div class="form-group">          
           <label class="uploader" for="upload">
@@ -88,7 +83,6 @@
           </label>
           <input type="file"  id="upload" name="file[]" accept=".jpg" [(ngModel)]="usuario.image"  (change)="imageChange($event)">         
         </div>
-
 
         <div *ngIf="submitted && !this.serviciog.usuario" class="alert alert-danger">
           Usuario o  Contraseña Incorrecta

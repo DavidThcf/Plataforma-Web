@@ -45,7 +45,7 @@ export class ActividadPanel implements OnInit{
 
 	onSelectActivity(activity){
 		this.actividad = activity;
-		//alert("ACTIVIDAD "+JSON.stringify(activity));		
+		alert("ACTIVIDAD "+JSON.stringify(activity));		
 	}
 
 	public barChartOptions:any = {
@@ -134,17 +134,21 @@ export class ActividadPanel implements OnInit{
 
 	entrarAct(subActividad){
 		
-		alert(JSON.stringify(subActividad));
+		//alert(JSON.stringify(subActividad));
 		var keym = subActividad.keym;
 		var id_usuario = subActividad.id_usuario;
 		var id_caracteristica = subActividad.id_caracteristica;
-		alert(keym + id_usuario + id_caracteristica);
+		//alert(keym + id_usuario + id_caracteristica);
 		
 		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
 		.then(actividad => { 
-			alert(JSON.stringify(actividad));
-			this.actividades = actividad;
-			this.actividad = this.actividades[0];		
+			//alert(JSON.stringify(actividad));
+			if(actividad){
+				this.actividades = actividad;
+				this.actividad = this.actividades[0];
+			}else{
+				alert("No tiene sub actividades");
+			}			
 		});
 	}
 

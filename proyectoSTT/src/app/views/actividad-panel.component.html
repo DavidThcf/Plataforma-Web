@@ -1,7 +1,7 @@
 <div style="margin-top: 51px; margin-right: 50px;">	
 	<div class="row" >
 		<div class="col-md-2" style="background-color: rgb(50,50,50);">
-			<div style="color: white; ">PUNTOS CRITICOS</div>
+			<div style="color: white; ">{{}}}</div>
 			<div  style="background-color: rgb(153,191,78); margin: 10px 10px; min-height: 80vh">		
 
 				<div style="margin: auto;">
@@ -21,6 +21,7 @@
 					</ul>					
 				</div>						
 			</div>
+
 			<nav aria-label="Page navigation" style="display: none;">
 				<ul class="pagination">
 					<li>
@@ -37,7 +38,8 @@
 						</a>
 					</li>
 				</ul>
-			</nav>	
+			</nav>
+
 		</div>
 		
 		<div class="col-md-10" style="background-color: rgb(222,220,221);">
@@ -52,22 +54,29 @@
 				</ul>				
 			</div>
 
-
 			<div style=" min-height: 80vh;">
 				<div *ngIf="detalle">
 					<form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
 						<div class="form-group">
-							<label for="Nombre" class="lab">Nombres</label>
-							<input name="" type="text" id="nombre" class="form-control" name="nombres" ng-reflect-model="a" readonly [(ngModel)]="actividad.nom_act">
+							<label for="nombre" class="lab">Nombres</label>
+							<input name="" type="text" id="nombre" class="form-control" name="nombres" ng-reflect-model="a" readonly [(ngModel)]="actividad.nom_act" >
 
-							<label for="Nombre" class="lab">Descripción</label>
-							<input name="" type="text" id="nombre" class="form-control" name="descripcion" ng-reflect-model="a" readonly [(ngModel)]="actividad.desc_act">
+							<label for="descripción" class="lab">Descripción</label>
+							<input name="" type="text" id="de" class="form-control" name="descripcion" ng-reflect-model="a" readonly [(ngModel)]="actividad.desc_act"  >
 
-							<label for="Nombre" class="lab">Porcentaje Asignado</label>
-							<input name="" type="text" id="nombre" class="form-control" name="porcentaje" ng-reflect-model="a" readonly [(ngModel)]="actividad.porcentaje_asignado">							
+							<label for="porcentaje" class="lab">Porcentaje Asignado</label>
+							<input name="" type="text" id="porcentaje" class="form-control" name="porcentaje" ng-reflect-model="a" readonly [(ngModel)]="actividad.porcentaje_asignado" >	
+
+							<label for="tiempo_inicial" class="lab">Tiempo Inicio</label>
+							<input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" ng-reflect-model="a" readonly [(ngModel)]="actividad.fecha_inicio" >
+
+							<label for="tiempo_fin" class="lab">Tiempo Final</label>
+							<input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" ng-reflect-model="a" readonly [(ngModel)]="actividad.fecha_fin" >
+
+							<label for="estado" class="lab">Estado</label>
+							<input name="" type="text" id="estado" class="form-control" name="estado" ng-reflect-model="a" readonly [(ngModel)]="actividad.estado" >
 						</div>						
-					</form>
-					<iframe id="fancybox-frame1502389999180" name="fancybox-frame1502389999180" class="fancybox-iframe" frameborder="0" vspace="0" hspace="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" scrolling="auto" src="http://docs.google.com/gview?url=http://knower.udenar.edu.co/mp/user2/proyectos/95-1-2/documentos/objetivos95-1-2.docx&amp;embedded=true"></iframe>
+					</form>					
 				</div>
 
 				<div *ngIf="subActivity" >
@@ -157,7 +166,7 @@
 									<div>
 										<div class="row">
 											<div class="lab1 col-md-3">Lider de Proyecto:</div>
-											<div class="lab2 col-md-8">Lus Alfredo Gomez</div>
+											<div class="lab2 col-md-8">{{subActividad.usr_nom}} {{subActividad.usr_ape}}</div>
 										</div>
 										<div>
 											<div class="lab1">Descripción:</div>
@@ -185,7 +194,7 @@
 				</div>
 
 				<div *ngIf="report" >
-					<embed  src="http://knower.udenar.edu.co/imgSTT/CONVENIO.pdf" style="width: 100%; min-height:80vh;" fullframe />
+					<embed  src="http://knower.udenar.edu.co/imgSTT/CONVENIO.pdf" style="width: 100%; min-height:80vh;" fullframe />					
 				</div>
 
 				<div *ngIf="multimedia" >
@@ -307,11 +316,13 @@
 			</div>		
 		</div>
 	</div>
+
 	<ol class="breadcrumb" style="display: none;">
 		<li><a href="#">Home</a></li>
 		<li><a href="#">Library</a></li>
 		<li class="active">Data</li>
 	</ol>
+
 </div>
 
 
