@@ -40,11 +40,13 @@ export class Servicios {
 		formData.append('keym',keym+'');
 		formData.append('id_usuario',id_usuario+'');
 		formData.append('id_caracteristica',id_caracteristica+'');
+
+		alert(formData);
 				
 		return this.http.post(this.url + "/getActivityList",formData)
 		.toPromise()
 		.then(response => response.json())
-		.catch(err => false);
+		.catch(err => {alert(err.toString);});
 	}
 
 	private handleError (error: Response | any) {

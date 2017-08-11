@@ -58,10 +58,10 @@
 					<form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
 						<div class="form-group">
 							<label for="Nombre" class="lab">Nombres</label>
-							<input name="" type="text" id="nombre" class="form-control" name="nombres" ng-reflect-model="a" readonly [(ngModel)]="actividad.nombre">
+							<input name="" type="text" id="nombre" class="form-control" name="nombres" ng-reflect-model="a" readonly [(ngModel)]="actividad.nom_act">
 
 							<label for="Nombre" class="lab">Descripción</label>
-							<input name="" type="text" id="nombre" class="form-control" name="descripcion" ng-reflect-model="a" readonly [(ngModel)]="actividad.descripcion">
+							<input name="" type="text" id="nombre" class="form-control" name="descripcion" ng-reflect-model="a" readonly [(ngModel)]="actividad.desc_act">
 
 							<label for="Nombre" class="lab">Porcentaje Asignado</label>
 							<input name="" type="text" id="nombre" class="form-control" name="porcentaje" ng-reflect-model="a" readonly [(ngModel)]="actividad.porcentaje_asignado">							
@@ -175,7 +175,7 @@
 										</div>
 									</div>				
 
-									<button  class="btn btn-primary" (click)="entrar(subActividad)" style="float:right; background-color: orange">
+									<button  class="btn btn-primary" (click)="entrarAct(subActividad)" style="float:right; background-color: orange">
 										Entrar
 									</button>
 								</div>	
@@ -300,8 +300,8 @@
 
 					</button>					
 					<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"  (mapClick)="mapClicked($event)">
-						<agm-marker *ngFor="let m of markers; let i = index"[latitude]="m.lat" [longitude]="m.lng"[label]="m.label" [iconUrl]="m.url"  (markerClick)="clickedMarker(m.label, i)">							
-						</agm-marker>
+						<agm-marker *ngFor="let m of markers; let i = index"[latitude]="m.lat" [longitude]="m.lng"[label]="m.label" [iconUrl]="m.url"  (markerClick)="clickedMarker(m.label, i)">						
+						</agm-marker>						
 					</agm-map>
 				</div>
 			</div>		
