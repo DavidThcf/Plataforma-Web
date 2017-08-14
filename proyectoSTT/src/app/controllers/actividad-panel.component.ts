@@ -87,7 +87,7 @@ export class ActividadPanel implements OnInit{
 	}
 
 	c1(){
-		alert("SUB ACTIVIDAD " + JSON.stringify(this.actividad.actividades));
+		//alert("SUB ACTIVIDAD " + JSON.stringify(this.actividad.actividades));
 		this.detalle = false;
 		this.subActivity = true;
 		this.report = false;
@@ -132,15 +132,23 @@ export class ActividadPanel implements OnInit{
 		this.map = true;
 	}
 
-	entrar(subActividad){
+	entrarAct(subActividad){
+		
+		//alert(JSON.stringify(subActividad));
 		var keym = subActividad.keym;
 		var id_usuario = subActividad.id_usuario;
 		var id_caracteristica = subActividad.id_caracteristica;
-
+		//alert(keym + id_usuario + id_caracteristica);
+		
 		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
 		.then(actividad => { 
-			this.actividades = actividad;
-			this.actividad = this.actividades[0];
+			//alert(JSON.stringify(actividad));
+			if(actividad){
+				this.actividades = actividad;
+				this.actividad = this.actividades[0];
+			}else{
+				alert("No tiene sub actividades");
+			}			
 		});
 	}
 
