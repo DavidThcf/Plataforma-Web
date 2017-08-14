@@ -11,15 +11,14 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class Servicios {
 
-	private url = 'http://10.42.0.1:81';  // URL to web api api/heroes http://10.42.0.1:81
+	private url = 'http://localhost:81';  // URL to web api api/heroes http://10.42.0.1:81
 	private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});	
 	private headersPost = new Headers({'Content-Type': 'multipart/form-data'});
 	private options = new RequestOptions({ headers: this.headers });
 
 	constructor(private http: Http) { }
 
-	getUsuario(formdata:FormData): Promise<Usuario> {
-		//alert("getuserSevice RUN")			
+	getUsuario(formdata:FormData): Promise<Usuario> {					
 		return this.http
 		.post(this.url + "/getUser",formdata)
 		.toPromise()
@@ -30,7 +29,7 @@ export class Servicios {
 	getProyecto(id_usuario:string): Promise<any> {			
 		return this.http.post(this.url + "/getUserProjectList", 'id_usuario=' + id_usuario, this.options)
 		.toPromise()
-		.then(response => response.json() as Proyecto[])
+		.then(response => response.json())
 		.catch(err => false);
 	}
 

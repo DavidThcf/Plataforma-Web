@@ -44,19 +44,50 @@
 		</div>
 		
 		<div class="col-md-10" style="background-color: rgb(222,220,221);">
+
 			<div class="menuActividades">
 				<ul>
 					<li (click)="c0()"><a>Detalles</a></li>
-					<li (click)="c1()"><a>Sub - Actividades </a></li>
-					<li (click)="c2()"><a>Reporte </a></li>
-					<li (click)="c3()"><a>Multimedia </a></li>
-					<li (click)="c4()"><a>Estadisticas </a></li>
-					<li (click)="c5()"><a>Mapa</a></li>
+					<li (click)="c1()"><a>Detalles</a></li>
+					<li (click)="c2()"><a>Sub - Actividades </a></li>
+					<li (click)="c3()"><a>Reporte </a></li>
+					<li (click)="c4()"><a>Multimedia </a></li>
+					<li (click)="c5()"><a>Estadisticas </a></li>
+					<li (click)="c6()"><a>Mapa</a></li>
 				</ul>				
 			</div>
 
 			<div style=" min-height: 80vh;">
-				<div *ngIf="detalle">
+				<div *ngIf="actOpt === 0">					
+					<form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
+						<div class="form-group">							
+
+							<img  class="imgPro" src="http://www2.udenar.edu.co/recursos/wp-content/uploads/2016/10/udenar.png" />
+							
+							<hr/>
+
+							<label for="nombre" class="lab">Nombres</label>
+							<input name="" type="text" id="nombre" class="form-control" name="nombres" readonly [(ngModel)]="this.serviciog.proyecto.nombre" >
+
+							<label for="descripción" class="lab">Descripción</label>
+							<input name="" type="text" id="de" class="form-control" name="descripcion" readonly [(ngModel)]="this.serviciog.proyecto.descripcion"  >
+
+
+							<label for="tiempo_inicial" class="lab">Fecha de Inicio</label>
+							<input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.fecha_inicio" >
+
+							<label for="tiempo_fin" class="lab">Fecha Final</label>
+							<input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.fecha_fin" >
+
+							<label for="estado" class="lab">Estado</label>
+							<input name="" type="text" id="estado" class="form-control" name="estado" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.estado" >
+						</div>						
+					</form>
+					<button class="btn-add-activity"  data-toggle="modal" data-target="#modAddActivity">
+						<img src="" />
+					</button>
+				</div>
+				<div *ngIf="actOpt === 1">
 					<form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
 						<div class="form-group">
 							<label for="nombre" class="lab">Nombres</label>
@@ -81,80 +112,7 @@
 				</div>
 
 				<div *ngIf="subActivity" >
-					<div class="scrollbar row">	
-						<div class=" col-md-6">
-							<div class="row projectCard" style="margin: 10px">		
-								<div class="col-md-3">
-									<div style="background-color: white; margin-top: 30px">
-										<img style="height: 100px; " src="http://www2.udenar.edu.co/recursos/wp-content/uploads/2016/10/udenar.png">				
-									</div>
-								</div>
-								<div class="col-md-9">
-									<h4 style="text-transform: uppercase; height: 30px">SubActividad 1</h4>					
-									<div>
-										<div class="row">
-											<div class="lab1 col-md-3">Lider de Proyecto:</div>
-											<div class="lab2 col-md-8">Lus Alfredo Gomez</div>
-										</div>
-										<div>
-											<div class="lab1">Descripción:</div>
-											<div class="lab2">Subactividad en desarrollo</div>
-										</div>
-										<div class="row">
-											<div class="lab1 col-md-6">
-												<div>Estado:</div>
-												<div class="lab2">Desarrollo</div>
-											</div>
-											<div class="lab1 col-md-6">
-												<div>Progreso:</div>
-												<div class="lab2">10%</div>
-											</div>
-										</div>
-									</div>				
-
-									<button  class="btn btn-primary" (click)="entrar()" style="float:right; background-color: orange">
-										Entrar
-									</button>
-								</div>	
-							</div>
-						</div>
-						<div class=" col-md-6">
-							<div class="row projectCard" style="margin: 10px;">		
-								<div class="col-md-3">
-									<div style="background-color: white; margin-top: 30px">
-										<img style="height: 100px;" src="http://www2.udenar.edu.co/recursos/wp-content/uploads/2016/10/udenar.png">				
-									</div>
-								</div>
-								<div class="col-md-9">
-									<h4 style="text-transform: uppercase;  height: 30px">SubActividad 2</h4>					
-									<div>
-										<div class="row">
-											<div class="lab1 col-md-3">Lider de Proyecto:</div>
-											<div class="lab2 col-md-8">Lus Alfredo Gomez</div>
-										</div>
-										<div>
-											<div class="lab1">Descripción:</div>
-											<div class="lab2">Subactividad en desarrollo</div>
-										</div>
-										<div class="row">
-											<div class="lab1 col-md-6">
-												<div>Estado:</div>
-												<div class="lab2">Desarrollo</div>
-											</div>
-											<div class="lab1 col-md-6">
-												<div>Progreso:</div>
-												<div class="lab2">10%</div>
-											</div>
-										</div>
-									</div>				
-
-									<button  class="btn btn-primary" (click)="entrar()" style="float:right; background-color: orange">
-										Entrar
-									</button>
-								</div>	
-							</div>
-						</div>	
-
+					<div class="scrollbar row">
 						<div class=" col-md-6" *ngFor="let subActividad of this.actividad.actividades" >
 							<div class="row projectCard" style="margin: 10px;">		
 								<div class="col-md-3">
@@ -325,6 +283,44 @@
 		<li class="active">Data</li>
 	</ol>
 
+</div>
+
+<div id="modAddActivity" class="modal fade" role="dialog">
+	<div class="modal-dialog" style="vertical-align: middle;">
+		<!-- Modal content-->
+		<div class="modal-content" >
+			<div class="modal-body" style="height:auto">
+
+				<div style="margin-top:10px;margin-right:20px">
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div> 
+				
+				<form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%; margin-top:3%;" enctype="multipart/form-data">
+					<div class="form-group">
+						<label for="nombre" class="lab">Nombres</label>
+						<input name="" type="text" id="nombre" class="form-control" name="nombres" ng-reflect-model="a" readonly [(ngModel)]="actividad.nom_act" >
+
+						<label for="descripción" class="lab">Descripción</label>
+						<input name="" type="text" id="de" class="form-control" name="descripcion" ng-reflect-model="a" readonly [(ngModel)]="actividad.desc_act"  >
+
+						<label for="porcentaje" class="lab">Porcentaje Asignado</label>
+						<input name="" type="text" id="porcentaje" class="form-control" name="porcentaje" ng-reflect-model="a" readonly [(ngModel)]="actividad.porcentaje_asignado" >	
+
+						<label for="tiempo_inicial" class="lab">Tiempo Inicio</label>
+						<input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" ng-reflect-model="a" readonly [(ngModel)]="actividad.fecha_inicio" >
+
+						<label for="tiempo_fin" class="lab">Tiempo Final</label>
+						<input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" ng-reflect-model="a" readonly [(ngModel)]="actividad.fecha_fin" >
+
+						<label for="estado" class="lab">Estado</label>
+						<input name="" type="text" id="estado" class="form-control" name="estado" ng-reflect-model="a" readonly [(ngModel)]="actividad.estado" >
+					</div>
+
+					<button type="submit" class="btn btn-success" name="btnLogin" [disabled]="!loginForm.form.valid">Guardar</button>
+				</form>	
+			</div>       
+		</div>
+	</div>
 </div>
 
 

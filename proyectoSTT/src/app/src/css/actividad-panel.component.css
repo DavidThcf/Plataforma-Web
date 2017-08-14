@@ -132,10 +132,6 @@ agm-map {
 	box-shadow: 1px 1px 15px black;
 	color: white;
 }
-.btn-add-img input{
-	position: absolute;
-	filter: alpha(opacity=0);
-}
 
 .btn-category-1{
 	width: 50px;
@@ -189,7 +185,27 @@ agm-map {
 	cursor: pointer;
 }
 
-.titulo:hover{
-	color: red;
+.titulo:hover{	
+	text-decoration: underline;
+	color: rgb(255,255,255,0.5);
+}
 
+.imgPro{
+	display: block;
+	background-color: white;
+	text-align: center;
+	margin: auto;
+}
+
+.btn-add-activity{
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	right: -38px;
+	top:85px;
+	z-index: 1000;
+	background-color: rgb(0,128,0);
+	border: 1px solid transparent;
+	border-radius: 3px;
+	box-shadow: 1px 1px 15px black;
 }

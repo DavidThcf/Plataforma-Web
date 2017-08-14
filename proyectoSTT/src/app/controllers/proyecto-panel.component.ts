@@ -3,7 +3,6 @@ import { NgModule } 		 from '@angular/core';
 import { Router }            from '@angular/router';
 import { ServiciosGlobales } from '../services/servicios-globales';
 import { Servicios }         from '../services/servicios';
-import { Proyecto } from '../model/proyecto';
 
 @Component({
 	selector: 'proyecto-panel',
@@ -22,12 +21,16 @@ export class ProyectoPanel implements OnInit{
 	ngOnInit():void {
 		if(this.serviciog.usuario){
 			this.servicios.getProyecto(this.serviciog.usuario.id_usuario + '')
-			.then(cadena => this.serviciog.proyecto = cadena);
+			.then(cadena => {
+				this.serviciog.proyecto = cadena
+
+			});
 		}
 	}	
 
-	entrar(proyect:Proyecto){
+	entrar(proyect:any){
 		this.serviciog.proyecto = proyect;
+		alert(JSON.stringify(proyect));
 		let link = ['actividades'];
 		this.router.navigate(link);
 	}
