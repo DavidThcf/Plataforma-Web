@@ -11,7 +11,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class Servicios {
 
-	private url = 'http://10.42.0.1:81';  // URL to web api api/heroes http://localhost:81	http://10.42.0.1:81
+	private url = 'http://10.42.0.1:81';  // URL to web api api/heroes http://10.42.0.1:81
 	private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});	
 	private headersPost = new Headers({'Content-Type': 'multipart/form-data'});
 	private options = new RequestOptions({ headers: this.headers });

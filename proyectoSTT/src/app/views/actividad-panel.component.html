@@ -1,19 +1,20 @@
 <div style="margin-top: 51px; margin-right: 50px;">	
-	<div class="row" >
+	<div class="row" style="margin-top: 10px" >
 		<div class="col-md-2" style="background-color: rgb(50,50,50);">
-			<div style="color: white; ">{{}}}</div>
+			<div style="color: white; text-transform: uppercase; font-weight: bold;">{{titulo}}</div>
 			<div  style="background-color: rgb(153,191,78); margin: 10px 10px; min-height: 80vh">		
 
 				<div style="margin: auto;">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="Buscar...">
 						<span class="input-group-btn">
-							<button type="button" class="btn btn-default" aria-label="Left Align">
+							<button type="button" class="btn btn-primary" aria-label="Left Align">
 								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 							</button>
 						</span>
 					</div>						
 				</div>
+
 
 				<div class="listaActividades">
 					<ul>
@@ -310,7 +311,8 @@
 					</button>					
 					<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"  (mapClick)="mapClicked($event)">
 						<agm-marker *ngFor="let m of markers; let i = index"[latitude]="m.lat" [longitude]="m.lng"[label]="m.label" [iconUrl]="m.url"  (markerClick)="clickedMarker(m.label, i)">						
-						</agm-marker>						
+						</agm-marker>	
+						<agm-polygon [paths] = "markers" ></agm-polygon>					
 					</agm-map>
 				</div>
 			</div>		
