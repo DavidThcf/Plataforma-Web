@@ -10,7 +10,7 @@ module.exports.createUser = function (data, files) {
 	//var data = JSON.parse(req.body.json);
 	//console.log('POL  =>  ' + JSON.stringify(data));
 
-	console.log('data=>   ' + JSON.stringify(data) + ' USU ' + data.nombre);
+	//console.log('data=>   ' + JSON.stringify(data) + ' USU ' + data.nombre);
 	//variables del usuario
 	var email = data.e_mail;
 	email.replace(/ /g, "");
@@ -62,7 +62,7 @@ module.exports.createUser = function (data, files) {
 								var path = repository + 'user' + y[0][0].id_usuario;
 								fs.mkdir(path);
 
-								fls.fileUpload(files, path + '/');
+								fls.imageProfileUpload(files, path + '/');
 
 								resolve(true);
 							}).catch(y => {
@@ -99,13 +99,13 @@ module.exports.sigIn = function (data) {
 	return new Promise((resolve, reject) => {
 		sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
 			.then(x => {
-				console.log('\n\n\n x==>'+ JSON.stringify(x));
+				//console.log('\n\n\n x==>'+ JSON.stringify(x));
 				if (x[0] != null) {
-					console.log('ok');
+					//console.log('ok');
 					resolve(x);
 				}
 				else {
-					console.log('bad');
+					//console.log('bad');
 					reject(false);
 				}
 			}).catch(x => {
@@ -145,7 +145,7 @@ module.exports.sigIn = function (data) {
 
 
 router.get('/:email/:password', function (req, res, next) {
-	Usuario.findAll({
+	Usuario.findAll({console.lo
 		where: {
 			e_mail: req.params.email,
 			pass: req.params.password

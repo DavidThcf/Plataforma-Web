@@ -7,7 +7,7 @@ var fs = require('fs');
 var repository = 'files/';
 
 
-module.exports.fileUpload = function (files, path) {
+module.exports.imageProfileUpload = function (files, path) {
 
 	var file;
 
@@ -21,7 +21,7 @@ module.exports.fileUpload = function (files, path) {
 		file = files.file;
 
 		//var fina = file.name.replace(/\s/g, "");
-		var fina = file.name = 'profile.jpg';
+		var fina = file.name = 'profile'+getExtension(file.name);
 
 		file.mv(path + fina, function (err) {
 			if (err) console.log("error " + err.toString());
@@ -29,4 +29,31 @@ module.exports.fileUpload = function (files, path) {
 		});
 
 	}
+}
+
+module.exports.fileUpload = function (files, path) {
+
+	var file;
+	var  name;
+	var result = '-1';
+
+	if (!files) {
+		result = '0';
+		console.log("no existe archivo");
+	}
+	else {
+		file = files.file;
+		//var fina = file.name.replace(/\s/g, "");
+		var fina = file.name = name+getExtension(file.name);
+		file.mv(path + fina, function (err) {
+			if (err) console.log("error " + err.toString());
+			else console.log("carga exitosa");
+		});
+
+	}
+}
+
+function getExtension(dat){
+	var cad  = dat.split('.');
+	return cad[cad.length - 1];
 }

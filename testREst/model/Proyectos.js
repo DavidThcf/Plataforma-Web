@@ -5,32 +5,32 @@ var sqlCon = require('../config/connectionDb');
 var router = express.Router();
 var Caracteristica = require('./Caracteristicas');
 
-module.exports.createProject = function (data) {
+module.exports.createProjectFromActivity = function (data) {
 
-    var keym = data.keym_car;
-    var id_proyecto = 0;
-    var id_usuario = data.id_usuario_act;
+    //caracteristica
+    var keym_car = data.keym;
+    var id_caracteristica_car = data.id_caracteristica;
+    var id_usuario_car = data.id_usuario;
 
+    //informacion
     var nombre = data.nombre;
     var descripcion = data.descripcion;
     var icon = data.icon;
 
+    //fecha
+    var current_date = new Date();
+    var fecha_ultima_modificacion = current_date.toLocaleString();
+
+    //creacion del proyecto
 
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
-        Caracteristica.createCharacteristic(data, 'P').
+        getIdFreeProject(id_usuario, keym).
             then(x => {
-                var keym_car = x.keym;
-                var id_caracteristica_car = x.id_caracteristica;
-                var id_usuario_car = x.id_usuario;
-                var fecha_ultima_modificacion = x.fecha_ultima_modificacion;
-
-                id_proyecto = data.id_proyecto;
-
                 var query1 = `
                 insert into proyectos values (
                     `+ keym + `,
-                    `+ id_proyecto + `,
+                    `+ x + `,
                     `+ id_usuario + `,
 
                     `+ keym_car + `,
@@ -45,7 +45,14 @@ module.exports.createProject = function (data) {
                     `+ 0 + `,
                     '`+ fecha_ultima_modificacion + `'
                 );
-            `;
+                
+                UPDATE caracteristicas 
+                SET tipo_caracteristica = 'P'
+                
+                WHERE keym= `+keym_car+` 
+                and id_caracteristica = `+id_caracteristica_car+` 
+                and id_usuario = `+id_usuario_car+`;
+                `;
 
                 sequelize.query(query1, { type: sequelize.QueryTypes.INSERT })
                     .then(x => {
@@ -57,12 +64,12 @@ module.exports.createProject = function (data) {
                         sequelize.close();
                         console.log('Se ha cerrado sesion de la conexion a la base de datos');
                     });
-
-            }).
-            catch(x => {
-                console.log('Error registrar Caracteristica ' + x);
-                reject(false);
+            }).catch(x => {
+                console.log('ERROR al registrar el PROYECTO.');
             });
+
+
+
     });
 
 };
@@ -74,7 +81,7 @@ module.exports.getListProjects = function (id_user) {
         join caracteristicas on proyectos.keym_car = caracteristicas.keym 
         and proyectos.id_usuario_car = caracteristicas.id_usuario 
         and proyectos.id_caracteristica = caracteristicas.id_caracteristica 
-        where proyectos.id_usuario =` + id_user+   `
+        where proyectos.id_usuario =` + id_user + `
         
         `;
 
@@ -83,10 +90,10 @@ module.exports.getListProjects = function (id_user) {
     return new Promise((resolve, reject) => {
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
             .then(x => {
-                resolve (x);
+                resolve(x);
             }).catch(x => {
                 console.log('Error al registrar actividad ' + x);
-                reject (false);
+                reject(false);
             }).done(x => {
                 sequelize.close();
                 console.log('Se ha cerrado sesion de la conexion a la base de datos');
@@ -95,6 +102,88 @@ module.exports.getListProjects = function (id_user) {
 
 }
 
-module.exports.createProjectFromActivity = function (data) {
+module.exports.createProject = function (data) {
+    //caracteristica
+    var keym_car = data.keym;
+    var id_caracteristica_car = data.id_caracteristica;
+    var id_usuario_car = data.id_usuario;
 
+    //informacion
+    var nombre = data.nombre;
+    var descripcion = data.descripcion;
+    var icon = data.icon;
+
+    //fecha
+    var current_date = new Date();
+    var fecha_ultima_modificacion = current_date.toLocaleString();
+
+    return new Promise((resolve, reject) => {
+        Caracteristica.createCharacteristic(data, 'P').then(x => {
+            return new Promise((resolve, reject) => {
+                var sequelize = sqlCon.configConnection();
+                getIdFreeProject(id_usuario, keym).
+                    then(id => {
+                        var query1 = `
+                            insert into proyectos values (
+                                `+ keym + `,
+                                `+ id + `,
+                                `+ id_usuario + `,
+
+                                `+ x[0].keym + `,
+                                `+ x[0].id_usuario + `,
+                                `+ x[0].id_caracteristica + `,
+                                
+                                '`+ nombre + `',
+                                '',
+                                `+ false + `,
+                                '`+ icon + `',
+                                '`+ descripcion + `',
+                                `+ 0 + `,
+                                '`+ x[0].fecha_ultima_modificacion + `');
+                        `;
+
+                        sequelize.query(query1, { type: sequelize.QueryTypes.INSERT })
+                            .then(x => {
+                                console.log('Se ha registrado correctamente el proyecto')
+                                resolve(true);
+                            }).catch(x => {
+                                console.log('Error: Ha ocurrido un error al registrar el proyecto. ' + x);
+                                reject(false);
+                            }).done(x => {
+                                sequelize.close();
+                                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+                            });
+                    }).catch(x => {
+                        console.log('ERROR al registrar el PROYECTO.');
+                    });
+
+            });
+
+        }).catch(x => {
+
+        });
+    });
+
+}
+
+function getIdFreeProject(id_usuario, keym) {
+    return new Promise((resolve, reject) => {
+        var sequelize = sqlCon.configConnection();
+        var query = `
+            select max(id_proyecto) prj from proyectos
+            where keym = `+ id_usuario + ` and id_usuario = ` + keym + `
+        `;
+        sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
+            then(x => {
+                if (x.lenght > 0)
+                    resolve(parseInt(x[0].prj) + 1);
+                else
+                    resolve(0);
+            }).catch(x => {
+                reject(false);
+            }).done(x => {
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });
+    });
 }

@@ -48,7 +48,7 @@ module.exports.createCharacteristic = function (data, type_char) {
 
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
-        getIdCharacteristic(keym_padre, id_usuario_padre, id_caracteristica_padre,tipo_caracteristica).then(x => {
+        getIdCharacteristic(keym_padre, id_usuario_padre, id_caracteristica_padre, tipo_caracteristica).then(x => {
             data.id_caracteristica = parseInt(x[0].car) + 1;
             id_caracteristica_car = parseInt(x[0].car) + 1;
 
@@ -57,35 +57,66 @@ module.exports.createCharacteristic = function (data, type_char) {
             else
                 data.id_proyecto = parseInt(x[0].prj) + 1;
 
-            var query1 = `
-            INSERT INTO caracteristicas 
-            VALUES (
-                `+ keym_car + `,
-                `+ id_usuario_car + `,
-                `+ id_caracteristica_car + `,
-                
-                `+ keym_padre + `,
-                `+ id_usuario_padre + `,
-                `+ id_caracteristica_padre + `,
-                
-                '`+ estado + `',
-                `+ porcentaje_asignado + `,
-                `+ porcentaje_cumplido + `,
-                `+ recursos + `,
-                `+ recursos_restantes + `,
-                `+ presupuesto + `,
-                `+ costos + `,
-                '`+ tipo_caracteristica + `',
-                `+ visualizar_superior + `,
-                `+ usuario_asignado + `,
-                `+ publicacion_web + `,
-                `+ porcentaje + `,
-                '`+ fecha_inicio + `',
-                '`+ fecha_fin + `',
-                '`+ fecha_ultima_modificacion + `',
-                `+ publicacion_reporte + `
+            var query1;
 
-            );`;
+            if (type_char == 'P') {
+                query1 = `
+                    INSERT INTO caracteristicas 
+                    VALUES (
+                        `+ keym_car + `,
+                        `+ id_usuario_car + `,
+                        `+ id_caracteristica_car + `,
+                        
+                        '`+ estado + `',
+                        `+ porcentaje_asignado + `,
+                        `+ porcentaje_cumplido + `,
+                        `+ recursos + `,
+                        `+ recursos_restantes + `,
+                        `+ presupuesto + `,
+                        `+ costos + `,
+                        '`+ tipo_caracteristica + `',
+                        `+ visualizar_superior + `,
+                        `+ usuario_asignado + `,
+                        `+ publicacion_web + `,
+                        `+ porcentaje + `,
+                        '`+ fecha_inicio + `',
+                        '`+ fecha_fin + `',
+                        '`+ fecha_ultima_modificacion + `',
+                        `+ publicacion_reporte + `
+
+                    );`;
+            }
+            else {
+                query1 = `
+                    INSERT INTO caracteristicas 
+                    VALUES (
+                        `+ keym_car + `,
+                        `+ id_usuario_car + `,
+                        `+ id_caracteristica_car + `,
+                        
+                        `+ keym_padre + `,
+                        `+ id_usuario_padre + `,
+                        `+ id_caracteristica_padre + `,
+                        
+                        '`+ estado + `',
+                        `+ porcentaje_asignado + `,
+                        `+ porcentaje_cumplido + `,
+                        `+ recursos + `,
+                        `+ recursos_restantes + `,
+                        `+ presupuesto + `,
+                        `+ costos + `,
+                        '`+ tipo_caracteristica + `',
+                        `+ visualizar_superior + `,
+                        `+ usuario_asignado + `,
+                        `+ publicacion_web + `,
+                        `+ porcentaje + `,
+                        '`+ fecha_inicio + `',
+                        '`+ fecha_fin + `',
+                        '`+ fecha_ultima_modificacion + `',
+                        `+ publicacion_reporte + `
+
+                    );`;
+            }
 
 
             //Creacion de Query para insertar datos a la base de datos
@@ -105,10 +136,10 @@ module.exports.createCharacteristic = function (data, type_char) {
                 }).catch(x => {
                     console.log('Error' + x);
                     reject(false);
-                }).done(x=>{
-                sequelize.close();
-                console.log('Se ha cerrado sesion de la conexion a la base de datos');
-            });
+                }).done(x => {
+                    sequelize.close();
+                    console.log('Se ha cerrado sesion de la conexion a la base de datos');
+                });
 
 
 
@@ -152,7 +183,7 @@ function getIdCharacteristic(keym, id_usuario, id_caracteristica, type_char) {
         from proyectos join caracteristicas on proyectos.id_caracteristica=caracteristicas.id_caracteristica
         and proyectos.keym_car=caracteristicas.keym 
         and proyectos.id_usuario_car=caracteristicas.id_usuario
-        where proyectos.keym = `+ keym +` and proyectos.id_usuario = ` + id_usuario + `
+        where proyectos.keym = `+ keym + ` and proyectos.id_usuario = ` + id_usuario + `
         ) as t1
         `;
     }
@@ -165,7 +196,7 @@ function getIdCharacteristic(keym, id_usuario, id_caracteristica, type_char) {
             }).catch(x => {
                 console.log('Error getIdCharacteristic() execute query1 ' + x);
                 reject(x);
-            }).done(x=>{
+            }).done(x => {
                 sequelize.close();
                 console.log('Se ha cerrado sesion de la conexion a la base de datos');
             });
