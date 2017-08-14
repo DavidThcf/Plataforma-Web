@@ -182,3 +182,14 @@ agm-map {
 	background-color: rgb(77,185,221);
 	border-color: gray;
 }
+.titulo{
+	color: white; 
+	text-transform: uppercase; 
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.titulo:hover{
+	color: red;
+
+}
