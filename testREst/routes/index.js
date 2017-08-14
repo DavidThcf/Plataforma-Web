@@ -6,6 +6,8 @@ var User = require('../model/Usuarios');
 var Activity = require('../model/Actividades');
 var Project = require("../model/Proyectos");
 var files = require("../model/Files");
+var Category = require('../model/Categorias');
+var Map = require('../model/Mapa');
 
 //POST Services 
 
@@ -45,7 +47,20 @@ router.post('/createActivity', function (req, res, next) {
 router.post('/createProject', function (req, res, next) {
 	var prj = Project.createProject(JSON.parse(req.body.json));
 	prj.then(x => {
-		console.log('CreateActivity OK ' + x);
+		console.log('CreateProject OK ' + x);
+		res.header("Access-Control-Allow-Origin", "*");
+		res.send("Se ha registrado correctamente el PROYECTO.");
+	}).catch(x => {
+		console.log('Error:  ' + x);
+		res.header("Access-Control-Allow-Origin", "*");
+		res.send("No se podido registrar el proyecto.");
+	});
+});
+
+router.post('/createProjectFromActivity', function (req, res, next) {
+	var prj = Project.createProjectFromActivity(JSON.parse(req.body.json));
+	prj.then(x => {
+		console.log('CreateProjectFromActivity OK ' + x);
 		res.header("Access-Control-Allow-Origin", "*");
 		res.send("Se ha registrado correctamente el PROYECTO.");
 	}).catch(x => {
@@ -93,17 +108,53 @@ router.post('/getUserProjectList', (req, res, next) => {
 });
 
 router.post('/getActivityList', (req, res, next) => {
-	var prj = Activity.getActivityList(req.body);
-	//console.log('OK input' + JSON.stringify(req.body));
-	prj.then(x => {
-		console.log('\n\n\n OKS!!!!!!!!:   '+JSON.stringify(x));
+	var act = Activity.getActivityList(req.body);
+	act.then(x => {
 		if (x != false) {
-			console.log('TRUE');
 			res.header("Access-Control-Allow-Origin", "*");
 			res.send(x);
 		}
 		else {
-			console.log('FALSO');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.json(false);
+		}
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});
+});
+
+router.post('/createCategories', (req, res, next) => {
+	var cat = Category.regCategories(req.body.categoria);
+	cat.then(x => {
+		if (x != false) {
+			console.log('Se ha creado correctamente la categoria');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.send(x);
+		}
+		else {
+			console.log('No se ha creado la categoria');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.json(false);
+		}
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});
+});
+
+router.post('/regPointMap',(req,res,next)=>{
+	var map = Map.regPoint(req.body.point);
+	map.then(x => {
+		if (x != false) {
+			console.log('Se ha registrado correctamente el punto');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.send(x);
+		}
+		else {
+			console.log('No se ha registrado el punto');
 			res.header("Access-Control-Allow-Origin", "*");
 			res.json(false);
 		}
