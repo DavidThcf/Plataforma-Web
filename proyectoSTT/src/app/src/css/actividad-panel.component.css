@@ -177,3 +177,8 @@ agm-map {
 	box-shadow: 1px 1px 15px black;
 	color: white;
 }
+
+.btn-primary{
+	background-color: rgb(77,185,221);
+	border-color: gray;
+}

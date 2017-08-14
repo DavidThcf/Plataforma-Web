@@ -13,6 +13,7 @@ import { AgmCoreModule } from '@agm/core';
 })
 
 export class ActividadPanel implements OnInit{
+	titulo:string;
 	detalle:boolean = true;
 	subActivity:boolean = false;
 	report:boolean = false;
@@ -32,6 +33,7 @@ export class ActividadPanel implements OnInit{
 		){ };
 
 	ngOnInit():void {
+		this.titulo = this.serviciog.proyecto.nombre;
 		var keym = this.serviciog.proyecto.keym;
 		var id_usuario = this.serviciog.proyecto.id_usuario;
 		var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
@@ -45,7 +47,7 @@ export class ActividadPanel implements OnInit{
 
 	onSelectActivity(activity){
 		this.actividad = activity;
-		alert("ACTIVIDAD "+JSON.stringify(activity));		
+		//alert("ACTIVIDAD "+JSON.stringify(activity));		
 	}
 
 	public barChartOptions:any = {
@@ -132,14 +134,14 @@ export class ActividadPanel implements OnInit{
 		this.map = true;
 	}
 
-	entrarAct(subActividad){
-		
+	entrarAct(subActividad){		
 		//alert(JSON.stringify(subActividad));
 		var keym = subActividad.keym;
 		var id_usuario = subActividad.id_usuario;
 		var id_caracteristica = subActividad.id_caracteristica;
 		//alert(keym + id_usuario + id_caracteristica);
-		
+		this.titulo = subActividad.nom_act;
+		alert(subActividad.nom_act);
 		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
 		.then(actividad => { 
 			//alert(JSON.stringify(actividad));
@@ -180,7 +182,7 @@ export class ActividadPanel implements OnInit{
 	
 	mapClicked($event: any){	
 		
-		this.markers.pop();	
+		//this.markers.pop();	
 		this.markers.push({
 			lat:  $event.coords.lat,
 			lng:  $event.coords.lng,
@@ -195,6 +197,12 @@ export class ActividadPanel implements OnInit{
 	{
 		lat: 1.21,
 		lng: -77.264,		
+		draggable: true,
+		url: this.icon_marker
+	},
+	{
+		lat: 1.21,
+		lng: -77.265,		
 		draggable: true,
 		url: this.icon_marker
 	},
