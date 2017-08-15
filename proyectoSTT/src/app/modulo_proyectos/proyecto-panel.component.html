@@ -14,7 +14,7 @@
 		</div>
 		<div class="col-md-3"></div>
 	</div>
-	<div class="scrollbar row">		
+	<div class="scrollbar row">	
 		<div class=" col-md-6" *ngFor="let proyect of this.serviciog.proyecto">
 			<div class="row projectCard" style="margin: 10px">		
 				<div class="col-md-3">
@@ -51,5 +51,9 @@
 				</div>	
 			</div>			
 		</div>
+		<button class="btn btn-primary"  data-toggle="modal" data-target="#mod-reg-pro">
+			NUEVO PROYECTO
+		</button>
 	</div>
 </div>
+<registro-proyecto></registro-proyecto>

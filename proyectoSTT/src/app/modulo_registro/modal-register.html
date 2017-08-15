@@ -22,7 +22,7 @@
 
           <div class="form-group">
             <label for="Nombre" class="lab">Nombres</label>
-            <input type="text" id="nombre" class="form-control" name="nombres" ng-reflect-model="a" required [(ngModel)]="usuario.nombre">
+            <input type="text" id="nombre" class="form-control" name="nombres" required [(ngModel)]="usuario.nombre">
             <div *ngIf="formErrors.nombre" class="alert alert-danger">
             {{ formErrors.nombre }}
             </div>
@@ -81,7 +81,8 @@
           <label class="uploader" for="upload">
             {{this.usuario.imagenName}}           
           </label>
-          <input type="file"  id="upload" name="file[]" accept=".jpg" [(ngModel)]="usuario.image"  (change)="imageChange($event)">         
+          <input type="file"  id="upload" name="file[]" accept=".jpg" 
+                (change)="imageChange($event)">         
         </div>
 
         <div *ngIf="submitted && !this.serviciog.usuario" class="alert alert-danger">

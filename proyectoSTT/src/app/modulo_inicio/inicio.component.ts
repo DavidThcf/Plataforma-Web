@@ -5,8 +5,8 @@ import { ServiciosGlobales } from '../services/servicios-globales';
 
 @Component({
 	selector: 'inicio-view',
-	templateUrl: '../views/inicio.component.html',
-	styleUrls: [ '../src/css/inicio.component.css' ]
+	templateUrl: './inicio.component.html',
+	styleUrls: [ './inicio.component.css' ]
 })
 
 

@@ -1,14 +1,14 @@
 import { Component,OnInit } from '@angular/core';
-import { Usuario } from '../model/usuario';
-import { Modallogin } from '../controllers/modal-login.component';
-import { ServiciosGlobales } from '../services/servicios-globales';
+import { Usuario } from './model/usuario';
+import { Modallogin } from './modulo_login/modal-login.component'
+import { ServiciosGlobales } from './services/servicios-globales';
 import { PersistenceService, StorageType } from 'angular-persistence';
 import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-root',
-	templateUrl: '../views/app.component.html',
-	styleUrls: [ '../src/css/app.component.css' ]
+	templateUrl: './app.component.html',
+	styleUrls: [ './app.component.css' ]
 })
 
 export class AppComponent implements OnInit {

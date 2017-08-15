@@ -8,13 +8,13 @@ import { ServiciosGlobales } from '../services/servicios-globales'
 
 
 @Component({
-	selector: 'modal-login',
-	templateUrl: '../views/modal-login.html',
-	styleUrls: [ '../src/css/modal-login.component.css' ]
+	selector: 'modal-register',
+	templateUrl: './modal-register.html',
+	styleUrls: [ './modal-register.component.css' ]
 })
 
 
-export class Modallogin {
+export class ModalRegister {
 
 	constructor(
 		private servicios: Servicios,
@@ -24,32 +24,31 @@ export class Modallogin {
 
 
 	usuario = new Usuario(null,'','','','','','','','','','');	
+	imagenName:string = "Imagen de Perfil";		
+	submit:boolean = false;
+	files:any;	
 
-	cadena:string;
-	hideModal: boolean = false;
-	mAlert:boolean= false;	
-	submitted = false;	
-
-	onSubmit() {
-
-		this.submitted = true;
+	onSubmit(loginForm:NgForm) {	
+		this.submit = true;
 		var formData = new FormData();
-		formData.append('usuario',JSON.stringify(this.usuario))
-		this.servicios.getUsuario(formData)
-		.then( 
-			usuario =>
-			{
-				if(usuario){
-					this.serviciog.getUserSession(usuario);
-					let link = ['proyecto'];
-					this.router.navigate(link);
-				}else{
-					this.mAlert = true;
-				}		
-			}
-			);
+		formData.append('usuario',JSON.stringify (this.usuario));
+		if(this.files){
+			formData.append('file', this.files);
+		}		
+		this.servicios.createUser(formData)
+		.then(message => { 
+			alert("" + message);
+			this.submit = false;
+								
+		 } );	
 	}
-	
+
+	onSubmite() {}
+
+	imageChange(event){
+		this.usuario.imagenName = event.target.files[0].name || event.srcElement.files[0].name;
+		this.files = event.target.files[0] || event.srcElement.files[0];
+	}
 	
 	loginForm: NgForm;
 
@@ -69,10 +68,12 @@ export class Modallogin {
 	}
 
 	onValueChanged(data?: any) {
+
 		if (!this.loginForm) { return; }
 		const form = this.loginForm.form;
-
+		
 		for (const field in this.formErrors) {
+
 			// clear previous error message (if any)
 			this.formErrors[field] = '';
 			const control = form.get(field);
@@ -87,11 +88,16 @@ export class Modallogin {
 	}
 
 	formErrors = {
+		'nombre': '',
+		'telefono': '',
 		'email': '',
 		'password': ''
 	};
 
 	validationMessages = {
+		'telefono': {
+			'required': 'Telefono obligatorio - debe contener solo caracteres numericos'	
+		},
 		'email': {
 			'required': 'Email Obligatorio'		
 		},

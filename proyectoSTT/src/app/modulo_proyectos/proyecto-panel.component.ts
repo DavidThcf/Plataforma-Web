@@ -6,8 +6,8 @@ import { Servicios }         from '../services/servicios';
 
 @Component({
 	selector: 'proyecto-panel',
-	templateUrl: '../views/proyecto-panel.component.html',
-	styleUrls: [ '../src/css/proyecto-panel.component.css' ]
+	templateUrl: './proyecto-panel.component.html',
+	styleUrls: [ './proyecto-panel.component.css' ]
 })
 
 export class ProyectoPanel implements OnInit{
@@ -29,8 +29,7 @@ export class ProyectoPanel implements OnInit{
 	}	
 
 	entrar(proyect:any){
-		this.serviciog.proyecto = proyect;
-		alert(JSON.stringify(proyect));
+		this.serviciog.proyecto = proyect;		
 		let link = ['actividades'];
 		this.router.navigate(link);
 	}
