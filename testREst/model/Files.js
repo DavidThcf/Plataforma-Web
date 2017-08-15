@@ -8,7 +8,7 @@ var repository = 'files/';
 
 
 module.exports.imageProfileUpload = function (files, path) {
-
+ 
 	var file;
 
 	var result = '-1';
@@ -32,11 +32,10 @@ module.exports.imageProfileUpload = function (files, path) {
 }
 
 module.exports.fileUpload = function (files, path) {
-
 	var file;
 	var  name;
 	var result = '-1';
-
+console.log('REPOSITORY   ' + path);
 	if (!files) {
 		result = '0';
 		console.log("no existe archivo");
@@ -44,7 +43,7 @@ module.exports.fileUpload = function (files, path) {
 	else {
 		file = files.file;
 		//var fina = file.name.replace(/\s/g, "");
-		var fina = file.name = name+getExtension(file.name);
+		var fina = 'project-'+file.name+getExtension(file.name);
 		file.mv(path + fina, function (err) {
 			if (err) console.log("error " + err.toString());
 			else console.log("carga exitosa");
