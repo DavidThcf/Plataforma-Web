@@ -1,15 +1,15 @@
 import { Component, OnInit}  from '@angular/core';
 import { NgModule } 		 from '@angular/core';
+import { AgmCoreModule } from '@agm/core';
+
 import { Router }            from '@angular/router';
 import { ServiciosGlobales } from '../services/servicios-globales';
 import { Servicios }         from '../services/servicios';
-import { AgmCoreModule } from '@agm/core';
-
 
 @Component({
 	selector: 'actividad-panel',
-	templateUrl: '../views/actividad-panel.component.html',
-	styleUrls: [ '../src/css/actividad-panel.component.css' ]
+	templateUrl: './actividad-panel.component.html',
+	styleUrls: [ './actividad-panel.component.css' ]
 })
 
 export class ActividadPanel implements OnInit{
@@ -28,20 +28,25 @@ export class ActividadPanel implements OnInit{
 		){ };
 
 	ngOnInit():void {
+
 		this.titulo = this.serviciog.proyecto.nombre;
 		var keym = this.serviciog.proyecto.keym;
 		var id_usuario = this.serviciog.proyecto.id_usuario;
-		var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
+		var id_caracteristica = this.serviciog.proyecto.id_caracteristica;		
 
 		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
-		.then(actividad => { 
-			this.actividades = actividad;
-			this.actividad = this.actividades[0];
-		});		
+		.then(actividad => this.actividades = actividad );		
 	}
 
 	onSelectActivity(activity){
-		this.actividad = activity;	
+		this.actividad = activity;
+		this.isSelAct = true;
+		this.actOpt = 1;	
+	}
+
+	tituloClick(){
+		this.isSelAct = false;
+		this.actOpt = 0;
 	}
 
 	public barChartOptions:any = {
@@ -75,6 +80,7 @@ export class ActividadPanel implements OnInit{
 
 	c0(){		
 		this.actOpt = 0;
+
 	}
 
 	c1(){
@@ -96,18 +102,20 @@ export class ActividadPanel implements OnInit{
 	c5(){		
 		this.actOpt = 5;
 	}
+	c6(){		
+		this.actOpt = 6;
+	}
 
 	entrarAct(subActividad){		
-		//alert(JSON.stringify(subActividad));
+		
 		var keym = subActividad.keym;
 		var id_usuario = subActividad.id_usuario;
 		var id_caracteristica = subActividad.id_caracteristica;
-		//alert(keym + id_usuario + id_caracteristica);
+		
 		this.titulo = subActividad.nom_act;
-		alert(subActividad.nom_act);
+		
 		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
 		.then(actividad => { 
-			//alert(JSON.stringify(actividad));
 			if(actividad){
 				this.actividades = actividad;
 				this.actividad = this.actividades[0];

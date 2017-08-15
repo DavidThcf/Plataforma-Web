@@ -1,10 +1,11 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
  
-import { InicioView }   from '../controllers/inicio.component';
-import { ProyectoPanel }   from '../controllers/proyecto-panel.component';
-import { Mapa }   from '../controllers/mapa.component';
-import { ActividadPanel }   from '../controllers/actividad-panel.component';
+import { InicioView }   from '../modulo_inicio/inicio.component';
+import { ProyectoPanel }   from '../modulo_proyectos/proyecto-panel.component';
+import { ActividadPanel }   from '../modulo_actividades/actividad-panel.component';
+import { Mapa }   from '../modulo_mapa_publico/mapa.component';
+
 
 
 const routes: Routes = [

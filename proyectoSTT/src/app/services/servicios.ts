@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http,  RequestOptions, Request, RequestMethod } from '@angular/http';
 import { Usuario } from '../model/usuario'
-import { Proyecto } from '../model/proyecto'
-import { Actividad } from '../model/actividad'
 
 
 import 'rxjs/add/operator/toPromise';
@@ -11,7 +9,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class Servicios {
 
-	private url = 'http://localhost:81';  // URL to web api api/heroes http://10.42.0.1:81
+	private url = 'http://10.0.0.64:81';  // URL to web api api/heroes http://10.42.0.1:81
 	private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});	
 	private headersPost = new Headers({'Content-Type': 'multipart/form-data'});
 	private options = new RequestOptions({ headers: this.headers });
@@ -45,7 +43,7 @@ export class Servicios {
 		return this.http.post(this.url + "/getActivityList",formData)
 		.toPromise()
 		.then(response => response.json())
-		.catch(err => {alert(err.toString);});
+		.catch(err => false);
 	}
 
 	private handleError (error: Response | any) {
@@ -55,6 +53,14 @@ export class Servicios {
 	createUser(formdata:FormData):Promise<any>{
 		return this.http
 		.post(this.url + "/CreateUser",formdata)
+		.toPromise()
+		.then(res => JSON.stringify(res)) 
+		.catch(err => err.toString());
+	}
+
+	createProject(formdata:FormData):Promise<any>{
+		return this.http
+		.post(this.url + "/CreateProject",formdata)
 		.toPromise()
 		.then(res => JSON.stringify(res)) 
 		.catch(err => err.toString());

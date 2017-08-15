@@ -14,8 +14,8 @@ import {
 
 @Component({
 	selector: 'mapa',
-	templateUrl: '../views/mapa.component.html',
-	styleUrls: [ '../src/css/mapa.component.css' ]
+	templateUrl: './mapa.component.html',
+	styleUrls: [ './mapa.component.css' ]
 })
 
 export class Mapa {
