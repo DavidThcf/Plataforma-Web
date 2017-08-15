@@ -1,9 +1,11 @@
 var express = require('express');
 var Sequelize = require('sequelize');
 var sqlCon = require('../config/connectionDb');
+var fls = require('../model/Files');
 
 var router = express.Router();
 var Caracteristica = require('./Caracteristicas');
+var repository = 'files/';
 
 module.exports.createProjectFromActivity = function (data) {
 
@@ -49,9 +51,9 @@ module.exports.createProjectFromActivity = function (data) {
                 UPDATE caracteristicas 
                 SET tipo_caracteristica = 'P'
                 
-                WHERE keym= `+keym_car+` 
-                and id_caracteristica = `+id_caracteristica_car+` 
-                and id_usuario = `+id_usuario_car+`;
+                WHERE keym= `+ keym_car + ` 
+                and id_caracteristica = `+ id_caracteristica_car + ` 
+                and id_usuario = `+ id_usuario_car + `;
                 `;
 
                 sequelize.query(query1, { type: sequelize.QueryTypes.INSERT })
@@ -102,16 +104,15 @@ module.exports.getListProjects = function (id_user) {
 
 }
 
-module.exports.createProject = function (data) {
-    //caracteristica
-    var keym_car = data.keym;
-    var id_caracteristica_car = data.id_caracteristica;
-    var id_usuario_car = data.id_usuario;
-
+module.exports.createProject = function (data, files) {
     //informacion
     var nombre = data.nombre;
     var descripcion = data.descripcion;
     var icon = data.icon;
+    if(icon=== undefined)
+        icon ='';
+    var id_usuario = data.id_usuario;
+    var keym =0 ;
 
     //fecha
     var current_date = new Date();
@@ -119,19 +120,20 @@ module.exports.createProject = function (data) {
 
     return new Promise((resolve, reject) => {
         Caracteristica.createCharacteristic(data, 'P').then(x => {
-            return new Promise((resolve, reject) => {
-                var sequelize = sqlCon.configConnection();
-                getIdFreeProject(id_usuario, keym).
-                    then(id => {
-                        var query1 = `
+            
+            console.log("\n\n\n\n\n\n\n YAY "+JSON.stringify(x)+'\n'+keym+'     '+id_usuario);
+            getIdFreeProject(id_usuario, keym).
+                then(id => {
+                    var sequelize = sqlCon.configConnection();
+                    var query1 = `
                             insert into proyectos values (
                                 `+ keym + `,
                                 `+ id + `,
                                 `+ id_usuario + `,
 
-                                `+ x[0].keym + `,
-                                `+ x[0].id_usuario + `,
-                                `+ x[0].id_caracteristica + `,
+                                `+ x.keym + `,
+                                `+ x.id_usuario + `,
+                                `+ x.id_caracteristica + `,
                                 
                                 '`+ nombre + `',
                                 '',
@@ -139,25 +141,27 @@ module.exports.createProject = function (data) {
                                 '`+ icon + `',
                                 '`+ descripcion + `',
                                 `+ 0 + `,
-                                '`+ x[0].fecha_ultima_modificacion + `');
+                                '`+ x.fecha_ultima_modificacion + `');
                         `;
+                    sequelize.query(query1, { type: sequelize.QueryTypes.INSERT })
+                        .then(x => {
+                           
+                            var path = repository + 'user' + id_usuario;
+                            fls.fileUpload(files, path + '/');
+                            console.log('Se ha registrado correctamente el proyecto')
+                            resolve(true);
+                        }).catch(x => {
+                            console.log('Error: Ha ocurrido un error al registrar el proyecto. ' + x);
+                            reject(false);
+                        }).done(x => {
+                            sequelize.close();
+                            console.log('Se ha cerrado sesion de la conexion a la base de datos');
+                        });
+                }).catch(x => {
+                    console.log('ERROR al registrar el PROYECTO.');
+                });
 
-                        sequelize.query(query1, { type: sequelize.QueryTypes.INSERT })
-                            .then(x => {
-                                console.log('Se ha registrado correctamente el proyecto')
-                                resolve(true);
-                            }).catch(x => {
-                                console.log('Error: Ha ocurrido un error al registrar el proyecto. ' + x);
-                                reject(false);
-                            }).done(x => {
-                                sequelize.close();
-                                console.log('Se ha cerrado sesion de la conexion a la base de datos');
-                            });
-                    }).catch(x => {
-                        console.log('ERROR al registrar el PROYECTO.');
-                    });
 
-            });
 
         }).catch(x => {
 
@@ -169,17 +173,18 @@ module.exports.createProject = function (data) {
 function getIdFreeProject(id_usuario, keym) {
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
-        var query = `
+        var query1 = `
             select max(id_proyecto) prj from proyectos
-            where keym = `+ id_usuario + ` and id_usuario = ` + keym + `
+            where keym = `+ keym  + ` and id_usuario = ` + id_usuario + `
         `;
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
             then(x => {
-                if (x.lenght > 0)
+                if (x[0].prj!= null || x[0].prj>0)
                     resolve(parseInt(x[0].prj) + 1);
                 else
-                    resolve(0);
+                    resolve(1);
             }).catch(x => {
+                console.log('EROR  ->  PRJ  '+x);
                 reject(false);
             }).done(x => {
                 sequelize.close();

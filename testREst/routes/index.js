@@ -45,15 +45,15 @@ router.post('/createActivity', function (req, res, next) {
 
 //Serice for create a new Project
 router.post('/createProject', function (req, res, next) {
-	var prj = Project.createProject(JSON.parse(req.body.json));
+	var prj = Project.createProject(JSON.parse(req.body.proyecto),req.files);
 	prj.then(x => {
 		console.log('CreateProject OK ' + x);
 		res.header("Access-Control-Allow-Origin", "*");
-		res.send("Se ha registrado correctamente el PROYECTO.");
+		res.json(true);
 	}).catch(x => {
 		console.log('Error:  ' + x);
 		res.header("Access-Control-Allow-Origin", "*");
-		res.send("No se podido registrar el proyecto.");
+		res.json(false);
 	});
 });
 
@@ -107,6 +107,7 @@ router.post('/getUserProjectList', (req, res, next) => {
 	});
 });
 
+//service to get user's activity with theirs characteristics
 router.post('/getActivityList', (req, res, next) => {
 	var act = Activity.getActivityList(req.body);
 	act.then(x => {
@@ -125,6 +126,7 @@ router.post('/getActivityList', (req, res, next) => {
 	});
 });
 
+//Service to register a new category for work with the map
 router.post('/createCategories', (req, res, next) => {
 	var cat = Category.regCategories(req.body.categoria);
 	cat.then(x => {
@@ -145,6 +147,7 @@ router.post('/createCategories', (req, res, next) => {
 	});
 });
 
+//Service to register a new point in the map
 router.post('/regPointMap',(req,res,next)=>{
 	var map = Map.regPoint(req.body.point);
 	map.then(x => {
@@ -165,5 +168,25 @@ router.post('/regPointMap',(req,res,next)=>{
 	});
 });
 
+//Service to get the list users 
+router.post('/getUserList',(req,res,next)=>{
+	var usr = User.getUserList(req.body.user);
+	usr.then(x => {
+		if (x != false) {
+			console.log('Se ha registrado correctamente el punto');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.send(x);
+		}
+		else {
+			console.log('No se ha registrado el punto');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.json(false);
+		}
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});
+});
 
 module.exports = router;

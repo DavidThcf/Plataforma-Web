@@ -4,7 +4,7 @@ var sqlCon = require('../config/connectionDb');
 var router = express.Router();
 var fls = require('../model/Files');
 var fs = require('fs');
-
+var repository = 'files/';
 
 module.exports.createUser = function (data, files) {
 	//var data = JSON.parse(req.body.json);
@@ -120,7 +120,53 @@ module.exports.sigIn = function (data) {
 
 }
 
-
+module.exports.getUserList = function (data) {
+	var sequelize = sqlCon.configConnection();
+	//remove special characters
+	data = data.replace(/[^a-zA-Z 0-9.]+/g,' ');
+	//remove two or more white  spaces
+	data = data.replace(/  +/g, ' ');
+	//remove the end space white
+	data = data.replace(/\s*$/,"");
+	//Change white space with &| for concat the query seaching
+	var cad1 = data.replace(/ /g, " &| ");
+	var cad2 = data.replace(/ /g, " | ");
+	console.log('CADENA ==>   '+cad1+'   ---    '+cad2);
+	var query1;
+	if(data!=null)
+		//luis &| fuertes
+		query1 = `
+		SELECT * FROM usuarios 
+		WHERE 
+		usuarios.e_mail ~* '(`+cad1+`)'
+		OR (usuarios.nombre || ' '|| usuarios.apellido )  ~* '(`+cad1+`)'
+		OR usuarios.e_mail ~* '(`+cad2+`)'
+		OR (usuarios.nombre || ' '|| usuarios.apellido )  ~* '(`+cad2+`)'
+		`;
+	else
+		query1 = `
+		SELECT usuarios.nombre FROM usuarios; 
+	`;
+	return new Promise((resolve, reject) => {
+		sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
+			.then(x => {
+				if (x[0] != null) {
+					//console.log('ok');
+					resolve(x);
+				}
+				else {
+					//console.log('bad');
+					reject(false);
+				}
+			}).catch(x => {
+				console.log('Error al consular los usuario Usuario: ' + x);
+				reject(false);
+			}).done(x => {
+				sequelize.close();
+				console.log('Se ha cerrado sesion de la conexion a la base de datos');
+			});
+	});
+}
 
 
 
