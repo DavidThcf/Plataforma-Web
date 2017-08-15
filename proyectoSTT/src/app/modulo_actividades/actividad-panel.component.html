@@ -2,7 +2,7 @@
 	<div class="row" style="margin-top: 10px" >
 		<div class="col-md-2" style="background-color: rgb(50,50,50); margin-top: 5px">
 			<div  class="titulo" (click)="tituloClick()">{{titulo}}</div>
-			<div  style="background-color: rgb(153,191,78); margin: 10px 10px; min-height: 80vh">		
+			<div  style="background-color: rgb(153,191,78); margin: 10px 10px; min-height: 75vh">		
 
 				<div style="margin: auto;">
 					<div class="input-group">
@@ -21,10 +21,16 @@
 						<li *ngFor="let activity of this.actividades" [class.selected]="activity === this.actividad" (click)="onSelectActivity(activity)"><a>{{activity.nom_act}}</a></li>
 					</ul>
 				</div>
-				<button>NUEVA ACTIVIDAD</button>							
-			</div>
 
-			<nav aria-label="Page navigation">
+			</div>
+			<button class="btn btn-primary"  
+					style=" margin: auto; display: block;" 
+					data-toggle="modal" 
+					data-target="#mod-reg-act">
+				Nueva Actividad
+			</button>
+
+			<nav aria-label="Page navigation" style="display: none;">
 				<ul class="pagination">
 					<li>
 						<a href="#" aria-label="Previous">
@@ -83,9 +89,7 @@
 							<input name="" type="text" id="estado" class="form-control" name="estado" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.estado" >
 						</div>						
 					</form>
-					<button class="btn-add-activity"  data-toggle="modal" data-target="#mod-reg-act">
-						<img src="" />
-					</button>
+					
 				</div>
 				<div *ngIf="actOpt === 1">
 					<form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">

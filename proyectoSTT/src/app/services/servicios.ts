@@ -9,7 +9,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class Servicios {
 
-	private url = 'http://10.0.0.64:81';  // URL to web api api/heroes http://10.42.0.1:81
+	private url = 'http://localhost:81';  // URL to web api api/heroes http://10.42.0.1:81  10.0.0.64
 	private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});	
 	private headersPost = new Headers({'Content-Type': 'multipart/form-data'});
 	private options = new RequestOptions({ headers: this.headers });
@@ -62,7 +62,7 @@ export class Servicios {
 		return this.http
 		.post(this.url + "/CreateProject",formdata)
 		.toPromise()
-		.then(res => JSON.stringify(res)) 
+		.then(res => res.json()) 
 		.catch(err => err.toString());
 	}
 }
