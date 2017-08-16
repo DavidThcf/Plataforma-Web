@@ -11,9 +11,9 @@ module.exports.createCharacteristic = function (data, type_char) {
 
     //Informacion segun la caracteristica 
 
-    var keym_padre = data.keym_car;
-    var id_caracteristica_padre = data.id_caracteristica;
-    var id_usuario_padre = data.id_usuario_car;
+    var keym_padre = data.keym_padre;
+    var id_caracteristica_padre = data.id_caracteristica_padre;
+    var id_usuario_padre = data.id_usuario_padre;
 
     //Datos actuales
     var keym_car = 0;
@@ -76,8 +76,12 @@ module.exports.createCharacteristic = function (data, type_char) {
                 data.id_caracteristica = parseInt(x[0].car) + 1;
                 id_caracteristica_car = parseInt(x[0].car) + 1;
 
-                if (tipo_caracteristica === 'A')
-                    data.id_actividad = parseInt(x[0].act) + 1;
+                if (tipo_caracteristica === 'A'){
+                    
+                    var num = parseInt(x[0].act) + 1;
+                    data.id_actividad = num;
+                }
+                    
                 else
                     data.id_proyecto = parseInt(x[0].prj) + 1;
 
@@ -145,7 +149,8 @@ module.exports.createCharacteristic = function (data, type_char) {
 
                     );`;
                 }
-
+                
+                console.log('\n\n\n\n\n\n\n\n'+query1+'\n\n\n\n\n\n\n\n');
 
                 //Creacion de Query para insertar datos a la base de datos
 
@@ -300,11 +305,11 @@ function getIdCharacteristic(keym, id_usuario, id_caracteristica, type_char) {
         (
         select max(caracteristicas.id_caracteristica) as car, 0 as act
         from caracteristicas 
-        where keym_padre = `+ keym + ` and id_usuario_padre = ` + id_usuario + ` and id_caracteristica_padre = ` + id_caracteristica + `
+        where keym = `+ keym + ` and id_usuario = ` + id_usuario + `
         union 
         select 0 as car, max(actividades.id_actividad) as act
         from actividades natural join caracteristicas
-        where keym_padre = `+ keym + ` and id_usuario_padre = ` + id_usuario + ` and id_caracteristica_padre = ` + id_caracteristica + `
+        where keym = `+ keym + ` and id_usuario = ` + id_usuario + `
         ) as t1 ;`;
     }
     else {
@@ -328,7 +333,7 @@ function getIdCharacteristic(keym, id_usuario, id_caracteristica, type_char) {
         ) as t1
         `;
     }
-
+    console.log('Query 1 ===>     '+query1);
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })

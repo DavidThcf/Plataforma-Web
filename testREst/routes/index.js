@@ -8,7 +8,7 @@ var Project = require("../model/Proyectos");
 var files = require("../model/Files");
 var Category = require('../model/Categorias');
 var Map = require('../model/Mapa');
-
+var File = require('../model/Archivos');
 //POST Services 
 
 //Service for createa new User
@@ -30,15 +30,16 @@ router.post('/createUser', function (req, res, next) {
 
 //Service for create a new Activity
 router.post('/createActivity', function (req, res, next) {
-	var act = Activity.createActivity(JSON.parse(req.body.json));
+	console.log(JSON.stringify(req.body));
+	var act = Activity.createActivity(JSON.parse(req.body.actividad));
 	act.then(x => {
 		console.log('CreateActivity OK ' + x);
 		res.header("Access-Control-Allow-Origin", "*");
-		res.send("Se ha registrado correctamente la ACTIVIDAD.");
+		res.json(true);
 	}).catch(x => {
 		console.log('Error:  ' + x);
 		res.header("Access-Control-Allow-Origin", "*");
-		res.send("No se podido registrar la actividad.");
+		res.json(false);
 	});
 
 });
@@ -109,6 +110,7 @@ router.post('/getUserProjectList', (req, res, next) => {
 
 //service to get user's activity with theirs characteristics
 router.post('/getActivityList', (req, res, next) => {
+	
 	var act = Activity.getActivityList(req.body);
 	act.then(x => {
 		if (x != false) {
@@ -172,6 +174,64 @@ router.post('/regPointMap',(req,res,next)=>{
 router.post('/getUserList',(req,res,next)=>{
 	var usr = User.getUserList(req.body.user);
 	usr.then(x => {
+		if (x != false) {
+			console.log('Se ha registrado correctamente el punto');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.send(x);
+		}
+		else {
+			console.log('No se ha registrado el punto');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.json(false);
+		}
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});
+});
+
+router.post('/createFile',(req,res,next)=>{
+	console.log('BODY===>   '+JSON.stringify(req.body));
+	var fls = File.create_file(JSON.parse(req.body.archivo),req.files);
+	
+	fls.then(x => {
+	
+			console.log('Se ha registrado correctamente el punto');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.json(true);
+		
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});
+});
+
+router.post('/getFileList',(req,res,next)=>{
+	console.log('get file list   ==== >   '+JSON.stringify(req.body));
+	var fls = File.getFileList(req.body);
+	fls.then(x => {
+		if (x != false) {
+			console.log('Se ha registrado correctamente el punto');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.send(x);
+		}
+		else {
+			console.log('No se ha registrado el punto');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.json(false);
+		}
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});
+});
+
+router.post('/updateImageFile',(req,res,next)=>{
+	var fls = File.getImagesList(req.body.caracteristica);
+	fls.then(x => {
 		if (x != false) {
 			console.log('Se ha registrado correctamente el punto');
 			res.header("Access-Control-Allow-Origin", "*");

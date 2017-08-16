@@ -2,7 +2,7 @@ var express = require('express');
 var Sequelize = require('sequelize');
 var sqlCon = require('../config/connectionDb');
 var router = express.Router();
-var fls = require('../model/Files');
+var fls = require('../model/Archivos');
 var fs = require('fs');
 var repository = 'files/';
 
