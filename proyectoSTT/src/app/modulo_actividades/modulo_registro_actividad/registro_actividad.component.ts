@@ -14,7 +14,7 @@ import { Servicios }         from '../../services/servicios';
 
 export class RegistroActividad{
 	
-	actividad = new actividad('','');
+	actividad = new Actividad('','','','','');
 	files:any;
 
 	constructor(
@@ -26,17 +26,33 @@ export class RegistroActividad{
 	
 	onSubmitPro(activityForm:NgForm) {	
 		var formData = new FormData();
+
 		this.actividad.id_usuario = this.serviciog.usuario.id_usuario + '';
+
+		if(this.serviciog.isSelAct){
+			//alert("Actividad--> " + JSON.stringify(this.serviciog.actividad));
+			this.actividad.keym_padre = this.serviciog.actividad.keym;
+			this.actividad.id_usuario_padre = this.serviciog.actividad.id_usuario;
+			this.actividad.id_caracteristica_padre = this.serviciog.actividad.id_caracteristica;
+			//alert("Actividad--> " + this.actividad.keym_padre +" " +this.actividad.id_usuario_padre + " " +this.actividad.id_caracteristica_padre);
+
+		}else{
+			//alert("Proyecto--> " + JSON.stringify(this.serviciog.proyecto));
+			this.actividad.keym_padre = this.serviciog.proyecto.keym;
+			this.actividad.id_usuario_padre = this.serviciog.proyecto.id_usuario;
+			this.actividad.id_caracteristica_padre = this.serviciog.proyecto.id_caracteristica;
+		}
+		
 		//formData.append('id_usuario',JSON.stringify (this.serviciog.usuario.id_usuario));
 		formData.append('actividad',JSON.stringify (this.actividad));		
 
 		if(this.files){
 			formData.append('file', this.files);
 		}		
-		this.servicios.createProject(formData)
+		this.servicios.createActividad(formData)
 		.then(message => { 
 			alert("" + message);
-		 } );
+		} );
 	}
 
 	
@@ -80,7 +96,8 @@ export class RegistroActividad{
 		'nombre': '',
 		'descripcion': '',
 		'fecha_ini': '',
-		'fecha_fin': ''
+		'fecha_fin': '',
+		'etapa': ''
 	};
 
 	validationMessages = {
@@ -95,12 +112,19 @@ export class RegistroActividad{
 		},
 		'fecha_fin': {
 			'required': 'Password Obligatorio'
+		},
+		'etapa': {
+			'required': 'Selecionar Etapa'
 		}
+
 	};	
 }
 
-class actividad{
+class Actividad{
 	constructor(
+		public keym_padre:string,
+		public id_usuario_padre:string,
+		public id_caracteristica_padre:string,
 		public id_usuario:string,
 		public nombre:string,
 		) {  }

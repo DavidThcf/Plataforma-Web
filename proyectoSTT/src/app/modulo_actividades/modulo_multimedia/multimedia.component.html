@@ -1,0 +1,25 @@
+<button *ngIf="!isMapSelected" class="btn-select-map" (click)="btnAddImgMap()">
+	M
+</button>
+
+
+<button *ngIf="!isMapSelected" class="btn-add-img btn-primary" data-toggle="modal" 
+		data-target="#mod-reg-mult" >						
+	+				
+</button>
+<button *ngIf="isMapSelected" class="btn-ok btn-success" (click)="envioCambios()"> 			
+	OK					
+</button>
+
+<div class="row">
+	<div class="col-xs-6 col-md-3" *ngFor="let imagen of this.imagenes">	
+		<input type="checkbox" *ngIf="isMapSelected" class="chk" [checked]=imagen.isViewMap (change)="checked(imagen)"  >						
+		<a  class="thumbnail">
+			<img src={{imagen.url}} alt={{imagen.subtitulo}}>
+			<div class="caption">
+				<h3>{{imagen.titulo}}</h3>																	
+			</div>
+		</a>
+	</div>	
+</div>
+<registro-multimedia></registro-multimedia>

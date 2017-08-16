@@ -3,6 +3,10 @@ import { CommonModule }   from '@angular/common';
 import { FormsModule }    from '@angular/forms';
 import { ActividadPanel }   from './actividad-panel.component';
 import { RegistroActividad }  from './modulo_registro_actividad/registro_actividad.component';
+//import { MultimediaModule }        from './modulo_multimedia/multimedia.module';
+import { Multimedia }   from './modulo_multimedia/multimedia.component';
+import { RegistroMultimedia }  from './modulo_multimedia/modulo-registro-multimedia/registro-multimedia.component';
+
 
 import { ChartsModule } from 'ng2-charts';
 import { AgmCoreModule } from '@agm/core';
@@ -13,11 +17,15 @@ import { AgmCoreModule } from '@agm/core';
     CommonModule,
     FormsModule,
     ChartsModule,
-    AgmCoreModule
+    AgmCoreModule,
+   // MultimediaModule
+
   ],
   declarations: [
   	ActividadPanel,
-    RegistroActividad
+    RegistroActividad,
+    Multimedia,
+    RegistroMultimedia
   ],
   providers: [ ]
 })

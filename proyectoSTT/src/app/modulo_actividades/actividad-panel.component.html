@@ -18,7 +18,11 @@
 
 				<div class="listaActividades">
 					<ul>
-						<li *ngFor="let activity of this.actividades" [class.selected]="activity === this.actividad" (click)="onSelectActivity(activity)"><a>{{activity.nom_act}}</a></li>
+						<li *ngFor="let activity of this.actividades" 
+							[class.selected]="activity === this.serviciog.actividad" 
+							(click)="onSelectActivity(activity)">
+							<a>{{activity.nom_act}}</a>
+						</li>
 					</ul>
 				</div>
 
@@ -53,13 +57,13 @@
 		<div class="col-md-10" style="background-color: rgb(222,220,221);">
 			<div class="menuActividades">
 				<ul>
-					<li *ngIf="!isSelAct" (click)="c0()"><a>Detalles</a></li>
-					<li (click)="c1()"><a>Detalles</a></li>
-					<li (click)="c2()"><a>Sub - Actividades </a></li>
-					<li (click)="c3()"><a>Reporte </a></li>
-					<li (click)="c4()"><a>Multimedia </a></li>
-					<li (click)="c5()"><a>Estadisticas </a></li>
-					<li (click)="c6()"><a>Mapa</a></li>
+					<li *ngIf="!this.serviciog.isSelAct" (click)="c0()"><a>Detalles Proyecto</a></li>
+					<li *ngIf="this.serviciog.isSelAct" (click)="c1()"><a>Detalles Actividades</a></li>
+					<li *ngIf="this.serviciog.isSelAct" (click)="c2()"><a>Sub - Actividades </a></li>
+					<li *ngIf="this.serviciog.isSelAct" (click)="c3()"><a>Reporte </a></li>
+					<li *ngIf="this.serviciog.isSelAct" (click)="c4()"><a>Multimedia </a></li>
+					<li *ngIf="this.serviciog.isSelAct" (click)="c5()"><a>Estadisticas </a></li>
+					<li *ngIf="this.serviciog.isSelAct"(click)="c6()"><a>Mapa</a></li>
 				</ul>				
 			</div>
 
@@ -95,29 +99,29 @@
 					<form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
 						<div class="form-group">
 							<label for="nombre" class="lab">Nombres</label>
-							<input name="" type="text" id="nombre" class="form-control" name="nombres" ng-reflect-model="a" readonly [(ngModel)]="actividad.nom_act" >
+							<input name="" type="text" id="nombre" class="form-control" name="nombres" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.actividad.nom_act" >
 
 							<label for="descripción" class="lab">Descripción</label>
-							<input name="" type="text" id="de" class="form-control" name="descripcion" ng-reflect-model="a" readonly [(ngModel)]="actividad.desc_act"  >
+							<input name="" type="text" id="de" class="form-control" name="descripcion" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.actividad.desc_act"  >
 
 							<label for="porcentaje" class="lab">Porcentaje Asignado</label>
-							<input name="" type="text" id="porcentaje" class="form-control" name="porcentaje" ng-reflect-model="a" readonly [(ngModel)]="actividad.porcentaje_asignado" >	
+							<input name="" type="text" id="porcentaje" class="form-control" name="porcentaje" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.actividad.porcentaje_asignado" >	
 
 							<label for="tiempo_inicial" class="lab">Tiempo Inicio</label>
-							<input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" ng-reflect-model="a" readonly [(ngModel)]="actividad.fecha_inicio" >
+							<input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.actividad.fecha_inicio" >
 
 							<label for="tiempo_fin" class="lab">Tiempo Final</label>
-							<input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" ng-reflect-model="a" readonly [(ngModel)]="actividad.fecha_fin" >
+							<input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.actividad.fecha_fin" >
 
 							<label for="estado" class="lab">Estado</label>
-							<input name="" type="text" id="estado" class="form-control" name="estado" ng-reflect-model="a" readonly [(ngModel)]="actividad.estado" >
+							<input name="" type="text" id="estado" class="form-control" name="estado" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.actividad.estado" >
 						</div>						
 					</form>					
 				</div>
 
 				<div *ngIf="actOpt === 2" >
 					<div class="scrollbar row">
-						<div class=" col-md-6" *ngFor="let subActividad of this.actividad.actividades" >
+						<div class=" col-md-6" *ngFor="let subActividad of this.serviciog.actividad.actividades" >
 							<div class="row projectCard" style="margin: 10px;">		
 								<div class="col-md-3">
 									<div style="background-color: white; margin-top: 30px">
@@ -161,90 +165,7 @@
 				</div>
 
 				<div *ngIf="actOpt === 4" >
-					<button class="btn-select-map" (click)="btnSelMap()">
-						<img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDUzIDUzIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MyA1MzsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+Cjxwb2x5Z29uIHN0eWxlPSJmaWxsOiM0M0IwNUM7IiBwb2ludHM9IjE4LDIzLjI0MyAyLjI1Niw3LjQ5OSAwLDggMCw1MSAyLjA5OSw1MC41MzQgMTgsMzQuNjMyICIvPgo8cG9seWdvbiBzdHlsZT0iZmlsbDojNDhBMERDOyIgcG9pbnRzPSI5LjM3Miw0OC45MTcgMTgsNDcgMTgsNDAuMjg5ICIvPgo8cG9seWdvbiBzdHlsZT0iZmlsbDojNDNCMDVDOyIgcG9pbnRzPSIxOCw0IDYuODg0LDYuNDcgMTgsMTcuNTg2ICIvPgo8cG9seWdvbiBzdHlsZT0iZmlsbDojNDNCMDVDOyIgcG9pbnRzPSI0OS40NDksMy4xODQgMzUsOCAzNSwxNy42MzIgIi8+Cjxwb2x5Z29uIHN0eWxlPSJmaWxsOiM0OEEwREM7IiBwb2ludHM9IjM1LDIzLjI4OSAzNSw1MCA1Myw0MyA1Myw1LjI4OSAiLz4KPHBvbHlnb24gc3R5bGU9ImZpbGw6IzNEOTk0RjsiIHBvaW50cz0iMjYuNTIzLDI2LjEwOSAzNSwxNy42MzIgMzUsOCAxOCw0IDE4LDE3LjU4NiAiLz4KPHBvbHlnb24gc3R5bGU9ImZpbGw6IzNEOTk0RjsiIHBvaW50cz0iMTgsMjMuMjQzIDE4LDM0LjYzMiAyMy42OTUsMjguOTM4ICIvPgo8cG9seWdvbiBzdHlsZT0iZmlsbDojNDM5M0JGOyIgcG9pbnRzPSIxOCw0MC4yODkgMTgsNDcgMzUsNTAgMzUsMjMuMjg5ICIvPgo8cG9seWdvbiBzdHlsZT0iZmlsbDojRUZDRTRBOyIgcG9pbnRzPSIxOCwxNy41ODYgNi44ODQsNi40NyAyLjI1Niw3LjQ5OSAxOCwyMy4yNDMgIi8+Cjxwb2x5Z29uIHN0eWxlPSJmaWxsOiNFRkNFNEE7IiBwb2ludHM9IjE4LDM0LjYzMiAyLjA5OSw1MC41MzQgOS4zNzIsNDguOTE3IDE4LDQwLjI4OSAiLz4KPHBvbHlnb24gc3R5bGU9ImZpbGw6I0VGQ0U0QTsiIHBvaW50cz0iMzUsMjMuMjg5IDUzLDUuMjg5IDUzLDIgNDkuNDQ5LDMuMTg0IDM1LDE3LjYzMiAiLz4KPHBvbHlnb24gc3R5bGU9ImZpbGw6I0Q2QjQ0NTsiIHBvaW50cz0iMjYuNTIzLDI2LjEwOSAxOCwxNy41ODYgMTgsMjMuMjQzIDIzLjY5NSwyOC45MzggMTgsMzQuNjMyIDE4LDQwLjI4OSAzNSwyMy4yODkgMzUsMTcuNjMyICAgIi8+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=" />
-					</button>
-
-
-					<button class="btn-add-img" type="file" >						
-						<img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDQyIDQyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0MiA0MjsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIzMnB4IiBoZWlnaHQ9IjMycHgiPgo8cGF0aCBkPSJNMzcuMDU5LDE2SDI2VjQuOTQxQzI2LDIuMjI0LDIzLjcxOCwwLDIxLDBzLTUsMi4yMjQtNSw0Ljk0MVYxNkg0Ljk0MUMyLjIyNCwxNiwwLDE4LjI4MiwwLDIxczIuMjI0LDUsNC45NDEsNUgxNnYxMS4wNTkgIEMxNiwzOS43NzYsMTguMjgyLDQyLDIxLDQyczUtMi4yMjQsNS00Ljk0MVYyNmgxMS4wNTlDMzkuNzc2LDI2LDQyLDIzLjcxOCw0MiwyMVMzOS43NzYsMTYsMzcuMDU5LDE2eiIgZmlsbD0iI0ZGRkZGRiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" />					
-					</button>
-
-
-					<div class="row">
-						<div class="col-xs-6 col-md-3">	
-							<input type="checkbox" *ngIf="isSelAct" class="chk" >						
-							<a  class="thumbnail">
-								<img src="http://knower.udenar.edu.co/imgSTT/95-2-5.jpg" alt="...">
-								<div class="caption">
-									<h3>Imagen 1</h3>																	
-								</div>
-							</a>
-						</div>
-						<div class="col-xs-6 col-md-3">
-							<input type="checkbox" *ngIf="isSelAct" class="chk" >
-							<a class="thumbnail">
-								<img src="http://knower.udenar.edu.co/imgSTT/95-3-5.jpg" alt="...">
-								<div class="caption">
-									<h3>Imagen 2</h3>																	
-								</div>
-							</a>
-						</div>
-						<div class="col-xs-6 col-md-3">
-							<input type="checkbox" *ngIf="isSelAct" class="chk" >
-							<a class="thumbnail">
-								<img src="http://knower.udenar.edu.co/imgSTT/95-4-5.jpg" alt="...">
-								<div class="caption">
-									<h3>Imagen 3</h3>																	
-								</div>
-							</a>
-						</div>
-						<div class="col-xs-6 col-md-3">
-							<input type="checkbox" *ngIf="isSelAct" class="chk" >
-							<a  class="thumbnail">
-								<img src="http://knower.udenar.edu.co/imgSTT/95-5-5.jpg" alt="...">
-								<div class="caption">
-									<h3>Imagen 4</h3>																	
-								</div>
-							</a>
-						</div>
-						<div class="col-xs-6 col-md-3">
-							<input type="checkbox" *ngIf="isSelAct" class="chk" >
-							<a class="thumbnail">
-								<img src="http://knower.udenar.edu.co/imgSTT/95-6-5.jpg" alt="...">
-								<div class="caption">
-									<h3>Imagen 5</h3>																		
-								</div>
-							</a>
-						</div>
-						<div class="col-xs-6 col-md-3">
-							<input type="checkbox" *ngIf="isSelAct" class="chk" >
-							<a class="thumbnail">
-								<img src="http://knower.udenar.edu.co/imgSTT/95-7-5.jpg" alt="...">
-								<div class="caption">
-									<h3>Imagen 6</h3>																	
-								</div>
-							</a>
-						</div>
-						<div class="col-xs-6 col-md-3">
-							<input type="checkbox" *ngIf="isSelAct" class="chk" >
-							<a class="thumbnail">
-								<img src="http://knower.udenar.edu.co/imgSTT/95-1-5.jpg" alt="...">
-								<div class="caption">
-									<h3>Imagen 7</h3>																	
-								</div>
-							</a>
-						</div>
-						<div class="col-xs-6 col-md-3">
-							<input type="checkbox" *ngIf="isSelAct" class="chk" >
-							<a class="thumbnail">
-								<img src="http://knower.udenar.edu.co/imgSTT/95-2-5.jpg" alt="...">
-								<div class="caption">
-									<h3>Imagen 8</h3>																	
-								</div>
-							</a>
-						</div>
-					</div>
+					<multimedia></multimedia>
 				</div>
 
 				<div *ngIf="actOpt === 5" >

@@ -9,7 +9,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class Servicios {
 
-	private url = 'http://localhost:81';  // URL to web api api/heroes http://10.42.0.1:81  10.0.0.64
+	private url = 'http:///10.42.0.1:81';  // URL to web api api/heroes http://10.42.0.1:81  10.0.0.64
 	private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});	
 	private headersPost = new Headers({'Content-Type': 'multipart/form-data'});
 	private options = new RequestOptions({ headers: this.headers });
@@ -64,5 +64,29 @@ export class Servicios {
 		.toPromise()
 		.then(res => res.json()) 
 		.catch(err => err.toString());
+	}
+
+
+	createActividad(formdata:FormData):Promise<any>{
+		return this.http
+		.post(this.url + "/CreateActivity",formdata)
+		.toPromise()
+		.then(res => res.json()) 
+		.catch(err => err.toString());
+	}
+
+	createMultimedia(formdata:FormData):Promise<any>{
+		return this.http
+		.post(this.url + "/CreateFile",formdata)
+		.toPromise()
+		.then(res => res.json()) 
+		.catch(err => err.toString());
+	}
+
+	getMultimedia(formData:FormData): Promise<any> {
+		return this.http.post(this.url + "/getFileList", formData)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false);
 	}
 }
