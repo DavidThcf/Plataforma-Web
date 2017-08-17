@@ -16,7 +16,7 @@ import { Servicios }         from '../../services/servicios';
 export class Multimedia implements OnInit{
 
 	isMapSelected:boolean =false;
-	imagenEditView:imagen[] = [];
+	imagenEditView: any[] = [];
 
 	constructor(
 		private serviciog:ServiciosGlobales,
@@ -32,8 +32,10 @@ export class Multimedia implements OnInit{
 		formData.append('id_usuario',this.serviciog.actividad.id_usuario);
 
 		this.servicios.getMultimedia(formData)
-		.then(x => {
-			alert(JSON.stringify(x));
+		.then(imagenes => {
+			this.serviciog.imagenes = imagenes
+
+			alert(JSON.stringify(imagenes));
 		})
 
 	}
@@ -66,63 +68,8 @@ export class Multimedia implements OnInit{
 		this.isMapSelected = true;
 	}
 
-	imagenes: imagen[] = [
-	{
-		titulo: "imagen 1",
-		subtitulo: "Imagen Transito",
-		url: "http://knower.udenar.edu.co/imgSTT/95-1-5.jpg",
-		isViewMap: false
-	},
-	{
-		titulo: "imagen 2",
-		subtitulo: "Imagen Transito",
-		url: "http://knower.udenar.edu.co/imgSTT/95-2-5.jpg",
-		isViewMap: false
-	},
-	{
-		titulo: "imagen 8",
-		subtitulo: "Imagen Transito",
-		url: "http://knower.udenar.edu.co/imgSTT/95-3-5.jpg",
-		isViewMap: false
-	},
-	{
-		titulo: "imagen 3",
-		subtitulo: "Imagen Transito",
-		url: "http://knower.udenar.edu.co/imgSTT/95-4-5.jpg",
-		isViewMap: true
-	},
-	{
-		titulo: "imagen 4",
-		subtitulo: "Imagen Transito",
-		url: "http://knower.udenar.edu.co/imgSTT/95-5-5.jpg",
-		isViewMap: false
-	},
-	{
-		titulo: "imagen 5",
-		subtitulo: "Imagen Transito",
-		url: "http://knower.udenar.edu.co/imgSTT/95-6-5.jpg",
-		isViewMap: false
-	},
-	{
-		titulo: "imagen 6",
-		subtitulo: "Imagen Transito",
-		url: "http://knower.udenar.edu.co/imgSTT/95-7-5.jpg",
-		isViewMap: false
-	},
-	{
-		titulo: "imagen 7",
-		subtitulo: "Imagen Transito",
-		url: "http://knower.udenar.edu.co/imgSTT/95-1-5.jpg",
-		isViewMap: false
-	}
-	]
-
+	
 }
 
-interface imagen {
-	titulo: string;
-	subtitulo: string;
-	url: string;
-	isViewMap:boolean;
-}
+
 

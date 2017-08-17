@@ -41,7 +41,7 @@ export class RegistroMultimedia{
 			formData.append('file', this.files);
 		}		
 		this.servicios.createMultimedia(formData)
-		.then(message => { 
+		.then(message => {			 
 			alert("" + message);
 		} );
 	}
