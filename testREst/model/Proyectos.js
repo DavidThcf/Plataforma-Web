@@ -1,7 +1,7 @@
 var express = require('express');
 var Sequelize = require('sequelize');
 var sqlCon = require('../config/connectionDb');
-var fls = require('../model/Files');
+var fls = require('../model/Archivos');
 
 var router = express.Router();
 var Caracteristica = require('./Caracteristicas');
@@ -147,7 +147,7 @@ module.exports.createProject = function (data, files) {
                         .then(x => {
                            
                             var path = repository + 'user' + id_usuario;
-                            fls.fileUpload(files, path + '/');
+                            fls.fileUpload(files, path + '/','');
                             console.log('Se ha registrado correctamente el proyecto')
                             resolve(true);
                         }).catch(x => {

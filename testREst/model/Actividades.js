@@ -8,13 +8,13 @@ module.exports.createActivity = function (data) {
 	//console.log(req);
 	//variables del usuario
 	//==> Informacion de la actividad
-	var keym = data.keym;
-	var id_usuario = data.id_usuario_act;
+	var keym = 0;
+	var id_usuario = data.id_usuario;
 	var id_actividad = 95;
 
 	var nombre = data.nombre;
 	var descripcion = data.descripcion;
-	var pos = data.pos;
+	var pos = 0;
 	var folder = data.folder;
 
 
@@ -45,7 +45,7 @@ module.exports.createActivity = function (data) {
 					'` + nombre + `',
 					'` + descripcion + `',
 					` + pos + `,
-					` + folder + `,
+					` + 0 + `,
 					'` + fecha_ultima_modificacion + `'
 
 				);
