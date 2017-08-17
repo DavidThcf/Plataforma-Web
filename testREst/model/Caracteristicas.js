@@ -25,30 +25,12 @@ module.exports.createCharacteristic = function (data, type_char) {
 
     var estado = 'Iniciacion';
 
-    var porcentaje_asignado = data.porcentaje_asignado;
-    if (porcentaje_asignado == undefined)
-        porcentaje_asignado = 0;
-
-    var porcentaje_cumplido = data.porcentaje_cumplido;
-    if (porcentaje_cumplido == undefined)
-        porcentaje_cumplido = 0;
-
-    var recursos = data.recursos;
-    if (recursos == undefined)
-        recursos = 0;
-
-    var recursos_restantes = data.recursos_restantes;
-    if (recursos_restantes == undefined)
-        recursos_restantes = 0;
-
-    var presupuesto = data.presupuesto;
-    if (presupuesto == undefined)
-        presupuesto = 0;
-
-    var costos = data.costos;
-    if (costos == undefined)
-        costos = 0;
-
+    var porcentaje_asignado = data.porcentaje_asignado == undefined ? porcentaje_asignado = 0 : porcentaje_asignado = data.porcentaje_asignado;
+    var porcentaje_cumplido = data.porcentaje_cumplido = 0 == undefined ? porcentaje_cumplido = 0 : porcentaje_cumplido = data.porcentaje_cumplido;
+    var recursos = data.recursos == undefined ? recursos = 0 : recursos = data.recursos;
+    var recursos_restantes = data.recursos_restantes == undefined ? recursos_restantes = 0 : recursos_restantes = data.recursos_restantes;
+    var presupuesto = data.presupuesto == undefined ? presupuesto = 0 : presupuesto = data.presupuesto;
+    var costos = data.costos == undefined ? costos = 0 : costos = data.costos;
 
     var tipo_caracteristica = type_char;
     var visualizar_superior = true;
@@ -76,12 +58,12 @@ module.exports.createCharacteristic = function (data, type_char) {
                 data.id_caracteristica = parseInt(x[0].car) + 1;
                 id_caracteristica_car = parseInt(x[0].car) + 1;
 
-                if (tipo_caracteristica === 'A'){
-                    
+                if (tipo_caracteristica === 'A') {
+
                     var num = parseInt(x[0].act) + 1;
                     data.id_actividad = num;
                 }
-                    
+
                 else
                     data.id_proyecto = parseInt(x[0].prj) + 1;
 
@@ -149,8 +131,8 @@ module.exports.createCharacteristic = function (data, type_char) {
 
                     );`;
                 }
-                
-                console.log('\n\n\n\n\n\n\n\n'+query1+'\n\n\n\n\n\n\n\n');
+
+                console.log('\n\n\n\n\n\n\n\n' + query1 + '\n\n\n\n\n\n\n\n');
 
                 //Creacion de Query para insertar datos a la base de datos
 
@@ -333,7 +315,7 @@ function getIdCharacteristic(keym, id_usuario, id_caracteristica, type_char) {
         ) as t1
         `;
     }
-    console.log('Query 1 ===>     '+query1);
+    console.log('Query 1 ===>     ' + query1);
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })

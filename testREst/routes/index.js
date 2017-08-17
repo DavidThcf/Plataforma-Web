@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-
+var fs = require('fs'); 
+var http = require('http');
 //Model's Variables 
 var User = require('../model/Usuarios');
 var Activity = require('../model/Actividades');
@@ -129,8 +130,9 @@ router.post('/getActivityList', (req, res, next) => {
 });
 
 //Service to register a new category for work with the map
-router.post('/createCategories', (req, res, next) => {
-	var cat = Category.regCategories(req.body.categoria);
+router.post('/createCategory', (req, res, next) => {
+	console.log('----- Create Category  --------  '+JSON.stringify(req.body));
+	var cat = Category.regCategories(JSON.parse(req.body.categoria));
 	cat.then(x => {
 		if (x != false) {
 			console.log('Se ha creado correctamente la categoria');
@@ -191,6 +193,7 @@ router.post('/getUserList',(req,res,next)=>{
 	});
 });
 
+//service to create a new file into th data base
 router.post('/createFile',(req,res,next)=>{
 	console.log('BODY===>   '+JSON.stringify(req.body));
 	var fls = File.create_file(JSON.parse(req.body.archivo),req.files);
@@ -208,6 +211,7 @@ router.post('/createFile',(req,res,next)=>{
 	});
 });
 
+//Service to get list of the files
 router.post('/getFileList',(req,res,next)=>{
 	console.log('get file list   ==== >   '+JSON.stringify(req.body));
 	var fls = File.getFileList(req.body);
@@ -229,6 +233,7 @@ router.post('/getFileList',(req,res,next)=>{
 	});
 });
 
+//Service to update the file information
 router.post('/updateImageFile',(req,res,next)=>{
 	var fls = File.getImagesList(req.body.caracteristica);
 	fls.then(x => {
@@ -239,6 +244,27 @@ router.post('/updateImageFile',(req,res,next)=>{
 		}
 		else {
 			console.log('No se ha registrado el punto');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.json(false);
+		}
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});
+});
+
+router.post('/getCategoryList',(req,res,next)=>{
+	console.log('get category list   ==== >   '+JSON.stringify(req.body.caracteristica));
+	var cat = Category.getCategoriesList(JSON.parse(req.body.caracteristica));
+	cat.then(x => {
+		if (x != false) {
+			console.log('Se ha retornado correctamente las categorias');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.send(x);
+		}
+		else {
+			console.log('No se ha retornado las categorias');
 			res.header("Access-Control-Allow-Origin", "*");
 			res.json(false);
 		}

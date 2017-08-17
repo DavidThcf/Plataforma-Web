@@ -6,6 +6,7 @@ var router = express.Router();
 var fs = require('fs');
 var repository = 'files/';
 
+//Service to create files
 module.exports.create_file = function (data, files) {
     //Characteristic Data
     var keym_car = data.keym;
@@ -86,6 +87,7 @@ module.exports.create_file = function (data, files) {
 
 }
 
+//Service to get files
 module.exports.getFileList = function (data) {
     var keym = data.keym;
     var id_caracteristica = data.id_caracteristica;
@@ -115,6 +117,7 @@ module.exports.getFileList = function (data) {
 
 }
 
+//Service to upload profile image
 module.exports.imageProfileUpload = function (files, path) {
 
     var file;
@@ -139,6 +142,7 @@ module.exports.imageProfileUpload = function (files, path) {
     }
 }
 
+//Service to upload files
 module.exports.fileUpload = function (files, path, nom) {
 
     var file;
@@ -169,6 +173,10 @@ module.exports.fileUpload = function (files, path, nom) {
     }
 }
 
+
+//===========     Auxiliar Funcions     =================//
+
+// Join IDs to create the name
 function joinNameFile(keym,id_archivo,id_usuario,nombre){
     return new Promise((resolve,reject)=>{
         console.log('\n\n\n\nNOMBRE FILE    ======>   '+nombre);
@@ -176,12 +184,13 @@ function joinNameFile(keym,id_archivo,id_usuario,nombre){
     });
 }
 
-//              Auxiliar Funcions  
+// return the extension te file
 function getExtension(dat) {
     var cad = dat.split('.');
     return cad[cad.length - 1];
 }
 
+// Return the Free ID of the files
 function getIdFreeFile(keym, id_usuario,nombre) {
     console.log('NOMBRE hahahaha ===>   '+nombre);
     return new Promise((resolve, reject) => {
