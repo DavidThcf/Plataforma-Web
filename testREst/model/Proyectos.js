@@ -7,6 +7,7 @@ var router = express.Router();
 var Caracteristica = require('./Caracteristicas');
 var repository = 'files/';
 
+// Service to create a project from activity
 module.exports.createProjectFromActivity = function (data) {
 
     //caracteristica
@@ -76,6 +77,7 @@ module.exports.createProjectFromActivity = function (data) {
 
 };
 
+// Service to get the project list
 module.exports.getListProjects = function (id_user) {
     var sequelize = sqlCon.configConnection();
     var query1 = `
@@ -104,6 +106,7 @@ module.exports.getListProjects = function (id_user) {
 
 }
 
+//Servicce to create a new project
 module.exports.createProject = function (data, files) {
     //informacion
     var nombre = data.nombre;
@@ -170,6 +173,7 @@ module.exports.createProject = function (data, files) {
 
 }
 
+//Service to get the ID free
 function getIdFreeProject(id_usuario, keym) {
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
