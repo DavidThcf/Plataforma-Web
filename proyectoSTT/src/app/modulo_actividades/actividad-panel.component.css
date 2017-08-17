@@ -1,5 +1,5 @@
 .selected a{
-  background-color: rgba(0,0,0,0.2);
+	background-color: rgba(0,0,0,0.2);
 }
 
 .listaActividades ul {
@@ -30,17 +30,16 @@
 }
 
 .menuActividades{
-	background-color: rgb(0,55,85);
+	background-color: rgb(46,52,55);
 	margin: 0;
-	//position: relative;
+	margin-top: 2px;		
 }
 .menuActividades li{
 	display: inline-block;
-	
 }
 
 .menuActividades a{
-	color: white;
+	color: rgb(157,159,161);
 	display: block;
 	text-decoration:none;
 	padding: 20px 20px;
@@ -49,6 +48,15 @@
 .menuActividades a:hover{
 	background-color: rgba(0,0,0,0.2);
 	cursor: pointer;
+}
+
+.itemSelected{
+	border-top: 2px solid #01bcf3;
+	background-color: rgba(0,0,0,0.2);		
+}
+
+.itemSelected a{
+	color: white;
 }
 
 agm-map {

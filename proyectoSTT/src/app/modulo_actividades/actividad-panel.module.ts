@@ -5,6 +5,7 @@ import { ActividadPanel }   from './actividad-panel.component';
 import { RegistroActividad }  from './modulo_registro_actividad/registro_actividad.component';
 //import { MultimediaModule }        from './modulo_multimedia/multimedia.module';
 import { Multimedia }   from './modulo_multimedia/multimedia.component';
+import { Categorias }   from './modulo_categorias/categorias.component';
 import { RegistroMultimedia }  from './modulo_multimedia/modulo-registro-multimedia/registro-multimedia.component';
 
 
@@ -18,14 +19,13 @@ import { AgmCoreModule } from '@agm/core';
     FormsModule,
     ChartsModule,
     AgmCoreModule,
-   // MultimediaModule
-
   ],
   declarations: [
   	ActividadPanel,
     RegistroActividad,
     Multimedia,
-    RegistroMultimedia
+    RegistroMultimedia,
+    Categorias
   ],
   providers: [ ]
 })

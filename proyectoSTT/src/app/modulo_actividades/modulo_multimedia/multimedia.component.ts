@@ -26,7 +26,7 @@ export class Multimedia implements OnInit{
 
 	ngOnInit():void {
 		var formData = new FormData();
-		alert(JSON.stringify(this.serviciog.actividad));
+		//alert(JSON.stringify(this.serviciog.actividad));
 		formData.append('keym',this.serviciog.actividad.keym);
 		formData.append('id_caracteristica',this.serviciog.actividad.id_caracteristica);
 		formData.append('id_usuario',this.serviciog.actividad.id_usuario);
@@ -37,7 +37,6 @@ export class Multimedia implements OnInit{
 
 			alert(JSON.stringify(imagenes));
 		})
-
 	}
 
 	checked(imagen){
