@@ -1,0 +1,12 @@
+.bncategoria{
+	margin: auto;
+	display: block;
+}
+.titulo{
+	display: block;
+}
+
+.form-control{
+	width: 68%;
+	display: inline-block;
+}

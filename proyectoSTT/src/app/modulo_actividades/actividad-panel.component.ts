@@ -104,6 +104,9 @@ export class ActividadPanel implements OnInit{
 	c6(){		
 		this.actOpt = 6;
 	}
+	c7(){		
+		this.actOpt = 7;
+	}
 
 	entrarAct(subActividad){	
 		
