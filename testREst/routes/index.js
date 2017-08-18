@@ -153,7 +153,29 @@ router.post('/createCategory', (req, res, next) => {
 
 //Service to register a new point in the map
 router.post('/regPointMap',(req,res,next)=>{
-	var map = Map.regPoint(req.body.point);
+	var map = Map.regPoint(JSON.parse(req.body.marcador));
+	map.then(x => {
+		if (x != false) {
+			console.log('Se ha registrado correctamente el punto');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.send(x);
+		}
+		else {
+			console.log('No se ha registrado el punto');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.json(false);
+		}
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});
+});
+
+//Service to register a new point in the map
+router.post('/updatePointMap',(req,res,next)=>{
+	console.log('=====  UPDATE POINT MARKER ======= \n'+JSON.stringify(req.body));
+	var map = Map.updatePoint(JSON.parse(req.body.marcador));
 	map.then(x => {
 		if (x != false) {
 			console.log('Se ha registrado correctamente el punto');
@@ -259,12 +281,75 @@ router.post('/getCategoryList',(req,res,next)=>{
 	var cat = Category.getCategoriesList(JSON.parse(req.body.caracteristica));
 	cat.then(x => {
 		if (x != false) {
-			console.log('Se ha retornado correctamente las categorias');
+			//console.log('Se ha retornado correctamente las categorias');
 			res.header("Access-Control-Allow-Origin", "*");
 			res.send(x);
 		}
 		else {
 			console.log('No se ha retornado las categorias');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.json(false);
+		}
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});
+});
+
+router.post('/editProjectInformation',(req,res,next)=>{
+	console.log(' ------- Edit Project Information    ==== >   '+JSON.stringify(req.body.caracteristica));
+	var prj = Project.getCategoriesList(JSON.parse(req.body.caracteristica));
+	prj.then(x => {
+		if (x == true) {
+			console.log('Se ha editado correctamente la informacion');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.send(x);
+		}
+		else {
+			console.log('No se ha editado la informacion del proyecto');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.json(false);
+		}
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});	
+});
+
+router.post('/editActivityInformation',(req,res,next)=>{
+	console.log(' ------- Edit Project Information    ==== >   '+JSON.stringify(req.body.caracteristica));
+	var prj = Project.getCategoriesList(JSON.parse(req.body.caracteristica));
+	prj.then(x => {
+		if (x == true) {
+			console.log('Se ha editado correctamente la informacion');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.send(x);
+		}
+		else {
+			console.log('No se ha editado la informacion del proyecto');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.json(false);
+		}
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});	
+});
+
+router.post('/getPointList',(req,res,next)=>{
+	//console.log('GET Points list   ==== >   '+JSON.stringify(req.body.caracteristica));
+	var maps = Map.getPointList(JSON.parse(req.body.caracteristica));
+	maps.then(x => {
+		if (x != false) {
+			console.log('Se ha retornado correctamente la lista de puntos');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.send(x);
+		}
+		else {
+			console.log('No se ha retornado la lista de puntos');
 			res.header("Access-Control-Allow-Origin", "*");
 			res.json(false);
 		}

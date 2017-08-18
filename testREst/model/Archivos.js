@@ -34,14 +34,14 @@ module.exports.create_file = function (data, files) {
 
 
     return new Promise((resolve, reject) => {
-        
-        getIdFreeFile(keym, id_usuario,files.file.name).then(x => {
+
+        getIdFreeFile(keym, id_usuario, files.file.name).then(x => {
             id_archivo = x[0];
-            console.log('\n\n\n\n\nPOL  '+x[0]+'   '+x[1]);
-            joinNameFile(keym,id_archivo,id_usuario,x[1]).then(nom_arc=>{
+            console.log('\n\n\n\n\nPOL  ' + x[0] + '   ' + x[1]);
+            joinNameFile(keym, id_archivo, id_usuario, x[1]).then(nom_arc => {
                 nombre_archivo = nom_arc;
                 var sequelize = sqlCon.configConnection();
-                
+
                 var query1 = `
                     insert into archivos values 
                     (
@@ -77,15 +77,16 @@ module.exports.create_file = function (data, files) {
                         console.log('Error getIdFreeFile:   ' + x);
                         reject(false);
                     });
-    
+
             });
-            
+
         }).catch(x => {
             console.log('Unaxpective load ===>   ' + x);
         });
     });
 
 }
+
 
 //Service to get files
 module.exports.getFileList = function (data) {
@@ -100,7 +101,8 @@ module.exports.getFileList = function (data) {
             select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) as t1
             where keym_car = `+ keym + ` 
             and id_caracteristica = `+ id_caracteristica + ` 
-            and id_usuario_car = `+ id_usuario + `  ;
+            and id_usuario_car = `+ id_usuario + `
+            and tipo = '`+data.tipo+`'  ;
         `;
         console.log(query1);
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
@@ -160,10 +162,10 @@ module.exports.fileUpload = function (files, path, nom) {
     else {
         file = files.file;
         //var fina = file.name.replace(/\s/g, "");
-        var fina ;
-        if(name.length == 0 )
+        var fina;
+        if (name.length == 0)
             fina = name + getExtension(file.name);
-        else 
+        else
             fina = name;
         file.mv(path + fina, function (err) {
             if (err) console.log("error " + err.toString());
@@ -177,10 +179,10 @@ module.exports.fileUpload = function (files, path, nom) {
 //===========     Auxiliar Funcions     =================//
 
 // Join IDs to create the name
-function joinNameFile(keym,id_archivo,id_usuario,nombre){
-    return new Promise((resolve,reject)=>{
-        console.log('\n\n\n\nNOMBRE FILE    ======>   '+nombre);
-        resolve(keym + '-' + id_archivo + '-' + id_usuario + '.'+getExtension(nombre));
+function joinNameFile(keym, id_archivo, id_usuario, nombre) {
+    return new Promise((resolve, reject) => {
+        console.log('\n\n\n\nNOMBRE FILE    ======>   ' + nombre);
+        resolve(keym + '-' + id_archivo + '-' + id_usuario + '.' + getExtension(nombre));
     });
 }
 
@@ -191,8 +193,8 @@ function getExtension(dat) {
 }
 
 // Return the Free ID of the files
-function getIdFreeFile(keym, id_usuario,nombre) {
-    console.log('NOMBRE hahahaha ===>   '+nombre);
+function getIdFreeFile(keym, id_usuario, nombre) {
+    console.log('NOMBRE hahahaha ===>   ' + nombre);
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
         var query1 = `
@@ -205,14 +207,14 @@ function getIdFreeFile(keym, id_usuario,nombre) {
                 console.log('\n\n\n\n' + JSON.stringify(x) + '\n\n\n\n\n');
                 if (x[0].id_act != null) {
                     console.log('NOT NULL ===>   ' + JSON.stringify(x));
-                    var dat  = [parseInt(x[0].id_act) + 1, nombre];
+                    var dat = [parseInt(x[0].id_act) + 1, nombre];
 
                     resolve(dat);
                 }
 
                 else {
                     console.log('NOT NULL ===>   ' + JSON.stringify(x));
-                    var dat  = [1, nombre];
+                    var dat = [1, nombre];
                     resolve(dat);
                 }
 

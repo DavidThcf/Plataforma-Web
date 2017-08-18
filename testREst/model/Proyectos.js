@@ -112,10 +112,12 @@ module.exports.createProject = function (data, files) {
     var nombre = data.nombre;
     var descripcion = data.descripcion;
     var icon = data.icon;
-    if(icon=== undefined)
-        icon ='';
+    if (icon === undefined)
+        icon = '';
     var id_usuario = data.id_usuario;
-    var keym =0 ;
+    var keym = 0;
+
+    var  id_prj;
 
     //fecha
     var current_date = new Date();
@@ -123,10 +125,11 @@ module.exports.createProject = function (data, files) {
 
     return new Promise((resolve, reject) => {
         Caracteristica.createCharacteristic(data, 'P').then(x => {
-            
-            console.log("\n\n\n\n\n\n\n YAY "+JSON.stringify(x)+'\n'+keym+'     '+id_usuario);
+
+            console.log("\n\n\n\n\n\n\n YAY " + JSON.stringify(x) + '\n' + keym + '     ' + id_usuario);
             getIdFreeProject(id_usuario, keym).
                 then(id => {
+                    id_prj =id;
                     var sequelize = sqlCon.configConnection();
                     var query1 = `
                             insert into proyectos values (
@@ -148,9 +151,9 @@ module.exports.createProject = function (data, files) {
                         `;
                     sequelize.query(query1, { type: sequelize.QueryTypes.INSERT })
                         .then(x => {
-                           
+
                             var path = repository + 'user' + id_usuario;
-                            fls.fileUpload(files, path + '/','');
+                            fls.fileUpload(files, path + '/', 'project-'+keym+'-'+id_prj+'-'+id_usuario);
                             console.log('Se ha registrado correctamente el proyecto')
                             resolve(true);
                         }).catch(x => {
@@ -173,22 +176,54 @@ module.exports.createProject = function (data, files) {
 
 }
 
+module.exports.editProjectInformation = function (data, files) {
+    var sequelize = sqlCon.configConnection();
+    var query1 = `
+        update proyectos set
+        nombre = '`+data.nombre+`',
+        descripcion = '`+data.descripcion+`'
+        where 
+        keym_car = `+data.keym_car+` and
+        id_caracteristica = `+data.id_caracteristica+` and
+        id_usuario_car = `+data.id_usuario_car+`
+    `;
+
+    return new Promise((resolve, reject) => {
+        sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
+            .then(x => {
+                if(files != null){
+                    var path = repository + 'user' + id_usuario;
+                    fls.fileUpload(files, path + '/', 'project-'+keym+'-'+id_prj+'-'+id_usuario);
+                }
+                console.log('Se actualizo correctamente la iformacion del proyecto');
+                resolve(true);
+            }).catch(x => {
+                console.log('Error al registrar actividad ' + x);
+                reject(false);
+            }).done(x => {
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });
+    });
+}
+
+
 //Service to get the ID free
 function getIdFreeProject(id_usuario, keym) {
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
         var query1 = `
             select max(id_proyecto) prj from proyectos
-            where keym = `+ keym  + ` and id_usuario = ` + id_usuario + `
+            where keym = `+ keym + ` and id_usuario = ` + id_usuario + `
         `;
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
             then(x => {
-                if (x[0].prj!= null || x[0].prj>0)
+                if (x[0].prj != null || x[0].prj > 0)
                     resolve(parseInt(x[0].prj) + 1);
                 else
                     resolve(1);
             }).catch(x => {
-                console.log('EROR  ->  PRJ  '+x);
+                console.log('EROR  ->  PRJ  ' + x);
                 reject(false);
             }).done(x => {
                 sequelize.close();
