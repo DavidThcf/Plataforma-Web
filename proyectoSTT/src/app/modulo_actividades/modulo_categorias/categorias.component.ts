@@ -17,8 +17,11 @@ export class Categorias implements OnInit{
 
 	categoria:Categoria = new Categoria('','black','','','');
 	categorias:any;
+	categoryValid:any;
 	caracteristica :Caracteristica = new Caracteristica('','','');
 	titulo:string = "Categoria";
+	isEditar:boolean =  false;
+
 	constructor(
 		private serviciog:ServiciosGlobales,
 		private router:Router,
@@ -29,14 +32,12 @@ export class Categorias implements OnInit{
 		this.caracteristica.keym_car = this.serviciog.proyecto.keym;
 		this.caracteristica.id_caracteristica = this.serviciog.proyecto.id_caracteristica;
 		this.caracteristica.id_usuario_car = this.serviciog.proyecto.id_usuario;
-		alert("Categoria Guardada" + ' ' + JSON.stringify(this.caracteristica));
+		
 		var formData = new FormData();
 		formData.append('caracteristica', JSON.stringify(this.caracteristica));
-
 		this.servicios.getCategoryList(formData)
 		.then(categorias => {
-			this.categorias = categorias;
-			alert(JSON.stringify(categorias));
+			this.categorias = categorias;			
 		});
 	}
 
@@ -45,19 +46,35 @@ export class Categorias implements OnInit{
 		this.categoria.id_caracteristica = this.serviciog.proyecto.id_caracteristica;
 		this.categoria.id_usuario_car = this.serviciog.proyecto.id_usuario;
 		
+		if(this.categoria.nombre != ''){			
+			var formData = new FormData();
+			formData.append('categoria', JSON.stringify(this.categoria));
 
-		alert("Categoria Guardada" + ' ' + JSON.stringify(this.categoria));
-		var formData = new FormData();
-		formData.append('categoria', JSON.stringify(this.categoria));
+			this.servicios.createCategoria(formData)
+			.then(message =>{
+				alert(message);
+			});
+		}
+		
+	}
+	onSubmitEdit(category){
 
-		this.servicios.createCategoria(formData)
-		.then(message =>{
-			alert(message);
-		})
+	}
+	
+
+	editar(category){
+		alert(JSON.stringify(category))
+		this.isEditar = true;
+		this.categoryValid = category;
+
+	}
+	cancelar(category){
+		this.isEditar = false;
+
 	}
 
-	all(){
-		//alert("cambio" + '  ' + JSON.stringify(this.categoria));
+	eliminar(category){
+		this.isEditar = false;
 
 	}
 
@@ -76,7 +93,7 @@ export class Categorias implements OnInit{
 			this.categoryForm.valueChanges
 			.subscribe(data => this.onValueChanged(data));
 		}
-	}
+	}	
 
 	onValueChanged(data?: any) {
 
@@ -117,7 +134,6 @@ class Categoria{
 		public id_usuario_car: string,
 		public id_caracteristica: string,
 		) {  }
-
 }
 
 class Caracteristica{
@@ -126,5 +142,4 @@ class Caracteristica{
 		public id_usuario_car: string,
 		public id_caracteristica: string,
 		) {  }
-
 }

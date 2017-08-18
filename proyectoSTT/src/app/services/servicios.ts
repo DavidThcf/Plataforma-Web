@@ -105,5 +105,23 @@ export class Servicios {
 		.catch(err => false);
 	}
 
+	regPointMap(formdata:FormData): Promise<any>{
+		return this.http.post(this.url + "/regPointMap",formdata)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false);		
+	}
 
+	getPointList(formData:FormData): Promise<any> {
+		return this.http.post(this.url + "/getPointList", formData)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false);
+	}
+	updatePointMap(formData:FormData): Promise<any> {
+		return this.http.post(this.url + "/updatePointMap", formData)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false);
+	}
 }

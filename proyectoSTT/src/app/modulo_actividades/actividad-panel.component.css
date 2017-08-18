@@ -59,10 +59,6 @@
 	color: white;
 }
 
-agm-map {
-	height: 500px;
-}
-
 
 .projectCard{
 	background-color: rgb(52,122,182);
@@ -82,47 +78,6 @@ agm-map {
 	border-color: gray;	
 	height: 20px;
 	text-align: left;
-}
-
-.btn-category-1{
-	width: 50px;
-	height: 50px;
-	position: absolute;
-	right: -38px;
-	top:85px;
-	z-index: 1000;
-	background-color: green;
-	border: 1px solid transparent;
-	border-radius: 3px;
-	box-shadow: 1px 1px 15px black;
-}
-
-.btn-category-2{
-	width: 50px;
-	height: 50px;
-	position: absolute;
-	right: -38px;
-	top: 140px;
-	z-index: 1000;
-	background-color: yellow;
-	border: 1px solid transparent;
-	border-radius: 3px;
-	box-shadow: 1px 1px 15px black;
-	color: white;
-}
-
-.btn-category-3{
-	width: 50px;
-	height: 50px;
-	position: absolute;
-	right: -38px;
-	top: 195px;
-	z-index: 1000;
-	background-color: red;
-	border: 1px solid transparent;
-	border-radius: 3px;
-	box-shadow: 1px 1px 15px black;
-	color: white;
 }
 
 .btn-primary{

@@ -6,6 +6,7 @@ import { RegistroActividad }  from './modulo_registro_actividad/registro_activid
 //import { MultimediaModule }        from './modulo_multimedia/multimedia.module';
 import { Multimedia }   from './modulo_multimedia/multimedia.component';
 import { Categorias }   from './modulo_categorias/categorias.component';
+import { Mapa }   from './modulo_mapa/mapa.component';
 import { RegistroMultimedia }  from './modulo_multimedia/modulo-registro-multimedia/registro-multimedia.component';
 
 
@@ -25,7 +26,8 @@ import { AgmCoreModule } from '@agm/core';
     RegistroActividad,
     Multimedia,
     RegistroMultimedia,
-    Categorias
+    Categorias,
+    Mapa
   ],
   providers: [ ]
 })
