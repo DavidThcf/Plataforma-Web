@@ -201,20 +201,7 @@
 		</div>
 
 		<div *ngIf="actOpt === 6">
-			<button class="btn-category-1" (click)="btnCat1()">
-
-			</button>
-			<button class="btn-category-2" (click)="btnCat2()">
-
-			</button>
-			<button class="btn-category-3" (click)="btnCat3()">
-
-			</button>					
-			<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"  (mapClick)="mapClicked($event)">
-				<agm-marker *ngFor="let m of markers; let i = index"[latitude]="m.lat" [longitude]="m.lng"[label]="m.label" [iconUrl]="m.url"  (markerClick)="clickedMarker(m.label, i)">						
-				</agm-marker>	
-				<agm-polygon [paths] = "markers" ></agm-polygon>					
-			</agm-map>
+			<mapa></mapa>
 		</div>
 
 		<div *ngIf="actOpt === 7">

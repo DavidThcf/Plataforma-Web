@@ -1,0 +1,19 @@
+<ul class="categoryList" >	
+	<div *ngFor="let category of this.categorias;">
+		<button [class.selected]="category === this.categoria" class="btn-category"   (click)="btnCat(category)"  [ngStyle]="{ 'background-color': category.color }">
+		</button>
+		<br/>
+	</div>	
+</ul>
+
+
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"  (mapClick)="mapClicked($event)">
+	<agm-marker [latitude]="marker.latitud" [longitude]="marker.longitud" [iconUrl]="marker.url">						
+	</agm-marker>
+</agm-map>
+
+<!--
+<agm-marker *ngFor="let m of markers; let i = index"[latitude]="m.lat" [longitude]="m.lng"[label]="m.label" [iconUrl]="m.url"  (markerClick)="clickedMarker(m.label, i)">						
+	</agm-marker>
+
+-->
