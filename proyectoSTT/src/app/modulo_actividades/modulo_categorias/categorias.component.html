@@ -9,8 +9,8 @@
 <button class="btn btn-primary bncategoria">Nueva Categoria</button>
 
 <div style="border-bottom: 1px solid gray;">
-	<form #loginForm="ngForm" (ngSubmit)="onSubmit()" style="margin:auto; display: block; margin-bottom: 5px;">			<label class="titulo">{{titulo}}</label>	
-		<input type="text"   name="name" placeholder="Nombre..." class="form-control"  [(ngModel)]="categoria.nombre"/>
+	<form #categoryForm="ngForm" (ngSubmit)="onSubmit()" style="margin:auto; display: block; margin-bottom: 5px;">			<label class="titulo">{{titulo}}</label>	
+		<input type="text"   name="name" placeholder="Nombre..." class="form-control"  [(ngModel)]="categoria.nombre" required/>
 		<input type="color" name="color"  [(ngModel)]="categoria.color" />		
 
 		<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -49,7 +49,11 @@
 		</g>
 	</svg>
 
-	<button type="submit" class="btn btn-success" style="width: 120px">Guardar</button>
+	<button type="submit" class="btn btn-success" style="width: 120px"  [disabled]="!categoryForm.form.valid">Guardar</button>
 	<button class="btn btn-danger"  style="width: 120px">Cancelar</button> 
 </form>
+</div>
+
+<div style="border-bottom: 1px solid gray;" *ngFor="let category of this.categorias" >
+	<label class="titulo">{{category.nombre}}</label>	
 </div>	
