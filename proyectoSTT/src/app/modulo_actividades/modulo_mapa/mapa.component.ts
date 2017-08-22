@@ -20,15 +20,12 @@ export class Mapa implements OnInit{
 	zoom: number = 16; 
 	categorias:any;
 	categoria:any;
+	http:string = "http://localhost:81/category/";
+	ext:string = ".svg"	
 	caracteristica: Caracteristica = new Caracteristica('','','');
-	markers:Marker[] = [{
-		keym:"0",
-		id_caracteristica:"",
-		id_usuario:"",
-		latitud: 1.2144293922395473,
-		longitud: -77.27847844362259,
-		id_categoria:""
-	}];
+	id_categoria:string;
+
+	markers:Marker[] = [];
 	mark:any;
 	
 	constructor(
@@ -55,11 +52,10 @@ export class Mapa implements OnInit{
 		var formData = new FormData();
 		formData.append('caracteristica', JSON.stringify(this.serviciog.actividad));
 		this.servicios.getPointList(formData)
-		.then(marcador =>{	
-			alert("LLEGA ===> " + JSON.stringify(marcador[0]));
-			if(marcador){	
-				this.markers= marcador; 				
-				alert("LISTA NUEVA ===> " + JSON.stringify(this.markers));
+		.then(marcador =>{			
+			if(marcador){
+				this.id_categoria = marcador[0].id_categoria;
+				this.markers= marcador;
 			}
 		});		
 	}
@@ -78,9 +74,9 @@ export class Mapa implements OnInit{
 				latitud: $event.coords.lat,
 				longitud: $event.coords.lng,
 				id_categoria:this.categoria.id_categoria,
-				url:'http:///localhost:81/category/' + this.categoria.id_categoria + '.svg'
+				url:this.http + this.categoria.id_categoria + '.svg'
 			};
-			alert("Markador " + JSON.stringify(marker));
+			
 			var formData = new FormData();
 			formData.append('marcador',JSON.stringify(marker));
 			this.servicios.regPointMap(formData).
@@ -89,12 +85,12 @@ export class Mapa implements OnInit{
 					alert("Error al Registrar");
 				}else{
 					this.markers.push(marker);
-					alert(JSON.stringify(this.markers))
+					//alert(JSON.stringify(this.markers))
 				}
 			});
 		}else{
 			var marker:any = {
-				//id_marcador:  this.marker.id_marcador,
+				id_marcador:  this.id_categoria,
 				keym:this.serviciog.actividad.keym,
 				id_caracteristica:this.serviciog.actividad.id_caracteristica,
 				id_usuario:this.serviciog.actividad.id_usuario,
