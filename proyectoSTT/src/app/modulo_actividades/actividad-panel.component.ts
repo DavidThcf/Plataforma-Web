@@ -34,7 +34,7 @@ export class ActividadPanel implements OnInit{
 			var id_caracteristica = this.serviciog.proyecto.id_caracteristica;		
 
 			this.servicios.getActividad(keym,id_usuario,id_caracteristica)
-			.then(actividad => this.actividades = actividad );	
+			.then(actividad => this.serviciog.actividades = actividad );	
 		}else{
 			let link = ['proyecto'];
 			this.router.navigate(link);
@@ -49,13 +49,25 @@ export class ActividadPanel implements OnInit{
 	}
 
 	tituloClick(){
-		if(!this.isSubActivity){
+		if(!this.serviciog.isSubActivity){
 			this.serviciog.isSelAct = false;
 			this.actOpt = 0;
 		}else{
-			this.serviciog.actividad = this.isSubActivity;
+			this.serviciog.actividad = this.serviciog.isSubActivity;
 		}
 		
+	}
+
+	inicio(){
+		this.titulo = this.serviciog.proyecto.nombre;
+		var keym = this.serviciog.proyecto.keym;
+		var id_usuario = this.serviciog.proyecto.id_usuario;
+		var id_caracteristica = this.serviciog.proyecto.id_caracteristica;		
+		this.serviciog.isSubActivity = null;
+		this.serviciog.isSelAct = false;
+		this.actOpt = 0;
+		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
+		.then(actividad => this.serviciog.actividades = actividad );
 	}
 
 	
@@ -119,7 +131,7 @@ export class ActividadPanel implements OnInit{
 
 	entrarAct(subActividad){	
 		this.serviciog.actividad = subActividad;
-		this.isSubActivity = subActividad;
+		this.serviciog.isSubActivity = subActividad;
 		var keym = subActividad.keym;
 		var id_usuario = subActividad.id_usuario;
 		var id_caracteristica = subActividad.id_caracteristica;
@@ -129,10 +141,9 @@ export class ActividadPanel implements OnInit{
 		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
 		.then(actividad => { 
 			if(actividad){
-				this.actividades = actividad;
-				//this.serviciog.actividad = this.actividades[0];
+				this.serviciog.actividades = actividad;
 			}else{
-				this.actividades = [];
+				this.serviciog.actividades = [];
 			}			
 		});
 	}

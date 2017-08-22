@@ -39,9 +39,11 @@ export class RegistroProyecto{
 		.then(message => { 
 			alert("" + message);
 			if(message){
-
+				this.servicios.getProyecto(this.serviciog.usuario.id_usuario + '')
+				.then(cadena => {
+					this.serviciog.proyecto = cadena
+				});
 			}
-
 		} );
 	}
 

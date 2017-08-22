@@ -43,6 +43,20 @@ export class RegistroMultimedia{
 		this.servicios.createMultimedia(formData)
 		.then(message => {			 
 			alert("" + message);
+			if(message){
+				var formData = new FormData();
+				//alert(JSON.stringify(this.serviciog.actividad));
+				formData.append('keym',this.serviciog.actividad.keym);
+				formData.append('id_caracteristica',this.serviciog.actividad.id_caracteristica);
+				formData.append('id_usuario',this.serviciog.actividad.id_usuario);
+				formData.append('tipo',this.serviciog.tipo);
+
+				this.servicios.getMultimedia(formData)
+				.then(imagenes => {
+					this.serviciog.imagenes = imagenes;
+					//alert(JSON.stringify(imagenes));
+				});	
+			}
 		} );
 	}
 
@@ -64,7 +78,6 @@ export class RegistroMultimedia{
 
 		}else if(this.archivo.tipo == "sou"){
 			this.typesAceptted = ".mp3"
-
 
 		}else if(this.archivo.tipo == "vid"){
 			this.typesAceptted = ".mp4"

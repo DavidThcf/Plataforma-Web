@@ -17,7 +17,9 @@ export class Multimedia implements OnInit{
 
 	isMapSelected:boolean =false;
 	imagenEditView: any[] = [];
-	tipo:string = "img";
+	archivoShow:any;
+	urlShow:string;
+	//tipo:string = "img";
 
 	constructor(
 		private serviciog:ServiciosGlobales,
@@ -32,11 +34,15 @@ export class Multimedia implements OnInit{
 		formData.append('keym',this.serviciog.actividad.keym);
 		formData.append('id_caracteristica',this.serviciog.actividad.id_caracteristica);
 		formData.append('id_usuario',this.serviciog.actividad.id_usuario);
-		formData.append('tipo',this.tipo);
+		formData.append('tipo',this.serviciog.tipo);
 
 		this.servicios.getMultimedia(formData)
 		.then(imagenes => {
-			this.serviciog.imagenes = imagenes
+			if(imagenes){
+				this.serviciog.imagenes = imagenes
+			}else{
+				this.serviciog.imagenes = []
+			}		
 			//alert(JSON.stringify(imagenes));
 		});		
 	}
@@ -54,20 +60,28 @@ export class Multimedia implements OnInit{
 		}		
 
 	}
+	show(imagen){
+		this.archivoShow = imagen;
+		this.urlShow = "http://docs.google.com/gview?url="+this.archivoShow.val_configuracion+this.archivoShow.srcServ+this.archivoShow.nombre_archivo+"&amp;embedded=true"
+	}
 
 	cambio($event){
+		this.serviciog.imagenes = [];
 		//alert("cambio " + JSON.stringify(this.tipo));
 		var formData = new FormData();
 		//alert(JSON.stringify(this.serviciog.actividad));
 		formData.append('keym',this.serviciog.actividad.keym);
 		formData.append('id_caracteristica',this.serviciog.actividad.id_caracteristica);
 		formData.append('id_usuario',this.serviciog.actividad.id_usuario);
-		formData.append('tipo',this.tipo);
+		formData.append('tipo',this.serviciog.tipo);
 
 		this.servicios.getMultimedia(formData)
 		.then(imagenes => {
-			this.serviciog.imagenes = imagenes
-			//alert(JSON.stringify(imagenes));
+			if(imagenes){
+				this.serviciog.imagenes = imagenes
+			}else{
+				this.serviciog.imagenes = []
+			}
 		})
 	}
 

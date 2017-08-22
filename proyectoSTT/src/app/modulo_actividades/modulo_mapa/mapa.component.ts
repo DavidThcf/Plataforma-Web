@@ -53,7 +53,7 @@ export class Mapa implements OnInit{
 			this.marker = marcador;			
 			//this.marker.url = 'http://10.42.0.1:81/category/' + marcador.id_categoria + '.svg';
 			this.marker.url = 'http://localhost:81/category/' + marcador.id_categoria + '.svg';
-			alert(JSON.stringify(this.marker) +'  '+ this.marker.url );
+			//alert(JSON.stringify(this.marker) +'  '+ this.marker.url );
 		});		
 	}
 
@@ -74,9 +74,9 @@ export class Mapa implements OnInit{
 	}
 	
 	mapClicked($event: any){				
-		alert(this.marker.keym);
+		//alert(this.marker.keym);
 		if(this.marker.keym === '' || !this.marker.keym){
-			alert("Agregar");
+			//alert("Agregar");
 			this.newMarker.keym = this.serviciog.actividad.keym;
 			this.newMarker.id_caracteristica = this.serviciog.actividad.id_caracteristica;
 			this.newMarker.id_usuario = this.serviciog.actividad.id_usuario;
@@ -102,8 +102,8 @@ export class Mapa implements OnInit{
 			this.newMarker.longitud = $event.coords.lng;
 			this.newMarker.latitud =  $event.coords.lat;
 			this.newMarker.id_categoria = this.categoria.id_categoria;
-			this.newMarker.url = 'http:///localhost:81/category/' + this.categoria.id_categoria + '.svg';
-			alert("Actualizar" +' '+ JSON.stringify(this.newMarker));
+			this.newMarker.url = 'http:///knower.udenar.edu.co:81/category/' + this.categoria.id_categoria + '.svg';
+			//alert("Actualizar" +' '+ JSON.stringify(this.newMarker));
 			var formData = new FormData();
 			formData.append('marcador',JSON.stringify(this.newMarker));
 			this.servicios.updatePointMap(formData).

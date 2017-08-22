@@ -52,6 +52,23 @@ export class RegistroActividad{
 		this.servicios.createActividad(formData)
 		.then(message => { 
 			alert("" + message);
+			if(message){
+				if(!this.serviciog.isSubActivity){
+					var keym = this.serviciog.proyecto.keym;
+					var id_usuario = this.serviciog.proyecto.id_usuario;
+					var id_caracteristica = this.serviciog.proyecto.id_caracteristica;		
+
+					this.servicios.getActividad(keym,id_usuario,id_caracteristica)
+					.then(actividad => this.serviciog.actividades = actividad );
+				}else{
+					var keym = this.serviciog.isSubActivity.keym;
+					var id_usuario = this.serviciog.isSubActivity.id_usuario;
+					var id_caracteristica = this.serviciog.isSubActivity.id_caracteristica;	
+
+					this.servicios.getActividad(keym,id_usuario,id_caracteristica)
+					.then(actividad => this.serviciog.actividades = actividad );
+				}
+			}
 		} );
 	}
 
