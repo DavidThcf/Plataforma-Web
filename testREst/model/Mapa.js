@@ -90,7 +90,7 @@ module.exports.getPointList = function(data){
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
             .then(x => {
                 console.log('Se encontro correctamente la lista de puntos\n\n\n'+JSON.stringify(x));
-                resolve(x[0]);
+                resolve(x);
             }).catch(x => {
                 console.log('NO se encontro correctamente la lista de puntos ' + x);
                 reject(false);

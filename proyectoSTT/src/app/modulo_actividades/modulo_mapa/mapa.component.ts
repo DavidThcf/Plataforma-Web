@@ -15,15 +15,15 @@ import { Servicios }         from '../../services/servicios';
 
 export class Mapa implements OnInit{
 	icon_marker = "";
-	lat: number = 1.21;
-	lng: number = -77.267;
+	lat: number = 1.2144293922395473;
+	lng: number = -77.27847844362259;
 	zoom: number = 16; 
 	categorias:any;
 	categoria:any;
 	caracteristica: Caracteristica = new Caracteristica('','','');
-	newMarker: Marker = new Marker('','','','',0,0,'','');
-	marker: Marker = new Marker('','','','',1.2144293922395473,-77.27847844362259,'','');	
-
+	markers:any[] = [];
+	mark:any;
+	
 	constructor(
 		private serviciog:ServiciosGlobales,
 		private router:Router,
@@ -49,88 +49,66 @@ export class Mapa implements OnInit{
 		formData.append('caracteristica', JSON.stringify(this.serviciog.actividad));
 		this.servicios.getPointList(formData)
 		.then(marcador =>{	
-			alert(JSON.stringify(marcador))
-			this.marker = marcador;			
-			//this.marker.url = 'http://10.42.0.1:81/category/' + marcador.id_categoria + '.svg';
-			this.marker.url = 'http://localhost:81/category/' + marcador.id_categoria + '.svg';
-			//alert(JSON.stringify(this.marker) +'  '+ this.marker.url );
+			alert(JSON.stringify(marcador));
+			this.markers = marcador;
+			alert(JSON.stringify(this.markers)); 			
 		});		
 	}
 
 	btnCat(category){		
-		this.categoria = category;
-		//alert("Selecciono la categoria" + category.nombre + " " +JSON.stringify(this.categoria));
-	}
-
-	btnSelMap(){
-		/*this.serviciog.isSelAct = !this.serviciog.isSelAct;
-		if(!this.serviciog.isSelAct){
-			alert("Actualización Correcta");
-		}*/
-	}
-
-	clickedMarker(label: string, index: number) {
-		
-	}
+		this.categoria = category;		
+	}	
 	
-	mapClicked($event: any){				
-		//alert(this.marker.keym);
-		if(this.marker.keym === '' || !this.marker.keym){
-			//alert("Agregar");
-			this.newMarker.keym = this.serviciog.actividad.keym;
-			this.newMarker.id_caracteristica = this.serviciog.actividad.id_caracteristica;
-			this.newMarker.id_usuario = this.serviciog.actividad.id_usuario;
-			this.newMarker.longitud = $event.coords.lng;
-			this.newMarker.latitud =  $event.coords.lat;
-			this.newMarker.id_categoria = this.categoria.id_categoria;
-			this.newMarker.url = 'http:///localhost:81/category/' + this.categoria.id_categoria + '.svg';
+	mapClicked($event: any){
+
+		if(this.mark){
+			var marker:any = {
+				id_marcador: this.serviciog.actividad.keym,
+				keym:this.serviciog.actividad.id_caracteristica,
+				id_caracteristica:this.serviciog.actividad.id_usuario,
+				id_usuario:$event.coords.lng,
+				latitud: $event.coords.lat,
+				longitud: this.categoria.id_categoria,
+				id_categoria:this.categoria.id_categoria,
+				url:'http:///localhost:81/category/' + this.categoria.id_categoria + '.svg'
+			};
+
 			var formData = new FormData();
-			formData.append('marcador',JSON.stringify(this.newMarker));
+			formData.append('marcador',JSON.stringify(marker));
 			this.servicios.regPointMap(formData).
 			then(message => {
 				if(!message){
 					alert("Error al Registrar");
 				}else{
-					this.marker = this.newMarker;
+					this.markers.push(marker);
 				}
 			});
 		}else{
-			this.newMarker.id_marcador = this.marker.id_marcador;
-			this.newMarker.keym = this.serviciog.actividad.keym;
-			this.newMarker.id_caracteristica = this.serviciog.actividad.id_caracteristica;
-			this.newMarker.id_usuario = this.serviciog.actividad.id_usuario;
-			this.newMarker.longitud = $event.coords.lng;
-			this.newMarker.latitud =  $event.coords.lat;
-			this.newMarker.id_categoria = this.categoria.id_categoria;
-			this.newMarker.url = 'http:///knower.udenar.edu.co:81/category/' + this.categoria.id_categoria + '.svg';
-			//alert("Actualizar" +' '+ JSON.stringify(this.newMarker));
+			var marker:any = {
+				id_marcador: this.serviciog.actividad.keym,
+				keym:this.serviciog.actividad.id_caracteristica,
+				id_caracteristica:this.serviciog.actividad.id_usuario,
+				id_usuario:$event.coords.lng,
+				latitud: $event.coords.lat,
+				longitud: this.categoria.id_categoria,
+				id_categoria:this.categoria.id_categoria,
+				url:'http:///localhost:81/category/' + this.categoria.id_categoria + '.svg'
+			};
+
 			var formData = new FormData();
-			formData.append('marcador',JSON.stringify(this.newMarker));
+			formData.append('marcador',JSON.stringify(marker));
 			this.servicios.updatePointMap(formData).
 			then(message => {
-				//alert(message);
 				if(!message){
 					alert("Error al actualizar");
 				}else{
-					this.marker = this.newMarker;
+					this.markers.push(marker);
 				}
 			});
 		}
-		
 	}
 }
-class Marker {
-	constructor(
-		public id_marcador:string,
-		public keym:string,
-		public id_caracteristica:string,
-		public id_usuario:string,
-		public latitud: number,
-		public longitud: number,
-		public id_categoria:string,
-		public url:string
-		){}
-}
+
 class Caracteristica{
 	constructor(	
 		public keym_car: string,
