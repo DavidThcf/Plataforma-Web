@@ -17,7 +17,8 @@ export class ActividadPanel implements OnInit{
 	titulo:string;
 	actOpt:number = 0;
 	actividades:any;	
-	flag:boolean=true;
+	isSubActivity:any;
+
 
 	constructor(
 		private serviciog:ServiciosGlobales,
@@ -26,14 +27,19 @@ export class ActividadPanel implements OnInit{
 		){ };
 
 	ngOnInit():void {
+		if(this.serviciog.proyecto){
+			this.titulo = this.serviciog.proyecto.nombre;
+			var keym = this.serviciog.proyecto.keym;
+			var id_usuario = this.serviciog.proyecto.id_usuario;
+			var id_caracteristica = this.serviciog.proyecto.id_caracteristica;		
 
-		this.titulo = this.serviciog.proyecto.nombre;
-		var keym = this.serviciog.proyecto.keym;
-		var id_usuario = this.serviciog.proyecto.id_usuario;
-		var id_caracteristica = this.serviciog.proyecto.id_caracteristica;		
+			this.servicios.getActividad(keym,id_usuario,id_caracteristica)
+			.then(actividad => this.actividades = actividad );	
+		}else{
+			let link = ['proyecto'];
+			this.router.navigate(link);
+		}
 
-		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
-		.then(actividad => this.actividades = actividad );		
 	}
 
 	onSelectActivity(activity){
@@ -43,10 +49,16 @@ export class ActividadPanel implements OnInit{
 	}
 
 	tituloClick(){
-		this.serviciog.isSelAct = false;
-		this.actOpt = 0;
+		if(!this.isSubActivity){
+			this.serviciog.isSelAct = false;
+			this.actOpt = 0;
+		}else{
+			this.serviciog.actividad = this.isSubActivity;
+		}
+		
 	}
 
+	
 	public barChartOptions:any = {
 		scaleShowVerticalLines: false,
 		responsive: true
@@ -106,7 +118,8 @@ export class ActividadPanel implements OnInit{
 	}
 
 	entrarAct(subActividad){	
-		
+		this.serviciog.actividad = subActividad;
+		this.isSubActivity = subActividad;
 		var keym = subActividad.keym;
 		var id_usuario = subActividad.id_usuario;
 		var id_caracteristica = subActividad.id_caracteristica;
@@ -117,9 +130,9 @@ export class ActividadPanel implements OnInit{
 		.then(actividad => { 
 			if(actividad){
 				this.actividades = actividad;
-				this.serviciog.actividad = this.actividades[0];
+				//this.serviciog.actividad = this.actividades[0];
 			}else{
-				alert("No tiene sub actividades");
+				this.actividades = [];
 			}			
 		});
 	}

@@ -26,7 +26,7 @@ module.exports.createCharacteristic = function (data, type_char) {
     var estado = 'Iniciacion';
 
     var porcentaje_asignado = data.porcentaje_asignado == undefined ? porcentaje_asignado = 0 : porcentaje_asignado = data.porcentaje_asignado;
-    var porcentaje_cumplido = data.porcentaje_cumplido = 0 == undefined ? porcentaje_cumplido = 0 : porcentaje_cumplido = data.porcentaje_cumplido;
+    var porcentaje_cumplido = data.porcentaje_cumplido == undefined ? porcentaje_cumplido = 0 : porcentaje_cumplido = data.porcentaje_cumplido;
     var recursos = data.recursos == undefined ? recursos = 0 : recursos = data.recursos;
     var recursos_restantes = data.recursos_restantes == undefined ? recursos_restantes = 0 : recursos_restantes = data.recursos_restantes;
     var presupuesto = data.presupuesto == undefined ? presupuesto = 0 : presupuesto = data.presupuesto;

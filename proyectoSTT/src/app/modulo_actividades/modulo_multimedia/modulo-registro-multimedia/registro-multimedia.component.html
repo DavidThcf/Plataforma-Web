@@ -34,7 +34,7 @@
 
 				<div class="form-group">
 					<label for="Genero" class="lab">Tipo</label>
-					<select  id="genero"  class="form-control" name="genero" [(ngModel)]="this.archivo.tipo" required>
+					<select  id="genero"  class="form-control" name="genero" [(ngModel)]="this.archivo.tipo" (change)="cambio()" required>
 						<option  value="img" >Imagen </option>
 						<option  value="vid" >Video</option>
 						<option  value="sou" >Audio</option>
@@ -47,8 +47,7 @@
 						{{this.imagenName}}          
 					</label>
 
-					<input type="file"  id="uploadMult" name="file[]" accept=".jpg" 
-					(change)="imageChangeMult($event)">
+					<input type="file"  id="uploadMult" name="file[]" [attr.accept]="typesAceptted" (change)="imageChangeMult($event)">
 
 					<input type="text" id="imagen" name="imagen" required [(ngModel)]="this.imagenNameValid" style="display: none">
 

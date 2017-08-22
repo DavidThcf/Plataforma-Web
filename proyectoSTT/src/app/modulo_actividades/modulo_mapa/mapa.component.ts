@@ -21,8 +21,8 @@ export class Mapa implements OnInit{
 	categorias:any;
 	categoria:any;
 	caracteristica: Caracteristica = new Caracteristica('','','');
-	newMarker: Marker = new Marker('','','','','','','','');
-	marker: Marker = new Marker('','','','','','','','');
+	newMarker: Marker = new Marker('','','','',0,0,'','');
+	marker: Marker = new Marker('','','','',1.2144293922395473,-77.27847844362259,'','');	
 
 	constructor(
 		private serviciog:ServiciosGlobales,
@@ -49,8 +49,10 @@ export class Mapa implements OnInit{
 		formData.append('caracteristica', JSON.stringify(this.serviciog.actividad));
 		this.servicios.getPointList(formData)
 		.then(marcador =>{	
+			alert(JSON.stringify(marcador))
 			this.marker = marcador;			
-			this.marker.url = 'http://10.42.0.1:81/category/' + marcador.id_categoria + '.svg';
+			//this.marker.url = 'http://10.42.0.1:81/category/' + marcador.id_categoria + '.svg';
+			this.marker.url = 'http://localhost:81/category/' + marcador.id_categoria + '.svg';
 			alert(JSON.stringify(this.marker) +'  '+ this.marker.url );
 		});		
 	}
@@ -72,8 +74,8 @@ export class Mapa implements OnInit{
 	}
 	
 	mapClicked($event: any){				
-		
-		if(this.marker.keym === ''){
+		alert(this.marker.keym);
+		if(this.marker.keym === '' || !this.marker.keym){
 			alert("Agregar");
 			this.newMarker.keym = this.serviciog.actividad.keym;
 			this.newMarker.id_caracteristica = this.serviciog.actividad.id_caracteristica;
@@ -81,7 +83,7 @@ export class Mapa implements OnInit{
 			this.newMarker.longitud = $event.coords.lng;
 			this.newMarker.latitud =  $event.coords.lat;
 			this.newMarker.id_categoria = this.categoria.id_categoria;
-			this.newMarker.url = 'http:///10.42.0.1:81/category/' + this.categoria.id_categoria + '.svg';
+			this.newMarker.url = 'http:///localhost:81/category/' + this.categoria.id_categoria + '.svg';
 			var formData = new FormData();
 			formData.append('marcador',JSON.stringify(this.newMarker));
 			this.servicios.regPointMap(formData).
@@ -100,7 +102,7 @@ export class Mapa implements OnInit{
 			this.newMarker.longitud = $event.coords.lng;
 			this.newMarker.latitud =  $event.coords.lat;
 			this.newMarker.id_categoria = this.categoria.id_categoria;
-			this.newMarker.url = 'http:///10.42.0.1:81/category/' + this.categoria.id_categoria + '.svg';
+			this.newMarker.url = 'http:///localhost:81/category/' + this.categoria.id_categoria + '.svg';
 			alert("Actualizar" +' '+ JSON.stringify(this.newMarker));
 			var formData = new FormData();
 			formData.append('marcador',JSON.stringify(this.newMarker));
@@ -123,8 +125,8 @@ class Marker {
 		public keym:string,
 		public id_caracteristica:string,
 		public id_usuario:string,
-		public latitud: string,
-		public longitud: string,
+		public latitud: number,
+		public longitud: number,
 		public id_categoria:string,
 		public url:string
 		){}

@@ -14,11 +14,11 @@ import { Servicios }         from '../../../services/servicios';
 
 export class RegistroMultimedia{
 	
-	archivo = new Archivo('','','','','img');
+	archivo = new Archivo('','','','','','img');
 	files:any;
 	imagenName:string = "Cargar Archivo";
 	imagenNameValid:string;	
-
+	typesAceptted:string=".jpeg, .jpg, .jpe, .jfif, .jif";
 	constructor(
 		private serviciog:ServiciosGlobales,
 		private router:Router,
@@ -45,12 +45,35 @@ export class RegistroMultimedia{
 			alert("" + message);
 		} );
 	}
+
 	imageChangeMult(event){
 		this.imagenName = event.target.files[0].name || event.srcElement.files[0].name;
+		if(this.archivo.titulo  == ''){
+			this.archivo.titulo = this.imagenName;
+		}
 		this.imagenNameValid = this.imagenName;
 		this.files = event.target.files[0] || event.srcElement.files[0];
 	}
 	
+	cambio(){
+		if(this.archivo.tipo == "img"){
+			this.typesAceptted = ".jpeg, .jpg, .jpe, .jfif, .jif"
+
+		}else if(this.archivo.tipo == "doc"){
+			this.typesAceptted = ".docx,.doc,.pdf,.xlsx"
+
+		}else if(this.archivo.tipo == "sou"){
+			this.typesAceptted = ".mp3"
+
+
+		}else if(this.archivo.tipo == "vid"){
+			this.typesAceptted = ".mp4"
+		}else{
+			this.typesAceptted = "*"
+		}
+		
+	}
+
 	multimediaForm: NgForm;
 
 	@ViewChild('multimediaForm') currentForm: NgForm;
@@ -108,6 +131,7 @@ export class RegistroMultimedia{
 
 class Archivo{
 	constructor(
+		public titulo:string,
 		public keym:string,
 		public id_usuario:string,
 		public id_caracteristica:string,

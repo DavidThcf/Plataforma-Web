@@ -17,6 +17,7 @@ export class Multimedia implements OnInit{
 
 	isMapSelected:boolean =false;
 	imagenEditView: any[] = [];
+	tipo:string = "img";
 
 	constructor(
 		private serviciog:ServiciosGlobales,
@@ -25,18 +26,19 @@ export class Multimedia implements OnInit{
 		){ };
 
 	ngOnInit():void {
+
 		var formData = new FormData();
 		//alert(JSON.stringify(this.serviciog.actividad));
 		formData.append('keym',this.serviciog.actividad.keym);
 		formData.append('id_caracteristica',this.serviciog.actividad.id_caracteristica);
 		formData.append('id_usuario',this.serviciog.actividad.id_usuario);
+		formData.append('tipo',this.tipo);
 
 		this.servicios.getMultimedia(formData)
 		.then(imagenes => {
 			this.serviciog.imagenes = imagenes
-
-			alert(JSON.stringify(imagenes));
-		})
+			//alert(JSON.stringify(imagenes));
+		});		
 	}
 
 	checked(imagen){
@@ -53,14 +55,29 @@ export class Multimedia implements OnInit{
 
 	}
 
+	cambio($event){
+		//alert("cambio " + JSON.stringify(this.tipo));
+		var formData = new FormData();
+		//alert(JSON.stringify(this.serviciog.actividad));
+		formData.append('keym',this.serviciog.actividad.keym);
+		formData.append('id_caracteristica',this.serviciog.actividad.id_caracteristica);
+		formData.append('id_usuario',this.serviciog.actividad.id_usuario);
+		formData.append('tipo',this.tipo);
+
+		this.servicios.getMultimedia(formData)
+		.then(imagenes => {
+			this.serviciog.imagenes = imagenes
+			//alert(JSON.stringify(imagenes));
+		})
+	}
+
 	envioCambios(){
 		this.isMapSelected = false;
 		if(this.imagenEditView.length > 0){
 			alert("Cambios Actualizados");
 		}else{
 			alert("No se realizaron Cambios");
-		}
-		
+		}		
 	}
 
 	btnAddImgMap(){

@@ -11,7 +11,8 @@ export class ServiciosGlobales {
 	proyecto:any;
 	actividad:any;
 	actividades:any;
-	isSelAct:boolean = false;	
+	isSelAct:boolean = false;
+	servidor:string = "http://localhost:81/";	
 
 	constructor(private persistenceService:PersistenceService){}
 

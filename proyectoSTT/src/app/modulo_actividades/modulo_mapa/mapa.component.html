@@ -7,7 +7,7 @@
 </ul>
 
 
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"  (mapClick)="mapClicked($event)">
+<agm-map [latitude]="marker.latitud" [longitude]="marker.longitud" [zoom]="zoom"  (mapClick)="mapClicked($event)">
 	<agm-marker [latitude]="marker.latitud" [longitude]="marker.longitud" [iconUrl]="marker.url">						
 	</agm-marker>
 </agm-map>

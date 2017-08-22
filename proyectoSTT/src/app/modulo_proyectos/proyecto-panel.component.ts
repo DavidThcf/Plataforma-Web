@@ -23,7 +23,6 @@ export class ProyectoPanel implements OnInit{
 			this.servicios.getProyecto(this.serviciog.usuario.id_usuario + '')
 			.then(cadena => {
 				this.serviciog.proyecto = cadena
-
 			});
 		}
 	}	
