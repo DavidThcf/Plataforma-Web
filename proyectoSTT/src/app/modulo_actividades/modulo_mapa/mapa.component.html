@@ -7,8 +7,9 @@
 </ul>
 
 
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"  (mapClick)="mapClicked($event)">
-	<agm-marker *ngFor="let marker of this.markers;" [latitude]="marker.latitud" [longitude]="marker.longitud" [iconUrl]="marker.url">						
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)">
+
+	<agm-marker *ngFor="let marker of this.markers;" [latitude]="marker.latitud" [longitude]="marker.longitud-0" iconUrl="{{marker.id_categoria}}" >					
 	</agm-marker>
 </agm-map>
 

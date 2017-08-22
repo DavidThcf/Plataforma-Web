@@ -80,7 +80,12 @@ module.exports.getPointList = function(data){
     console.log('\n\n\n\nGEtPintList ===> '+JSON.stringify(data));
     var sequelize = sqlCon.configConnection();
     var query1 = `
-        select * from marcador 
+        select keym,
+            id_caracteristica,
+            id_usuario,
+            latitud,
+            longitud,
+            id_categoria from marcador 
         where keym = `+data.keym+`
         and id_caracteristica = `+data.id_caracteristica+`
         and id_usuario = `+data.id_usuario+`

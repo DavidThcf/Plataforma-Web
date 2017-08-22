@@ -21,7 +21,14 @@ export class Mapa implements OnInit{
 	categorias:any;
 	categoria:any;
 	caracteristica: Caracteristica = new Caracteristica('','','');
-	markers:any[] = [];
+	markers:Marker[] = [{
+		keym:"0",
+		id_caracteristica:"",
+		id_usuario:"",
+		latitud: 1.2144293922395473,
+		longitud: -77.27847844362259,
+		id_categoria:""
+	}];
 	mark:any;
 	
 	constructor(
@@ -49,9 +56,11 @@ export class Mapa implements OnInit{
 		formData.append('caracteristica', JSON.stringify(this.serviciog.actividad));
 		this.servicios.getPointList(formData)
 		.then(marcador =>{	
-			alert(JSON.stringify(marcador));
-			this.markers = marcador;
-			alert(JSON.stringify(this.markers)); 			
+			alert("LLEGA ===> " + JSON.stringify(marcador[0]));
+			if(marcador){	
+				this.markers= marcador; 				
+				alert("LISTA NUEVA ===> " + JSON.stringify(this.markers));
+			}
 		});		
 	}
 
@@ -60,19 +69,18 @@ export class Mapa implements OnInit{
 	}	
 	
 	mapClicked($event: any){
-
-		if(this.mark){
-			var marker:any = {
-				id_marcador: this.serviciog.actividad.keym,
-				keym:this.serviciog.actividad.id_caracteristica,
-				id_caracteristica:this.serviciog.actividad.id_usuario,
-				id_usuario:$event.coords.lng,
+		
+		if(!this.mark){
+			var marker:any = {				
+				keym:this.serviciog.actividad.keym,
+				id_caracteristica:this.serviciog.actividad.id_caracteristica,
+				id_usuario:this.serviciog.actividad.id_usuario,
 				latitud: $event.coords.lat,
-				longitud: this.categoria.id_categoria,
+				longitud: $event.coords.lng,
 				id_categoria:this.categoria.id_categoria,
 				url:'http:///localhost:81/category/' + this.categoria.id_categoria + '.svg'
 			};
-
+			alert("Markador " + JSON.stringify(marker));
 			var formData = new FormData();
 			formData.append('marcador',JSON.stringify(marker));
 			this.servicios.regPointMap(formData).
@@ -81,18 +89,19 @@ export class Mapa implements OnInit{
 					alert("Error al Registrar");
 				}else{
 					this.markers.push(marker);
+					alert(JSON.stringify(this.markers))
 				}
 			});
 		}else{
 			var marker:any = {
-				id_marcador: this.serviciog.actividad.keym,
-				keym:this.serviciog.actividad.id_caracteristica,
-				id_caracteristica:this.serviciog.actividad.id_usuario,
-				id_usuario:$event.coords.lng,
+				//id_marcador:  this.marker.id_marcador,
+				keym:this.serviciog.actividad.keym,
+				id_caracteristica:this.serviciog.actividad.id_caracteristica,
+				id_usuario:this.serviciog.actividad.id_usuario,
 				latitud: $event.coords.lat,
-				longitud: this.categoria.id_categoria,
+				longitud: $event.coords.lng,
 				id_categoria:this.categoria.id_categoria,
-				url:'http:///localhost:81/category/' + this.categoria.id_categoria + '.svg'
+				//url:'http:///localhost:81/category/' + this.categoria.id_categoria + '.svg'
 			};
 
 			var formData = new FormData();
@@ -107,6 +116,14 @@ export class Mapa implements OnInit{
 			});
 		}
 	}
+}
+interface Marker{
+	keym:string,
+	id_caracteristica:string,
+	id_usuario:string,
+	latitud: number,
+	longitud: number,
+	id_categoria:string
 }
 
 class Caracteristica{
