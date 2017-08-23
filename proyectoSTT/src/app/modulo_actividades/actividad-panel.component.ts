@@ -27,6 +27,7 @@ export class ActividadPanel implements OnInit{
 		){ };
 
 	ngOnInit():void {
+		this.serviciog.actividades = [];
 		if(this.serviciog.proyecto){
 			this.titulo = this.serviciog.proyecto.nombre;
 			var keym = this.serviciog.proyecto.keym;
