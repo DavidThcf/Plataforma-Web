@@ -96,22 +96,22 @@ module.exports.getCategoriesList = function (data) {
 
     var query1 = `
         select * from categorias_mapa
-        where keym_car = `+keym_car+` 
-        and id_caracteristica = `+id_caracteristica+`   
-        and id_usuario_car =   `+id_usuario_car+`
+        where keym_car = `+ keym_car + ` 
+        and id_caracteristica = `+ id_caracteristica + `   
+        and id_usuario_car =   `+ id_usuario_car + `
     `;
     console.log('\n\n\n\nQuery1 ===>  ' + query1);
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
-        then(x=>{
-            console.log('JSON ===> '+JSON.stringify(x));
-            resolve(x);
-        }).catch(x=>{
-            reject(false);
-        }).done(x=> {
-            console.log('Se ha cerrado la sesion de sequelize');
-        });
+            then(x => {
+                console.log('JSON ===> ' + JSON.stringify(x));
+                resolve(x);
+            }).catch(x => {
+                reject(false);
+            }).done(x => {
+                console.log('Se ha cerrado la sesion de sequelize');
+            });
     });
 
 
