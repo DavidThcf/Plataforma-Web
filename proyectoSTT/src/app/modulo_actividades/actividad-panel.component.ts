@@ -6,6 +6,7 @@ import { AgmCoreModule } from '@agm/core';
 import { Router }            from '@angular/router';
 import { ServiciosGlobales } from '../services/servicios-globales';
 import { Servicios }         from '../services/servicios';
+import { ServiciosGlobalesActividades} from './servicios-globales-actividades'
 
 @Component({
 	selector: 'actividad-panel',
@@ -13,15 +14,11 @@ import { Servicios }         from '../services/servicios';
 	styleUrls: [ './actividad-panel.component.css' ]
 })
 
-export class ActividadPanel implements OnInit{
-	titulo:string;
-	actOpt:number = 0;
-	actividades:any;	
-	isSubActivity:any;
-
+export class ActividadPanel implements OnInit{	
 
 	constructor(
 		private serviciog:ServiciosGlobales,
+		private serviGloAct:ServiciosGlobalesActividades,
 		private router:Router,
 		private servicios: Servicios	  
 		){ };
@@ -29,13 +26,17 @@ export class ActividadPanel implements OnInit{
 	ngOnInit():void {
 		this.serviciog.actividades = [];
 		if(this.serviciog.proyecto){
-			this.titulo = this.serviciog.proyecto.nombre;
+			this.serviciog.titulo = this.serviciog.proyecto.nombre;
 			var keym = this.serviciog.proyecto.keym;
 			var id_usuario = this.serviciog.proyecto.id_usuario;
 			var id_caracteristica = this.serviciog.proyecto.id_caracteristica;		
 
 			this.servicios.getActividad(keym,id_usuario,id_caracteristica)
-			.then(actividad => this.serviciog.actividades = actividad );	
+			.then(actividad =>{				
+				if(actividad){
+					this.serviciog.actividades = actividad;
+				}
+			});	
 		}else{
 			let link = ['proyecto'];
 			this.router.navigate(link);
@@ -45,27 +46,27 @@ export class ActividadPanel implements OnInit{
 
 	onSelectActivity(activity){
 		this.serviciog.actividad = activity;
-		this.serviciog.isSelAct = true;
-		this.actOpt = 1;	
+		this.serviciog.isSelAct = true;		
+		this.serviGloAct.actOpt = 1;
 	}
 
 	tituloClick(){
 		if(!this.serviciog.isSubActivity){
 			this.serviciog.isSelAct = false;
-			this.actOpt = 0;
+			this.serviGloAct.actOpt = 0;
 		}else{
 			this.serviciog.actividad = this.serviciog.isSubActivity;
 		}		
 	}
 
 	inicio(){
-		this.titulo = this.serviciog.proyecto.nombre;
+		this.serviciog.titulo = this.serviciog.proyecto.nombre;
 		var keym = this.serviciog.proyecto.keym;
 		var id_usuario = this.serviciog.proyecto.id_usuario;
 		var id_caracteristica = this.serviciog.proyecto.id_caracteristica;		
 		this.serviciog.isSubActivity = null;
 		this.serviciog.isSelAct = false;
-		this.actOpt = 0;
+		this.serviGloAct.actOpt = 0;
 		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
 		.then(actividad => this.serviciog.actividades = actividad );
 	}
@@ -94,58 +95,35 @@ export class ActividadPanel implements OnInit{
 	];
 
 	
-	lat: number = 1.21;
-	lng: number = -77.267;
-	zoom: number = 14; 
-
 	c0(){		
-		this.actOpt = 0;
+		this.serviGloAct.actOpt = 0;
 
 	}
 
 	c1(){
-		this.actOpt = 1;
+		this.serviGloAct.actOpt = 1;
 	}
 
 	c2(){		
-		this.actOpt = 2;
+		this.serviGloAct.actOpt = 2;
 	}
 
 	c3(){		
-		this.actOpt = 3;
+		this.serviGloAct.actOpt = 3;
 	}
 
 	c4(){		
-		this.actOpt = 4;
+		this.serviGloAct.actOpt = 4;
 	}
 
 	c5(){		
-		this.actOpt = 5;
+		this.serviGloAct.actOpt = 5;
 	}
 	c6(){		
-		this.actOpt = 6;
+		this.serviGloAct.actOpt = 6;
 	}
 	c7(){		
-		this.actOpt = 7;
-	}
-
-	entrarAct(subActividad){	
-		this.serviciog.actividad = subActividad;
-		this.serviciog.isSubActivity = subActividad;
-		var keym = subActividad.keym;
-		var id_usuario = subActividad.id_usuario;
-		var id_caracteristica = subActividad.id_caracteristica;
-		
-		this.titulo = subActividad.nom_act;
-		
-		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
-		.then(actividad => { 
-			if(actividad){
-				this.serviciog.actividades = actividad;
-			}else{
-				this.serviciog.actividades = [];
-			}			
-		});
+		this.serviGloAct.actOpt = 7;
 	}
 	
 }
