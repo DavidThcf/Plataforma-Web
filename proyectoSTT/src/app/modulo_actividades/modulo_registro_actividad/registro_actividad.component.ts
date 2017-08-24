@@ -3,6 +3,7 @@ import { NgModule } 		 from '@angular/core';
 import { Router }            from '@angular/router';
 import { NgForm } 			from '@angular/forms';
 import { ServiciosGlobales } from '../../services/servicios-globales';
+import { ServiciosGlobalesActividades} from '../servicios-globales-actividades'
 import { Servicios }         from '../../services/servicios';
 
 
@@ -19,6 +20,7 @@ export class RegistroActividad{
 
 	constructor(
 		private serviciog:ServiciosGlobales,
+		private serviGloAct:ServiciosGlobalesActividades,
 		private router:Router,
 		private servicios: Servicios	  
 		){ };
@@ -29,29 +31,26 @@ export class RegistroActividad{
 
 		this.actividad.id_usuario = this.serviciog.usuario.id_usuario + '';
 
-		if(this.serviciog.isSelAct){
-			//alert("Actividad--> " + JSON.stringify(this.serviciog.actividad));
+		if(this.serviciog.isSelAct){			
 			this.actividad.keym_padre = this.serviciog.actividad.keym;
 			this.actividad.id_usuario_padre = this.serviciog.actividad.id_usuario;
 			this.actividad.id_caracteristica_padre = this.serviciog.actividad.id_caracteristica;
-			//alert("Actividad--> " + this.actividad.keym_padre +" " +this.actividad.id_usuario_padre + " " +this.actividad.id_caracteristica_padre);
-
-		}else{
-			//alert("Proyecto--> " + JSON.stringify(this.serviciog.proyecto));
+		}else{			
 			this.actividad.keym_padre = this.serviciog.proyecto.keym;
 			this.actividad.id_usuario_padre = this.serviciog.proyecto.id_usuario;
 			this.actividad.id_caracteristica_padre = this.serviciog.proyecto.id_caracteristica;
+			this.serviGloAct.actOpt = 2;
 		}
-		
-		//formData.append('id_usuario',JSON.stringify (this.serviciog.usuario.id_usuario));
+
 		formData.append('actividad',JSON.stringify (this.actividad));		
 
 		if(this.files){
 			formData.append('file', this.files);
-		}		
+		}
+
 		this.servicios.createActividad(formData)
 		.then(message => { 
-			alert("" + message);
+			
 			if(message){
 				if(!this.serviciog.isSubActivity){
 					var keym = this.serviciog.proyecto.keym;

@@ -11,6 +11,7 @@ export class ServiciosGlobales {
 	proyecto:any;
 	actividad:any;
 	actividades:any;
+	titulo:string;
 	isSelAct:boolean = false;
 	servidor:string = "http://localhost:81/";
 	isSubActivity:any;	
