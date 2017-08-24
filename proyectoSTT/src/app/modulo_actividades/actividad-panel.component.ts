@@ -55,8 +55,7 @@ export class ActividadPanel implements OnInit{
 			this.actOpt = 0;
 		}else{
 			this.serviciog.actividad = this.serviciog.isSubActivity;
-		}
-		
+		}		
 	}
 
 	inicio(){
