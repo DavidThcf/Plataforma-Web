@@ -120,7 +120,7 @@ module.exports.getActivityList = function (data) {
 				and c.id_caracteristica_padre = ` + id_caracteristica + ` 
 				and c.id_usuario_padre = ` + id_usuario + ` 
 				
-				order by a.pos; `;
+				order by a.pos, a.nombre ; `;
 
 		var i = 0;
 		//console.log('POLSA');
@@ -129,38 +129,9 @@ module.exports.getActivityList = function (data) {
 		})
 			.then(x => {
 
+				console.log('\n\nDATA ACTIVITY LIST =>  '+JSON.stringify(x)+'\n\n')
 				resolve(x);
-				/* recursividad eliminada de actividades
-				if (x.length > 0) {
-					x.forEach(function (element) {
-						i++;
-						
-						getRecursiveActivity(element.keym,
-							element.id_caracteristica,
-							element.id_usuario,
-							sequelize,
-							element,
-							i
-						).then(y => {
-							//console.log('\nI=>  ' + y[0]+'\n\n');
-							//console.log('\nBefore   ' + JSON.stringify(y)+'\n\n');
-							//element.actividades = y[1];
-							jsn.push(element);
-							//console.log('\n\n'+i);
-							if (y[0] === x.length) {
-								//console.log('\n\n\n\n\n\nPOL' + JSON.stringify(x[2]) + '\n\n\n');
-								resolve(jsn);
-							}
-						}).catch(x => {
-							console.log("\n\nEror ultimo dato Actividades\n\n");
-							reject(false);
-						});
-
-					});
-				}
-				else
-					reject(false);
-				*/
+				
 			}).catch(x => {
 				console.log('Error al registrar actividad ' + x);
 				reject(false);
