@@ -58,36 +58,36 @@
 <div class="col-md-10" style="background-color: rgb(222,220,221);">
 	<div class="menuActividades">
 		<ul>
-			<li *ngIf="!this.serviciog.isSelAct" (click)="c0()" [class.itemSelected]="this.actOpt===0" >
+			<li *ngIf="!this.serviciog.isSelAct" (click)="c0()" [class.itemSelected]="this.serviGloAct.actOpt===0" >
 				<a>Detalles Proyecto</a>
 			</li>
-			<li *ngIf="!this.serviciog.isSelAct" (click)="c7()" [class.itemSelected]="this.actOpt===7">
+			<li *ngIf="!this.serviciog.isSelAct" (click)="c7()" [class.itemSelected]="this.serviGloAct.actOpt===7">
 				<a>Categorias</a>
 			</li>
-			<li *ngIf="this.serviciog.isSelAct" (click)="c1()" [class.itemSelected]="this.actOpt===1">
+			<li *ngIf="this.serviciog.isSelAct" (click)="c1()" [class.itemSelected]="this.serviGloAct.actOpt===1">
 				<a>Detalles Actividades</a>
 			</li>
-			<li *ngIf="this.serviciog.isSelAct" (click)="c2()" [class.itemSelected]="this.actOpt===2">
+			<li *ngIf="this.serviciog.isSelAct" (click)="c2()" [class.itemSelected]="this.serviGloAct.actOpt===2">
 				<a>Sub - Actividades</a>
 			</li>
-			<li *ngIf="this.serviciog.isSelAct" (click)="c3()" [class.itemSelected]="this.actOpt===3">
+			<li *ngIf="this.serviciog.isSelAct" (click)="c3()" [class.itemSelected]="this.serviGloAct.actOpt===3">
 				<a>Reporte</a>
 			</li>
-			<li *ngIf="this.serviciog.isSelAct" (click)="c4()" [class.itemSelected]="this.actOpt===4">
+			<li *ngIf="this.serviciog.isSelAct" (click)="c4()" [class.itemSelected]="this.serviGloAct.actOpt===4">
 				<a>Multimedia 
 				</a>
 			</li>
-			<li *ngIf="this.serviciog.isSelAct" (click)="c5()" [class.itemSelected]="this.actOpt===5">
+			<li *ngIf="this.serviciog.isSelAct" (click)="c5()" [class.itemSelected]="this.serviGloAct.actOpt===5">
 				<a>Estadisticas </a>
 			</li>
-			<li *ngIf="this.serviciog.isSelAct" (click)="c6()" [class.itemSelected]="this.actOpt===6">
+			<li *ngIf="this.serviciog.isSelAct" (click)="c6()" [class.itemSelected]="this.serviGloAct.actOpt===6">
 				<a>Mapa</a>
 			</li>
 		</ul>				
 	</div>
 
 	<div style=" min-height: 80vh;">
-		<div *ngIf="actOpt === 0">					
+		<div *ngIf="this.serviGloAct.actOpt === 0">					
 			<form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
 				<div class="form-group">							
 
@@ -114,7 +114,7 @@
 			</form>
 
 		</div>
-		<div *ngIf="actOpt === 1">
+		<div *ngIf="this.serviGloAct.actOpt === 1">
 			<form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="nombre" class="lab">Nombres</label>
@@ -138,19 +138,19 @@
 			</form>					
 		</div>
 
-		<div *ngIf="actOpt === 2" >	
+		<div *ngIf="this.serviGloAct.actOpt === 2" >	
 			<subactividad-panel></subactividad-panel>
 		</div>
 
-		<div *ngIf="actOpt === 3" >
+		<div *ngIf="this.serviGloAct.actOpt === 3" >
 			<embed  src="http://knower.udenar.edu.co/imgSTT/CONVENIO.pdf" style="width: 100%; min-height:80vh;" fullframe />					
 		</div>
 
-		<div *ngIf="actOpt === 4" >
+		<div *ngIf="this.serviGloAct.actOpt === 4" >
 			<multimedia></multimedia>
 		</div>
 
-		<div *ngIf="actOpt === 5" >
+		<div *ngIf="this.serviGloAct.actOpt === 5" >
 			<div style="display: block">
 				<canvas baseChart
 				[datasets]="barChartData"
@@ -164,11 +164,11 @@
 			</div>
 		</div>
 
-		<div *ngIf="actOpt === 6">
+		<div *ngIf="this.serviGloAct.actOpt === 6">
 			<mapa></mapa>
 		</div>
 
-		<div *ngIf="actOpt === 7">
+		<div *ngIf="this.serviGloAct.actOpt === 7">
 			<categorias></categorias>
 		</div>
 	</div>		
