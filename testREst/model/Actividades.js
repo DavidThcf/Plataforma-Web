@@ -129,9 +129,12 @@ module.exports.getActivityList = function (data) {
 		})
 			.then(x => {
 
+				resolve(x);
+				/* recursividad eliminada de actividades
 				if (x.length > 0) {
 					x.forEach(function (element) {
 						i++;
+						
 						getRecursiveActivity(element.keym,
 							element.id_caracteristica,
 							element.id_usuario,
@@ -139,9 +142,9 @@ module.exports.getActivityList = function (data) {
 							element,
 							i
 						).then(y => {
-							//console.log('\nI=>  ' + y[0]);
-							//console.log('\nBefore   ' + JSON.stringify(y));
-							element.actividades = y[1];
+							//console.log('\nI=>  ' + y[0]+'\n\n');
+							//console.log('\nBefore   ' + JSON.stringify(y)+'\n\n');
+							//element.actividades = y[1];
 							jsn.push(element);
 							//console.log('\n\n'+i);
 							if (y[0] === x.length) {
@@ -149,6 +152,7 @@ module.exports.getActivityList = function (data) {
 								resolve(jsn);
 							}
 						}).catch(x => {
+							console.log("\n\nEror ultimo dato Actividades\n\n");
 							reject(false);
 						});
 
@@ -156,7 +160,7 @@ module.exports.getActivityList = function (data) {
 				}
 				else
 					reject(false);
-
+				*/
 			}).catch(x => {
 				console.log('Error al registrar actividad ' + x);
 				reject(false);

@@ -111,9 +111,10 @@ router.post('/getUserProjectList', (req, res, next) => {
 
 //service to get user's activity with theirs characteristics
 router.post('/getActivityList', (req, res, next) => {
-	
+	console.log("GET ACTIVITY LIST");
 	var act = Activity.getActivityList(req.body);
 	act.then(x => {
+		console.log(JSON.stringify(x));
 		if (x != false) {
 			res.header("Access-Control-Allow-Origin", "*");
 			res.send(x);
