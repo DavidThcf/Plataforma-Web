@@ -143,6 +143,8 @@ module.exports.getActivityList = function (data) {
 	});
 }
 
+
+
 function getRecursiveActivity(keym, car, usu, sequelize, element, i) {
 	var query1 = `
 				select 

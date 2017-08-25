@@ -207,6 +207,37 @@ module.exports.editProjectInformation = function (data, files) {
     });
 }
 
+//Service get all project -> temporal
+module.exports.getVisibleProjects = function(){
+    var sequelize = sqlCon.configConnection();
+    var query1 = `
+    select * from proyectos 
+    join caracteristicas c on proyectos.keym_car = c.keym 
+    and proyectos.id_usuario_car = c.id_usuario 
+    and proyectos.id_caracteristica = c.id_caracteristica 
+
+    where c.keym || '-'|| c.id_caracteristica || '-' ||c.id_usuario 
+    in (select keym_car||'-'||id_caracteristica||'-'||id_usuario_car from categorias_mapa) 
+
+        
+        `;
+
+
+
+    return new Promise((resolve, reject) => {
+        sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
+            .then(x => {
+                console.log('OK consulta get projects');
+                resolve(x);
+            }).catch(x => {
+                console.log('Error al obtener los proyectos' + x);
+                reject(false);
+            }).done(x => {
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });
+    });
+}
 
 //Service to get the ID free
 function getIdFreeProject(id_usuario, keym) {

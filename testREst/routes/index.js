@@ -10,6 +10,7 @@ var files = require("../model/Files");
 var Category = require('../model/Categorias');
 var Map = require('../model/Mapa');
 var File = require('../model/Archivos');
+var Marker = require('../model/Marcadores');
 //POST Services 
 
 //Service for createa new User
@@ -360,5 +361,41 @@ router.post('/getPointList',(req,res,next)=>{
 		res.json(false);
 	});
 });
+
+
+router.post('/getVisibleProjects',(req,res,next)=>{
+	console.log(' <=====       Get Visible Projects List      ==== >   '+JSON.stringify(req.body.caracteristica));
+	var prj = Project.getVisibleProjects();
+	prj.then(x => {
+		console.log('Se ha retornado correctamente los Proyectos');
+		res.header("Access-Control-Allow-Origin", "*");
+		res.send(x);
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});	
+});
+
+router.post('/getMarkersListFromCategory',(req,res,next)=>{
+	console.log(' <=====     Get Markers List From Category      ==== >   '+JSON.stringify(req.body));
+	var mar = Marker.getMarkersListFromCategory(req.body.id_categoria);
+	mar.then(x => {
+		if (x == true) {
+			console.log('Se ha retornado correctamente las actividades segun las categorias');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.send(x);
+		}
+		else {
+			console.log('No se han retornado las actividades segun las categorias');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.json(false);
+		}
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});	
+})
 
 module.exports = router;
