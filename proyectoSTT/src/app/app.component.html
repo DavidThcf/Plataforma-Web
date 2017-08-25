@@ -34,8 +34,11 @@
               Perfil
             </li>
             <li (click)="logout()">
-              <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              Salir
+              <div>
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                Salir
+              </div>
+
             </li>
           </ul>
         </li>
@@ -44,7 +47,7 @@
   </div>
 </nav>
 <div>
-	<modal-login></modal-login>
-  <modal-register></modal-register>
-  <router-outlet></router-outlet>
+ <modal-login></modal-login>
+ <modal-register></modal-register>
+ <router-outlet></router-outlet>
 </div>  
