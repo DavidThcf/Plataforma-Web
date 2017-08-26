@@ -278,6 +278,34 @@ module.exports.createCharacteristic = function (data, type_char) {
 
 }
 
+module.exports.getPercentage = function(data){
+    return new Promise((resolve, reject) => {
+        var sequelize = sqlCon.configConnection();
+        getIdFreeProject(id_usuario, keym).
+            then(x => {
+                var query1 = `
+                select func()
+                `;
+
+                sequelize.query(query1, { type: sequelize.QueryTypes.INSERT })
+                    .then(x => {
+                        resolve(true);
+                    }).catch(x => {
+                        console.log('Error al registrar actividad ' + x);
+                        reject(false);
+                    }).done(x => {
+                        sequelize.close();
+                        console.log('Se ha cerrado sesion de la conexion a la base de datos');
+                    });
+            }).catch(x => {
+                console.log('ERROR al registrar el PROYECTO.');
+            });
+
+
+
+    });
+}
+
 function getIdCharacteristic(keym, id_usuario, id_caracteristica, type_char) {
     var query1;
     if (type_char === 'A') {

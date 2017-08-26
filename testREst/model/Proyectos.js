@@ -96,7 +96,7 @@ module.exports.getListProjects = function (id_user) {
             .then(x => {
                 resolve(x);
             }).catch(x => {
-                console.log('Error al registrar actividad ' + x);
+                console.log('Error al Obtener la lista de proyectos  getListProjects ' + x);
                 reject(false);
             }).done(x => {
                 sequelize.close();

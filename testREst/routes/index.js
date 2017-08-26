@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var fs = require('fs'); 
+var fs = require('fs');
 var http = require('http');
 //Model's Variables 
 var User = require('../model/Usuarios');
@@ -11,6 +11,7 @@ var Category = require('../model/Categorias');
 var Map = require('../model/Mapa');
 var File = require('../model/Archivos');
 var Marker = require('../model/Marcadores');
+var Characteritic = require('../model/Caracteristicas');
 //POST Services 
 
 //Service for createa new User
@@ -48,7 +49,7 @@ router.post('/createActivity', function (req, res, next) {
 
 //Serice for create a new Project
 router.post('/createProject', function (req, res, next) {
-	var prj = Project.createProject(JSON.parse(req.body.proyecto),req.files);
+	var prj = Project.createProject(JSON.parse(req.body.proyecto), req.files);
 	prj.then(x => {
 		console.log('CreateProject OK ' + x);
 		res.header("Access-Control-Allow-Origin", "*");
@@ -133,7 +134,7 @@ router.post('/getActivityList', (req, res, next) => {
 
 //Service to register a new category for work with the map
 router.post('/createCategory', (req, res, next) => {
-	console.log('----- Create Category  --------  '+JSON.stringify(req.body));
+	console.log('----- Create Category  --------  ' + JSON.stringify(req.body));
 	var cat = Category.regCategories(JSON.parse(req.body.categoria));
 	cat.then(x => {
 		if (x != false) {
@@ -154,7 +155,7 @@ router.post('/createCategory', (req, res, next) => {
 });
 
 //Service to register a new point in the map
-router.post('/regPointMap',(req,res,next)=>{
+router.post('/regPointMap', (req, res, next) => {
 	var map = Map.regPoint(JSON.parse(req.body.marcador));
 	map.then(x => {
 		if (x != false) {
@@ -175,8 +176,8 @@ router.post('/regPointMap',(req,res,next)=>{
 });
 
 //Service to register a new point in the map
-router.post('/updatePointMap',(req,res,next)=>{
-	console.log('=====  UPDATE POINT MARKER ======= \n'+JSON.stringify(req.body));
+router.post('/updatePointMap', (req, res, next) => {
+	console.log('=====  UPDATE POINT MARKER ======= \n' + JSON.stringify(req.body));
 	var map = Map.updatePoint(JSON.parse(req.body.marcador));
 	map.then(x => {
 		if (x != false) {
@@ -197,7 +198,7 @@ router.post('/updatePointMap',(req,res,next)=>{
 });
 
 //Service to get the list users 
-router.post('/getUserList',(req,res,next)=>{
+router.post('/getUserList', (req, res, next) => {
 	var usr = User.getUserList(req.body.user);
 	usr.then(x => {
 		if (x != false) {
@@ -218,16 +219,16 @@ router.post('/getUserList',(req,res,next)=>{
 });
 
 //service to create a new file into th data base
-router.post('/createFile',(req,res,next)=>{
-	console.log('BODY===>   '+JSON.stringify(req.body));
-	var fls = File.create_file(JSON.parse(req.body.archivo),req.files);
-	
+router.post('/createFile', (req, res, next) => {
+	console.log('BODY===>   ' + JSON.stringify(req.body));
+	var fls = File.create_file(JSON.parse(req.body.archivo), req.files);
+
 	fls.then(x => {
-	
-			console.log('Se ha registrado correctamente el punto');
-			res.header("Access-Control-Allow-Origin", "*");
-			res.json(true);
-		
+
+		console.log('Se ha registrado correctamente el punto');
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(true);
+
 	}).catch(x => {
 		console.log('ERROR =>  ' + x)
 		res.header("Access-Control-Allow-Origin", "*");
@@ -236,8 +237,8 @@ router.post('/createFile',(req,res,next)=>{
 });
 
 //Service to get list of the files
-router.post('/getFileList',(req,res,next)=>{
-	console.log('get file list   ==== >   '+JSON.stringify(req.body));
+router.post('/getFileList', (req, res, next) => {
+	console.log('get file list   ==== >   ' + JSON.stringify(req.body));
 	var fls = File.getFileList(req.body);
 	fls.then(x => {
 		if (x != false) {
@@ -258,7 +259,7 @@ router.post('/getFileList',(req,res,next)=>{
 });
 
 //Service to update the file information
-router.post('/updateImageFile',(req,res,next)=>{
+router.post('/updateImageFile', (req, res, next) => {
 	var fls = File.getImagesList(req.body.caracteristica);
 	fls.then(x => {
 		if (x != false) {
@@ -278,8 +279,8 @@ router.post('/updateImageFile',(req,res,next)=>{
 	});
 });
 
-router.post('/getCategoryList',(req,res,next)=>{
-	console.log('get category list   ==== >   '+JSON.stringify(req.body.caracteristica));
+router.post('/getCategoryList', (req, res, next) => {
+	console.log('get category list   ==== >   ' + JSON.stringify(req.body.caracteristica));
 	var cat = Category.getCategoriesList(JSON.parse(req.body.caracteristica));
 	cat.then(x => {
 		if (x != false) {
@@ -299,8 +300,8 @@ router.post('/getCategoryList',(req,res,next)=>{
 	});
 });
 
-router.post('/editProjectInformation',(req,res,next)=>{
-	console.log(' ------- Edit Project Information    ==== >   '+JSON.stringify(req.body.caracteristica));
+router.post('/editProjectInformation', (req, res, next) => {
+	console.log(' ------- Edit Project Information    ==== >   ' + JSON.stringify(req.body.caracteristica));
 	var prj = Project.getCategoriesList(JSON.parse(req.body.caracteristica));
 	prj.then(x => {
 		if (x == true) {
@@ -317,11 +318,11 @@ router.post('/editProjectInformation',(req,res,next)=>{
 		console.log('ERROR =>  ' + x)
 		res.header("Access-Control-Allow-Origin", "*");
 		res.json(false);
-	});	
+	});
 });
 
-router.post('/editActivityInformation',(req,res,next)=>{
-	console.log(' ------- Edit Project Information    ==== >   '+JSON.stringify(req.body.caracteristica));
+router.post('/editActivityInformation', (req, res, next) => {
+	console.log(' ------- Edit Project Information    ==== >   ' + JSON.stringify(req.body.caracteristica));
 	var prj = Project.getCategoriesList(JSON.parse(req.body.caracteristica));
 	prj.then(x => {
 		if (x == true) {
@@ -338,10 +339,10 @@ router.post('/editActivityInformation',(req,res,next)=>{
 		console.log('ERROR =>  ' + x)
 		res.header("Access-Control-Allow-Origin", "*");
 		res.json(false);
-	});	
+	});
 });
 
-router.post('/getPointList',(req,res,next)=>{
+router.post('/getPointList', (req, res, next) => {
 	//console.log('GET Points list   ==== >   '+JSON.stringify(req.body.caracteristica));
 	var maps = Map.getPointList(JSON.parse(req.body.caracteristica));
 	maps.then(x => {
@@ -363,8 +364,8 @@ router.post('/getPointList',(req,res,next)=>{
 });
 
 
-router.post('/getVisibleProjects',(req,res,next)=>{
-	console.log(' <=====       Get Visible Projects List      ==== >   '+JSON.stringify(req.body.caracteristica));
+router.post('/getVisibleProjects', (req, res, next) => {
+	console.log(' <=====       Get Visible Projects List      ==== >   ' + JSON.stringify(req.body.caracteristica));
 	var prj = Project.getVisibleProjects();
 	prj.then(x => {
 		console.log('Se ha retornado correctamente los Proyectos');
@@ -374,28 +375,47 @@ router.post('/getVisibleProjects',(req,res,next)=>{
 		console.log('ERROR =>  ' + x)
 		res.header("Access-Control-Allow-Origin", "*");
 		res.json(false);
-	});	
+	});
 });
 
-router.post('/getMarkersListFromCategory',(req,res,next)=>{
-	console.log(' <=====     Get Markers List From Category      ==== >   '+JSON.stringify(req.body));
-	var mar = Marker.getMarkersListFromCategory(req.body.id_categoria);
+router.post('/getMarkersListFromCategory', (req, res, next) => {
+	console.log(' <=====     Get Markers List From Category      ==== >   ' + JSON.stringify(req.body));
+
+	if(req.body.id_categoria != undefined)
+		var mar = Marker.getMarkersListFromCategory(req.body.id_categoria,true);
+	else
+		var mar = Marker.getMarkersListFromCategory('',false);
 	mar.then(x => {
-		if (x == true) {
-			console.log('Se ha retornado correctamente las actividades segun las categorias');
-			res.header("Access-Control-Allow-Origin", "*");
-			res.send(x);
-		}
-		else {
-			console.log('No se han retornado las actividades segun las categorias');
-			res.header("Access-Control-Allow-Origin", "*");
-			res.json(false);
-		}
+
+		console.log('Se ha retornado correctamente los marcadores de la categoria');
+		res.header("Access-Control-Allow-Origin", "*");
+		res.send(x);
+
 	}).catch(x => {
 		console.log('ERROR =>  ' + x)
 		res.header("Access-Control-Allow-Origin", "*");
 		res.json(false);
-	});	
+	});
 })
+
+router.post('/getPercentage',(req,res,next)=>{
+	console.log(' <=====    getPercentage      ==== >   ' + JSON.stringify(req.body));
+	
+		if(req.body.id_categoria != undefined)
+			var mar = Characteritic.(req.body.id_categoria,true);
+		else
+			var mar = Marker.getMarkersListFromCategory('',false);
+		mar.then(x => {
+	
+			console.log('Se ha retornado correctamente los marcadores de la categoria');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.send(x);
+	
+		}).catch(x => {
+			console.log('ERROR =>  ' + x)
+			res.header("Access-Control-Allow-Origin", "*");
+			res.json(false);
+		});
+});
 
 module.exports = router;
