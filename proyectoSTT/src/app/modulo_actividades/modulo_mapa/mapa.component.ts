@@ -20,7 +20,7 @@ export class Mapa implements OnInit{
 	zoom: number = 16; 
 	categorias:any;
 	categoria:any;
-	http:string = "http://localhost:81/category/";
+	http:string = this.serviciog.servidor + "Category/";
 	ext:string = ".svg"	
 	caracteristica: Caracteristica = new Caracteristica('','','');
 	id_categoria:string;

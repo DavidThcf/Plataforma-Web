@@ -33,26 +33,7 @@
 		data-toggle="modal" 
 		data-target="#mod-reg-act">
 		Nueva Actividad
-	</button>
-
-	<nav aria-label="Page navigation" style="display: none;">
-		<ul class="pagination">
-			<li>
-				<a href="#" aria-label="Previous">
-					<span aria-hidden="true">&laquo;</span>
-				</a>
-			</li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li>
-				<a href="#" aria-label="Next">
-					<span aria-hidden="true">&raquo;</span>
-				</a>
-			</li>
-		</ul>
-	</nav>
-
+	</button>	
 </div>
 
 <div class="col-md-10" style="background-color: rgb(222,220,221);">
@@ -67,7 +48,7 @@
 			<li *ngIf="this.serviciog.isSelAct" (click)="c1()" [class.itemSelected]="this.serviGloAct.actOpt===1">
 				<a>Detalles Actividades</a>
 			</li>
-			<li *ngIf="this.serviciog.isSelAct" (click)="c2()" [class.itemSelected]="this.serviGloAct.actOpt===2">
+			<li *ngIf="this.serviciog.isSelAct && this.serviciog.actividad != this.serviciog.isSubActivity" (click)="c2()" [class.itemSelected]="this.serviGloAct.actOpt===2">
 				<a>Sub - Actividades</a>
 			</li>
 			<li *ngIf="this.serviciog.isSelAct" (click)="c3()" [class.itemSelected]="this.serviGloAct.actOpt===3">
@@ -82,6 +63,10 @@
 			</li>
 			<li *ngIf="this.serviciog.isSelAct" (click)="c6()" [class.itemSelected]="this.serviGloAct.actOpt===6">
 				<a>Mapa</a>
+			</li>
+
+			<li (click)="c8()" [class.itemSelected]="this.serviGloAct.actOpt===8">
+				<a>Porcentajes</a>
 			</li>
 		</ul>				
 	</div>
@@ -112,8 +97,8 @@
 					<input name="" type="text" id="estado" class="form-control" name="estado" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.estado" >
 				</div>						
 			</form>
-
 		</div>
+
 		<div *ngIf="this.serviGloAct.actOpt === 1">
 			<form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
 				<div class="form-group">
@@ -171,15 +156,52 @@
 		<div *ngIf="this.serviGloAct.actOpt === 7">
 			<categorias></categorias>
 		</div>
+
+		<div *ngIf="this.serviGloAct.actOpt === 8">
+			<h1>Porcentajes</h1>
+			<hr/>
+			<div class="row">
+				<div class="col-md-6">
+					Mi Porcentaje {{this.miPorcentaje}}
+				</div>
+				<div class="col-md-6">
+					Porcentaje Asignado {{this.porcentajeAsignado}}
+				</div>
+			</div>			
+			<div >				
+				<table class="table table-striped">
+					<thead>
+						<tr>								
+							<th style="width: 70%">Actividad</th>
+							<th style="width: 30%">Porcentaje Asignado</th>	
+						</tr>
+					</thead>
+					<tbody  *ngIf="!this.serviciog.isSelAct || this.serviciog.isSubActivity === this.serviciog.actividad" >
+						<tr *ngFor="let activity of this.serviciog.actividades; let i = index">
+							<td>{{activity.nom_act}}</td>
+							<td>
+								<input type="number" class="form-control"  min="0" max="100" [(ngModel)]="activity.porcentaje" (change)="valPor(true,i)">
+							</td>								
+						</tr>
+					</tbody>
+					<tbody  *ngIf="this.serviciog.isSelAct && this.serviciog.isSubActivity != this.serviciog.actividad ">
+						<tr *ngFor="let subactividad of this.serviGloAct.subActividades; let i = index">
+							<td>{{subactividad.nom_act}}</td>
+							<td>
+								<input type="number" class="form-control" name="val" min="0" max="100" [(ngModel)]="subactividad.porcentaje" (change)="valPor(false,i)">
+							</td>
+							<td>Subact</td>							
+						</tr>
+					</tbody>
+				</table>				
+			</div>
+			<button class="btn btn-success" disabled>Guardar</button> 
+		</div>
 	</div>		
 </div>
 </div>
 
-<ol class="breadcrumb" style="display: none;">
-	<li><a href="#">Home</a></li>
-	<li><a href="#">Library</a></li>
-	<li class="active">Data</li>
-</ol>
+
 </div>
 <registro-actividad></registro-actividad>
 

@@ -4,6 +4,7 @@ import { NgModule } 		 from '@angular/core';
 
 import { Router }            from '@angular/router';
 import { ServiciosGlobales } from '../../services/servicios-globales';
+import { ServiciosGlobalesActividades} from '../servicios-globales-actividades'
 import { Servicios }         from '../../services/servicios';
 
 @Component({
@@ -18,6 +19,7 @@ export class SubActividadPanel implements OnInit{
 
 	constructor(
 		private serviciog:ServiciosGlobales,
+		private serviGloAct:ServiciosGlobalesActividades,
 		private router:Router,
 		private servicios: Servicios	  
 		){ };
@@ -37,7 +39,8 @@ export class SubActividadPanel implements OnInit{
 	}
 
 	entrarAct(subActividad){
-	    this.subActivity = [];	
+	    this.subActivity = [];
+	    this.serviciog.actividades = [];
 		this.serviciog.actividad = subActividad;
 		this.serviciog.isSubActivity = subActividad;
 		var keym = subActividad.keym;
@@ -45,14 +48,13 @@ export class SubActividadPanel implements OnInit{
 		var id_caracteristica = subActividad.id_caracteristica;
 		
 		this.serviciog.titulo = subActividad.nom_act;
-		
+		this.serviGloAct.actOpt= 1;
+				
 		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
 		.then(actividad => { 
 			if(actividad){
 				this.serviciog.actividades = actividad;
-			}else{
-				this.serviciog.actividades = [];
-			}			
+			}		
 		});
 	}
 	

@@ -41,7 +41,7 @@ export class Modallogin {
 			{
 				if(usuario){
 					this.serviciog.getUserSession(usuario);
-					let link = ['proyecto'];
+					let link = ['administrador'];
 					this.router.navigate(link);
 				}else{
 					this.mAlert = true;

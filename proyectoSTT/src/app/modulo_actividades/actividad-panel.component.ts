@@ -15,7 +15,8 @@ import { ServiciosGlobalesActividades} from './servicios-globales-actividades'
 })
 
 export class ActividadPanel implements OnInit{	
-
+	miPorcentaje:number = 100;
+	porcentajeAsignado:number = 0;
 	constructor(
 		private serviciog:ServiciosGlobales,
 		private serviGloAct:ServiciosGlobalesActividades,
@@ -32,13 +33,15 @@ export class ActividadPanel implements OnInit{
 			var id_caracteristica = this.serviciog.proyecto.id_caracteristica;		
 
 			this.servicios.getActividad(keym,id_usuario,id_caracteristica)
-			.then(actividad =>{				
-				if(actividad){
-					this.serviciog.actividades = actividad;
+			.then(actividades =>{				
+				if(actividades){
+					this.serviciog.actividades = actividades;
+					this.calculateValue(this.serviciog.actividades);
+
 				}
 			});	
 		}else{
-			let link = ['proyecto'];
+			let link = ['administrador'];
 			this.router.navigate(link);
 		}
 
@@ -48,6 +51,35 @@ export class ActividadPanel implements OnInit{
 		this.serviciog.actividad = activity;
 		this.serviciog.isSelAct = true;		
 		this.serviGloAct.actOpt = 1;
+		this.serviGloAct.subActividades = [];
+		
+		var keym = activity.keym;
+		var id_usuario = activity.id_usuario;
+		var id_caracteristica = activity.id_caracteristica;		
+
+		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
+		.then(actividades =>{				
+			if(actividades){
+				this.serviGloAct.subActividades = actividades;
+				this.calculateValue(actividades);												
+			}
+		});
+
+	}
+
+	valPor(flag,i){
+		if(flag){
+			if(this.serviciog.actividades[i].porcentaje < 0){
+				this.serviciog.actividades[i].porcentaje = 0;
+			}else if(this.serviciog.actividades[i].porcentaje > 100){
+				alert(i +" " + this.serviciog.actividades[i].porcentaje)
+				this.serviciog.actividades[i].porcentaje = 100
+			}else{
+				this.calculateValue(this.serviciog.actividades);
+			}
+		}else{
+			this.calculateValue(this.serviGloAct.subActividades);
+		}		
 	}
 
 	tituloClick(){
@@ -125,5 +157,20 @@ export class ActividadPanel implements OnInit{
 	c7(){		
 		this.serviGloAct.actOpt = 7;
 	}
+	c8(){		
+		this.serviGloAct.actOpt = 8;
+
+	}
+
 	
+	calculateValue(actividades){
+		var percent = 0;
+		for(let i = 0; i <actividades.length; i++){
+			percent = percent + Number(actividades[i].porcentaje);
+		}
+		this.porcentajeAsignado = percent;
+		this.miPorcentaje = 100 - this.porcentajeAsignado;
+	}	
 }
+
+

@@ -7,6 +7,7 @@ import { PersistenceService, StorageType } from 'angular-persistence';
 @Injectable()
 export class ServiciosGlobalesActividades {	
 	actOpt:number = 0;
+	subActividades:any = [];
 	constructor(private persistenceService:PersistenceService){}
 }
 
