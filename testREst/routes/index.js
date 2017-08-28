@@ -363,7 +363,6 @@ router.post('/getPointList', (req, res, next) => {
 	});
 });
 
-
 router.post('/getVisibleProjects', (req, res, next) => {
 	console.log(' <=====       Get Visible Projects List      ==== >   ' + JSON.stringify(req.body.caracteristica));
 	var prj = Project.getVisibleProjects();
@@ -381,10 +380,10 @@ router.post('/getVisibleProjects', (req, res, next) => {
 router.post('/getMarkersListFromCategory', (req, res, next) => {
 	console.log(' <=====     Get Markers List From Category      ==== >   ' + JSON.stringify(req.body));
 
-	if(req.body.id_categoria != undefined)
-		var mar = Marker.getMarkersListFromCategory(req.body.id_categoria,true);
+	if (req.body.id_categoria != undefined)
+		var mar = Marker.getMarkersListFromCategory(req.body.id_categoria, true);
 	else
-		var mar = Marker.getMarkersListFromCategory('',false);
+		var mar = Marker.getMarkersListFromCategory('', false);
 	mar.then(x => {
 
 		console.log('Se ha retornado correctamente los marcadores de la categoria');
@@ -398,21 +397,52 @@ router.post('/getMarkersListFromCategory', (req, res, next) => {
 	});
 })
 
-router.post('/getPercentage',(req,res,next)=>{
-	console.log(' <=====    getPercentage      ==== >   ' + JSON.stringify(req.body));
+router.post('/getPercentage', (req, res, next) => {
+	console.log(' <=====    getPercentage      ==== >   ' + JSON.stringify(req.body.caracteristica.keym));
+
+	var mar = Characteritic.getPercentage(JSON.parse(req.body.caracteristica));
+	mar.then(x => {
+
+		console.log('Se ha retornado correctamente el porcentaje cumplido de la actividad');
+		res.header("Access-Control-Allow-Origin", "*");
+		res.send(x);
+
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*"); 
+		res.json(false);
+	});
+});
+
+router.post('/updatePercentage', (req, res, next) => {
+	console.log(' <=====    Update Percentage      ==== >   ' + JSON.stringify(req.body));
+
+	var per = Characteritic.updatePercentage(JSON.parse(req.body.actividades));
+	per.then(x => {
+
+		console.log('Se ha Acctualizado correctamente el porcentaje');
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(true);
+
+	}).catch(x => {
+		console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});
+});
+
+router.post('/updateCharacteristic',(req,res,next)=>{
+	console.log(' <=====    Update Characteristic      ==== >   ' + JSON.stringify(req.body));
 	
-		if(req.body.id_categoria != undefined)
-			var mar = Characteritic.(req.body.id_categoria,true);
-		else
-			var mar = Marker.getMarkersListFromCategory('',false);
-		mar.then(x => {
+		var car = Characteritic.updateCharacteristic(JSON.parse(req.body.actividad));
+		car.then(x => {
 	
-			console.log('Se ha retornado correctamente los marcadores de la categoria');
+			console.log('Se ha Acctualizado correctamente la caracteristica');
 			res.header("Access-Control-Allow-Origin", "*");
-			res.send(x);
+			res.json(true);
 	
 		}).catch(x => {
-			console.log('ERROR =>  ' + x)
+			console.log('ERROR al actualizar la caracteristica  =>  ' + x)
 			res.header("Access-Control-Allow-Origin", "*");
 			res.json(false);
 		});

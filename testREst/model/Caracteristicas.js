@@ -278,32 +278,130 @@ module.exports.createCharacteristic = function (data, type_char) {
 
 }
 
-module.exports.getPercentage = function(data){
+module.exports.getPercentage = function (data) {
+    console.log(JSON.stringify(data));
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
-        getIdFreeProject(id_usuario, keym).
-            then(x => {
-                var query1 = `
-                select func()
+        var query1 = `
+                select func(
+                    `+data.keym+`,`+data.id_caracteristica+`,`+data.id_usuario+`,
+                    `+data.porcentaje+`,`+data.porcentaje_cumplido+`,
+                    `+data.keym+`,`+data.id_caracteristica+`,`+data.id_usuario+`);
                 `;
 
-                sequelize.query(query1, { type: sequelize.QueryTypes.INSERT })
-                    .then(x => {
-                        resolve(true);
-                    }).catch(x => {
-                        console.log('Error al registrar actividad ' + x);
-                        reject(false);
-                    }).done(x => {
-                        sequelize.close();
-                        console.log('Se ha cerrado sesion de la conexion a la base de datos');
-                    });
+        sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
+            .then(x => {
+                console.log('YAY porcentaje cumplido   =>   ' + JSON.stringify(x[0].func));
+                resolve(x[0].func);
             }).catch(x => {
-                console.log('ERROR al registrar el PROYECTO.');
+                console.log('Error al Obtener el porcentaje cumplido' + x);
+                reject(false);
+            }).done(x => {
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
             });
+    });
+}
 
+module.exports.updatePercentage = function (data) {
+    console.log('OK');
+    var flag = true;
+    return new Promise((resolve, reject) => {
+        var sequelize = sqlCon.configConnection();
 
+        data.forEach(function (element) {
+            console.log('\n\n' + JSON.stringify(element));
+            var query1 = `
+                UPDATE caracteristicas SET porcentaje = `+ element.porcentaje + `
+                WHERE keym =  `+ element.keym + ` 
+                and id_caracteristica = ` + element.id_caracteristica + ` 
+                and id_usuario = ` + element.id_usuario + `
+            `;
+            console.log('\n\n' + query1);
+            sequelize.query(query1, { type: sequelize.QueryTypes.UPDATE })
+                .then(x => {
+                    console.log('ok');
+                }).catch(x => {
+                    console.log('Error al actualizar porcentajes ' + x);
+                    flag = false;
+                }).done(x => {
+                    sequelize.close();
+                    console.log('Se ha cerrado sesion de la conexion a la base de datos');
+                });
+        }, this);
+
+        if (flag)
+            resolve(true);
+        else
+            reject(false);
 
     });
+}
+
+module.exports.updateCharacteristic = function (data) {
+    //Date
+    var current_date = new Date();
+    var flag1 =true , flag2 = true;
+    return new Promise((resolve, reject) => {
+        var sequelize = sqlCon.configConnection();
+        var query1 = `
+                UPDATE caracteristicas SET 
+
+                estado = '`+ data.estado + `',
+                
+                porcentaje_asignado = `+ data.porcentaje_asignado + `,
+                porcentaje_cumplido = `+ data.porcentaje_cumplido + `,
+                
+                fecha_fin = '`+ data.fecha_fin + `',
+                fecha_inicio = '`+ data.fecha_inicio + `',
+                fecha_ultima_modificacion = '`+ current_date.toLocaleString() + `'
+
+                WHERE keym =  `+ data.keym + ` 
+                and id_caracteristica = ` + data.id_caracteristica + ` 
+                and id_usuario = ` + data.id_usuario + `
+                `;
+
+        sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
+            .then(x => {
+                console.log('YAY   =>   ' + JSON.stringify(x));
+            }).catch(x => {
+                console.log('Error al registrar actividad ' + x);
+                flag1=false;
+            }).done(x => {
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });
+
+        var query2 = `
+            UPDATE actividades SET 
+
+            nombre = '`+data.nom_act+`',
+            descripcion = '`+data.desc_act+`',
+            fecha_ultima_modificacion = '`+ current_date.toLocaleString() +`'
+
+            WHERE keym_car =  `+ data.keym + ` 
+            and id_caracteristica = ` + data.id_caracteristica + ` 
+            and id_usuario_car = ` + data.id_usuario + `
+        `;
+
+        sequelize.query(query2, { type: sequelize.QueryTypes.SELECT })
+            .then(x => {
+                console.log('YAY   =>   ' + JSON.stringify(x));
+                resolve(true);
+            }).catch(x => {
+                console.log('Error al registrar actividad ' + x);
+                flag2=false;
+            }).done(x => {
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });
+    });
+
+    if(flag1 && flag2)
+        resolve(true);
+    else
+        reject(false);
+
 }
 
 function getIdCharacteristic(keym, id_usuario, id_caracteristica, type_char) {
