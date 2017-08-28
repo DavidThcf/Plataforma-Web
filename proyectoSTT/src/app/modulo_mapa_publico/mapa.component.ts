@@ -53,8 +53,7 @@ export class Mapa  implements OnInit{
 		var formData = new FormData();
 		formData.append("id_categoria",categoria.id_categoria);
 		this.servicios.getMarkersListFormCategory(formData)
-		.then(marcadores => {
-			
+		.then(marcadores => {			
 			if(marcadores){
 				this.marcadores = marcadores;
 			}
@@ -72,6 +71,7 @@ export class Mapa  implements OnInit{
 
 	markerClick(marcador){		
 		this.marcador = marcador;
+		this.getArchivo();
 	}
 
 	cambioProyecto(value){		
@@ -85,8 +85,12 @@ export class Mapa  implements OnInit{
 		})
 	}
 
-	cambio($event){	
-		
+	cambio($event){
+		this.getArchivo();
+	}
+
+	getArchivo(){
+		this.archivos=[];
 		var formData = new FormData();
 		
 		formData.append('keym',this.marcador.keym);
@@ -98,9 +102,8 @@ export class Mapa  implements OnInit{
 		.then(archivos => {
 			if(archivos){
 				this.archivos = archivos
-			}else{
-				this.archivos = []
 			}
 		})
+
 	}
 }
