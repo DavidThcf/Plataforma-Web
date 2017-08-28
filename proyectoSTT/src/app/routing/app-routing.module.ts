@@ -10,9 +10,10 @@ import { Mapa }   from '../modulo_mapa_publico/mapa.component';
 
 const routes: Routes = [
   { path: '', component:InicioView },
-  { path: 'proyecto', component: ProyectoPanel  },
+  { path: 'administrador', component: ProyectoPanel  },
   { path: 'mapa',  component: Mapa},
-  { path: 'actividades',  component: ActividadPanel}
+  { path: 'actividades',  component: ActividadPanel},
+  { path: 'proyectos',  component: ActividadPanel}
 ];
  
 @NgModule({

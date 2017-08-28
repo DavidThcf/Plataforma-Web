@@ -43,7 +43,6 @@ export class ModalRegister {
 		 } );	
 	}
 
-	onSubmite() {}
 
 	imageChange(event){
 		this.usuario.imagenName = event.target.files[0].name || event.srcElement.files[0].name;

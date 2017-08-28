@@ -34,14 +34,13 @@ export class RegistroActividad{
 		if(this.serviciog.isSelAct){			
 			this.actividad.keym_padre = this.serviciog.actividad.keym;
 			this.actividad.id_usuario_padre = this.serviciog.actividad.id_usuario;
-			this.actividad.id_caracteristica_padre = this.serviciog.actividad.id_caracteristica;
+			this.actividad.id_caracteristica_padre = this.serviciog.actividad.id_caracteristica;			
 		}else{			
 			this.actividad.keym_padre = this.serviciog.proyecto.keym;
 			this.actividad.id_usuario_padre = this.serviciog.proyecto.id_usuario;
-			this.actividad.id_caracteristica_padre = this.serviciog.proyecto.id_caracteristica;
-			this.serviGloAct.actOpt = 2;
+			this.actividad.id_caracteristica_padre = this.serviciog.proyecto.id_caracteristica;						
 		}
-
+		
 		formData.append('actividad',JSON.stringify (this.actividad));		
 
 		if(this.files){
@@ -50,15 +49,19 @@ export class RegistroActividad{
 
 		this.servicios.createActividad(formData)
 		.then(message => { 
-			
+			alert(message);
 			if(message){
+				if(this.serviGloAct.actOpt == 2){
+					this.serviGloAct.actOpt = 1;
+				}
 				if(!this.serviciog.isSubActivity){
-					var keym = this.serviciog.proyecto.keym;
-					var id_usuario = this.serviciog.proyecto.id_usuario;
-					var id_caracteristica = this.serviciog.proyecto.id_caracteristica;		
-
-					this.servicios.getActividad(keym,id_usuario,id_caracteristica)
-					.then(actividad => this.serviciog.actividades = actividad );
+					if(!this.serviciog.isSelAct){
+						var keym = this.serviciog.proyecto.keym;
+						var id_usuario = this.serviciog.proyecto.id_usuario;
+						var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
+						this.servicios.getActividad(keym,id_usuario,id_caracteristica)
+						.then(actividad => this.serviciog.actividades = actividad );
+					}					
 				}else{
 					var keym = this.serviciog.isSubActivity.keym;
 					var id_usuario = this.serviciog.isSubActivity.id_usuario;
@@ -68,7 +71,8 @@ export class RegistroActividad{
 					.then(actividad => this.serviciog.actividades = actividad );
 				}
 			}
-		} );
+		} );	
+		
 	}
 
 	
