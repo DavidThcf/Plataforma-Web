@@ -8,6 +8,7 @@ import { PersistenceService, StorageType } from 'angular-persistence';
 export class ServiciosGlobalesActividades {	
 	actOpt:number = 0;
 	subActividades:any = [];
+	lastActividad:any;
 	constructor(private persistenceService:PersistenceService){}
 }
 

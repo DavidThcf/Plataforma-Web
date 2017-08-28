@@ -19,6 +19,8 @@ export class ActividadPanel implements OnInit{
 	porcentajeAsignado:number = 0;
 	flag:boolean=true;
 	isEditar:boolean=false;
+	isSubActivity:any = [];
+	subActivity:any = 0;
 	constructor(
 		private serviciog:ServiciosGlobales,
 		private serviGloAct:ServiciosGlobalesActividades,
@@ -140,6 +142,47 @@ export class ActividadPanel implements OnInit{
 		.then(actividad => this.serviciog.actividades = actividad );
 	}
 
+    entrarACtividad(actividad){
+    	this.subActivity = [];
+	    this.serviciog.actividades = [];
+		this.serviciog.actividad = actividad;
+		this.serviciog.isSubActivity = actividad;
+		var keym = actividad.keym;
+		var id_usuario = actividad.id_usuario;
+		var id_caracteristica = actividad.id_caracteristica;
+		
+		this.serviciog.titulo = actividad.nom_act;
+		this.serviGloAct.actOpt= 1;
+		this.serviGloAct.lastActividad = this.serviciog.isSubActivity;
+				
+		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
+		.then(actividad => { 
+			if(actividad){
+				this.serviciog.actividades = actividad;
+			}		
+		});
+    }
+
+    regresar(){
+    	this.subActivity = [];
+	    this.serviciog.actividades = [];
+		this.serviciog.actividad = this.serviGloAct.lastActividad;
+		this.serviciog.isSubActivity = this.serviGloAct.lastActividad;
+		var keym = this.serviGloAct.lastActividad.keym;
+		var id_usuario = this.serviGloAct.lastActividad.id_usuario;
+		var id_caracteristica = this.serviGloAct.lastActividad.id_caracteristica;
+		
+		this.serviciog.titulo = this.serviGloAct.lastActividad.nom_act;
+		this.serviGloAct.actOpt= 1;
+				
+		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
+		.then(actividad => { 
+			if(actividad){
+				this.serviciog.actividades = actividad;
+			}		
+		});
+
+    }
 
 	public barChartOptions:any = {
 		scaleShowVerticalLines: false,
