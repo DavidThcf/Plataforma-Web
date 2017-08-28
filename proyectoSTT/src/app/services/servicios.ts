@@ -10,7 +10,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class Servicios {
 
-	private url = this.serviciog.servidor; // URL to web api api/heroes http://10.42.0.1:81  10.0.0.64 http:///knower.udenar.edu.co:81
+	private url = this.serviciog.servidor; 
 	private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});	
 	private headersPost = new Headers({'Content-Type': 'multipart/form-data'});
 	private options = new RequestOptions({ headers: this.headers });
@@ -135,4 +135,26 @@ export class Servicios {
 		.then(response => response.json())
 		.catch(err => false)
 	}
+	updatePercentage(formData:FormData):Promise<any>{
+		return this.http.post(this.url +"updatePercentage",formData)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false)
+	}
+
+	updateCaracteristica(formData:FormData):Promise<any>{
+		return this.http.post(this.url +"updateCharacteristic",formData)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false)
+	}
+
+	getPercentage(formData:FormData):Promise<any>{
+		return this.http.post(this.url +"getPercentage",formData)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false)
+	}
+
+ 
 } 

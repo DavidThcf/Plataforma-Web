@@ -17,6 +17,8 @@ import { ServiciosGlobalesActividades} from './servicios-globales-actividades'
 export class ActividadPanel implements OnInit{	
 	miPorcentaje:number = 100;
 	porcentajeAsignado:number = 0;
+	flag:boolean=true;
+	isEditar:boolean=false;
 	constructor(
 		private serviciog:ServiciosGlobales,
 		private serviGloAct:ServiciosGlobalesActividades,
@@ -35,7 +37,7 @@ export class ActividadPanel implements OnInit{
 			this.servicios.getActividad(keym,id_usuario,id_caracteristica)
 			.then(actividades =>{				
 				if(actividades){
-					this.serviciog.actividades = actividades;
+					this.serviciog.actividades = actividades;					
 					this.calculateValue(this.serviciog.actividades);
 
 				}
@@ -47,7 +49,23 @@ export class ActividadPanel implements OnInit{
 
 	}
 
+	actualizarActividad(actividad){
+		this.isEditar = !this.isEditar;
+		var formData = new FormData();
+		formData.append("actividad",JSON.stringify(actividad));
+		this.servicios.updateCaracteristica(formData)
+		.then(message=>{
+			alert(JSON.stringify(message));
+		});
+	}
+
+	editarClick(){
+		this.isEditar = !this.isEditar;
+	}
+
 	onSelectActivity(activity){
+		this.miPorcentaje = 100;
+		this.porcentajeAsignado =0;
 		this.serviciog.actividad = activity;
 		this.serviciog.isSelAct = true;		
 		this.serviGloAct.actOpt = 1;
@@ -69,15 +87,16 @@ export class ActividadPanel implements OnInit{
 
 	valPor(flag,i){
 		if(flag){
-			if(this.serviciog.actividades[i].porcentaje < 0){
+			if(this.serviciog.actividades[i].porcentaje < 0){				
 				this.serviciog.actividades[i].porcentaje = 0;
-			}else if(this.serviciog.actividades[i].porcentaje > 100){
-				alert(i +" " + this.serviciog.actividades[i].porcentaje)
-				this.serviciog.actividades[i].porcentaje = 100
-			}else{
+				this.calculateValue(this.serviciog.actividades);
+			}else if(this.serviciog.actividades[i].porcentaje > 100){				
+				this.serviciog.actividades[i].porcentaje = 100;
+				this.calculateValue(this.serviciog.actividades);				
+			}else{				
 				this.calculateValue(this.serviciog.actividades);
 			}
-		}else{
+		}else{			
 			this.calculateValue(this.serviGloAct.subActividades);
 		}		
 	}
@@ -89,6 +108,24 @@ export class ActividadPanel implements OnInit{
 		}else{
 			this.serviciog.actividad = this.serviciog.isSubActivity;
 		}		
+	}
+
+	sendPercentage()
+	{		
+		var formData = new FormData();
+		alert(this.serviciog.isSelAct);
+		if(!this.serviciog.isSelAct){			
+			formData.append("actividades",JSON.stringify(this.serviciog.actividades))
+		}
+		else{
+			formData.append("actividades",JSON.stringify(this.serviGloAct.subActividades))
+		}
+		
+		this.servicios.updatePercentage(formData)
+		.then(message => {
+			alert(JSON.stringify(message));
+		});
+
 	}
 
 	inicio(){
@@ -103,7 +140,7 @@ export class ActividadPanel implements OnInit{
 		.then(actividad => this.serviciog.actividades = actividad );
 	}
 
-	
+
 	public barChartOptions:any = {
 		scaleShowVerticalLines: false,
 		responsive: true
@@ -126,7 +163,22 @@ export class ActividadPanel implements OnInit{
 	{backgroundColor: '#f3af37'}
 	];
 
-	
+	public doughnutChartLabels:string[] = ['CUMPLIDO', 'NO CUMPLIDO'];
+	public doughnutChartData:number[] = [10,20];
+	public doughnutChartType:string = 'doughnut';
+
+	// events
+	public chartClicked(e:any):void {
+		alert(JSON.stringify(e));
+		console.log(e);
+	}
+
+	public chartHovered(e:any):void {
+		alert("HOver")
+		console.log(e);
+	}
+
+
 	c0(){		
 		this.serviGloAct.actOpt = 0;
 
@@ -150,6 +202,27 @@ export class ActividadPanel implements OnInit{
 
 	c5(){		
 		this.serviGloAct.actOpt = 5;
+		var formData = new FormData();
+		if(this.serviciog.isSelAct){			
+			formData.append("caracteristica",JSON.stringify(this.serviciog.actividad))
+		}
+		else{			
+			formData.append("caracteristica",JSON.stringify(this.serviciog.proyecto))
+		}
+
+		this.servicios.getPercentage(formData)
+		.then(message=>{
+			var numSi = Number(message);
+			var numNo = 100 - Number(message)	
+			this.doughnutChartData = [
+			numSi,
+			numNo
+
+			]		
+
+		})
+
+
 	}
 	c6(){		
 		this.serviGloAct.actOpt = 6;
@@ -162,7 +235,7 @@ export class ActividadPanel implements OnInit{
 
 	}
 
-	
+
 	calculateValue(actividades){
 		var percent = 0;
 		for(let i = 0; i <actividades.length; i++){

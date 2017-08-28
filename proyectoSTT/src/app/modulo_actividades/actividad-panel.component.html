@@ -58,7 +58,7 @@
 				<a>Multimedia 
 				</a>
 			</li>
-			<li *ngIf="this.serviciog.isSelAct" (click)="c5()" [class.itemSelected]="this.serviGloAct.actOpt===5">
+			<li (click)="c5()" [class.itemSelected]="this.serviGloAct.actOpt===5">
 				<a>Estadisticas </a>
 			</li>
 			<li *ngIf="this.serviciog.isSelAct" (click)="c6()" [class.itemSelected]="this.serviGloAct.actOpt===6">
@@ -103,22 +103,34 @@
 			<form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="nombre" class="lab">Nombres</label>
-					<input name="" type="text" id="nombre" class="form-control" name="nombres" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.actividad.nom_act" >
+					<input name="" type="text" id="nombre" class="form-control" name="nombres" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.nom_act" >
 
 					<label for="descripción" class="lab">Descripción</label>
-					<input name="" type="text" id="de" class="form-control" name="descripcion" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.actividad.desc_act"  >
+					<input name="" type="text" id="de" class="form-control" name="descripcion"  [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.desc_act"  >
 
-					<label for="porcentaje" class="lab">Porcentaje Asignado</label>
-					<input name="" type="text" id="porcentaje" class="form-control" name="porcentaje" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.actividad.porcentaje_asignado" >	
+					<label for="porcentaje" class="lab">Porcentaje Esta Actividad</label>
+					<input name="" type="text" id="porcentaje" class="form-control" name="porcentaje" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.porcentaje" >	
+
+
+					<label for="porcentaje_asignado" class="lab">Porcentaje Asignado Otras Actividades</label>
+					<input name="" type="text" id="porcentaje_asignado" class="form-control" name="porcentaje_asignado" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.porcentaje_asignado" >	
 
 					<label for="tiempo_inicial" class="lab">Tiempo Inicio</label>
-					<input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.actividad.fecha_inicio" >
+					<input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.fecha_inicio" >
 
 					<label for="tiempo_fin" class="lab">Tiempo Final</label>
-					<input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.actividad.fecha_fin" >
+					<input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.fecha_fin" >
 
 					<label for="estado" class="lab">Estado</label>
-					<input name="" type="text" id="estado" class="form-control" name="estado" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.actividad.estado" >
+					<input type="text" id="estado" class="form-control" name="estado"  [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.estado" >
+
+					<label for="porcentaje_cumplido" class="lab">Porcentaje Cumplido</label>
+					<input name="" type="text" id="estado" class="form-control" name="porcentaje_cumplido" [(ngModel)]="this.serviciog.actividad.porcentaje_cumplido" >
+
+					<br/>
+					<button class="btn btn-success" *ngIf="this.isEditar" (click)="actualizarActividad(this.serviciog.actividad)">Guardar</button>
+
+					<button class="btn btn-primary" *ngIf="!this.isEditar" (click)="editarClick()">Editar</button>
 				</div>						
 			</form>					
 		</div>
@@ -136,6 +148,14 @@
 		</div>
 
 		<div *ngIf="this.serviGloAct.actOpt === 5" >
+			<div style="display: block; height: 500px; width: 500px" class="center-block">
+				<canvas baseChart
+				[data]="doughnutChartData"
+				[labels]="doughnutChartLabels"
+				[chartType]="doughnutChartType"
+				(chartHover)="chartHovered($event)"
+				(chartClick)="chartClicked($event)"></canvas>
+			</div>
 			<div style="display: block">
 				<canvas baseChart
 				[datasets]="barChartData"
@@ -195,7 +215,7 @@
 					</tbody>
 				</table>				
 			</div>
-			<button class="btn btn-success" disabled>Guardar</button> 
+			<button class="btn btn-success" (click)="sendPercentage()"  [disabled]="this.miPorcentaje < 0">Guardar</button> 
 		</div>
 	</div>		
 </div>

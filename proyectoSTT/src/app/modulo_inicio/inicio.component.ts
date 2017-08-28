@@ -15,8 +15,8 @@ export class InicioView implements OnInit{
 	constructor(private serviciog:ServiciosGlobales){}
 	ngOnInit(): void {
 
-		this.valorCumplido = this.calculateValorCumplido(this.id_number,this.kelv[0]);
-		alert(this.valorCumplido);
+		//this.valorCumplido = this.calculateValorCumplido(this.id_number,this.kelv[0]);
+		//alert(this.valorCumplido);
 	}
 	kelv:Tree[] = [
 	{
@@ -64,7 +64,7 @@ export class InicioView implements OnInit{
 	];
 
 	valorCumplido:number=0;
-	val:number = 0;
+	
 	calculateValorCumplido(id:number,kel:Tree){
 		var cont = this.calculateNumberChild(id);
 		if(cont > 0){
