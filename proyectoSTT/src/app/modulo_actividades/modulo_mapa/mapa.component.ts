@@ -15,30 +15,30 @@ import { Servicios }         from '../../services/servicios';
 
 export class Mapa implements OnInit{
 	icon_marker = "";
-	lat: number = 1.2144293922395473;
-	lng: number = -77.27847844362259;
-	zoom: number = 16; 
+  lat: number = 0.90800775860100700000;
+	lng: number = -77.79117062687874000000;
+  zoom: number = 16;
 	categorias:any;
 	categoria:any;
 	http:string = this.serviciog.servidor + "Category/";
-	ext:string = ".svg"	
+	ext:string = ".svg"
 	caracteristica: Caracteristica = new Caracteristica('','','');
 	id_categoria:string;
 
 	markers:Marker[] = [];
 	mark:any;
-	
+
 	constructor(
 		private serviciog:ServiciosGlobales,
 		private router:Router,
-		private servicios: Servicios	  
+		private servicios: Servicios
 		){ };
 
 	ngOnInit():void {
 		this.caracteristica.keym_car = this.serviciog.proyecto.keym;
 		this.caracteristica.id_caracteristica = this.serviciog.proyecto.id_caracteristica;
 		this.caracteristica.id_usuario_car = this.serviciog.proyecto.id_usuario;
-		
+
 		var formData = new FormData();
 		formData.append('caracteristica', JSON.stringify(this.caracteristica));
 		this.servicios.getCategoryList(formData)
@@ -46,28 +46,28 @@ export class Mapa implements OnInit{
 			this.categorias = categorias;
 			if(categorias[0]){
 				this.categoria = categorias[0];
-			}						
+			}
 		});
 
 		var formData = new FormData();
 		formData.append('caracteristica', JSON.stringify(this.serviciog.actividad));
 		this.servicios.getPointList(formData)
-		.then(marcador =>{			
+		.then(marcador =>{
 			if(marcador){
 				this.id_categoria = marcador[0].id_categoria;
 				this.markers= marcador;
 			}
-		});		
+		});
 	}
 
-	btnCat(category){		
-		this.categoria = category;		
-	}	
-	
+	btnCat(category){
+		this.categoria = category;
+	}
+
 	mapClicked($event: any){
-		
+
 		if(!this.mark){
-			var marker:any = {				
+			var marker:any = {
 				keym:this.serviciog.actividad.keym,
 				id_caracteristica:this.serviciog.actividad.id_caracteristica,
 				id_usuario:this.serviciog.actividad.id_usuario,
@@ -76,7 +76,7 @@ export class Mapa implements OnInit{
 				id_categoria:this.categoria.id_categoria,
 				url:this.http + this.categoria.id_categoria + '.svg'
 			};
-			
+
 			var formData = new FormData();
 			formData.append('marcador',JSON.stringify(marker));
 			this.servicios.regPointMap(formData).
@@ -123,7 +123,7 @@ interface Marker{
 }
 
 class Caracteristica{
-	constructor(	
+	constructor(
 		public keym_car: string,
 		public id_usuario_car: string,
 		public id_caracteristica: string,

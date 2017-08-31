@@ -18,63 +18,63 @@ import {
 })
 
 export class Mapa  implements OnInit{
-	lat: number = 1.2144293922395473;
-	lng: number = -77.267;
-	zoom: number = 16; 
+	lat: number = 0.90800775860100700000;
+	lng: number = -77.79117062687874000000;
+	zoom: number = 16;
 
 	proyectos:any = [];
 	proyectoSelect:any;
 	categorias:any=[];
-	marcadores:any=[]; 
+	marcadores:any=[];
 	marcador:any;
 	http:string = this.serviciog.servidor + "Category/";
 	ext:string = ".svg"
-	
+
 	tipo:string = "img";
 
 	archivos:any = [];
 
 
 	constructor(
-		private serviciog:ServiciosGlobales,		
-		private servicios: Servicios	  
+		private serviciog:ServiciosGlobales,
+		private servicios: Servicios
 		){ };
 
 	ngOnInit():void {
 		this.servicios.getVisibleProject ()
-		.then(proyectos =>{				
+		.then(proyectos =>{
 			if(proyectos){
 				this.proyectos = proyectos;
 			}
-		});	
+		});
 	}
 
-	clickCategoria(categoria){		
+	clickCategoria(categoria){
 		var formData = new FormData();
 		formData.append("id_categoria",categoria.id_categoria);
 		this.servicios.getMarkersListFormCategory(formData)
-		.then(marcadores => {			
+		.then(marcadores => {
 			if(marcadores){
 				this.marcadores = marcadores;
 			}
 		})
 	}
 
-	clickTodasCategoria(){		
+	clickTodasCategoria(){
 		this.servicios.getMarkersListFormCategory(null)
-		.then(marcadores => {			
+		.then(marcadores => {
 			if(marcadores){
 				this.marcadores = marcadores;
 			}
 		})
 	}
 
-	markerClick(marcador){		
+	markerClick(marcador){
 		this.marcador = marcador;
 		this.getArchivo();
 	}
 
-	cambioProyecto(value){		
+	cambioProyecto(value){
 		var formData = new FormData();
 		formData.append("caracteristica",JSON.stringify(this.proyectoSelect));
 		this.servicios.getCategoryList(formData)
@@ -92,7 +92,7 @@ export class Mapa  implements OnInit{
 	getArchivo(){
 		this.archivos=[];
 		var formData = new FormData();
-		
+
 		formData.append('keym',this.marcador.keym);
 		formData.append('id_caracteristica',this.marcador.id_caracteristica);
 		formData.append('id_usuario',this.marcador.id_usuario);
