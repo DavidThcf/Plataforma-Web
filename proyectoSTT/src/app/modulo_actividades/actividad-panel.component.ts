@@ -115,7 +115,6 @@ export class ActividadPanel implements OnInit{
 	sendPercentage()
 	{		
 		var formData = new FormData();
-		alert(this.serviciog.isSelAct);
 		if(!this.serviciog.isSelAct){			
 			formData.append("actividades",JSON.stringify(this.serviciog.actividades))
 		}
@@ -142,9 +141,13 @@ export class ActividadPanel implements OnInit{
 		.then(actividad => this.serviciog.actividades = actividad );
 	}
 
-    entrarACtividad(actividad){
-    	this.subActivity = [];
-	    this.serviciog.actividades = [];
+	entrarACtividad(actividad){
+
+		this.serviGloAct.lastActividad = this.serviciog.isSubActivity;
+
+
+		this.subActivity = [];
+		this.serviciog.actividades = [];
 		this.serviciog.actividad = actividad;
 		this.serviciog.isSubActivity = actividad;
 		var keym = actividad.keym;
@@ -153,36 +156,42 @@ export class ActividadPanel implements OnInit{
 		
 		this.serviciog.titulo = actividad.nom_act;
 		this.serviGloAct.actOpt= 1;
-		this.serviGloAct.lastActividad = this.serviciog.isSubActivity;
-				
-		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
-		.then(actividad => { 
-			if(actividad){
-				this.serviciog.actividades = actividad;
-			}		
-		});
-    }
-
-    regresar(){
-    	this.subActivity = [];
-	    this.serviciog.actividades = [];
-		this.serviciog.actividad = this.serviGloAct.lastActividad;
-		this.serviciog.isSubActivity = this.serviGloAct.lastActividad;
-		var keym = this.serviGloAct.lastActividad.keym;
-		var id_usuario = this.serviGloAct.lastActividad.id_usuario;
-		var id_caracteristica = this.serviGloAct.lastActividad.id_caracteristica;
 		
-		this.serviciog.titulo = this.serviGloAct.lastActividad.nom_act;
-		this.serviGloAct.actOpt= 1;
-				
+
 		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
 		.then(actividad => { 
 			if(actividad){
 				this.serviciog.actividades = actividad;
 			}		
 		});
+	}
 
-    }
+	regresar(){		
+		if(this.serviGloAct.lastActividad != this.serviciog.isSubActivity){
+			this.subActivity = [];
+			this.serviciog.actividades = [];
+			this.serviciog.actividad = this.serviGloAct.lastActividad;
+			this.serviciog.isSubActivity = this.serviGloAct.lastActividad;
+			var keym = this.serviGloAct.lastActividad.keym;
+			var id_usuario = this.serviGloAct.lastActividad.id_usuario;
+			var id_caracteristica = this.serviGloAct.lastActividad.id_caracteristica;
+
+			this.serviciog.titulo = this.serviGloAct.lastActividad.nom_act;
+			this.serviGloAct.actOpt= 1;
+
+			this.servicios.getActividad(keym,id_usuario,id_caracteristica)
+			.then(actividad => { 
+				if(actividad){
+					this.serviciog.actividades = actividad;
+				}		
+			});
+		}else{
+			this.serviGloAct.lastActividad = null;
+			this.inicio();
+		}
+
+
+	}
 
 	public barChartOptions:any = {
 		scaleShowVerticalLines: false,
@@ -211,8 +220,7 @@ export class ActividadPanel implements OnInit{
 	public doughnutChartType:string = 'doughnut';
 
 	// events
-	public chartClicked(e:any):void {
-		alert(JSON.stringify(e));
+	public chartClicked(e:any):void {		
 		console.log(e);
 	}
 

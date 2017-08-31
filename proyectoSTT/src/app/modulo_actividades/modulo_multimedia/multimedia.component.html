@@ -103,19 +103,20 @@ data-target="#mod-reg-mult" >
 	<div class="modal-dialog" style="vertical-align: middle;">
 		<!-- Modal content-->
 		<div class="modal-content" >
-			<div class="modal-body" style="height:auto">
-
+			<div class="modal-body">
 				<div style="margin-top:10px;margin-right:20px">
 					<button type="button" class="close" data-dismiss="modal">×</button>
 				</div> 
-				<div style="margin-top:15px; height: 60vh; width: auto;">
-					<iframe scrolling="auto" [attr.stc]="this.urlShow"></iframe>
+				<div>										
+					<iframe [attr.src]="this.urlShow"></iframe>					
 				</div>
-
 			</div>
 		</div>
 	</div>
 </div>
 
-<!--img src={{imagen.url}} alt={{imagen.subtitulo}}-->
+<!--img src={{imagen.url}} alt={{imagen.subtitulo}}
+<iframe src="https://docs.google.com/gview?url=http://knower.udenar.edu.co/mp/user2/proyectos/95-1-2/documentos/objetivos95-1-2.docx&embedded=true"></iframe>
+[attr.src]="this.urlShow"
+-->
 <!--<img src="http://knower.udenar.edu.co/imgSTT/95-1-5.jpg" alt={{imagen.subtitulo}}>#167ac6-->
