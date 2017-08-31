@@ -11,3 +11,10 @@ agm-map {
 	width: 90%;
 	max-height: 80vh;
 }
+
+.map-title a{
+	text-transform: uppercase;
+    font-size: 30px;
+    display: block;
+    margin: auto;
+}

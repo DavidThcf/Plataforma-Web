@@ -7,6 +7,8 @@ import { Router }            from '@angular/router';
 import { ServiciosGlobales } from '../../services/servicios-globales';
 import { Servicios }         from '../../services/servicios';
 
+import { SafeResourceUrl, DomSanitizer} from '@angular/platform-browser';
+
 @Component({
 	selector: 'multimedia',
 	templateUrl: './multimedia.component.html',
@@ -18,13 +20,16 @@ export class Multimedia implements OnInit{
 	isMapSelected:boolean =false;
 	imagenEditView: any[] = [];
 	archivoShow:any;
-	urlShow:string;
+	urlShow:SafeResourceUrl;
+	url:string;
+	//current_url: SafeResourceUrl;
 	//tipo:string = "img";
 
 	constructor(
 		private serviciog:ServiciosGlobales,
 		private router:Router,
-		private servicios: Servicios	  
+		private servicios: Servicios,
+		public sanitizer:DomSanitizer	  
 		){ };
 
 	ngOnInit():void {
@@ -42,8 +47,7 @@ export class Multimedia implements OnInit{
 				this.serviciog.imagenes = imagenes
 			}else{
 				this.serviciog.imagenes = []
-			}		
-			//alert(JSON.stringify(imagenes));
+			}
 		});		
 	}
 
@@ -60,9 +64,11 @@ export class Multimedia implements OnInit{
 		}		
 
 	}
+
 	show(imagen){
 		this.archivoShow = imagen;
-		this.urlShow = "http://docs.google.com/gview?url="+this.archivoShow.val_configuracion+this.archivoShow.srcServ+this.archivoShow.nombre_archivo+"&amp;embedded=true"
+		this.url = "http://docs.google.com/gview?url="+this.archivoShow.val_configuracion+this.archivoShow.srcServ+this.archivoShow.nombre_archivo+"&embedded=true";
+		this.urlShow = this.sanitizer.bypassSecurityTrustResourceUrl(this.url); 		
 	}
 
 	cambio($event){

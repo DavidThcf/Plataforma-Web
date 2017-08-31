@@ -127,7 +127,7 @@
 					<input type="text" id="estado" class="form-control" name="estado"  [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.estado" >
 
 					<label for="porcentaje_cumplido" class="lab">Porcentaje Cumplido</label>
-					<input name="" type="text" id="estado" class="form-control" name="porcentaje_cumplido" [(ngModel)]="this.serviciog.actividad.porcentaje_cumplido" >
+					<input name="" type="text" id="estado" class="form-control" name="porcentaje_cumplido" [(ngModel)]="this.serviciog.actividad.porcentaje_cumplido" [readonly]="!this.isEditar" >
 
 					<br/>
 					<button class="btn btn-success" *ngIf="this.isEditar" (click)="actualizarActividad(this.serviciog.actividad)">Guardar</button>

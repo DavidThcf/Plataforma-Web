@@ -87,3 +87,13 @@
 	display: block;
 	margin: auto; 
 }
+.modal-dialog{
+	width: 90%; 
+	max-height: 90vh;
+}
+.modal-dialog iframe{
+	width: 90%;
+	height: 75vh;
+	display: block;
+	margin: auto;
+}
