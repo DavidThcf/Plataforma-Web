@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var http = require('http');
-//Model's Variables 
+//Model's Variables
 var User = require('../model/Usuarios');
 var Activity = require('../model/Actividades');
 var Project = require("../model/Proyectos");
@@ -12,7 +12,7 @@ var Map = require('../model/Mapa');
 var File = require('../model/Archivos');
 var Marker = require('../model/Marcadores');
 var Characteritic = require('../model/Caracteristicas');
-//POST Services 
+//POST Services
 
 //Service for createa new User
 router.post('/createUser', function (req, res, next) {
@@ -97,7 +97,7 @@ router.post('/getUser', function (req, res, next) {
 
 });
 
-//service to get user's project list  
+//service to get user's project list
 router.post('/getUserProjectList', (req, res, next) => {
 	var prj = Project.getListProjects(req.body.id_usuario);
 
@@ -197,7 +197,7 @@ router.post('/updatePointMap', (req, res, next) => {
 	});
 });
 
-//Service to get the list users 
+//Service to get the list users
 router.post('/getUserList', (req, res, next) => {
 	var usr = User.getUserList(req.body.user);
 	usr.then(x => {
@@ -409,7 +409,7 @@ router.post('/getPercentage', (req, res, next) => {
 
 	}).catch(x => {
 		console.log('ERROR =>  ' + x)
-		res.header("Access-Control-Allow-Origin", "*"); 
+		res.header("Access-Control-Allow-Origin", "*");
 		res.json(false);
 	});
 });
@@ -433,14 +433,14 @@ router.post('/updatePercentage', (req, res, next) => {
 
 router.post('/updateCharacteristic',(req,res,next)=>{
 	console.log(' <=====    Update Characteristic      ==== >   ' + JSON.stringify(req.body));
-	
+
 		var car = Characteritic.updateCharacteristic(JSON.parse(req.body.actividad));
 		car.then(x => {
-	
+
 			console.log('Se ha Acctualizado correctamente la caracteristica');
 			res.header("Access-Control-Allow-Origin", "*");
 			res.json(true);
-	
+
 		}).catch(x => {
 			console.log('ERROR al actualizar la caracteristica  =>  ' + x)
 			res.header("Access-Control-Allow-Origin", "*");

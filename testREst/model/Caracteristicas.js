@@ -9,7 +9,7 @@ var router = express.Router();
 module.exports.createCharacteristic = function (data, type_char) {
     console.log(JSON.stringify(data));
 
-    //Informacion segun la caracteristica 
+    //Informacion segun la caracteristica
 
     var keym_padre = data.keym_padre;
     var id_caracteristica_padre = data.id_caracteristica_padre;
@@ -20,7 +20,7 @@ module.exports.createCharacteristic = function (data, type_char) {
     var id_usuario_car = data.id_usuario;
     var id_caracteristica_car;  //Luego asignamos su respectivo valor
 
-    //Al momento de crearse la caracteristica el usuario asignado es el mismo que lo creo    
+    //Al momento de crearse la caracteristica el usuario asignado es el mismo que lo creo
     var usuario_asignado = data.id_usuario;
 
     var estado = 'Iniciacion';
@@ -54,7 +54,7 @@ module.exports.createCharacteristic = function (data, type_char) {
         return new Promise((resolve, reject) => {
             var sequelize = sqlCon.configConnection();
 
-            getIdCharacteristic(keym_padre, id_usuario_padre, id_caracteristica_padre, tipo_caracteristica).then(x => {
+            getIdCharacteristic(keym_car, id_usuario_car, id_caracteristica_padre, tipo_caracteristica).then(x => {
                 data.id_caracteristica = parseInt(x[0].car) + 1;
                 id_caracteristica_car = parseInt(x[0].car) + 1;
 
@@ -75,8 +75,8 @@ module.exports.createCharacteristic = function (data, type_char) {
                     (keym,id_usuario,id_caracteristica,estado,porcentaje_asignado,
                     porcentaje_cumplido,recursos,recursos_restantes,presupuesto,costos,tipo_caracteristica,visualizar_superior,
                     usuario_asignado,publicacion_web,porcentaje,fecha_inicio,fecha_fin,
-                    fecha_ultima_modificacion,publicacion_reporte) 
-                    
+                    fecha_ultima_modificacion,publicacion_reporte)
+
                     VALUES (
                         `+ keym_car + `,
                         `+ id_usuario_car + `,
@@ -102,16 +102,16 @@ module.exports.createCharacteristic = function (data, type_char) {
                 }
                 else {
                     query1 = `
-                    INSERT INTO caracteristicas 
+                    INSERT INTO caracteristicas
                     VALUES (
                         `+ keym_car + `,
                         `+ id_usuario_car + `,
                         `+ id_caracteristica_car + `,
-                        
+
                         `+ keym_padre + `,
                         `+ id_usuario_padre + `,
                         `+ id_caracteristica_padre + `,
-                        
+
                         '`+ estado + `',
                         `+ porcentaje_asignado + `,
                         `+ porcentaje_cumplido + `,
@@ -185,8 +185,8 @@ module.exports.createCharacteristic = function (data, type_char) {
                     (keym,id_usuario,id_caracteristica,estado,porcentaje_asignado,
                     porcentaje_cumplido,recursos,recursos_restantes,presupuesto,costos,tipo_caracteristica,visualizar_superior,
                     usuario_asignado,publicacion_web,porcentaje,fecha_inicio,fecha_fin,
-                    fecha_ultima_modificacion,publicacion_reporte) 
-                    
+                    fecha_ultima_modificacion,publicacion_reporte)
+
                     VALUES (
                         `+ keym_car + `,
                         `+ id_usuario_car + `,
@@ -212,16 +212,16 @@ module.exports.createCharacteristic = function (data, type_char) {
                 }
                 else {
                     query1 = `
-                    INSERT INTO caracteristicas 
+                    INSERT INTO caracteristicas
                     VALUES (
                         `+ keym_car + `,
                         `+ id_usuario_car + `,
                         `+ id_caracteristica_car + `,
-                        
+
                         `+ keym_padre + `,
                         `+ id_usuario_padre + `,
                         `+ id_caracteristica_padre + `,
-                        
+
                         '`+ estado + `',
                         `+ porcentaje_asignado + `,
                         `+ porcentaje_cumplido + `,
@@ -313,8 +313,8 @@ module.exports.updatePercentage = function (data) {
             console.log('\n\n' + JSON.stringify(element));
             var query1 = `
                 UPDATE caracteristicas SET porcentaje = `+ element.porcentaje + `
-                WHERE keym =  `+ element.keym + ` 
-                and id_caracteristica = ` + element.id_caracteristica + ` 
+                WHERE keym =  `+ element.keym + `
+                and id_caracteristica = ` + element.id_caracteristica + `
                 and id_usuario = ` + element.id_usuario + `
             `;
             console.log('\n\n' + query1);
@@ -345,19 +345,19 @@ module.exports.updateCharacteristic = function (data) {
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
         var query1 = `
-                UPDATE caracteristicas SET 
+                UPDATE caracteristicas SET
 
                 estado = '`+ data.estado + `',
-                
+
                 porcentaje_asignado = `+ data.porcentaje_asignado + `,
                 porcentaje_cumplido = `+ data.porcentaje_cumplido + `,
-                
+
                 fecha_fin = '`+ data.fecha_fin + `',
                 fecha_inicio = '`+ data.fecha_inicio + `',
                 fecha_ultima_modificacion = '`+ current_date.toLocaleString() + `'
 
-                WHERE keym =  `+ data.keym + ` 
-                and id_caracteristica = ` + data.id_caracteristica + ` 
+                WHERE keym =  `+ data.keym + `
+                and id_caracteristica = ` + data.id_caracteristica + `
                 and id_usuario = ` + data.id_usuario + `
                 `;
 
@@ -373,14 +373,14 @@ module.exports.updateCharacteristic = function (data) {
             });
 
         var query2 = `
-            UPDATE actividades SET 
+            UPDATE actividades SET
 
             nombre = '`+data.nom_act+`',
             descripcion = '`+data.desc_act+`',
             fecha_ultima_modificacion = '`+ current_date.toLocaleString() +`'
 
-            WHERE keym_car =  `+ data.keym + ` 
-            and id_caracteristica = ` + data.id_caracteristica + ` 
+            WHERE keym_car =  `+ data.keym + `
+            and id_caracteristica = ` + data.id_caracteristica + `
             and id_usuario_car = ` + data.id_usuario + `
         `;
 
@@ -409,12 +409,12 @@ function getIdCharacteristic(keym, id_usuario, id_caracteristica, type_char) {
     if (type_char === 'A') {
         query1 = `
         select max(t1.car) car,max(t1.act) act
-        from 
+        from
         (
         select max(caracteristicas.id_caracteristica) as car, 0 as act
-        from caracteristicas 
+        from caracteristicas
         where keym = `+ keym + ` and id_usuario = ` + id_usuario + `
-        union 
+        union
         select 0 as car, max(actividades.id_actividad) as act
         from actividades natural join caracteristicas
         where keym = `+ keym + ` and id_usuario = ` + id_usuario + `
@@ -425,17 +425,17 @@ function getIdCharacteristic(keym, id_usuario, id_caracteristica, type_char) {
         //and id_caracteristica_padre = ` + id_caracteristica + `
         query1 = `
         select max(t1.car) car,max(t1.prj) prj
-        from 
+        from
         (
         select max(caracteristicas.id_caracteristica) as car, 0 as prj
-        from caracteristicas 
-        where keym = `+ keym + ` and id_usuario = ` + id_usuario + ` 
+        from caracteristicas
+        where keym = `+ keym + ` and id_usuario = ` + id_usuario + `
 
-        union 
+        union
 
         select 0 as car ,max(proyectos.id_proyecto) as prj
         from proyectos join caracteristicas on proyectos.id_caracteristica=caracteristicas.id_caracteristica
-        and proyectos.keym_car=caracteristicas.keym 
+        and proyectos.keym_car=caracteristicas.keym
         and proyectos.id_usuario_car=caracteristicas.id_usuario
         where proyectos.keym = `+ keym + ` and proyectos.id_usuario = ` + id_usuario + `
         ) as t1
