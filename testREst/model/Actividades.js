@@ -37,11 +37,11 @@ module.exports.createActivity = function (data) {
 					` + keym_car + `,
 					` + id_actividad + `,
 					` + id_usuario + `,
-					
+
 					` + keym_car + `,
 					` + id_usuario_car + `,
 					` + id_caracteristica_car + `,
-					
+
 					'` + nombre + `',
 					'` + descripcion + `',
 					` + pos + `,
@@ -83,7 +83,7 @@ module.exports.getActivityList = function (data) {
 	return new Promise((resolve, reject) => {
 		var sequelize = sqlCon.configConnection();
 		var query1 = `
-				select 
+				select
 								a.nombre as nom_act,
 				a.descripcion as desc_act,
 				a.folder,
@@ -92,6 +92,8 @@ module.exports.getActivityList = function (data) {
 				c.keym,
 				c.id_caracteristica,
 				c.id_usuario,
+
+        c.usuario_asignado,
 
 				c.keym_padre,
 				c.id_caracteristica_padre,
@@ -116,10 +118,10 @@ module.exports.getActivityList = function (data) {
 				join usuarios u
 				on c.usuario_asignado=u.id_usuario
 
-				where c.keym_padre = ` + keym + ` 
-				and c.id_caracteristica_padre = ` + id_caracteristica + ` 
-				and c.id_usuario_padre = ` + id_usuario + ` 
-				
+				where c.keym_padre = ` + keym + `
+				and c.id_caracteristica_padre = ` + id_caracteristica + `
+				and c.id_usuario_padre = ` + id_usuario + `
+
 				order by a.pos, a.nombre ; `;
 
 		var i = 0;
@@ -131,7 +133,7 @@ module.exports.getActivityList = function (data) {
 
 				console.log('\n\nDATA ACTIVITY LIST =>  '+JSON.stringify(x)+'\n\n')
 				resolve(x);
-				
+
 			}).catch(x => {
 				console.log('Error al registrar actividad ' + x);
 				reject(false);
@@ -147,13 +149,13 @@ module.exports.getActivityList = function (data) {
 
 function getRecursiveActivity(keym, car, usu, sequelize, element, i) {
 	var query1 = `
-				select 
-				
+				select
+
 				a.nombre as nom_act,
 				a.descripcion as desc_act,
 				a.folder,
 				a.pos,
-				
+
 
 				c.keym,
 				c.id_caracteristica,
@@ -182,10 +184,10 @@ function getRecursiveActivity(keym, car, usu, sequelize, element, i) {
 				join usuarios u
 				on c.usuario_asignado=u.id_usuario
 
-				where c.keym_padre = ` + keym + ` 
-				and c.id_caracteristica_padre = ` + car + ` 
-				and c.id_usuario_padre = ` + usu + ` 
-				
+				where c.keym_padre = ` + keym + `
+				and c.id_caracteristica_padre = ` + car + `
+				and c.id_usuario_padre = ` + usu + `
+
 				order by a.pos ;`;
 	return new Promise((res, rej) => {
 		sequelize.query(query1, {
