@@ -32,7 +32,6 @@ export class Mapa implements OnInit{
 
 	markers:Marker[] = [];
 	mark:any;
-	type:["hybrid"]
 
 
 	@ViewChild("search")
@@ -79,8 +78,7 @@ export class Mapa implements OnInit{
 		this.categoria = category;		
 	}	
 	
-	mapClicked($event: any){
-		
+	mapClicked($event: any){		
 		if(!this.mark){
 			var marker:any = {				
 				keym:this.serviciog.actividad.keym,
@@ -113,23 +111,16 @@ export class Mapa implements OnInit{
 				longitud: $event.coords.lng,
 				id_categoria:this.categoria.id_categoria
 			};
+			this.markers.push(marker);
+			this.lat= $event.coords.lat;
+			this.lng = $event.coords.lng;
 
-			var formData = new FormData();
-			formData.append('marcador',JSON.stringify(marker));
-			this.servicios.updatePointMap(formData).
-			then(message => {
-				if(!message){
-					alert("Error al actualizar");
-				}else{
-					this.markers.push(marker);
-				}
-			});
+			
 		}
 	}
 
 	buscarLugar(){
-		//this.setCurrentPosition();
-		
+		//this.setCurrentPosition();		
 		this.mapsAPILoader.load().then(() => {
 			let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
 				
@@ -143,29 +134,56 @@ export class Mapa implements OnInit{
 					if (place.geometry === undefined || place.geometry === null) {
 						return;
 					}
-					var marcador:Marker ={
-						keym:"",
-						id_caracteristica:"",
-						id_usuario:"",
+					var marker:any = {
+						id_marcador:  this.id_categoria,
+						keym:this.serviciog.actividad.keym,
+						id_caracteristica:this.serviciog.actividad.id_caracteristica,
+						id_usuario:this.serviciog.actividad.id_usuario,
 						latitud: place.geometry.location.lat(),
 						longitud: place.geometry.location.lng(),
-						id_categoria:"0"
-					} 
-					this.markers.push(marcador);				
+						id_categoria:this.categoria.id_categoria
+					};
+
+					this.markers.push(marker);
+					this.lat = place.geometry.location.lat();
+					this.lng = place.geometry.location.lng();	
 					
 				});
 			});
 		});
 	}
 
-	private setCurrentPosition() {
+	setCurrentPosition() {
 		if ("geolocation" in navigator) {
 			navigator.geolocation.getCurrentPosition((position) => {
+				var marker:any = {
+					id_marcador:  this.id_categoria,
+					keym:this.serviciog.actividad.keym,
+					id_caracteristica:this.serviciog.actividad.id_caracteristica,
+					id_usuario:this.serviciog.actividad.id_usuario,
+					latitud: position.coords.latitude,
+					longitud: position.coords.longitude,
+					id_categoria:this.categoria.id_categoria
+				};
+
+				this.markers.push(marker);
 				this.lat= position.coords.latitude;
 				this.lng = position.coords.longitude;
-				this.zoom = 12;
 			});
 		}
+	}
+
+	guardarPunto(marker){
+		var formData = new FormData();
+		formData.append('marcador',JSON.stringify(marker));
+		this.servicios.updatePointMap(formData).
+		then(message => {
+			if(!message){
+				alert("Error al actualizar");
+			}else{
+				this.markers.push(marker);
+			}
+		});
 	}
 }
 
