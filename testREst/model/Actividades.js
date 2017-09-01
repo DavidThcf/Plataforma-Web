@@ -109,7 +109,9 @@ module.exports.getActivityList = function (data) {
 				c.publicacion_reporte,
 
 				u.nombre as usr_nom,
-				u.apellido as usr_ape
+				u.apellido as usr_ape,
+        u.e_mail as e_mail,
+        u.cargo as cargo
 
 				from actividades a join caracteristicas c
  				on 	a.keym_car = c.keym

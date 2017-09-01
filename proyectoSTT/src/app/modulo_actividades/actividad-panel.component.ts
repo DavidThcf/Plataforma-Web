@@ -202,6 +202,9 @@ export class ActividadPanel implements OnInit{
 	}
 
 	asignarUsuario(usuario){
+		this.serviciog.actividad.usr_nom = usuario.nombre;
+		this.serviciog.actividad.usr_ape = usuario.apellido;
+		this.serviciog.actividad.e_mail = usuario.e_mail;
 		alert(JSON.stringify(usuario))
 		var formData = new FormData();
 		formData.append("keym","0");
@@ -210,6 +213,7 @@ export class ActividadPanel implements OnInit{
 		this.servicios.assignActivityToUser(formData)
 		.then(message =>{
 			alert(JSON.stringify(message));
+
 		})
 	}
 
