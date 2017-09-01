@@ -21,6 +21,8 @@ export class ActividadPanel implements OnInit{
 	isEditar:boolean=false;
 	isSubActivity:any = [];
 	subActivity:any = 0;
+	usuarios:any = []
+
 	constructor(
 		private serviciog:ServiciosGlobales,
 		private serviGloAct:ServiciosGlobalesActividades,
@@ -167,7 +169,7 @@ export class ActividadPanel implements OnInit{
 	}
 
 	regresar(){		
-		if(this.serviGloAct.lastActividad != this.serviciog.isSubActivity){
+		if(this.serviGloAct.lastActividad != this.serviciog.isSubActivity && this.serviGloAct.lastActividad){
 			this.subActivity = [];
 			this.serviciog.actividades = [];
 			this.serviciog.actividad = this.serviGloAct.lastActividad;
@@ -185,12 +187,30 @@ export class ActividadPanel implements OnInit{
 					this.serviciog.actividades = actividad;
 				}		
 			});
-		}else{
-			this.serviGloAct.lastActividad = null;
+		}else{			
 			this.inicio();
 		}
+	}
 
+	getUsers(){		
+		this.servicios.getUserList(null)
+		.then(usuarios => {
+			if(usuarios){				
+				this.usuarios = usuarios;
+			}			
+		})
+	}
 
+	asignarUsuario(usuario){
+		alert(JSON.stringify(usuario))
+		var formData = new FormData();
+		formData.append("keym","0");
+		formData.append("usuario",JSON.stringify(usuario));
+		formData.append("caracteristica",JSON.stringify(this.serviciog.actividad));
+		this.servicios.assignActivityToUser(formData)
+		.then(message =>{
+			alert(JSON.stringify(message));
+		})
 	}
 
 	public barChartOptions:any = {

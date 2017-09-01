@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 import { Servicios }         from './services/servicios';
 import { ServiciosGlobales }         from './services/servicios-globales';
@@ -30,9 +30,13 @@ import { ProyectoModule } from './modulo_proyectos/proyecto-panel.module';
     PersistenceModule,
     ActividadModule,
     ProyectoModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBstXoO7yz2v1JKRl2dwht0EvS8r8rBpe0 '
-    })
+    AgmCoreModule.forRoot({      
+      apiKey: 'AIzaSyBOeLL07vQ6T4XPjzxkY1lpbm9Z0nAymN8 ',
+       libraries: ["places"]
+      //apiKey: 'AIzaSyBstXoO7yz2v1JKRl2dwht0EvS8r8rBpe0 '      
+    }),
+     FormsModule,
+     ReactiveFormsModule
   ],
   declarations: [
     AppComponent,

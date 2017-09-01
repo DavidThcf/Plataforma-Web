@@ -1,6 +1,6 @@
 import { NgModule }       from '@angular/core';
 import { CommonModule }   from '@angular/common';
-import { FormsModule }    from '@angular/forms';
+import { FormsModule,ReactiveFormsModule }    from '@angular/forms';
 import { ActividadPanel }   from './actividad-panel.component';
 import { RegistroActividad }  from './modulo_registro_actividad/registro_actividad.component';
 //import { MultimediaModule }        from './modulo_multimedia/multimedia.module';
@@ -24,6 +24,8 @@ import { ServiciosGlobalesActividades} from './servicios-globales-actividades'
     FormsModule,
     ChartsModule,
     AgmCoreModule,
+    ReactiveFormsModule
+
   ],
   declarations: [
   	ActividadPanel,

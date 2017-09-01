@@ -1,3 +1,4 @@
+
 <ul class="categoryList" >	
 	<div *ngFor="let category of this.categorias;">
 		<button [class.selected]="category === this.categoria" class="btn-category"   (click)="btnCat(category)"  [ngStyle]="{ 'background-color': category.color }" alt="boton">
@@ -5,7 +6,11 @@
 		<br/>
 	</div>	
 </ul>
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)">
+<div class="form-group">
+	<input placeholder="Buscar dirección..." autocorrect="on" autocapitalize="on" spellcheck="on" type="text" class="form-control" #search [formControl]="searchControl">
+</div>
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)"[mapTypeId]="'roadmap'">
+	<agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
 	<agm-marker *ngFor="let marker of this.markers;" [latitude]="marker.latitud-0" [longitude]="marker.longitud-0" [iconUrl]="this.http+marker.id_categoria+this.ext" >				
 	</agm-marker>
 </agm-map>
@@ -14,4 +19,5 @@
 <agm-marker *ngFor="let m of markers; let i = index"[latitude]="m.lat" [longitude]="m.lng"[label]="m.label" [iconUrl]="m.url"  (markerClick)="clickedMarker(m.label, i)">						
 	</agm-marker>
 
+ #search [formControl]="searchControl"
 -->

@@ -1,11 +1,15 @@
-import { Component, OnInit}  from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit}  from '@angular/core';
+
 import { NgModule, ViewChild } 		 from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormControl } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
+import { MapsAPILoader } from '@agm/core';
 
 import { Router }            from '@angular/router';
 import { ServiciosGlobales } from '../../services/servicios-globales';
 import { Servicios }         from '../../services/servicios';
+
+import { } from 'googlemaps';
 
 @Component({
 	selector: 'mapa',
@@ -14,6 +18,7 @@ import { Servicios }         from '../../services/servicios';
 })
 
 export class Mapa implements OnInit{
+	public searchControl: FormControl;
 	icon_marker = "";
 	lat: number = 1.2144293922395473;
 	lng: number = -77.27847844362259;
@@ -27,14 +32,24 @@ export class Mapa implements OnInit{
 
 	markers:Marker[] = [];
 	mark:any;
+	type:["hybrid"]
+
+
+	@ViewChild("search")
+	public searchElementRef: ElementRef;
 	
 	constructor(
 		private serviciog:ServiciosGlobales,
 		private router:Router,
-		private servicios: Servicios	  
+		private servicios: Servicios,
+		private mapsAPILoader: MapsAPILoader,
+		private ngZone: NgZone	  
 		){ };
 
 	ngOnInit():void {
+		this.searchControl = new FormControl();
+		this.buscarLugar();
+
 		this.caracteristica.keym_car = this.serviciog.proyecto.keym;
 		this.caracteristica.id_caracteristica = this.serviciog.proyecto.id_caracteristica;
 		this.caracteristica.id_usuario_car = this.serviciog.proyecto.id_usuario;
@@ -96,8 +111,7 @@ export class Mapa implements OnInit{
 				id_usuario:this.serviciog.actividad.id_usuario,
 				latitud: $event.coords.lat,
 				longitud: $event.coords.lng,
-				id_categoria:this.categoria.id_categoria,
-				//url:'http:///localhost:81/category/' + this.categoria.id_categoria + '.svg'
+				id_categoria:this.categoria.id_categoria
 			};
 
 			var formData = new FormData();
@@ -112,7 +126,46 @@ export class Mapa implements OnInit{
 			});
 		}
 	}
+
+	buscarLugar(){
+		//this.setCurrentPosition();
+		
+		this.mapsAPILoader.load().then(() => {
+			let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+				
+			});
+
+			autocomplete.addListener("place_changed", () => {
+				this.ngZone.run(() => {
+					//get the place result
+					alert(JSON.stringify(autocomplete.getPlace()))
+					let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+					alert(JSON.stringify(place))
+					//verify result
+					if (place.geometry === undefined || place.geometry === null) {
+						return;
+					}
+
+					//set latitude, longitude and zoom
+					this.lat = place.geometry.location.lat();
+					this.lng = place.geometry.location.lng();
+				});
+			});
+		});
+	}
+
+	private setCurrentPosition() {
+		if ("geolocation" in navigator) {
+			navigator.geolocation.getCurrentPosition((position) => {
+				this.lat= position.coords.latitude;
+				this.lng = position.coords.longitude;
+				this.zoom = 12;
+			});
+		}
+	}
 }
+
+
 interface Marker{
 	keym:string,
 	id_caracteristica:string,

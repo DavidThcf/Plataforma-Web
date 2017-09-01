@@ -156,5 +156,18 @@ export class Servicios {
 		.catch(err => false)
 	}
 
- 
+ 	getUserList(formData:FormData):Promise<any>{
+		return this.http.post(this.url +"getUserList",null)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false)
+	}
+
+	assignActivityToUser(formData:FormData):Promise<any>{
+		return this.http.post(this.url +"assignActivityToUser",formData)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false)
+	}
+
 } 
