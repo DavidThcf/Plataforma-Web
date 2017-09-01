@@ -448,4 +448,22 @@ router.post('/updateCharacteristic',(req,res,next)=>{
 		});
 });
 
+//Assign an activity to new user
+router.post('/assignActivityToUser',(req,res,next)=>{
+  console.log(' <=====    Assign Activity To User      ==== >   ' + JSON.stringify(req.body));
+
+    var prj = Project.assignActivityToUser(JSON.parse(JSON.stringify(req.body)));
+    prj.then(x => {
+      console.log('Se ha creado exitosamente el proyecto');
+      res.header("Access-Control-Allow-Origin", "*");
+      res.json(true);
+
+    }).catch(x => {
+      console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+      res.header("Access-Control-Allow-Origin", "*");
+      res.json(false);
+    });
+});
+
+
 module.exports = router;

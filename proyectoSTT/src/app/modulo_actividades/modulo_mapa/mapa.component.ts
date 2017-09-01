@@ -134,21 +134,25 @@ export class Mapa implements OnInit{
 			let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
 				
 			});
-
 			autocomplete.addListener("place_changed", () => {
 				this.ngZone.run(() => {
 					//get the place result
-					alert(JSON.stringify(autocomplete.getPlace()))
 					let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-					alert(JSON.stringify(place))
+
 					//verify result
 					if (place.geometry === undefined || place.geometry === null) {
 						return;
 					}
-
-					//set latitude, longitude and zoom
-					this.lat = place.geometry.location.lat();
-					this.lng = place.geometry.location.lng();
+					var marcador:Marker ={
+						keym:"",
+						id_caracteristica:"",
+						id_usuario:"",
+						latitud: place.geometry.location.lat(),
+						longitud: place.geometry.location.lng(),
+						id_categoria:"0"
+					} 
+					this.markers.push(marcador);				
+					
 				});
 			});
 		});
