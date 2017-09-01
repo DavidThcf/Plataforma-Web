@@ -454,7 +454,7 @@ router.post('/assignActivityToUser',(req,res,next)=>{
 
     var prj = Project.assignActivityToUser(JSON.parse(JSON.stringify(req.body)));
     prj.then(x => {
-      console.log('Se ha creado exitosamente el proyecto');
+      console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
       res.header("Access-Control-Allow-Origin", "*");
       res.json(true);
 

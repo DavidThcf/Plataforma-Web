@@ -247,80 +247,83 @@ module.exports.assignActivityToUser = function (data) {
   var sequelize = sqlCon.configConnection();
 
 
+  return new Promise((resolve, reject) => {
+    getIdFreeProject(usr.id_usuario, car.keym).
+      then(id_prj => {
+        //revision
+        console.log('\n\n aisg  ' + car.usuario_asignado + '   =   usu  ' + car.id_usuario);
+        if (JSON.stringify(car.usuario_asignado) != JSON.stringify(car.id_usuario)) {
+          console.log('\n\n ===========');
+          var query1 = `
 
-  getIdFreeProject(usr.id_usuario, car.keym).then(id_prj => {
-    //revision
-    console.log('\n\n aisg  '+car.usuario_asignado+'   =   usu  '+car.id_usuario);
-    if (JSON.stringify(car.usuario_asignado) != JSON.stringify(car.id_usuario)) {
-      console.log('\n\n ===========');
-      var query1 = `
+          UPDATE caracteristicas
+          SET usuario_asignado  =  `+ usr.id_usuario + `
+          WHERE keym = `+ car.keym + `
+          AND id_caracteristica = `+ car.id_caracteristica + `
+          AND id_usuario = `+ car.id_usuario + `;
 
-      UPDATE caracteristicas
-      SET usuario_asignado  =  `+ usr.id_usuario + `
-      WHERE keym = `+ car.keym + `
-      AND id_caracteristica = `+ car.id_caracteristica + `
-      AND id_usuario = `+ car.id_usuario + `;
+          UPDATE proyectos
+          SET
+          keym = `+ keym + `,
+          id_proyecto = `+ id_prj + `,
+          id_usuario  =  `+ usr.id_usuario + `
+          WHERE keym_car = `+ car.keym + `
+          AND id_caracteristica = `+ car.id_caracteristica + `
+          AND id_usuario_car = `+ car.id_usuario + `;
 
-      UPDATE proyectos
-      SET
-      keym = `+ keym + `,
-      id_proyecto = `+ id_prj + `,
-      id_usuario  =  `+ usr.id_usuario + `
-      WHERE keym_car = `+ car.keym + `
-      AND id_caracteristica = `+ car.id_caracteristica + `
-      AND id_usuario_car = `+ car.id_usuario + `;
+        `;
+        }
+        else {
+          console.log('\n\n XXXXXXXXX');
+          var query1 = `
+        INSERT INTO proyectos
+        (
+            keym,   id_proyecto,   id_usuario,
+            keym_car,   id_usuario_car,   id_caracteristica,
+            nombre,descripcion
+        )
+        VALUES(
+          `+ keym + `,
+          `+ id_prj + `,
+          `+ usr.id_usuario + `,
 
-    `;
-    }
-    else {
-      console.log('\n\n XXXXXXXXX');
-      var query1 = `
-    INSERT INTO proyectos
-    (
-        keym,   id_proyecto,   id_usuario,
-        keym_car,   id_usuario_car,   id_caracteristica,
-        nombre,descripcion
-    )
-    VALUES(
-      `+ keym + `,
-      `+ id_prj + `,
-      `+ usr.id_usuario + `,
+          `+ car.keym + `,
+          `+ car.id_usuario + `,
+          `+ car.id_caracteristica + `,
 
-      `+ car.keym + `,
-      `+ car.id_usuario + `,
-      `+ car.id_caracteristica + `,
+          '`+ car.nom_act + `',
+          '`+ car.desc_act + `'
+        );
 
-      '`+ car.nom_act + `',
-      '`+ car.desc_act + `'
-    );
+        UPDATE caracteristicas
+        SET usuario_asignado  =  `+ usr.id_usuario + `
+        WHERE keym = `+ car.keym + `
+        AND id_caracteristica = `+ car.id_caracteristica + `
+        AND id_usuario = `+ car.id_usuario + `
+        ;
+      `;
+        }
+        console.log('OKI  \n\n\n\n' + query1);
+        return new Promise((res, rej) => {
+          sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
+            .then(x => {
+              console.log('Se creo exitosamente el proyecto de una actividad');
+              resolve(true);
+            }).catch(x => {
+              console.log('Error al crear el proyecto de una actividad ' + x);
+              reject(false);
+            }).done(x => {
+              sequelize.close();
+              console.log('Se ha cerrado sesion de la conexion a la base de datos');
 
-    UPDATE caracteristicas
-    SET usuario_asignado  =  `+ usr.id_usuario + `
-    WHERE keym = `+ car.keym + `
-    AND id_caracteristica = `+ car.id_caracteristica + `
-    AND id_usuario = `+ car.id_usuario + `
-    ;
-  `;
-    }
-    console.log('OKI  \n\n\n\n' + query1);
-    return new Promise((resolve, reject) => {
-      sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
-        .then(x => {
-          console.log('Se creo exitosamente el proyecto de una actividad');
-          resolve(true);
-        }).catch(x => {
-          console.log('Error al crear el proyecto de una actividad ' + x);
-          reject(false);
-        }).done(x => {
-          sequelize.close();
-          console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });
         });
-    });
-  }).catch(x => {
+      }).catch(x => {
+        console.log('Error catch assignActivityToUser' + x);
+        reject(x);
+      });
 
   });
-
-
 
 
 }
