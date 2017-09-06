@@ -338,10 +338,27 @@ module.exports.updatePercentage = function (data) {
     });
 }
 
-module.exports.updateCharacteristic = function (data) {
+module.exports.updateCharacteristic = function (data,isUpdatePercentage,porcentaje_cumplido) {
     //Date
     var current_date = new Date();
     var flag1 =true , flag2 = true;
+    var flg = isUpdatePercentage;
+
+        if(flg){
+          var sequelize = sqlCon.configConnection();
+          var query1 = `select updatePercent(`+data.keym+`,`+data.id_caracteristica+`,`+data.id_usuario+`,`+porcentaje_cumplido+`)`;
+
+          sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
+              .then(x => {
+                  console.log('YAY   =>   ' + JSON.stringify(x));
+              }).catch(x => {
+                  console.log('Error al registrar actividad ' + x);
+                  flag1=false;
+              }).done(x => {
+                  sequelize.close();
+                  console.log('Se ha cerrado sesion de la conexion a la base de datos');
+              });
+        }
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
         var query1 = `

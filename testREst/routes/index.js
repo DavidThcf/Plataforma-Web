@@ -434,7 +434,7 @@ router.post('/updatePercentage', (req, res, next) => {
 router.post('/updateCharacteristic',(req,res,next)=>{
 	console.log(' <=====    Update Characteristic      ==== >   ' + JSON.stringify(req.body));
 
-		var car = Characteritic.updateCharacteristic(JSON.parse(req.body.actividad));
+  var car = Characteritic.updateCharacteristic(JSON.parse(req.body.actividad),req.body.isUpdatePercentage,req.body.porcentaje_cumplido);
 		car.then(x => {
 
 			console.log('Se ha Acctualizado correctamente la caracteristica');
