@@ -154,6 +154,28 @@ router.post('/createCategory', (req, res, next) => {
 	});
 });
 
+//Service to update a category for work with the map
+router.post('/updateCategory', (req, res, next) => {
+	console.log('----- update Category  --------  ' + JSON.stringify(req.body));
+	var cat = Category.updateCategories(JSON.parse(req.body.categoria));
+	cat.then(x => {
+		if (x != false) {
+			console.log('Se ha actualizado correctamente la categoria');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.send(x);
+		}
+		else {
+			console.log('No se ha actualizado la categoria');
+			res.header("Access-Control-Allow-Origin", "*");
+			res.json(false);
+		}
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});
+});
+
 //Service to register a new point in the map
 router.post('/regPointMap', (req, res, next) => {
 	var map = Map.regPoint(JSON.parse(req.body.marcador));

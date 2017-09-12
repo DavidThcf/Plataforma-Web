@@ -94,6 +94,13 @@ export class Servicios {
 		.then(res => res.json()) 
 		.catch(err => err.toString());
 	}
+	updateCategoria(formdata:FormData):Promise<any>{
+		return this.http
+		.post(this.url + "UpdateCategory",formdata)
+		.toPromise()
+		.then(res => res.json()) 
+		.catch(err => err.toString());
+	}
 
 	getCategoryList(formdata:FormData): Promise<any> {			
 		return this.http.post(this.url + "getCategoryList",formdata)

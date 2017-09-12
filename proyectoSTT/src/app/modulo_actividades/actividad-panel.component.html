@@ -71,6 +71,7 @@
 						Nueva Actividad
 					</button>
 				</td>
+
 				<td class="area_2">
 					<div  style="background-color: rgb(222,220,221);">
 						<div class="menuActividades">
@@ -108,31 +109,34 @@
 						</div>
 
 						<div style="height: 80vh; overflow-y: auto;">
-							<div *ngIf="this.serviGloAct.actOpt === 0">					
-								<form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
-									<div class="form-group">							
+							<div *ngIf="this.serviGloAct.actOpt === 0">
+								<div class="proyect_form">					
+									<form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
+										<div class="form-group" >						
 
-										<img  class="imgPro" src="http://www2.udenar.edu.co/recursos/wp-content/uploads/2016/10/udenar.png" />
+											<img  class="imgPro" src="http://www2.udenar.edu.co/recursos/wp-content/uploads/2016/10/udenar.png" />
+											<hr/>
 
-										<hr/>
+											<label for="nombre" class="lab">Nombres</label>
+											<input name="" type="text" id="nombre" class="form-control" name="nombres" readonly [(ngModel)]="this.serviciog.proyecto.nom_pro" >
 
-										<label for="nombre" class="lab">Nombres</label>
-										<input name="" type="text" id="nombre" class="form-control" name="nombres" readonly [(ngModel)]="this.serviciog.proyecto.nom_pro" >
+											<label for="descripción" class="lab">Descripción</label>
+											<input name="" type="text" id="de" class="form-control" name="descripcion" readonly [(ngModel)]="this.serviciog.proyecto.descripcion"  >
 
-										<label for="descripción" class="lab">Descripción</label>
-										<input name="" type="text" id="de" class="form-control" name="descripcion" readonly [(ngModel)]="this.serviciog.proyecto.descripcion"  >
+											<label for="estado" class="lab">Estado</label>
+											<input name="" type="text" id="estado" class="form-control" name="estado" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.estado" >
 
+											<label for="tiempo_inicial" class="lab">Fecha de Inicio</label>
+											<input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.fecha_inicio" >
 
-										<label for="tiempo_inicial" class="lab">Fecha de Inicio</label>
-										<input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.fecha_inicio" >
-
-										<label for="tiempo_fin" class="lab">Fecha Final</label>
-										<input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.fecha_fin" >
-
-										<label for="estado" class="lab">Estado</label>
-										<input name="" type="text" id="estado" class="form-control" name="estado" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.estado" >
-									</div>						
-								</form>
+											<label for="tiempo_fin" class="lab">Fecha Final</label>
+											<input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.fecha_fin" >											
+										</div>						
+									</form>
+								</div>
+								<button class="btn btn-primary" style="margin: auto; display: block; margin-top: 2px;">
+									Editar
+								</button>
 							</div>
 
 							<div *ngIf="this.serviGloAct.actOpt === 1">

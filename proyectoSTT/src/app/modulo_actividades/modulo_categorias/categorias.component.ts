@@ -17,6 +17,7 @@ export class Categorias implements OnInit{
 
 	categoria:Categoria = new Categoria('','black','','','');
 	categorias:any;
+	isNewCategory:boolean=false;
 	categoryValid:any;
 	caracteristica :Caracteristica = new Caracteristica('','','');
 	titulo:string = "Categoria";
@@ -37,9 +38,16 @@ export class Categorias implements OnInit{
 		formData.append('caracteristica', JSON.stringify(this.caracteristica));
 		this.servicios.getCategoryList(formData)
 		.then(categorias => {
-			this.categorias = categorias;			
+			if(categorias){
+				this.categorias = categorias;
+			}			
 		});
 	}
+
+	btnCategoriaClick(){
+		this.isNewCategory = true;
+	}
+
 
 	onSubmit(){
 		this.categoria.keym_car = this.serviciog.proyecto.keym;
@@ -53,29 +61,48 @@ export class Categorias implements OnInit{
 			this.servicios.createCategoria(formData)
 			.then(message =>{
 				alert(message);
+				if(message){
+					let categoria = this.categoria;
+					this.categoria = new Categoria('','black','','','');
+					this.categorias.unshift(categoria)
+					console.log(this.categorias)
+				}
+				this.isNewCategory = false;
 			});
 		}
 		
 	}
-	onSubmitEdit(category){
 
+	cancelarNc(){
+		this.isNewCategory = false;
+	}
+
+
+	onSubmitEdit(category){
+		var formData = new FormData();
+		formData.append('categoria', JSON.stringify(category));
+		console.log(category)
+
+		this.servicios.updateCategoria(formData)
+		.then(message =>{
+			alert(message);
+			this.isEditar = false;
+			this.categoryValid = null;			
+		});
 	}
 	
 
-	editar(category){
-		alert(JSON.stringify(category))
+	editar(category){		
 		this.isEditar = true;
 		this.categoryValid = category;
-
 	}
 	cancelar(category){
 		this.isEditar = false;
-
+		this.categoryValid = null;
 	}
 
 	eliminar(category){
 		this.isEditar = false;
-
 	}
 
 	categoryForm: NgForm;
