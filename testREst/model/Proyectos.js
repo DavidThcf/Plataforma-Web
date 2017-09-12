@@ -88,7 +88,9 @@ module.exports.getListProjects = function (id_user) {
                 c.keym_padre ,
                 c.id_usuario_padre ,
                 c.id_caracteristica_padre, 
-                c.estado,  
+                c.estado,
+                c.fecha_inicio,
+                c.fecha_fin,  
                 c.porcentaje_cumplido,
                 c.usuario_asignado,
                 c.presupuesto,
@@ -103,7 +105,7 @@ module.exports.getListProjects = function (id_user) {
                       and p.id_usuario_car = c.id_usuario
                       and p.id_caracteristica = c.id_caracteristica
                       join usuarios u on  c.usuario_asignado = u.id_usuario
-                      where p.id_usuario =` + id_user + `
+                      where p.id_usuario =` + id_user + `order by p.nombre,c.fecha_inicio
 
         `;
 

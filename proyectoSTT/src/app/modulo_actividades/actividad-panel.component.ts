@@ -24,6 +24,7 @@ export class ActividadPanel implements OnInit{
 	usuarios:any = []
 	isSearch:boolean = false;
 	actividades:any;
+	porcentaje_ejecutado:number;
 
 	constructor(
 		private serviciog:ServiciosGlobales,
@@ -33,7 +34,14 @@ export class ActividadPanel implements OnInit{
 		){ };
 
 	ngOnInit():void {
+
 		this.serviciog.actividades = [];
+		this.serviciog.actividad =null;
+		this.serviciog.isSelAct =false;
+		this.serviciog.isSubActivity = null;
+		this.serviciog.isSelAct = false;
+		this.serviGloAct.actOpt = 0;
+
 		if(this.serviciog.proyecto){
 			this.serviciog.titulo = this.serviciog.proyecto.nom_pro;
 			var keym = this.serviciog.proyecto.keym;
@@ -56,17 +64,32 @@ export class ActividadPanel implements OnInit{
 	}
 
 	actualizarActividad(actividad){
-		this.isEditar = !this.isEditar;
+		var isUpdatePercentage = false;
+
+		////se comprueba si ubieron cambios en el porcentaje ejecutado
+		if(this.porcentaje_ejecutado != actividad.porcentaje_cumplido){
+			this.porcentaje_ejecutado = actividad.porcentaje_cumplido - this.porcentaje_ejecutado;
+			//this.porcentaje_ejecutado = this.porcentaje_ejecutado * (actividad.porcentaje/100);
+			this.isEditar = !this.isEditar;
+			isUpdatePercentage = true;
+			console.log(this.porcentaje_ejecutado);
+		}
+
 		var formData = new FormData();
 		formData.append("actividad",JSON.stringify(actividad));
+		formData.append("porcentaje_cumplido",JSON.stringify(this.porcentaje_ejecutado));
+		formData.append("isUpdatePercentage",JSON.stringify(isUpdatePercentage));
+
+		this.porcentaje_ejecutado = 0;
 		this.servicios.updateCaracteristica(formData)
 		.then(message=>{
 			alert(JSON.stringify(message));
 		});
 	}
 
-	editarClick(){
+	editarClick(actividad){
 		this.isEditar = !this.isEditar;
+		this.porcentaje_ejecutado = actividad.porcentaje_cumplido;
 	}
 
 	onSelectActivity(activity){
@@ -121,6 +144,7 @@ export class ActividadPanel implements OnInit{
 		if(!this.serviciog.isSubActivity){
 			this.serviciog.isSelAct = false;
 			this.serviGloAct.actOpt = 0;
+			this.serviciog.actividad = null;
 		}else{
 			this.serviciog.actividad = this.serviciog.isSubActivity;
 		}		
@@ -229,42 +253,7 @@ export class ActividadPanel implements OnInit{
 		})
 	}
 
-	public barChartOptions:any = {
-		scaleShowVerticalLines: false,
-		responsive: true
-	};
-	public barChartLabels:string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-	public barChartType:string = 'bar';
-	public barChartLegend:boolean = true;
-
-	public barChartData:any[] = [
-	{data: [65, 59, 80, 81, 56, 55, 40], label: 'Categoria 1'},
-	{data: [28, 48, 40, 19, 86, 27, 90], label: 'Categoria 2'},
-	{data: [28, 48, 40, 19, 86, 27, 92], label: 'Categoria 3'}
-	];
-
-	public barColor:any[] = [
-	{backgroundColor: 'rgba(9,128,1,.8)'},
-	{backgroundColor: 'rgba(255,255,1,.8)'}, 
-	{backgroundColor: 'rgba(254,0,0,.8)'},
-	{backgroundColor: '#4d86dc'}, 
-	{backgroundColor: '#f3af37'}
-	];
-
-	public doughnutChartLabels:string[] = ['CUMPLIDO', 'NO CUMPLIDO'];
-	public doughnutChartData:number[] = [10,20];
-	public doughnutChartType:string = 'doughnut';
-
-	// events
-	public chartClicked(e:any):void {		
-		console.log(e);
-	}
-
-	public chartHovered(e:any):void {
-		alert("HOver")
-		console.log(e);
-	}
-
+	
 
 	c0(){		
 		this.serviGloAct.actOpt = 0;
@@ -289,27 +278,6 @@ export class ActividadPanel implements OnInit{
 
 	c5(){		
 		this.serviGloAct.actOpt = 5;
-		var formData = new FormData();
-		if(this.serviciog.isSelAct){			
-			formData.append("caracteristica",JSON.stringify(this.serviciog.actividad))
-		}
-		else{			
-			formData.append("caracteristica",JSON.stringify(this.serviciog.proyecto))
-		}
-
-		this.servicios.getPercentage(formData)
-		.then(message=>{
-			var numSi = Number(message);
-			var numNo = 100 - Number(message)	
-			this.doughnutChartData = [
-			numSi,
-			numNo
-
-			]		
-
-		})
-
-
 	}
 	c6(){		
 		this.serviGloAct.actOpt = 6;

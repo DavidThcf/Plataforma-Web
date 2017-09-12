@@ -345,9 +345,10 @@ module.exports.updateCharacteristic = function (data,isUpdatePercentage,porcenta
     var flg = isUpdatePercentage;
 
         if(flg){
+            console.log("casa")
           var sequelize = sqlCon.configConnection();
           var query1 = `select updatePercent(`+data.keym+`,`+data.id_caracteristica+`,`+data.id_usuario+`,`+porcentaje_cumplido+`)`;
-
+console.log(query1)
           sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
               .then(x => {
                   console.log('YAY   =>   ' + JSON.stringify(x));
