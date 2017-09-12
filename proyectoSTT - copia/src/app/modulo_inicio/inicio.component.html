@@ -1,0 +1,30 @@
+ 
+
+<div style="background-color: white; margin-top: 100px;">
+	<div class="drop-container" ngFileDrop (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" [ngClass]="{ 'is-drop-over': dragOver }">
+		<h1>Drag & Drop</h1>
+	</div>
+
+	<label class="upload-button">
+		<input type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" multiple>
+		or choose file(s)
+	</label>
+	<label >
+		{{this.percentage}}
+	</label>
+
+	<button type="button" class="start-upload-btn" (click)="startUpload()">
+		Start Upload
+	</button>
+	
+</div>
+
+<div class="fondo">
+	<img
+	style="height: 100%;
+	width: 60%;
+	margin-top: 100px; " class="center-block"
+	src="assets/img/logoTextMproject.png">
+</div>
+
+

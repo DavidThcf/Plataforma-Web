@@ -63,6 +63,7 @@ export class InicioView implements OnInit{
 	}
 	];
 
+
 	valorCumplido:number=0;
 	
 	calculateValorCumplido(id:number,kel:Tree){

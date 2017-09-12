@@ -1,5 +1,72 @@
+
+.area_1{
+	width: 20%;
+	vertical-align: top;
+}
+.area_2{
+	width: 80%;
+	vertical-align: top;	
+}
+
+/* ESTILOS AREA 1*/
+.btn1{
+	padding: 0px 2px;
+	height: 20px;
+	width: 24px;
+}
+
+.titulo{
+	margin-top: 5px;
+	margin-right: 24px;
+	height: 40px;
+	text-align: center;
+	display: inline-block;
+	color: white; 
+	text-transform: uppercase; 
+	font-weight: bold;
+	cursor: pointer;
+	width: 16em;
+	text-overflow: ellipsis;
+	overflow:hidden;
+}
+
+.titulo:hover{	
+	text-decoration: underline;
+	color: rgb(255,255,255,0.5);
+}
+
+.actividades_panel{	
+	background-color: rgb(153,191,78);
+	margin: 5px 10px 10px 10px;
+	border-radius: 5px; 
+	border: 2px solid #a1a1a1;
+}
+.listaActividades{
+	overflow-y: auto;
+	height: 69vh;	
+	overflow-x: hidden;
+	width: 19.5em;
+}
+
+.listaActividades::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+.listaActividades::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+.listaActividades::-webkit-scrollbar-thumb
+{
+	background-color: #2f5f30;
+}
 .selected a{
 	background-color: rgba(0,0,0,0.2);
+	text-overflow: ellipsis;	
 }
 
 .listaActividades ul {
@@ -25,6 +92,7 @@
 	border-bottom: 1px solid rgba(44,106,34,.5);
 }
 
+/* ESTILOS AREA 2*/
 .menuActividades ul{
 	list-style: none;
 }
@@ -65,17 +133,7 @@
 	background-color: rgb(77,185,221);
 	border-color: gray;
 }
-.titulo{
-	color: white; 
-	text-transform: uppercase; 
-	font-weight: bold;
-	cursor: pointer;
-}
 
-.titulo:hover{	
-	text-decoration: underline;
-	color: rgb(255,255,255,0.5);
-}
 
 .imgPro{
 	display: block;

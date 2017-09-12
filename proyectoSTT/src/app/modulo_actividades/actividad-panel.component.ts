@@ -22,6 +22,8 @@ export class ActividadPanel implements OnInit{
 	isSubActivity:any = [];
 	subActivity:any = 0;
 	usuarios:any = []
+	isSearch:boolean = false;
+	actividades:any;
 
 	constructor(
 		private serviciog:ServiciosGlobales,
@@ -33,7 +35,7 @@ export class ActividadPanel implements OnInit{
 	ngOnInit():void {
 		this.serviciog.actividades = [];
 		if(this.serviciog.proyecto){
-			this.serviciog.titulo = this.serviciog.proyecto.nombre;
+			this.serviciog.titulo = this.serviciog.proyecto.nom_pro;
 			var keym = this.serviciog.proyecto.keym;
 			var id_usuario = this.serviciog.proyecto.id_usuario;
 			var id_caracteristica = this.serviciog.proyecto.id_caracteristica;		
@@ -89,6 +91,16 @@ export class ActividadPanel implements OnInit{
 
 	}
 
+	search(term: string){
+		if(term != ''){
+			this.isSearch=true
+		}
+		this.actividades = this.serviciog.actividades.filter(
+			item  => item.nom_act.toLowerCase().indexOf(term.toLowerCase()) !== -1	 	
+			);			
+	}
+
+
 	valPor(flag,i){
 		if(flag){
 			if(this.serviciog.actividades[i].porcentaje < 0){				
@@ -132,7 +144,7 @@ export class ActividadPanel implements OnInit{
 	}
 
 	inicio(){
-		this.serviciog.titulo = this.serviciog.proyecto.nombre;
+		this.serviciog.titulo = this.serviciog.proyecto.nom_pro;
 		var keym = this.serviciog.proyecto.keym;
 		var id_usuario = this.serviciog.proyecto.id_usuario;
 		var id_caracteristica = this.serviciog.proyecto.id_caracteristica;		

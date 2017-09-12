@@ -11,6 +11,8 @@ import { Servicios }         from '../services/servicios';
 })
 
 export class ProyectoPanel implements OnInit{
+	proyectos:any;
+	isSearch:boolean=false;
 
 	constructor(
 		private serviciog:ServiciosGlobales,
@@ -26,6 +28,19 @@ export class ProyectoPanel implements OnInit{
 			});
 		}
 	}	
+
+	search(term:string){
+		if(term != ''){
+			this.isSearch=true
+		}
+		console.log(this.proyectos)
+		this.proyectos = this.serviciog.proyecto.filter(
+			item  => item.nombre.toLowerCase().indexOf(term.toLowerCase()) !== -1 ||
+			item.descripcion.toLowerCase().indexOf(term.toLowerCase()) !== -1
+
+		);
+
+	}
 
 	entrar(proyect:any){
 		this.serviciog.proyecto = proyect;		

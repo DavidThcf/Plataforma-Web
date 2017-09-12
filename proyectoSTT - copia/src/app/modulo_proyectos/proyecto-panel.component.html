@@ -1,0 +1,62 @@
+<div class="container" style="background-color: #DEDCDD;">	
+	<h2>LISTA DE PROYECTOS</h2>
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Buscar...">
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-primary" aria-label="Left Align">
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					</button>
+				</span>
+			</div>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+	<div class="scrollbar row">	
+		<div class=" col-md-6" *ngFor="let proyect of this.serviciog.proyecto">
+			<div class="row projectCard" style="margin: 10px">		
+				<div class="col-md-3">
+					<div style="background-color: white; margin-top: 30px">
+						<img style="height: 100px;" src="http://www2.udenar.edu.co/recursos/wp-content/uploads/2016/10/udenar.png">
+					</div>
+				</div>
+				<div class="col-md-9">
+					<h4 style="text-transform: uppercase; height: 30px">{{proyect.nombre}}</h4>					
+					<div>
+						<div class="row">
+							<div class="lab1 col-md-3">Lider de Proyecto:</div>
+							<div class="lab2 col-md-8">Lus Alfredo Gomez</div>
+						</div>
+						<div>
+							<div class="lab1">Descripción:</div>
+							<div class="lab2">{{proyect.descripcion}}</div>
+						</div>
+						<div class="row">
+							<div class="lab1 col-md-6">
+								<div>Estado:</div>
+								<div class="lab2">{{proyect.estado}}</div>
+							</div>
+							<div class="lab1 col-md-6">
+								<div>Progreso:</div>
+								<div class="lab2">{{proyect.porcentaje}}%</div>
+							</div>
+						</div>
+					</div>				
+
+					<button  class="btn btn-primary" (click)="entrar(proyect)" style="float:right; background-color: orange">
+						Entrar
+					</button>
+				</div>	
+			</div>			
+		</div>		
+	</div>
+	<button class="btn btn-primary" 
+			style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 10px;"
+			data-toggle="modal" 
+			data-target="#mod-reg-pro">
+			NUEVO PROYECTO
+	</button>
+</div>
+<registro-proyecto></registro-proyecto>
