@@ -22,7 +22,6 @@ import { ServiciosGlobalesActividades} from './servicios-globales-actividades'
     ChartsModule,
     AgmCoreModule,
     ReactiveFormsModule
-
   ],
   declarations: [
   	ActividadPanel,

@@ -179,6 +179,57 @@
 	border-color: gray;
 }
 
+.numPerc{
+	font-weight: bold;
+	font-size: 20px;
+}
 
+.tablePercent{
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: 50vh;
+}
 
+.tablePercent::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;	
+	background-color: #bcbcbc;	
+}
 
+.tablePercent::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+	
+}
+
+.tablePercent::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
+.formulario{
+	border-bottom:1px solid gray;
+}
+.formulario::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;	
+	background-color: #bcbcbc;	
+}
+
+.formulario::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+	
+}
+
+.formulario::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}

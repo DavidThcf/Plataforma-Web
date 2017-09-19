@@ -19,7 +19,7 @@ export class Categorias implements OnInit{
 	categorias:any;
 	isNewCategory:boolean=false;
 	categoryValid:any;
-	caracteristica :Caracteristica = new Caracteristica('','','');
+	caracteristica :Caracteristica = new Caracteristica('','','',1);
 	titulo:string = "Categoria";
 	isEditar:boolean =  false;
 
@@ -168,5 +168,6 @@ class Caracteristica{
 		public keym_car: string,
 		public id_usuario_car: string,
 		public id_caracteristica: string,
+		public opt:number
 		) {  }
 }

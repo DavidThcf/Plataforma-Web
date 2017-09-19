@@ -65,25 +65,25 @@ export class ActividadPanel implements OnInit{
 
 	actualizarActividad(actividad){
 		var isUpdatePercentage = false;
-
+		this.isEditar = !this.isEditar;
 		////se comprueba si ubieron cambios en el porcentaje ejecutado
 		if(this.porcentaje_ejecutado != actividad.porcentaje_cumplido){
 			this.porcentaje_ejecutado = actividad.porcentaje_cumplido - this.porcentaje_ejecutado;
 			//this.porcentaje_ejecutado = this.porcentaje_ejecutado * (actividad.porcentaje/100);
-			this.isEditar = !this.isEditar;
+			
 			isUpdatePercentage = true;
 			console.log(this.porcentaje_ejecutado);
+			alert("entra cambios")
 		}
 
 		var formData = new FormData();
 		formData.append("actividad",JSON.stringify(actividad));
 		formData.append("porcentaje_cumplido",JSON.stringify(this.porcentaje_ejecutado));
 		formData.append("isUpdatePercentage",JSON.stringify(isUpdatePercentage));
-
-		this.porcentaje_ejecutado = 0;
+		
 		this.servicios.updateCaracteristica(formData)
 		.then(message=>{
-			alert(JSON.stringify(message));
+			alert(JSON.stringify(message));					
 		});
 	}
 

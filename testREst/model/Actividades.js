@@ -124,7 +124,7 @@ module.exports.getActivityList = function (data) {
 				and c.id_caracteristica_padre = ` + id_caracteristica + `
 				and c.id_usuario_padre = ` + id_usuario + `
 
-				order by a.pos, a.nombre ; `;
+				order by a.nombre ; `;
 
 		var i = 0;
 		//console.log('POLSA');

@@ -20,6 +20,11 @@ import {
 export class Mapa  implements OnInit{
 	lat: number = 1.2144293922395473;
 	lng: number = -77.27847844362259;
+
+	//lat: number = 0.9076
+	//lng: number = -77.7601667
+
+
 	zoom: number = 16;	
 
 	proyectos:any = [];
