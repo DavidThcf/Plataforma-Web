@@ -1,3 +1,11 @@
+.row{
+	margin-right: 20px;
+	margin-left: 20px;
+}
+.select-mul{	
+	margin-right: 20px;
+}
+
 .thumbnail{
 	text-decoration: none;
 }
@@ -83,10 +91,7 @@
 	box-shadow: 1px 1px 15px black;
 	color: white;
 }
-.select-mul{
-	display: block;
-	margin: auto; 
-}
+
 .modal-dialog{
 	width: 90%; 
 	max-height: 90vh;

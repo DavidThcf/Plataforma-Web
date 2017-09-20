@@ -16,6 +16,7 @@ import { Servicios }         from '../../services/servicios';
 export class SubActividadPanel implements OnInit{	
 	subActivity:any = 0;
 	isSubActivity:any = [];
+	subActividad:any;
 
 	constructor(
 		private serviciog:ServiciosGlobales,
@@ -33,14 +34,15 @@ export class SubActividadPanel implements OnInit{
 		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
 		.then(actividad =>{				
 			if(actividad){
+				this.subActividad = actividad;
 				this.subActivity = actividad;
 			}
 		});
 	}
 
 	entrarAct(subActividad){
-	    this.subActivity = [];
-	    this.serviciog.actividades = [];
+		this.subActivity = [];
+		this.serviciog.actividades = [];
 		this.serviciog.actividad = subActividad;
 		this.serviciog.isSubActivity = subActividad;
 		var keym = subActividad.keym;
@@ -49,7 +51,7 @@ export class SubActividadPanel implements OnInit{
 		
 		this.serviciog.titulo = subActividad.nom_act;
 		this.serviGloAct.actOpt= 1;
-				
+
 		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
 		.then(actividad => { 
 			if(actividad){
@@ -57,5 +59,22 @@ export class SubActividadPanel implements OnInit{
 			}		
 		});
 	}
-	
+	search(term:string){	
+		console.log(this.subActividad)	
+		if(term==''){
+			this.subActivity = this.subActividad;
+		}else{
+			this.subActivity = this.subActividad.filter(
+				item  =>{
+					return item.nom_act.toLowerCase().indexOf(term.toLowerCase()) !== -1 ||
+					item.usr_nom.toLowerCase().indexOf(term.toLowerCase()) !== -1 ||
+					item.usr_ape.toLowerCase().indexOf(term.toLowerCase()) !== -1 ||
+					item.porcentaje_cumplido.toLowerCase().indexOf(term.toLowerCase()) !== -1
+				} 
+
+				);
+		}
+
+	}
+
 }

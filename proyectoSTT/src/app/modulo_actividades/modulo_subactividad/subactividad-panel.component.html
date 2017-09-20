@@ -1,4 +1,40 @@
-<div class="scrollbar row">
+<div >
+	<div class="input-group">
+		<input type="text" #searchBox class="form-control" placeholder="Buscar..." (keyup)="search(searchBox.value)" >
+		<span class="input-group-btn">
+			<button type="button" class="btn btn-primary" aria-label="Left Align">
+				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+			</button>
+		</span>
+	</div>
+	<br/>
+	<table class="tableBodyScroll  table table-striped ">
+		<thead>
+			<tr>								
+				<th style="width: 30%">Nombre</th>
+				<th style="width: 25%">Usuario</th>	
+				<th style="width: 15%">Progreso</th>
+				<th style="width: 30%"></th>	
+			</tr>
+		</thead>
+		
+		<tbody >
+			<tr *ngFor="let subActividad of this.subActivity" >
+				<td style="width: 30%">{{subActividad.nom_act}}</td>
+				<td style="width: 25%">
+					{{subActividad.usr_nom}} {{subActividad.usr_ape}}
+				</td>
+				<td style="width: 15%">{{subActividad.porcentaje_cumplido}}</td>
+				<td style="width: 30%">
+					<button  class="btn btn-primary" (click)="entrarAct(subActividad)" style="background-color: orange">Entrar</button>
+				</td>								
+			</tr>
+		</tbody>
+		
+	</table>	
+</div>
+
+<div style="display: none" class="scrollbar row">
 	<div class=" col-md-6" *ngFor="let subActividad of this.subActivity" >
 		<div class="row projectCard" style="margin: 10px;">		
 			<div class="col-md-3">
@@ -27,7 +63,9 @@
 							<div class="lab2">10%</div>
 						</div>
 					</div>
-				</div>				
+				</div>	
+
+				<			
 
 				<button  class="btn btn-primary" (click)="entrarAct(subActividad)" style="float:right; background-color: orange">
 					Entrar
