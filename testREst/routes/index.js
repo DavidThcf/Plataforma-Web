@@ -177,13 +177,14 @@ router.post('/updateCategory', (req, res, next) => {
 });
 
 //Service to register a new point in the map
-router.post('/regPointMap', (req, res, next) => {
+router.post('/regPointMap', (req, res, next) => {	
+	console.log("ARCHIVOS ====> " + JSON.stringify(req.files));
 	var map = Map.regPoint(JSON.parse(req.body.marcador));
 	map.then(x => {
 		if (x != false) {
 			console.log('Se ha registrado correctamente el punto');
 			res.header("Access-Control-Allow-Origin", "*");
-			res.send(x);
+			res.json(x);
 		}
 		else {
 			console.log('No se ha registrado el punto');
@@ -243,6 +244,7 @@ router.post('/getUserList', (req, res, next) => {
 //service to create a new file into th data base
 router.post('/createFile', (req, res, next) => {
 	console.log('BODY===>   ' + JSON.stringify(req.body));
+	//console.log('BODY===>   ' + JSON.stringify(req.files));
 	var fls = File.create_file(JSON.parse(req.body.archivo), req.files);
 
 	fls.then(x => {

@@ -1,3 +1,51 @@
+.categoryList:hover {
+	background-color: rgba(0,0,0,0.5);
+	cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+	.area_1 {
+
+	}
+}
+/*form mapa styles*/
+.categorySelect{
+	list-style: none;
+	width: 40%;
+}
+.categorySelect a{
+	color: #555;
+	width: 100%;
+	text-decoration: none;
+}
+
+.uploader input {
+	display: none;
+}
+
+#upload {
+	display: none;
+}
+
+.uploader {
+	border: 1px solid #ccc;
+	display: inline-block;
+	padding: 6px 12px;
+	cursor: pointer;
+}
+
+.myModal{
+	position: absolute;
+	width: 100%;
+	height: 100vh;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 5;
+	top: 0px;
+	margin-top: 50px;
+	display: none;
+}
+/*Fin form mapa styles*/
+
 
 .area_1{
 	width: 20%;

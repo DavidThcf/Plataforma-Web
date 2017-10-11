@@ -38,7 +38,9 @@ export class Mapa  implements OnInit{
 	tipo:string = "img";
 
 	archivos:any = [];
+	imagenes:any =[];
 
+	caracteristica: Caracteristica = new Caracteristica('','','',1);
 
 	constructor(
 		private serviciog:ServiciosGlobales,
@@ -74,17 +76,46 @@ export class Mapa  implements OnInit{
 		})
 	}
 
-	markerClick(marcador){
+	getMultimediaMarker(marcador){
 		this.marcador = marcador;
 		this.getArchivo();
 	}
 
-	cambioProyecto(value){
+	markerClicks(marcador){
+
+		/*----------Consigue las imagenes que muestran al inicio-----------*/
 		var formData = new FormData();
-		formData.append("caracteristica",JSON.stringify(this.proyectoSelect));
+		//alert(JSON.stringify(this.serviciog.actividad));
+		formData.append('keym',marcador.keym);
+		formData.append('id_caracteristica',marcador.id_caracteristica);
+		formData.append('id_usuario',marcador.id_usuario);
+		formData.append('id_marcador',marcador.id_marcador);
+		formData.append('tipo',this.tipo);
+		formData.append('flag', "false")
+
+		this.servicios.getMultimedia(formData)
+		.then(imagenes => {			
+			if(imagenes){
+				this.imagenes = imagenes
+			}else{
+				this.imagenes = []
+			}
+		});	
+		/*---------------------------------FIN----------------------------------*/		
+	}
+
+	cambioProyecto(value){
+		this.caracteristica.keym_car = this.proyectoSelect.keym;
+		this.caracteristica.id_caracteristica = this.proyectoSelect.id_caracteristica;
+		this.caracteristica.id_usuario_car = this.proyectoSelect.id_usuario;
+		
+		var formData = new FormData();
+		formData.append('caracteristica', JSON.stringify(this.caracteristica));
+		/*var formData = new FormData();
+		formData.append("caracteristica",JSON.stringify(this.proyectoSelect));*/
 		this.servicios.getCategoryList(formData)
 		.then(categorias =>{
-			if(categorias){
+			if(categorias){				
 				this.categorias = categorias
 			}
 		})
@@ -95,6 +126,7 @@ export class Mapa  implements OnInit{
 	}
 
 	getArchivo(){
+		/*---Consigue TODA la informacion Multimedia de la de la actividad que pertence el punto--*/
 		this.archivos=[];
 		var formData = new FormData();
 
@@ -109,6 +141,17 @@ export class Mapa  implements OnInit{
 				this.archivos = archivos
 			}
 		})
+		/*------------------------------------FIN----------------------------------------------------*/
+
+
 
 	}
+}
+class Caracteristica{
+	constructor(	
+		public keym_car: string,
+		public id_usuario_car: string,
+		public id_caracteristica: string,
+		public opt:number
+		) {  }
 }

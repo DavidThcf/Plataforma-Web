@@ -168,7 +168,10 @@ module.exports.getCategoriesList = function (data) {
     var id_caracteristica = data.id_caracteristica;
     var id_usuario_car = data.id_usuario_car;
     var opt = data.opt;
-    var query1 
+    var query1; 
+
+    
+    console.log("CATEGORIAS MAPA");
 
     if(opt==1){
         query1 =  `

@@ -30,6 +30,7 @@ module.exports.create_file = function (data, files) {
     var longitud = 0;
     var srcGif = '';
     var srcServ = '';
+    var id_marcador = data.id_marcador;
 
 
 
@@ -41,44 +42,74 @@ module.exports.create_file = function (data, files) {
             joinNameFile(keym, id_archivo, id_usuario, x[1]).then(nom_arc => {
                 nombre_archivo = nom_arc;
                 var sequelize = sqlCon.configConnection();
-
-                var query1 = `
-                    insert into archivos values 
-                    (
-                        `+ keym + `,
-                        `+ id_archivo + `,
-                        `+ id_usuario + `,
-                        `+ keym_car + `,
-                        `+ id_caracteristica + `,
-                        `+ id_usuario_car + `,
-                        '`+ nombre_archivo + `',
-                        '`+ titulo + `',
-                        '`+ subtitulo + `',
-                        '`+ descripcion + `',
-                        '`+ contenido + `',
-                        '`+ fecha_creacion + `',
-                        '`+ fecha_ultima_modificacion + `',
-                        `+ publicacion + `,
-                        '`+ tipo + `',
-                        `+ localizacion + `,
-                        `+ longitud + `,
-                        '`+ srcGif + `',
-                        'user`+ id_usuario + `/',
-                        false
-                    );
-    
+                var query1 ="";
+                if(id_marcador != null){
+                 query1 = `
+                 insert into archivos values 
+                 (
+                 `+ keym + `,
+                 `+ id_archivo + `,
+                 `+ id_usuario + `,
+                 `+ keym_car + `,
+                 `+ id_caracteristica + `,
+                 `+ id_usuario_car + `,
+                 '`+ nombre_archivo + `',
+                 '`+ titulo + `',
+                 '`+ subtitulo + `',
+                 '`+ descripcion + `',
+                 '`+ contenido + `',
+                 '`+ fecha_creacion + `',
+                 '`+ fecha_ultima_modificacion + `',
+                 `+ publicacion + `,
+                 '`+ tipo + `',
+                 `+ localizacion + `,
+                 `+ longitud + `,
+                 '`+ srcGif + `',
+                 'user`+ id_usuario + `/',
+                 false,
+                 '`+ id_marcador + `'
+                 );    
+                 `;
+             }else{
+                query1 = `
+                insert into archivos values 
+                (
+                `+ keym + `,
+                `+ id_archivo + `,
+                `+ id_usuario + `,
+                `+ keym_car + `,
+                `+ id_caracteristica + `,
+                `+ id_usuario_car + `,
+                '`+ nombre_archivo + `',
+                '`+ titulo + `',
+                '`+ subtitulo + `',
+                '`+ descripcion + `',
+                '`+ contenido + `',
+                '`+ fecha_creacion + `',
+                '`+ fecha_ultima_modificacion + `',
+                `+ publicacion + `,
+                '`+ tipo + `',
+                `+ localizacion + `,
+                `+ longitud + `,
+                '`+ srcGif + `',
+                'user`+ id_usuario + `/',
+                false
+                );    
                 `;
-                sequelize.query(query1, { type: sequelize.QueryTypes.INSERT }).
-                    then(x => {
-                        this.fileUpload(files, repository + '/user' + id_usuario + '/', nombre_archivo);
-                        console.log('\n\n\n\n\nUpload Completed');
-                        resolve(true);
-                    }).catch(x => {
-                        console.log('Error getIdFreeFile:   ' + x);
-                        reject(false);
-                    });
 
+            }
+
+            sequelize.query(query1, { type: sequelize.QueryTypes.INSERT }).
+            then(x => {
+                this.fileUpload(files, repository + '/user' + id_usuario + '/', nombre_archivo);
+                console.log('\n\n\n\n\nUpload Completed');
+                resolve(true);
+            }).catch(x => {
+                console.log('Error getIdFreeFile:   ' + x);
+                reject(false);
             });
+
+        });
 
         }).catch(x => {
             console.log('Unaxpective load ===>   ' + x);
@@ -87,34 +118,68 @@ module.exports.create_file = function (data, files) {
 
 }
 
-
 //Service to get files
 module.exports.getFileList = function (data) {
     var keym = data.keym;
     var id_caracteristica = data.id_caracteristica;
     var id_usuario = data.id_usuario;
-
+    var flag = data.flag;
+    var id_marcador = data.id_marcador;
+    console.log("flag", flag);
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
-        var query1 = `
+        var query1 = "";
+        if(flag =="true"){
+             query1 = `
 
             select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) as t1
             where keym_car = `+ keym + ` 
             and id_caracteristica = `+ id_caracteristica + ` 
             and id_usuario_car = `+ id_usuario + `
-            and tipo = '`+data.tipo+`'  ;
-        `;
+            and tipo = '`+data.tipo+`' and id_marcador is null ;
+            `;
+
+
+        }else{
+            if(id_marcador){
+                  query1 = `
+
+            select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) as t1
+            where keym_car = `+ keym + ` 
+            and id_caracteristica = `+ id_caracteristica + ` 
+            and id_usuario_car = `+ id_usuario + `
+            and tipo = '`+data.tipo+`' 
+            and id_marcador  = '`+id_marcador+`'
+            `;
+
+            }else{
+                  query1 = `
+
+            select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) as t1
+            where keym_car = `+ keym + ` 
+            and id_caracteristica = `+ id_caracteristica + ` 
+            and id_usuario_car = `+ id_usuario + `
+            and tipo = '`+data.tipo+`' and id_marcador is not null ;
+            `;
+
+            }
+
+
+           
+
+        }
+        
         console.log(query1);
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
-            then(x => {
-                console.log('RESPONDE =======>    ' + JSON.stringify(x))
-                resolve(x);
-            }).catch(x => {
-                resolve(false);
-            }).done(x => {
-                sequelize.close();
-                console.log('Se ha cerrado sesion de la conexion a la base de datos');
-            });;
+        then(x => {
+            console.log('RESPONDE =======>    ' + JSON.stringify(x))
+            resolve(x);
+        }).catch(x => {
+            resolve(false);
+        }).done(x => {
+            sequelize.close();
+            console.log('Se ha cerrado sesion de la conexion a la base de datos');
+        });;
     });
 
 }
@@ -198,29 +263,29 @@ function getIdFreeFile(keym, id_usuario, nombre) {
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
         var query1 = `
-            select max(id_archivo) as id_act from archivos 
-            where keym_arc = `+ keym + ` 
-            and id_usuario_arc = `+ id_usuario + `
+        select max(id_archivo) as id_act from archivos 
+        where keym_arc = `+ keym + ` 
+        and id_usuario_arc = `+ id_usuario + `
         `;
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
-            then(x => {
-                console.log('\n\n\n\n' + JSON.stringify(x) + '\n\n\n\n\n');
-                if (x[0].id_act != null) {
-                    console.log('NOT NULL ===>   ' + JSON.stringify(x));
-                    var dat = [parseInt(x[0].id_act) + 1, nombre];
+        then(x => {
+            console.log('\n\n\n\n ASADASDASS==>' + JSON.stringify(x) + '\n\n\n\n\n');
+            if (x[0].id_act != null) {
+                console.log('NOT NULL ===>   ' + JSON.stringify(x));
+                var dat = [parseInt(x[0].id_act) + 1, nombre];
 
-                    resolve(dat);
-                }
+                resolve(dat);
+            }
 
-                else {
-                    console.log('NOT NULL ===>   ' + JSON.stringify(x));
-                    var dat = [1, nombre];
-                    resolve(dat);
-                }
+            else {
+                console.log('NOT NULL ===>   ' + JSON.stringify(x));
+                var dat = [1, nombre];
+                resolve(dat);
+            }
 
-            }).catch(x => {
-                console.log('Error getIdFreeFile:   ' + x);
-                reject(false);
-            });
+        }).catch(x => {
+            console.log('Error getIdFreeFile:   ' + x);
+            reject(false);
+        });
     });
 }

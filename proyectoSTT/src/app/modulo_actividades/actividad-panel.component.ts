@@ -8,6 +8,8 @@ import { ServiciosGlobales } from '../services/servicios-globales';
 import { Servicios }         from '../services/servicios';
 import { ServiciosGlobalesActividades} from './servicios-globales-actividades'
 
+import { Mapa }   from './modulo_mapa/mapa.component';
+
 @Component({
 	selector: 'actividad-panel',
 	templateUrl: './actividad-panel.component.html',
@@ -25,16 +27,20 @@ export class ActividadPanel implements OnInit{
 	isSearch:boolean = false;
 	actividades:any;
 	porcentaje_ejecutado:number;
-
+	http:string = this.serviciog.servidor + "Category/";
+	nombreUsuario:string = "";
+	public nombreDireccion:string = "";
+	
 	constructor(
 		private serviciog:ServiciosGlobales,
 		private serviGloAct:ServiciosGlobalesActividades,
 		private router:Router,
-		private servicios: Servicios	  
+		private servicios: Servicios,
+		private mapa: Mapa  
 		){ };
 
-	ngOnInit():void {
-
+	ngOnInit():void {		
+		this.nombreUsuario = this.serviciog.usuario.nombre +" "+ this.serviciog.usuario.apellido;
 		this.serviciog.actividades = [];
 		this.serviciog.actividad =null;
 		this.serviciog.isSelAct =false;
@@ -42,8 +48,9 @@ export class ActividadPanel implements OnInit{
 		this.serviciog.isSelAct = false;
 		this.serviGloAct.actOpt = 0;
 
+
 		if(this.serviciog.proyecto){
-			this.serviciog.titulo = this.serviciog.proyecto.nom_pro;
+			this.serviciog.titulo = this.serviciog.proyecto.nom_pro;			
 			var keym = this.serviciog.proyecto.keym;
 			var id_usuario = this.serviciog.proyecto.id_usuario;
 			var id_caracteristica = this.serviciog.proyecto.id_caracteristica;		
@@ -53,14 +60,12 @@ export class ActividadPanel implements OnInit{
 				if(actividades){
 					this.serviciog.actividades = actividades;					
 					this.calculateValue(this.serviciog.actividades);
-
 				}
 			});	
 		}else{
 			let link = ['administrador'];
 			this.router.navigate(link);
 		}
-
 	}
 
 	actualizarActividad(actividad){
@@ -87,6 +92,11 @@ export class ActividadPanel implements OnInit{
 		});
 	}
 
+	/*----------------Mapas Metodos----------------*/
+
+	
+	
+	/*-----------------Fin Mapas Metodos-----------*/
 	editarClick(actividad){
 		this.isEditar = !this.isEditar;
 		this.porcentaje_ejecutado = actividad.porcentaje_cumplido;
@@ -241,7 +251,6 @@ export class ActividadPanel implements OnInit{
 		this.serviciog.actividad.usr_nom = usuario.nombre;
 		this.serviciog.actividad.usr_ape = usuario.apellido;
 		this.serviciog.actividad.e_mail = usuario.e_mail;
-		alert(JSON.stringify(usuario))
 		var formData = new FormData();
 		formData.append("keym","0");
 		formData.append("usuario",JSON.stringify(usuario));
@@ -249,11 +258,8 @@ export class ActividadPanel implements OnInit{
 		this.servicios.assignActivityToUser(formData)
 		.then(message =>{
 			alert(JSON.stringify(message));
-
 		})
-	}
-
-	
+	}	
 
 	c0(){		
 		this.serviGloAct.actOpt = 0;

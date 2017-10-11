@@ -22,6 +22,8 @@ import { ProyectoModule } from './modulo_proyectos/proyecto-panel.module';
 
 import { NgUploaderModule } from 'ngx-uploader';
 
+import {TooltipModule} from "ngx-tooltip";
+
 @NgModule({
    imports: [
     BrowserModule ,
@@ -32,6 +34,7 @@ import { NgUploaderModule } from 'ngx-uploader';
     ActividadModule,
     ProyectoModule,
     NgUploaderModule,
+    TooltipModule,
     AgmCoreModule.forRoot({      
       apiKey: 'AIzaSyBOeLL07vQ6T4XPjzxkY1lpbm9Z0nAymN8 ',
        libraries: ["places"]

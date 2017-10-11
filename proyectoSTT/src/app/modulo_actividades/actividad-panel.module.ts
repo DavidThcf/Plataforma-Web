@@ -33,6 +33,6 @@ import { ServiciosGlobalesActividades} from './servicios-globales-actividades'
     Mapa,
     SubActividadPanel
   ],
-  providers: [ ServiciosGlobalesActividades ]
+  providers: [ ServiciosGlobalesActividades,Mapa ]
 })
 export class ActividadModule {}

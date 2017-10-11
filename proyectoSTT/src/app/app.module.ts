@@ -21,6 +21,8 @@ import { ActividadModule } from './modulo_actividades/actividad-panel.module';
 import { ProyectoModule } from './modulo_proyectos/proyecto-panel.module';
 
 
+
+
 @NgModule({
    imports: [
     BrowserModule ,

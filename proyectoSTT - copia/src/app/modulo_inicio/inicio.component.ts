@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { ServiciosGlobales } from '../services/servicios-globales';
 import { UploadOutput, UploadInput, UploadFile, humanizeBytes } from 'ngx-uploader';
-
+import {TooltipModule} from "ngx-tooltip";
 
 @Component({
 	selector: 'inicio-view',

@@ -24,7 +24,10 @@ module.exports.regPoint = function (data) {
             '`+ latitud + `',
             '`+ longitud + `',
             '`+ id_categoria + `'
-        ); 
+        ) RETURNING id_marcador; 
+
+        
+
     `;
     console.log('\n\nQUERY1  ===>  '+query1);
     return new Promise((resolve, reject) => {
@@ -33,8 +36,9 @@ module.exports.regPoint = function (data) {
             type: sequelize.QueryTypes.INSERT
         })
             .then(x => {
-                console.log('Se ha registrado satisfactoriamente el punto.');
-                resolve(true);
+                console.log('Se ha registrado satisfactoriamente el punto.' + x[0][0].id_marcador);
+                var id_marcador =  x[0][0].id_marcador;
+                resolve(id_marcador);
             }).catch(x => {
                 console.log('No se ha registrado el punto. ' + x);
                 reject(false);
@@ -105,3 +109,14 @@ module.exports.getPointList = function(data){
             });
     });
 }
+/*
+
+select id_marcador from marcador where 
+            keym = '`+ keym + `',
+            id_caracteristica =  '`+ id_caracteristica + `',
+            id_usuario = '`+ id_usuario + `',
+            latitud = '`+ latitud + `',
+            longitud = '`+ longitud + `',
+            id_categoria' = `+ id_categoria + `' order by id_marcador desc limit 1
+
+*/

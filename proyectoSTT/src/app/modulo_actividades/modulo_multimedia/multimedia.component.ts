@@ -18,6 +18,7 @@ import { SafeResourceUrl, DomSanitizer} from '@angular/platform-browser';
 export class Multimedia implements OnInit{
 
 	isMapSelected:boolean =false;
+	isPointMul:boolean = false;
 	imagenEditView: any[] = [];
 	archivoShow:any;
 	urlShow:SafeResourceUrl;
@@ -40,9 +41,11 @@ export class Multimedia implements OnInit{
 		formData.append('id_caracteristica',this.serviciog.actividad.id_caracteristica);
 		formData.append('id_usuario',this.serviciog.actividad.id_usuario);
 		formData.append('tipo',this.serviciog.tipo);
+		formData.append('flag', !this.isPointMul + "")
 
 		this.servicios.getMultimedia(formData)
 		.then(imagenes => {
+			
 			if(imagenes){
 				this.serviciog.imagenes = imagenes
 			}else{
@@ -63,6 +66,9 @@ export class Multimedia implements OnInit{
 			this.imagenEditView.push(img);
 		}		
 
+	}
+	mouseOver(){
+		console.log("over")
 	}
 
 	show(imagen){
@@ -102,6 +108,29 @@ export class Multimedia implements OnInit{
 
 	btnAddImgMap(){
 		this.isMapSelected = true;
+	}
+
+	changePointOrMul(){
+		this.isPointMul = !this.isPointMul;
+		
+
+		var formData = new FormData();
+		//alert(JSON.stringify(this.serviciog.actividad));
+		formData.append('keym',this.serviciog.actividad.keym);
+		formData.append('id_caracteristica',this.serviciog.actividad.id_caracteristica);
+		formData.append('id_usuario',this.serviciog.actividad.id_usuario);
+		formData.append('tipo',this.serviciog.tipo);
+		formData.append('flag',!this.isPointMul + "");
+
+
+		this.servicios.getMultimedia(formData)
+		.then(imagenes => {			
+			if(imagenes){
+				this.serviciog.imagenes = imagenes
+			}else{
+				this.serviciog.imagenes = []
+			}
+		});	
 	}
 
 	

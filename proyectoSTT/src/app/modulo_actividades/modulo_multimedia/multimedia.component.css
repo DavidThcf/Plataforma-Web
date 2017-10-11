@@ -1,9 +1,74 @@
+.selected1{
+	position: absolute;
+	height: 82%;
+	width: 88%;
+	z-index: 2;
+}
+
+.selected:hover .selected1{
+	height: 82%;
+	width: 88%;
+	background-color: rgba(55,185,228,0.6);
+}
+
+
+
+.selected:hover .titleImg{
+	color: #01BCF3
+}
+
+.selected:hover .options{
+	display: block;
+}
+
+.titleImg{
+	font-size: 15px;
+	font-weight: 700;
+	text-align: center;
+	color: #000;
+}
+
+.options{	
+	background-color: #3b4348;
+	position: absolute;
+	top:5px;
+    left: 90%;
+    z-index: 3;
+    padding: 10px;
+    color: white;
+    display: none;
+    border-radius: 5px;
+    border: 0.2px solid gray; 
+}
+
+.options input{
+	color: black;
+} 
+
+.selected:nth-child(4n) .options{
+	left: auto;
+	right: 90%;
+}
+
+#btn-delete{
+	display: none;
+}
+
 .row{
-	margin-right: 20px;
-	margin-left: 20px;
+	margin-right: 0px;
+	margin-left: 7px;
+	height: 69vh;
+	overflow-y: auto;
+}
+.glyphicon{
+	cursor: pointer;
+}
+.glyphicon:hover{
+	border-bottom:  1px sold gray;
+	background-color: rgba(0,0,0,0.2);	
 }
 .select-mul{	
-	margin-right: 20px;
+	width: 98%;
 }
 
 .thumbnail{
@@ -20,14 +85,10 @@
 }
 
 .chk{
-	box-shadow: 1px 1px 10px black;
-	position: absolute;
-	right: 10px;
-	top:-10px;
+	box-shadow: 1px 1px 10px black;	
 	height: 17px;
-	width: 17px;
-	color: blue;
-	background-color: red;
+	width: 17px;	
+	margin-left: 10px;	
 }
 
 .caption{
@@ -58,8 +119,8 @@
 	width: 50px;
 	height: 50px;
 	position: absolute;
-	right: -38px;
-	top: 140px;
+	right: 0px;
+	top: 183px;
 	z-index: 1000;
 	border: 1px solid transparent;
 	border-radius: 3px;
@@ -96,6 +157,7 @@
 	width: 90%; 
 	max-height: 90vh;
 }
+
 .modal-dialog iframe{
 	width: 90%;
 	height: 75vh;

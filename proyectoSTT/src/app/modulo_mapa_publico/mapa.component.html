@@ -28,30 +28,24 @@
 		<div class="col-md-10">
 			<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" >
 				<agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-				<agm-marker *ngFor="let marcador of marcadores;" [latitude]="marcador.latitud-0" [longitude]="marcador.longitud-0" [iconUrl]="this.http+marcador.id_categoria+this.ext" (markerClick)="markerClick()">
+				<agm-marker *ngFor="let marcador of marcadores;" [latitude]="marcador.latitud-0" [longitude]="marcador.longitud-0" [iconUrl]="this.http+marcador.id_categoria+this.ext" (markerClick)="markerClicks(marcador)">
 					<agm-info-window>
 						<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 							<!-- Indicators -->
 							<ol class="carousel-indicators">
-								<li data-target="#carousel-example-generic" data-slide-to="0" ></li>
-								
+								<li data-target="#carousel-example-generic"
+								*ngFor="let imagen of imagenes; let i = index" data-slide-to=i ></li>
 							</ol>
 
 							<!-- Wrapper for slides -->
 							<div class="carousel-inner" role="listbox">
-								<div class="item active">
-								<img src="https://i1.wp.com/www.roshfrans.com/wp-content/uploads/2016/01/Auto-del-futuro.png?resize=1400%2C600" alt="...">
+								<div class="item"  *ngFor="let imagen of imagenes; let i = index" [ngClass]="{'active': i==0 }">
+									<img class="imagen-style" src={{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}} alt="...">
 									<div class="carousel-caption">
 										...
 									</div>
-								</div>
-								<div class="item">
-									<img src="http://doggshiphop.com/hip-hop/los-autos-mas-iconicos-del-hip-hop-dodge.png" alt="...">
-									<div class="carousel-caption">
-										...
-									</div>
-								</div>
-								...
+								</div>							
+								
 							</div>
 
 							<!-- Controls -->
@@ -63,8 +57,7 @@
 								<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 								<span class="sr-only">Next</span>
 							</a>
-						</div>
-						
+						</div>						
 
 						<!-- Wrapper for slides -->
 							<!--<div class="carousel-inner" role="listbox"  *ngFor="let archivo of this.archivos;">
@@ -74,7 +67,7 @@
 								</div>								
 							</div>
 						-->
-						<div class="map-title" data-toggle="modal" data-target="#mod-mul-map" (click)="markerClick(marcador)" ><a class="center-block">{{marcador.nombre}}</a></div>
+						<div class="map-title" data-toggle="modal" data-target="#mod-mul-map" (click)="getMultimediaMarker(marcador)" ><a class="center-block">{{marcador.nombre}}</a></div>
 					</agm-info-window>
 				</agm-marker>
 			</agm-map>	

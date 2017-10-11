@@ -1,4 +1,3 @@
- 
 
 <div style="background-color: white; margin-top: 100px;">
 	<div class="drop-container" ngFileDrop (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" [ngClass]="{ 'is-drop-over': dragOver }">
@@ -18,6 +17,19 @@
 	</button>
 	
 </div>
+
+<tooltip-content #myTooltip [animation]="disabled" placement="left">
+   <div>
+   		<button class="btn btn-default">
+   			eliminar
+   		</button>   		
+   		<button class="btn btn-default">
+   			seguridad
+   		</button>
+   </div>
+</tooltip-content>
+
+<button [tooltip]="myTooltip">element on which this tooltip is applied.</button>
 
 <div class="fondo">
 	<img

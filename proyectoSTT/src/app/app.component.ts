@@ -5,6 +5,7 @@ import { ServiciosGlobales } from './services/servicios-globales';
 import { PersistenceService, StorageType } from 'angular-persistence';
 import { Router } from '@angular/router';
 
+
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
@@ -12,8 +13,11 @@ import { Router } from '@angular/router';
 })
 
 export class AppComponent implements OnInit {
-	
-	constructor(private serviciog:ServiciosGlobales,private persistenceService:PersistenceService,private router:Router){}	
+	closeResult: string; //this
+
+	constructor(private serviciog:ServiciosGlobales,
+		private persistenceService:PersistenceService,
+		private router:Router){}	
 
 	ngOnInit(){
 		this.serviciog.usuario = this.persistenceService.get('user', StorageType.SESSION);
@@ -25,4 +29,5 @@ export class AppComponent implements OnInit {
 		let link = [''];
 		this.router.navigate(link);
 	}
+
 }

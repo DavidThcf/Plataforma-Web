@@ -1,6 +1,10 @@
 agm-map {
-	height: 70vh;
-	width: 98%;
+	height: 69vh;
+}
+.map-div{
+	width: 95%;
+	margin: auto;
+	border: 0.5px solid gray;
 }
 .categoryList{
 	position: absolute;
@@ -9,7 +13,9 @@ agm-map {
 	z-index: 1000;	
 }
 .search{
-	width: 100%;
+	width: 95%;
+    display: block;
+    margin: auto;
 }
 
 .btn-category{	
