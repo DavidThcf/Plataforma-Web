@@ -12,6 +12,7 @@ var Map = require('../model/Mapa');
 var File = require('../model/Archivos');
 var Marker = require('../model/Marcadores');
 var Characteritic = require('../model/Caracteristicas');
+var Alertas = require('../model//Alertas');
 //POST Services
 
 //Service for createa new User
@@ -488,6 +489,24 @@ router.post('/assignActivityToUser',(req,res,next)=>{
       res.json(false);
     });
 });
+
+
+/*--------Servicios de Creacion y lectura de alertas -------------*/
+router.post('/nuevaAlerta',(req,res,next)=>{
+	console.log(' <=====    Assign Activity To User      ==== >   ' + JSON.stringify(req.body));
+  
+	  var prj = Alertas.newAlert(JSON.parse(req.body));
+	  prj.then(x => {
+		console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(true);
+  
+	  }).catch(x => {
+		console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	  });
+  });
 
 
 module.exports = router;

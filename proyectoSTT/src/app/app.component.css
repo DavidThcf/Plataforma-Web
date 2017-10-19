@@ -1,0 +1,17 @@
+.badge{
+    margin-top: -23px;
+    padding-bottom: 3px;
+    font-size: 12px;
+    background-color: #bb3d3d;
+    position: absolute;
+    margin: -9px 0px 0px -5px;
+    z-index: 3;
+}
+
+.navbar-nav>li>.dropdown-menu{
+    margin-top: 3px;
+}
+
+.alert-div{
+    padding: 2px;
+}

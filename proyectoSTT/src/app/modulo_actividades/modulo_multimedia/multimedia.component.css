@@ -26,6 +26,10 @@
 	font-weight: 700;
 	text-align: center;
 	color: #000;
+	text-overflow: ellipsis;
+    word-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .options{	

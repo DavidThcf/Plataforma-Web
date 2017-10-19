@@ -128,6 +128,23 @@ export class Mapa implements OnInit{
 				this.insert_images(cont+1,marker);
 			});
 		}else{
+			/*Enviamos peticion de alerta*/
+			var alerta ={
+				nombre: this.serviciog.usuario.nombre + " " + this.serviciog.usuario.apellido,
+				id_marcador: this.archivo.id_marcador
+			}
+			
+			this.serviciog.socket.emit('NuevaAlerta',JSON.stringify(alerta) , function (data) {
+				if (data) {
+					alert(JSON.stringify(data));
+					console.log(data);
+				} else {
+	
+				}
+			});
+			/**Fin peticion alerta**/
+
+			//Almacena Marcador en lista
 			this.serviGloAct.markers.push(marker);
 
 		}

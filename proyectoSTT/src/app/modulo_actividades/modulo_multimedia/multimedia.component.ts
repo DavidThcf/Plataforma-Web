@@ -44,8 +44,7 @@ export class Multimedia implements OnInit{
 		formData.append('flag', !this.isPointMul + "")
 
 		this.servicios.getMultimedia(formData)
-		.then(imagenes => {
-			
+		.then(imagenes => {			
 			if(imagenes){
 				this.serviciog.imagenes = imagenes
 			}else{

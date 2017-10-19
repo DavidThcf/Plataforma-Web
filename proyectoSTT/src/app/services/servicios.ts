@@ -177,4 +177,11 @@ export class Servicios {
 		.catch(err => false)
 	}
 
+	/*---------------SERVICIO ALERTAS----------------*/
+	newAlert(formData:FormData):Promise<any>{
+		return this.http.post(this.url +"nuevaAlerta",formData)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false)
+	}
 } 

@@ -7,6 +7,10 @@
 var app = require('../app');
 var debug = require('debug')('testrest:server');
 var http = require('http');
+const socketIO = require('socket.io');
+var Sequelize = require('sequelize');
+var sqlCon = require('../config/connectionDb');
+var usuarios = {};
 
 /**
  * Get port from environment and store in Express.
@@ -21,10 +25,86 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+/*
+*conexión al socket
+*/
+const io = socketIO(server);
+
+io.on('connection', (socket) => {
+  console.log("Nuevo Usuario Conectado");
+
+  io.emit('Hello', {
+    greeting: 'Hello Paul'
+  });
+
+  socket.on('NuevoUsuario', function (data, callback) {
+    console.log(JSON.stringify(data));
+    if (data in usuarios) {
+      callback(false);
+    } else {
+      callback(true);
+      socket.nickname = data;
+      usuarios[socket.nickname] = socket;
+    }
+  });
+
+  socket.on('NuevaAlerta', function (data, callback) {    
+    var datos = JSON.parse(data);
+
+    var sequelize = sqlCon.configConnection();
+
+    var query1 = `
+    insert into alertas (mensaje, id_marcador) values ('`+ datos.nombre+`',`  + datos.id_marcador +` );
+    `;
+
+    sequelize.query(query1, {
+      type: sequelize.QueryTypes.INSERT
+    })
+      .then(x => {
+
+        var query1 = `select mensaje,al.id_marcador,latitud,longitud,nombre,color,visto 
+        from alertas al join marcador m on al.id_marcador = m.id_marcador
+        join categorias_mapa cm on m.id_categoria = cm.id_categoria;
+        `;
+
+        sequelize.query(query1, {
+          type: sequelize.QueryTypes.SELECT
+        })
+          .then(x => {            
+            io.sockets.emit('alerta',x);
+            //console.log(x);
+            //resolve(true)
+
+          }).catch(x => {
+            console.log('Error al registrar actividad ' + x);
+            //reject(false);
+          }).done(x => {
+            sequelize.close();
+            console.log('Se ha cerrado sesion de la conexion a la base de datos');
+          });
+
+        //resolve(true)
+
+      }).catch(x => {
+        console.log('Error al registrar actividad ' + x);
+        //reject(false);
+      }).done(x => {
+        sequelize.close();
+        console.log('Se ha cerrado sesion de la conexion a la base de datos');
+      });
+
+
+
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Usuario Desconectado');
+  });
+});
+
 /**
  * Listen on provided port, on all network interfaces.
  */
-
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
@@ -32,7 +112,6 @@ server.on('listening', onListening);
 /**
  * Normalize a port into a number, string, or false.
  */
-
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
@@ -52,7 +131,6 @@ function normalizePort(val) {
 /**
  * Event listener for HTTP server "error" event.
  */
-
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
@@ -79,8 +157,7 @@ function onError(error) {
 
 /**
  * Event listener for HTTP server "listening" event.
- */
-
+ **/
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string'

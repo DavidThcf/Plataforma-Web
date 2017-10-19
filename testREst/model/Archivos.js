@@ -164,9 +164,6 @@ module.exports.getFileList = function (data) {
 
             }
 
-
-           
-
         }
         
         console.log(query1);

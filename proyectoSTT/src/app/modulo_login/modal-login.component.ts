@@ -1,16 +1,16 @@
-import { Component , ViewChild} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router }            from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Usuario } from '../model/usuario';
-import { Servicios }         from '../services/servicios';
+import { Servicios } from '../services/servicios';
 import { ServiciosGlobales } from '../services/servicios-globales'
 
 
 @Component({
 	selector: 'modal-login',
 	templateUrl: './modal-login.html',
-	styleUrls: [ './modal-login.component.css' ]
+	styleUrls: ['./modal-login.component.css']
 })
 
 
@@ -18,39 +18,46 @@ export class Modallogin {
 
 	constructor(
 		private servicios: Servicios,
-		private serviciog:ServiciosGlobales,
-		private router:Router	  
-		) {};
+		private serviciog: ServiciosGlobales,
+		private router: Router
+	) { };
 
 
-	usuario = new Usuario(null,'','','','','','','','','','');	
+	usuario = new Usuario(null, '', '', '', '', '', '', '', '', '', '');
 
-	cadena:string;
+	cadena: string;
 	hideModal: boolean = false;
-	mAlert:boolean= false;	
-	submitted = false;	
+	mAlert: boolean = false;
+	submitted = false;
 
-	onSubmit() {
-
+	onSubmit() {		
 		this.submitted = true;
 		var formData = new FormData();
-		formData.append('usuario',JSON.stringify(this.usuario))
+		formData.append('usuario', JSON.stringify(this.usuario));
 		this.servicios.getUsuario(formData)
-		.then( 
-			usuario =>
-			{
-				if(usuario){
+			.then(usuario => {
+				if (usuario) {
+					this.nuevoUsuario(usuario.id_usuario);
 					this.serviciog.getUserSession(usuario);
 					let link = ['administrador'];
 					this.router.navigate(link);
-				}else{
+				} else {
 					this.mAlert = true;
-				}		
-			}
-			);
+				}
+			});
 	}
-	
-	
+	nuevoUsuario(usuario) {		
+		this.serviciog.socket.emit('NuevoUsuario', JSON.stringify(usuario), function (data) {
+			if (data) {
+				alert(JSON.stringify(data));
+				console.log(data);
+			} else {
+
+			}
+		});
+	}
+
+
 	loginForm: NgForm;
 
 	@ViewChild('loginForm') currentForm: NgForm;
@@ -64,7 +71,7 @@ export class Modallogin {
 		this.loginForm = this.currentForm;
 		if (this.loginForm) {
 			this.loginForm.valueChanges
-			.subscribe(data => this.onValueChanged(data));
+				.subscribe(data => this.onValueChanged(data));
 		}
 	}
 
@@ -93,10 +100,10 @@ export class Modallogin {
 
 	validationMessages = {
 		'email': {
-			'required': 'Email Obligatorio'		
+			'required': 'Email Obligatorio'
 		},
 		'password': {
 			'required': 'Password Obligatorio'
 		}
-	};	
+	};
 }
