@@ -179,9 +179,25 @@ export class Servicios {
 
 	/*---------------SERVICIO ALERTAS----------------*/
 	newAlert(formData:FormData):Promise<any>{
-		return this.http.post(this.url +"nuevaAlerta",formData)
+		return this.http.post(this.url +"newAlert",formData)
 		.toPromise()
 		.then(response => response.json())
 		.catch(err => false)
 	}
+	deleteAlert(formData:FormData):Promise<any>{
+		return this.http.post(this.url +"deleteAlert",formData)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false)
+	}
+
+	changeVistoAlert(formData:FormData):Promise<any>{
+		return this.http.post(this.url +"changeVistoAlert",formData)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false)
+	}
+
+	
+	/*---------------SERVICIO ALERTAS----------------*/
 } 

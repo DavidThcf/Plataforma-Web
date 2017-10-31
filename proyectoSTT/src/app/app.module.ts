@@ -12,6 +12,7 @@ import { Modallogin } from './modulo_login/modal-login.component';
 import { ModalRegister } from './modulo_registro/modal-register.component';
 import { InicioView }   from './modulo_inicio/inicio.component';
 import { Mapa }   from './modulo_mapa_publico/mapa.component';
+import { Mapa2 }   from './modulo_mapa_publico2/mapa.component'; 
 
 
 import { AgmCoreModule } from '@agm/core';
@@ -45,7 +46,8 @@ import { ProyectoModule } from './modulo_proyectos/proyecto-panel.module';
     Modallogin,
     ModalRegister,   
     InicioView,
-    Mapa   
+    Mapa,
+    Mapa2 
   ], 
   providers: [
     Servicios,

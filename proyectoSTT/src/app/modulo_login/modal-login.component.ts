@@ -30,7 +30,7 @@ export class Modallogin {
 	mAlert: boolean = false;
 	submitted = false;
 
-	onSubmit() {		
+	onSubmit() {
 		this.submitted = true;
 		var formData = new FormData();
 		formData.append('usuario', JSON.stringify(this.usuario));
@@ -46,10 +46,36 @@ export class Modallogin {
 				}
 			});
 	}
-	nuevoUsuario(usuario) {		
+
+	nuevoUsuario(usuario) {
+		var formData = new FormData();
+
+		formData.append('id_usuario', usuario + "");
+		this.servicios.newAlert(formData)
+			.then(data => {
+				if (data) {
+					this.serviciog.isAlertShow = true;
+					var audio = new Audio();
+					audio.src = "../assets/audios/alerta.mp3";
+					audio.load();
+					audio.play();
+					setTimeout(() => {
+						this.serviciog.isAlertShow = false;
+					}, 8000);
+					this.serviciog.alert = data;
+					this.serviciog.alertCont = 0;
+					for (var i = 0; i < data.length; i++) {
+						if (!data[i].visto) {
+							this.serviciog.alertCont = this.serviciog.alertCont + 1;
+						}
+					}
+				}
+				//alert(JSON.stringify(data));
+			});
+
 		this.serviciog.socket.emit('NuevoUsuario', JSON.stringify(usuario), function (data) {
 			if (data) {
-				alert(JSON.stringify(data));
+				//alert(JSON.stringify(data));
 				console.log(data);
 			} else {
 

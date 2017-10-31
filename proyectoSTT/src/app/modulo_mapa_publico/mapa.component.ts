@@ -142,9 +142,6 @@ export class Mapa  implements OnInit{
 			}
 		})
 		/*------------------------------------FIN----------------------------------------------------*/
-
-
-
 	}
 }
 class Caracteristica{

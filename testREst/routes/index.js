@@ -492,12 +492,28 @@ router.post('/assignActivityToUser',(req,res,next)=>{
 
 
 /*--------Servicios de Creacion y lectura de alertas -------------*/
-router.post('/nuevaAlerta',(req,res,next)=>{
+router.post('/newAlert',(req,res,next)=>{
 	console.log(' <=====    Assign Activity To User      ==== >   ' + JSON.stringify(req.body));
   
-	  var prj = Alertas.newAlert(JSON.parse(req.body));
+	  var prj = Alertas.newAlert(req.body);
 	  prj.then(x => {
 		console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
+		res.header("Access-Control-Allow-Origin", "*");
+		res.send(x);
+  
+	  }).catch(x => {
+		console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	  });
+  });
+
+  router.post('/deleteAlert',(req,res,next)=>{
+	console.log(' <=====    Assign Activity To User      ==== >   ' + JSON.stringify(req.body.alerta));
+  
+	  var prj = Alertas.deleteAlert(JSON.parse(req.body.alerta));
+	  prj.then(x => {
+		console.log('!!!!!!!!!!!!!Se ha eleminado la alerta!!!!!!!!!!!');
 		res.header("Access-Control-Allow-Origin", "*");
 		res.json(true);
   
@@ -508,5 +524,21 @@ router.post('/nuevaAlerta',(req,res,next)=>{
 	  });
   });
 
+  router.post('/changeVistoAlert',(req,res,next)=>{
+	console.log(' <=====    Assign Activity To User      ==== >   ' + JSON.stringify(req.body.alerta));
+  
+	  var prj = Alertas.changeVistoAlert(JSON.parse(req.body.alerta),JSON.parse(req.body.visto));
+	  prj.then(x => {
+		console.log('!!!!!!!!!!!!!Se ha eleminado actualizado la alerta!!!!!!!!!!!');
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(true);
+  
+	  }).catch(x => {
+		console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	  });
+  });
+/*-------- Fin Servicios de Creacion y lectura de alertas -------------*/
 
 module.exports = router;

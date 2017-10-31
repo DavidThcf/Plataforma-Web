@@ -19,6 +19,10 @@ export class ServiciosGlobales {
 	isSubActivity:any;	
 	tipo:string = 'img';
 	socket = io.connect("http://192.168.137.1:81/");
+	alertCont:number = 0;
+	alert:any = 0;
+	marcadorAlerta:any;
+	isAlertShow:boolean = false;
 
 	constructor(private persistenceService:PersistenceService){}
 

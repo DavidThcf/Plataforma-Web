@@ -48,42 +48,60 @@
           <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 
             <span style="font-size: 22px;margin-top: -2px;" class="glyphicon glyphicon-bell"> </span>
-            <span style="" class="badge badge-pill badge-warning">1000</span>
+            <span class="badge badge-pill badge-warning" *ngIf="this.serviciog.alertCont > 0">{{this.serviciog.alertCont}}</span>
             <span class="caret"></span>
             <span class="indicator text-warning d-none d-lg-block">
               <i class="fa fa-fw fa-circle"></i>
             </span>
           </a>
-          <ul class="dropdown-menu">
-            <li>
-
-              <div class="alert-div">
-                <table>
-                  <tbody>
-                    <tr>
-                      <td style="width:90%;">
-                          <div>Categoria Verde</div>
-                          <div>Barrio la floresta</div>
-                          <div>Gonzalo Martinez</div>
-                      </td>
-                      <td style="width:10%;">
-                        <tr>
-                            <div>
-                                <button type="button" class="close">×</button>
-                            </div>
-                        </tr>
-                        <tr>
-                            <div >
-                                <button type="button" class="close">°</button>
-                            </div>
-                        </tr>
-                      </td>
-                    </tr>                    
-                  </tbody>
-                </table>                
-              </div>
-            </li>
+          <!-- Seccion Alertas    -->
+          <ul class="dropdown-menu" style="overflow-y: auto; max-height: 80vh">
+            <div>
+                <li *ngFor="let alerta of this.serviciog.alert; let i = index">
+                    <div class="alert-div"  *ngIf="i < this.maxAlertas" [ngClass]="{'alert-View': alerta.visto}" (click)="goToMap(alerta)" >
+                      <table style="width: 200px">
+                        <tbody>
+                          <tr>
+                            <td style="width:90%;">
+                              <div>
+                                <table style="width: 100%">
+                                  <tbody>
+                                    <tr>
+                                      {{alerta.nombre}}
+                                    </tr>
+                                    <tr>
+                                      <div  [ngStyle]="{ 'background-color':  alerta.color }" style="height: 20px;" ></div>
+                                    </tr>
+                                    <tr>
+                                      {{alerta.mensaje}}
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>                        
+                            </td>
+                            <td style="width:10%;">
+                              <tr>
+                                <div>
+                                  <button (click)="deleteAlert(alerta,i);$event.stopPropagation()" type="button" class="close">×</button>
+                                </div>
+                              </tr>
+                              <tr>
+                                <div>
+                                  <button (click)="changeVisble(alerta);$event.stopPropagation()" type="button" class="close">°</button>
+                                </div>
+                              </tr>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </li>
+            </div>            
+            <div (click)="moreAlerts();$event.stopPropagation()" *ngIf="this.maxAlertas < this.serviciog.alertCont">
+              <a>Ver Mas alertas</a>
+            </div>
           </ul>
+          <!-- Fin Seccion Alertas-->
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{this.serviciog.usuario.nombre + " " +this.serviciog.usuario.apellido }}
@@ -111,4 +129,13 @@
   <modal-login></modal-login>
   <modal-register></modal-register>
   <router-outlet></router-outlet>
+</div>
+<div class="area-alert" *ngIf="this.isAlertShow" >
+  <div class="alert alert-danger alert-dismissible" role="alert" style="margin: 3px;">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>Warning!</strong> Better check yourself, you're not looking too good.
+    <button (click)="changeAlertVisible()" >dasdas</button>
+  </div>
 </div>
