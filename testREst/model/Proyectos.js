@@ -79,9 +79,9 @@ module.exports.createProjectFromActivity = function (data) {
 
 // Service to get the project list
 module.exports.getListProjects = function (id_user) {
-  var sequelize = sqlCon.configConnection();  
+  var sequelize = sqlCon.configConnection();
 
-        var query1 = `
+  var query1 = `
         select  c.keym,
                 c.id_usuario ,
                 c.id_caracteristica,
@@ -105,8 +105,7 @@ module.exports.getListProjects = function (id_user) {
                       and p.id_usuario_car = c.id_usuario
                       and p.id_caracteristica = c.id_caracteristica
                       join usuarios u on  c.usuario_asignado = u.id_usuario
-                      where p.id_usuario =` + id_user + `order by p.nombre,c.fecha_inicio
-
+                      where public = true order by p.nombre,c.fecha_inicio
         `;
 
 
@@ -372,3 +371,14 @@ function getIdFreeProject(id_usuario, keym) {
       });
   });
 }
+
+/*---------------------- PROYECTOS PÚBLICOS --------------------------------------*/
+module.exports.getProyectosPublicos = function (data) {
+  var sequelize = sqlCon.configConnection();
+
+  return new Promise((resolve, reject) => {
+
+
+  });
+}
+/*---------------------- FIN PROYECTOS PÚBLICOS --------------------------------------*/

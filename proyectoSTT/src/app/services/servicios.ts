@@ -63,7 +63,6 @@ export class Servicios {
 		.catch(err => err.toString());
 	}
 
-
 	createActividad(formdata:FormData):Promise<any>{
 		return this.http
 		.post(this.url + "CreateActivity",formdata)
@@ -177,7 +176,7 @@ export class Servicios {
 		.catch(err => false)
 	}
 
-	/*---------------SERVICIO ALERTAS----------------*/
+	/*-----------------SERVICIO ALERTAS-----------------*/
 	newAlert(formData:FormData):Promise<any>{
 		return this.http.post(this.url +"newAlert",formData)
 		.toPromise()
@@ -197,7 +196,16 @@ export class Servicios {
 		.then(response => response.json())
 		.catch(err => false)
 	}
+	/*---------------FIN SERVICIO ALERTAS----------------*/
 
-	
-	/*---------------SERVICIO ALERTAS----------------*/
+
+	/*----------------SERVICIOS PROYECTO------------------*/
+	getProyectosPublicos(formData:FormData):Promise<any>{
+		return this.http.post(this.url +"getProyectosPublicos",formData)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false)
+	}
+
+	/*----------FIN SERVICIOS PROYECTO PUBLICO------------*/
 } 

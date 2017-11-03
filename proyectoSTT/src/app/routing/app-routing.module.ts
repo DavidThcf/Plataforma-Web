@@ -7,6 +7,10 @@ import { ActividadPanel }   from '../modulo_actividades/actividad-panel.componen
 import { Mapa }   from '../modulo_mapa_publico/mapa.component';
 import { Mapa2 }   from '../modulo_mapa_publico2/mapa.component';
 
+/*-------------PROYECTOS PUBLICOS--------------*/
+import { ProyectosPublico } from '../modulo_proyectos_publico/proyectos-publico.component';
+/*-----------FIN PROYECTOS PUBLICOS------------*/
+
 
 
 const routes: Routes = [
@@ -15,7 +19,8 @@ const routes: Routes = [
   { path: 'mapa',  component: Mapa},
   { path: 'mapa2',  component: Mapa2},
   { path: 'actividades',  component: ActividadPanel},
-  { path: 'proyectos',  component: ActividadPanel}
+  { path: 'proyectos',  component: ActividadPanel},
+  { path: 'proyectospublico',  component: ProyectosPublico},
 ];
  
 @NgModule({

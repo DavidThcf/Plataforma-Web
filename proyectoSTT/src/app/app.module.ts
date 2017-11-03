@@ -21,6 +21,10 @@ import { AppRoutingModule }     from './routing/app-routing.module';
 import { ActividadModule } from './modulo_actividades/actividad-panel.module';
 import { ProyectoModule } from './modulo_proyectos/proyecto-panel.module';
 
+/*-------------PROYECTOS PUBLICOS--------------*/
+import { ProyectosPublico } from './modulo_proyectos_publico/proyectos-publico.component';
+/*-----------FIN PROYECTOS PUBLICOS------------*/
+
 
 
 
@@ -47,7 +51,8 @@ import { ProyectoModule } from './modulo_proyectos/proyecto-panel.module';
     ModalRegister,   
     InicioView,
     Mapa,
-    Mapa2 
+    Mapa2,
+    ProyectosPublico    
   ], 
   providers: [
     Servicios,

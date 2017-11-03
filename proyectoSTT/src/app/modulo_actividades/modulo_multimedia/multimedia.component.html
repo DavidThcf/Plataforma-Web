@@ -22,34 +22,34 @@ data-target="#mod-reg-mult" >
 		<tr>
 			<td style="width: 50%"> 
 				<h3 style="margin-left: 20px" *ngIf="this.serviciog.tipo === 'img'">
-					Imagenes <span *ngIf="isPointMul" >Puntos Geograficos </span>
+					Imagenes <span *ngIf="isPointMul && this.serviciog.tipo === 'img'" >Puntos Geograficos </span>
 					<span (click)="changePointOrMul()" 
 					class="glyphicon glyphicon-chevron-right" 
 					aria-hidden="true"></span>
 				</h3>
 				<h3 style="margin-left: 20px" *ngIf="this.serviciog.tipo === 'doc'">Documentos
-					<span *ngIf="isPointMul" >Puntos Geograficos </span>
+					<!-- <span *ngIf="isPointMul" >Puntos Geograficos </span>
 					<span (click)="changePointOrMul()" 
 					class="glyphicon glyphicon-chevron-right" 
-					aria-hidden="true"></span>
+					aria-hidden="true"></span> -->
 				</h3>
 				<h3 style="margin-left: 20px" *ngIf="this.serviciog.tipo === 'sou'">Audios
-					<span *ngIf="isPointMul" >Puntos Geograficos </span>
+					<!-- <span *ngIf="isPointMul" >Puntos Geograficos </span>
 					<span (click)="changePointOrMul()" 
 					class="glyphicon glyphicon-chevron-right" 
-					aria-hidden="true"></span>
+					aria-hidden="true"></span> -->
 				</h3>
 				<h3 style="margin-left: 20px" *ngIf="this.serviciog.tipo === 'vid'">Videos
-					<span *ngIf="isPointMul" >Puntos Geograficos </span>
+					<!-- <span *ngIf="isPointMul" >Puntos Geograficos </span>
 					<span (click)="changePointOrMul()" 
 					class="glyphicon glyphicon-chevron-right" 
-					aria-hidden="true"></span>
+					aria-hidden="true"></span> -->
 				</h3>
 				<h3 style="margin-left: 20px" *ngIf="this.serviciog.tipo === 'oth'">Otros
-					<span *ngIf="isPointMul" >Puntos Geograficos </span>
+					<!-- <span *ngIf="isPointMul" >Puntos Geograficos </span>
 					<span (click)="changePointOrMul()" 
 					class="glyphicon glyphicon-chevron-right" 
-					aria-hidden="true"></span>
+					aria-hidden="true"></span> -->
 				</h3>
 			</td>			
 

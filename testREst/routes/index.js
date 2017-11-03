@@ -541,4 +541,22 @@ router.post('/newAlert',(req,res,next)=>{
   });
 /*-------- Fin Servicios de Creacion y lectura de alertas -------------*/
 
+
+/*----------------PROYECTOS PUBLICOS----------------------------------*/
+router.post('/getProyectosPublicos',(req,res,next)=>{
+	console.log(' <=====    Assign Activity To User      ==== >   ' + JSON.stringify(req.body.alerta));
+  
+	  var prj = Project.getProyectosPublicos(null);
+	  prj.then(x => {
+		console.log('!!!!!!!!!!!!!Se ha eleminado actualizado la alerta!!!!!!!!!!!');
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(true);
+  
+	  }).catch(x => {
+		console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	  });
+  });
+/*----------------FIN PROYECTOS PUBLICOS----------------------------------*/
 module.exports = router;

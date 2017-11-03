@@ -3,26 +3,41 @@
 		<tr>
 			<td style="width: 100%">
 				<div class="form-group" style="margin-top: 7px">
-					<input placeholder="Buscar dirección..." autocorrect="on" autocapitalize="on" spellcheck="on" type="text" class="form-control" #search [formControl]="searchControl" [(ngModel)]="this.serviciog.nombreDireccion" > 
-				</div>	
+					<input placeholder="Buscar dirección..." autocorrect="on" autocapitalize="on" spellcheck="on" type="text" class="form-control"
+					 #search [formControl]="searchControl" [(ngModel)]="this.serviciog.nombreDireccion">
+				</div>
 			</td>
 			<td>
 				<button style="border-radius: 100px; border-radius: 23px;
 						border: 1px solid gray;" (click)="setCurrentPosition()">
-						<img src="https://image.flaticon.com/icons/png/512/484/484149.png" style="height: 50px; width: 50px; " /></button>				
+					<img src="https://image.flaticon.com/icons/png/512/484/484149.png" style="height: 50px; width: 50px; " />
+				</button>
 			</td>
 		</tr>
 	</tbody>
-	
+
 	<!--button class="btn btn-success col-md-2" (click)="guardarPunto()">Guardar Puntos</button-->
-	
+
 </table>
 
 <div class="map-div">
-	<agm-map [latitude]="this.serviGloAct.lat" [longitude]="this.serviGloAct.lng" [zoom]="zoom" (mapClick)="mapClicked($event)" [mapTypeControl]="true" [fullscreenControl]="true" >	
-		<agm-marker *ngFor="let marker of this.serviGloAct.markers;" [latitude]="marker.latitud-0" [longitude]="marker.longitud-0" [iconUrl]="this.http+marker.id_categoria+this.ext" >			
+	<agm-map [latitude]="this.serviGloAct.lat" [longitude]="this.serviGloAct.lng" [zoom]="zoom" (mapClick)="mapClicked($event)"
+	 [mapTypeControl]="true" [fullscreenControl]="true">
+		<agm-marker *ngFor="let marker of this.serviGloAct.markers;" [latitude]="marker.latitud-0" [longitude]="marker.longitud-0"
+		 [iconUrl]="this.http+marker.id_categoria+this.ext">
 		</agm-marker>
-	</agm-map>	
+		<agm-circle *ngFor="let marker of this.serviGloAct.markers;" [latitude]="marker.latitud-0" [longitude]="marker.longitud-0"
+		 [circleDraggable]="true" [editable]="true" [fillColor]="red" [radius]="10">
+		</agm-circle>
+
+		<agm-polygon [paths]="paths">
+		</agm-polygon>
+		<agm-polyline>
+			<agm-polyline-point *ngFor="let marker of this.serviGloAct.markers;"  [latitude]="marker.latitud-0" [longitude]="marker.longitud-0">
+			</agm-polyline-point>			
+		</agm-polyline>
+
+	</agm-map>
 </div>
 
 
