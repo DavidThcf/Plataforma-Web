@@ -22,12 +22,12 @@
                     <th style="width: 30%" style="text-align: left;">Proyecto</th>
                     <!-- <th style="width: 30%">Lider de Proyecto</th> -->
                     <!-- <th style="width: 25%" style="text-align: center;">Dueño</th> -->
-                    <th style="width: 25%" style="text-align: center;">Porcentaje Ejecutado</th>
+                    <th style="width: 25%">Porcentaje Ejecutado</th>
                     <th style="width: 25%" style="text-align: center;"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let proyect of this.serviciog.proyecto" style="height: 30px;">
+                <tr *ngFor="let proyect of this.serviciog.proyectos_publico" style="height: 30px;">
                     <td style="width: 30%">
                         <p>{{proyect.nom_pro}}</p>
                         <span>

@@ -11,6 +11,8 @@ export class ServiciosGlobales {
 
 	usuario:Usuario;
 	proyecto:any;
+	proyectos_publico:any;
+	proyecto_publico:any;
 	actividad:any;
 	actividades:any;
 	titulo:string;

@@ -1,0 +1,182 @@
+
+<!--
+<button *ngIf="!isMapSelected" class="btn-select-map" (click)="btnAddImgMap()">
+	M
+</button>
+
+<button *ngIf="!isMapSelected" class="btn-add-img btn-primary" data-toggle="modal" 
+data-target="#mod-reg-mult" >						
++				
+</button>
+
+<button *ngIf="isMapSelected" class="btn-ok btn-success" (click)="envioCambios()"> 			
+	OK					
+</button>
+-->
+<button *ngIf="!isMapSelected" class="btn-add-img btn-primary" data-toggle="modal" 
+data-target="#mod-reg-mult" >						
++				
+</button>
+<table style="width: 100%">
+	<tbody>
+		<tr>
+			<td style="width: 50%"> 
+				<h3 style="margin-left: 20px" *ngIf="this.serviciog.tipo === 'img'">
+					Imagenes <span *ngIf="isPointMul && this.serviciog.tipo === 'img'" >Puntos Geograficos </span>
+					<span (click)="changePointOrMul()" 
+					class="glyphicon glyphicon-chevron-right" 
+					aria-hidden="true"></span>
+				</h3>
+				<h3 style="margin-left: 20px" *ngIf="this.serviciog.tipo === 'doc'">Documentos
+					<!-- <span *ngIf="isPointMul" >Puntos Geograficos </span>
+					<span (click)="changePointOrMul()" 
+					class="glyphicon glyphicon-chevron-right" 
+					aria-hidden="true"></span> -->
+				</h3>
+				<h3 style="margin-left: 20px" *ngIf="this.serviciog.tipo === 'sou'">Audios
+					<!-- <span *ngIf="isPointMul" >Puntos Geograficos </span>
+					<span (click)="changePointOrMul()" 
+					class="glyphicon glyphicon-chevron-right" 
+					aria-hidden="true"></span> -->
+				</h3>
+				<h3 style="margin-left: 20px" *ngIf="this.serviciog.tipo === 'vid'">Videos
+					<!-- <span *ngIf="isPointMul" >Puntos Geograficos </span>
+					<span (click)="changePointOrMul()" 
+					class="glyphicon glyphicon-chevron-right" 
+					aria-hidden="true"></span> -->
+				</h3>
+				<h3 style="margin-left: 20px" *ngIf="this.serviciog.tipo === 'oth'">Otros
+					<!-- <span *ngIf="isPointMul" >Puntos Geograficos </span>
+					<span (click)="changePointOrMul()" 
+					class="glyphicon glyphicon-chevron-right" 
+					aria-hidden="true"></span> -->
+				</h3>
+			</td>			
+
+			<td style="width: 50%">
+				<select class="select-mul form-control"
+				name="tipo"
+				[(ngModel)]="this.serviciog.tipo"
+				(change)="cambio($event)">
+
+				<option value="img">Imagenes</option>
+				<option value="doc">Documentos</option>
+				<option value="sou">Audios</option>
+				<option value="vid">Videos</option>
+				<option value="oth">Otros</option></select>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="row" *ngIf="this.serviciog.tipo === 'img'" >	
+	<div class="col-xs-6 col-md-3 selected" *ngFor="let imagen of this.serviciog.imagenes">	
+		
+		<div class="selected1" target='_blank'></div>
+		<div class="options">
+			<label>Titulo</label>
+			<input  [(ngModel)]="imagen.titulo">
+
+			<label>Subtitulo</label>
+			<input  [(ngModel)]="imagen.subtitulo">
+			<label>Publicar</label>
+			<input type="checkbox" class="chk" [checked]=imagen.isViewMap (change)="checked(imagen)" >	
+			<div class="center-block" style="padding-right: 8px;padding-left: 8px;" >
+				<button class="btn btn-success">Guardar</button>
+				<button class="btn btn-danger">Eliminar</button>
+			</div>
+		</div>
+		<div class="img_options">
+		</div>
+		<a (mouseover)="mouseOver()" class="thumbnail">
+			<img src={{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}} alt={{imagen.subtitulo}}>
+			<div class="titleImg" title={{imagen.titulo}} >{{imagen.titulo}}</div>
+		</a>		
+	</div>	
+</div>
+
+<div class="row" *ngIf="this.serviciog.tipo === 'doc'">
+	<table class="multHover table table-striped" style="width:90%;margin-left:5%">
+		<thead>
+			<tr style="position:relative;width:100%">
+				<th>#</th>
+				<th style="width:20%">Titulo</th>
+				<th style="width:65%">Descripción</th>
+				<th style="width:10%"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr style="cursor:pointer" *ngFor="let imagen of this.serviciog.imagenes" >
+				<th scope="row" style="vertical-align:middle">#</th>
+				<td style="vertical-align:middle">{{imagen.titulo}}</td>
+				<td>{{imagen.subtitulo}}</td>
+				<td>
+					<button (click)="show(imagen)" class="btn btn-primary" data-toggle="modal" data-target="#mod-sho-mult">Ver</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+
+<div class="row" *ngIf="this.serviciog.tipo === 'sou'">
+
+	<table class="multHover table table-striped" style="width:90%;margin-left:5%">
+		<thead>
+			<tr style="position:relative;width:100%">
+				<th>#</th>
+				<th style="width:20%">Nombre</th>
+				<th style="width:75%">Descripción</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr style="cursor:pointer" *ngFor="let imagen of this.serviciog.imagenes" >
+				<th scope="row" style="vertical-align:middle">#</th>
+				<td style="vertical-align:middle">{{imagen.titulo}}</td>
+				<td>{{imagen.subtitulo}}</td>				
+			</tr>
+
+		</tbody>
+	</table>		
+</div>
+
+<div class="row" *ngIf="this.serviciog.tipo === 'vid'">
+	<div class="col-xs-12 col-md-4" *ngFor="let imagen of this.serviciog.imagenes">	
+		<input type="checkbox" *ngIf="isMapSelected" class="chk" [checked]=imagen.isViewMap (change)="checked(imagen)"  >						
+		<a  class="thumbnail">
+			<video controls  class="video-js" >
+				<source src="{{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}}" type='video/mp4'/>
+			</video>
+			<div class="caption">
+				<h4>{{imagen.titulo}}</h4>															
+			</div>
+		</a>
+	</div>
+</div>
+<div class="row" *ngIf="this.serviciog.tipo === 'oth'">	
+</div>
+
+
+<registro-multimedia></registro-multimedia>
+
+<div id="mod-sho-mult" style="margin-top: 50px" class="modal fade" role="dialog">
+	<div class="modal-dialog" style="vertical-align: middle;">
+		<!-- Modal content-->
+		<div class="modal-content" >
+			<div class="modal-body">
+				<div style="margin-top:10px;margin-right:20px">
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div> 
+				<div>										
+					<iframe [attr.src]="this.urlShow"></iframe>					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--img src={{imagen.url}} alt={{imagen.subtitulo}}
+<iframe src="https://docs.google.com/gview?url=http://knower.udenar.edu.co/mp/user2/proyectos/95-1-2/documentos/objetivos95-1-2.docx&embedded=true"></iframe>
+[attr.src]="this.urlShow"
+-->
+<!--<img src="http://knower.udenar.edu.co/imgSTT/95-1-5.jpg" alt={{imagen.subtitulo}}>#167ac6-->

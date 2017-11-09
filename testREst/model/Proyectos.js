@@ -82,33 +82,30 @@ module.exports.getListProjects = function (id_user) {
   var sequelize = sqlCon.configConnection();
 
   var query1 = `
-        select  c.keym,
-                c.id_usuario ,
-                c.id_caracteristica,
-                c.keym_padre ,
-                c.id_usuario_padre ,
-                c.id_caracteristica_padre, 
-                c.estado,
-                c.fecha_inicio,
-                c.fecha_fin,  
-                c.porcentaje_cumplido,
-                c.usuario_asignado,
-                c.presupuesto,
-                c.porcentaje_cumplido,
-                p.nombre as nom_pro,
-                p.descripcion,
-                u.nombre,
-                u.apellido 
-
-                from proyectos p
-                      join caracteristicas c on p.keym_car = c.keym
-                      and p.id_usuario_car = c.id_usuario
-                      and p.id_caracteristica = c.id_caracteristica
-                      join usuarios u on  c.usuario_asignado = u.id_usuario
-                      where public = true order by p.nombre,c.fecha_inicio
-        `;
-
-
+  select  c.keym,
+          c.id_usuario ,
+          c.id_caracteristica,
+          c.keym_padre ,
+          c.id_usuario_padre ,
+          c.id_caracteristica_padre, 
+          c.estado,
+          c.fecha_inicio,
+          c.fecha_fin,  
+          c.porcentaje_cumplido,
+          c.usuario_asignado,
+          c.presupuesto,
+          c.porcentaje_cumplido,
+          p.nombre as nom_pro,
+          p.descripcion,
+          u.nombre,
+          u.apellido 
+          from proyectos p
+                join caracteristicas c on p.keym_car = c.keym
+                and p.id_usuario_car = c.id_usuario
+                and p.id_caracteristica = c.id_caracteristica
+                join usuarios u on  c.usuario_asignado = u.id_usuario
+                where p.id_usuario =` + id_user + `order by p.nombre,c.fecha_inicio
+  `;
 
   return new Promise((resolve, reject) => {
     sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
@@ -376,8 +373,44 @@ function getIdFreeProject(id_usuario, keym) {
 module.exports.getProyectosPublicos = function (data) {
   var sequelize = sqlCon.configConnection();
 
-  return new Promise((resolve, reject) => {
+  var query1 = `
+  select  c.keym,
+          c.id_usuario ,
+          c.id_caracteristica,
+          c.keym_padre ,
+          c.id_usuario_padre ,
+          c.id_caracteristica_padre, 
+          c.estado,
+          c.fecha_inicio,
+          c.fecha_fin,  
+          c.porcentaje_cumplido,
+          c.usuario_asignado,
+          c.presupuesto,
+          c.porcentaje_cumplido,
+          p.nombre as nom_pro,
+          p.descripcion,
+          u.nombre,
+          u.apellido 
 
+          from proyectos p
+                join caracteristicas c on p.keym_car = c.keym
+                and p.id_usuario_car = c.id_usuario
+                and p.id_caracteristica = c.id_caracteristica
+                join usuarios u on  c.usuario_asignado = u.id_usuario
+                where public = true order by p.nombre,c.fecha_inicio
+  `;
+
+  return new Promise((resolve, reject) => {
+    sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
+    .then(x => {
+      resolve(x);
+    }).catch(x => {
+      console.log('Error al Obtener la lista de proyectos  getListProjects ' + x);
+      reject(false);
+    }).done(x => {
+      sequelize.close();
+      console.log('Se ha cerrado sesion de la conexion a la base de datos');
+    });
 
   });
 }

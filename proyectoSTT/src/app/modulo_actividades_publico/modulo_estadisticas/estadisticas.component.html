@@ -1,0 +1,72 @@
+<div style="margin-top: -22px">
+	<h3>Estadisticas</h3>
+	
+	<div style="float:right; width: 302px; margin-right: 10px">
+		<select class="form-control"  #p (change)="cambioGrafico(p.value)">
+			<option value="1">Progreso</option>
+			<option value="2">Progreso Actividades</option>
+			<option value="3">Categorias</option>
+		</select>	
+	</div>	
+</div>
+
+
+<div *ngIf="this.option == 1" style="display: block; height: 70vh; width: 450px" class="center-block">
+	<canvas baseChart
+	[data]="doughnutChartData"
+	[labels]="doughnutChartLabels"
+	[chartType]="doughnutChartType"
+	[colors]="Color"
+	(chartHover)="chartHovered($event)"
+	(chartClick)="chartClicked($event)"></canvas> 
+</div>
+
+<div *ngIf="this.option == 2" style="display: block;">
+	<table style="width: 100%">
+		<tbody>
+			<tr>
+				<td style="" class="sideClick" (click)="changeGraphics()">
+					<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				</td>
+				<td>					
+					<div *ngIf="isFirst" style=" height: 70vh; width: 450px" class="center-block">
+						<canvas  baseChart 
+						[data]="doughnutActivitiesChartData"
+						[labels]="doughnutActivitiesChartLabels"
+						[chartType]="doughnutActivitiesChartType"
+						(chartHover)="chartHovered($event)"
+						[colors] = "doughnutColorsActivities"
+						(chartClick)="chartClicked($event)"></canvas> 	
+
+					</div>
+					<div *ngIf="!isFirst"  style="width: 95%; height: 60vh"  class="center-block">
+						<canvas baseChart 
+						[datasets]="barActivitiesChartData"
+						[labels]="chartActivitiesLabel"
+						[options]="barChartOptions"
+						[legend]="barActivitiesChartLegend"
+						[chartType]="barActivitiesChartType"
+						(chartHover)="chartHovered($event)"
+						(chartClick)="chartClicked($event)"></canvas>		
+					</div>
+				</td>
+				<td style="cursor: pointer;height: 70vh" class="sideClick" (click)="changeGraphics()">
+					<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				</td>
+			</tr>
+		</tbody>
+	</table>	
+</div>
+
+<div *ngIf="this.option == 3" style="display: block; width: 91%; height: 65vh" class="center-block">
+	<canvas baseChart
+	[datasets]="barChartData"
+	[labels]="chartCategoriaLabel"
+	[options]="barChartOptions"
+	[legend]="barChartLegend"
+	[chartType]="barChartType"
+	[colors] = "barColor"
+	(chartHover)="chartHovered($event)"
+	(chartClick)="chartClicked($event)"></canvas>
+</div>
+

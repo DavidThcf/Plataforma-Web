@@ -544,13 +544,13 @@ router.post('/newAlert',(req,res,next)=>{
 
 /*----------------PROYECTOS PUBLICOS----------------------------------*/
 router.post('/getProyectosPublicos',(req,res,next)=>{
-	console.log(' <=====    Assign Activity To User      ==== >   ' + JSON.stringify(req.body.alerta));
+	console.log(' <=====    Proyectos Publicos     ==== >   ');
   
 	  var prj = Project.getProyectosPublicos(null);
 	  prj.then(x => {
 		console.log('!!!!!!!!!!!!!Se ha eleminado actualizado la alerta!!!!!!!!!!!');
 		res.header("Access-Control-Allow-Origin", "*");
-		res.json(true);
+		res.send(x);
   
 	  }).catch(x => {
 		console.log('ERROR al actualizar el porcentaje  =>  ' + x)

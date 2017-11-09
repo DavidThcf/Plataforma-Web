@@ -200,7 +200,7 @@ export class Servicios {
 
 
 	/*----------------SERVICIOS PROYECTO------------------*/
-	getProyectosPublicos(formData:FormData):Promise<any>{
+	getProyectosPublicos(formData:FormData):Promise<any>{		
 		return this.http.post(this.url +"getProyectosPublicos",formData)
 		.toPromise()
 		.then(response => response.json())
