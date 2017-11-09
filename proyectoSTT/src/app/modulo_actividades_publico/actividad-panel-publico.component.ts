@@ -11,12 +11,12 @@ import { ServiciosGlobalesActividades} from './servicios-globales-actividades'
 import { Mapa }   from './modulo_mapa/mapa.component';
 
 @Component({
-	selector: 'actividad-panel',
-	templateUrl: './actividad-panel.component.html',
-	styleUrls: [ './actividad-panel.component.css' ]
+	selector: 'actividad-panel-publico',
+	templateUrl: './actividad-panel-publico.component.html',
+	styleUrls: [ './actividad-panel-publico.component.css' ]
 })
 
-export class ActividadPanel implements OnInit{	
+export class ActividadPanelPublico implements OnInit{	
 	miPorcentaje:number = 100;
 	porcentajeAsignado:number = 0;
 	flag:boolean=true;
@@ -40,7 +40,7 @@ export class ActividadPanel implements OnInit{
 		){ };
 
 	ngOnInit():void {		
-		this.nombreUsuario = this.serviciog.usuario.nombre +" "+ this.serviciog.usuario.apellido;
+		//this.nombreUsuario = this.serviciog.usuario.nombre +" "+ this.serviciog.usuario.apellido;
 		this.serviciog.actividades = [];
 		this.serviciog.actividad =null;
 		this.serviciog.isSelAct =false;
@@ -49,11 +49,14 @@ export class ActividadPanel implements OnInit{
 		this.serviGloAct.actOpt = 0;
 
 
-		if(this.serviciog.proyecto){
-			this.serviciog.titulo = this.serviciog.proyecto.nom_pro;			
-			var keym = this.serviciog.proyecto.keym;
-			var id_usuario = this.serviciog.proyecto.id_usuario;
-			var id_caracteristica = this.serviciog.proyecto.id_caracteristica;		
+		if(this.serviciog.proyecto_publico){			
+			// this.serviciog.titulo = this.serviciog.proyecto_publico.nom_pro;
+			this.serviciog.proyecto = this.serviciog.proyecto_publico;
+			this.serviciog.titulo = "LA casa"
+			alert(JSON.stringify(this.serviciog.titulo))			
+			var keym = this.serviciog.proyecto_publico.keym;
+			var id_usuario = this.serviciog.proyecto_publico.id_usuario;
+			var id_caracteristica = this.serviciog.proyecto_publico.id_caracteristica;		
 
 			this.servicios.getActividad(keym,id_usuario,id_caracteristica)
 			.then(actividades =>{				
@@ -63,7 +66,7 @@ export class ActividadPanel implements OnInit{
 				}
 			});	
 		}else{
-			let link = ['administrador'];
+			let link = ['proyectospublico'];
 			this.router.navigate(link);
 		}
 	}
@@ -178,7 +181,7 @@ export class ActividadPanel implements OnInit{
 	}
 
 	inicio(){
-		this.serviciog.titulo = this.serviciog.proyecto.nom_pro;
+		this.serviciog.titulo = this.serviciog.proyecto_publico.nom_pro;
 		var keym = this.serviciog.proyecto.keym;
 		var id_usuario = this.serviciog.proyecto.id_usuario;
 		var id_caracteristica = this.serviciog.proyecto.id_caracteristica;		

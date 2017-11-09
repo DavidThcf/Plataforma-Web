@@ -44,7 +44,7 @@ export class ProyectosPublico implements OnInit {
 
 	entrar(proyect: any) {
 		this.serviciog.proyecto_publico = proyect;
-		let link = ['actividades_publico'];
+		let link = ['actividadespublico'];
 		this.router.navigate(link);
 	}
 }
