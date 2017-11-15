@@ -199,7 +199,7 @@ export class Servicios {
 	/*---------------FIN SERVICIO ALERTAS----------------*/
 
 
-	/*----------------SERVICIOS PROYECTO------------------*/
+	/*----------------SERVICIOS PROYECTO PUBLICO------------------*/
 	getProyectosPublicos(formData:FormData):Promise<any>{		
 		return this.http.post(this.url +"getProyectosPublicos",formData)
 		.toPromise()
@@ -208,4 +208,16 @@ export class Servicios {
 	}
 
 	/*----------FIN SERVICIOS PROYECTO PUBLICO------------*/
+
+
+	/*--------------  SERVICIOS ACTIVIDADES  ----------------- */
+	updatePublicCaracteristica(formData:FormData):Promise<any>{		
+		return this.http.post(this.url +"updatePublicCaracteristica",formData)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false)
+	}
+	
+	/*-------------- FIN SERVICIOS ACTIVIDADES --------------- */
+
 } 

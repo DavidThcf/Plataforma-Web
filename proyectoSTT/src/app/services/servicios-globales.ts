@@ -6,9 +6,7 @@ import * as io from 'socket.io-client';
 
 
 @Injectable()
-export class ServiciosGlobales {	
-	
-
+export class ServiciosGlobales {
 	usuario:Usuario;
 	proyecto:any;
 	proyectos_publico:any;

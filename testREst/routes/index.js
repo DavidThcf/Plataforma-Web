@@ -548,7 +548,8 @@ router.post('/getProyectosPublicos',(req,res,next)=>{
   
 	  var prj = Project.getProyectosPublicos(null);
 	  prj.then(x => {
-		console.log('!!!!!!!!!!!!!Se ha eleminado actualizado la alerta!!!!!!!!!!!');
+		
+
 		res.header("Access-Control-Allow-Origin", "*");
 		res.send(x);
   
@@ -559,4 +560,24 @@ router.post('/getProyectosPublicos',(req,res,next)=>{
 	  });
   });
 /*----------------FIN PROYECTOS PUBLICOS----------------------------------*/
+
+
+/*---------------------SERVICIOS ACTIVIDADES ---------------------------------*/
+router.post('/updatePublicCaracteristica',(req,res,next)=>{
+   	
+	console.log(' <=====  cambiar permiso publico caracteristica     ==== >  ' + JSON.stringify(req.body));  
+	  var prj = Characteritic.updateCharacteristicPublic(null);
+	  prj.then(x => {
+		
+		
+		res.header("Access-Control-Allow-Origin", "*");
+		res.send(x);
+  
+	  }).catch(x => {
+		console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	  });
+  });
+/*-------------------FIN SERVICIOS ACTIVIDADES ---------------------------------*/
 module.exports = router;

@@ -24,6 +24,7 @@ export class ProyectoPanel implements OnInit{
 		if(this.serviciog.usuario){
 			this.servicios.getProyecto(this.serviciog.usuario.id_usuario + '')
 			.then(cadena => {
+				alert(JSON.stringify(cadena[0]))
 				this.serviciog.proyecto = cadena
 			});
 		}

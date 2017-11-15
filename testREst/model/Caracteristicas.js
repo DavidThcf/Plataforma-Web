@@ -284,9 +284,9 @@ module.exports.getPercentage = function (data) {
         var sequelize = sqlCon.configConnection();
         var query1 = `
                 select func(
-                    `+data.keym+`,`+data.id_caracteristica+`,`+data.id_usuario+`,
-                    `+data.porcentaje+`,`+data.porcentaje_cumplido+`,
-                    `+data.keym+`,`+data.id_caracteristica+`,`+data.id_usuario+`);
+                    `+ data.keym + `,` + data.id_caracteristica + `,` + data.id_usuario + `,
+                    `+ data.porcentaje + `,` + data.porcentaje_cumplido + `,
+                    `+ data.keym + `,` + data.id_caracteristica + `,` + data.id_usuario + `);
                 `;
 
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
@@ -338,28 +338,29 @@ module.exports.updatePercentage = function (data) {
     });
 }
 
-module.exports.updateCharacteristic = function (data,isUpdatePercentage,porcentaje_cumplido) {
+
+module.exports.updateCharacteristic = function (data, isUpdatePercentage, porcentaje_cumplido) {
     //Date
     var current_date = new Date();
-    var flag1 =true , flag2 = true;
+    var flag1 = true, flag2 = true;
     var flg = isUpdatePercentage;
 
-        if(flg){
-            console.log("casa")
-          var sequelize = sqlCon.configConnection();
-          var query1 = `select updatePercent(`+data.keym+`,`+data.id_caracteristica+`,`+data.id_usuario+`,`+porcentaje_cumplido+`)`;
-console.log(query1)
-          sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
-              .then(x => {
-                  console.log('YAY   =>   ' + JSON.stringify(x));
-              }).catch(x => {
-                  console.log('Error al registrar actividad ' + x);
-                  flag1=false;
-              }).done(x => {
-                  sequelize.close();
-                  console.log('Se ha cerrado sesion de la conexion a la base de datos');
-              });
-        }
+    if (flg) {
+        console.log("casa")
+        var sequelize = sqlCon.configConnection();
+        var query1 = `select updatePercent(` + data.keym + `,` + data.id_caracteristica + `,` + data.id_usuario + `,` + porcentaje_cumplido + `)`;
+        console.log(query1)
+        sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
+            .then(x => {
+                console.log('YAY   =>   ' + JSON.stringify(x));
+            }).catch(x => {
+                console.log('Error al registrar actividad ' + x);
+                flag1 = false;
+            }).done(x => {
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });
+    }
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
         var query1 = `
@@ -384,7 +385,7 @@ console.log(query1)
                 console.log('YAY   =>   ' + JSON.stringify(x));
             }).catch(x => {
                 console.log('Error al registrar actividad ' + x);
-                flag1=false;
+                flag1 = false;
             }).done(x => {
                 sequelize.close();
                 console.log('Se ha cerrado sesion de la conexion a la base de datos');
@@ -393,9 +394,9 @@ console.log(query1)
         var query2 = `
             UPDATE actividades SET
 
-            nombre = '`+data.nom_act+`',
-            descripcion = '`+data.desc_act+`',
-            fecha_ultima_modificacion = '`+ current_date.toLocaleString() +`'
+            nombre = '`+ data.nom_act + `',
+            descripcion = '`+ data.desc_act + `',
+            fecha_ultima_modificacion = '`+ current_date.toLocaleString() + `'
 
             WHERE keym_car =  `+ data.keym + `
             and id_caracteristica = ` + data.id_caracteristica + `
@@ -408,19 +409,46 @@ console.log(query1)
                 resolve(true);
             }).catch(x => {
                 console.log('Error al registrar actividad ' + x);
-                flag2=false;
+                flag2 = false;
             }).done(x => {
                 sequelize.close();
                 console.log('Se ha cerrado sesion de la conexion a la base de datos');
             });
     });
 
-    if(flag1 && flag2)
+    if (flag1 && flag2)
         resolve(true);
     else
         reject(false);
 
 }
+
+module.exports.updateCharacteristicPublic = function (data) {
+    return new Promise((resolve, reject) => {
+        var sequelize = sqlCon.configConnection();
+        var query1 = `
+               UPDATE caracteristicas 
+               SET public = false where 
+               keym = 0 and 
+               id_usuario = 2 and 
+               id_caracteristica = 69;
+                `;
+
+        sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
+            .then(x => {
+                console.log('publicacion Actualizada');
+                resolve(true);
+            }).catch(x => {
+                console.log('publicacion No Actualizada');
+                reject(false);
+            }).done(x => {
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });
+    });
+}
+
+
 
 function getIdCharacteristic(keym, id_usuario, id_caracteristica, type_char) {
     var query1;

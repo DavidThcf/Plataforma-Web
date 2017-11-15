@@ -37,7 +37,12 @@ export class ActividadPanel implements OnInit{
 		private router:Router,
 		private servicios: Servicios,
 		private mapa: Mapa  
-		){ };
+		){
+
+		 };
+
+
+
 
 	ngOnInit():void {		
 		this.nombreUsuario = this.serviciog.usuario.nombre +" "+ this.serviciog.usuario.apellido;
@@ -97,7 +102,7 @@ export class ActividadPanel implements OnInit{
 		this.porcentaje_ejecutado = actividad.porcentaje_cumplido;
 	}
 
-	onSelectActivity(activity){
+	onSelectActivity(activity){		
 		this.miPorcentaje = 100;
 		this.porcentajeAsignado =0;
 		this.serviciog.actividad = activity;
@@ -180,15 +185,13 @@ export class ActividadPanel implements OnInit{
 		this.serviciog.isSubActivity = null;
 		this.serviciog.isSelAct = false;
 		this.serviGloAct.actOpt = 0;
+		this.serviciog.actividad = null;
 		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
 		.then(actividad => this.serviciog.actividades = actividad );
 	}
 
-	entrarACtividad(actividad){
-
-		this.serviGloAct.lastActividad = this.serviciog.isSubActivity;
-
-
+	entrarACtividad(actividad){			
+		this.serviGloAct.lastActividad.push(this.serviciog.isSubActivity);		
 		this.subActivity = [];
 		this.serviciog.actividades = [];
 		this.serviciog.actividad = actividad;
@@ -210,16 +213,18 @@ export class ActividadPanel implements OnInit{
 	}
 
 	regresar(){		
-		if(this.serviGloAct.lastActividad != this.serviciog.isSubActivity && this.serviGloAct.lastActividad){
+        var lastActividad = this.serviGloAct.lastActividad.pop();
+
+		if(lastActividad != this.serviciog.isSubActivity && lastActividad){
 			this.subActivity = [];
 			this.serviciog.actividades = [];
-			this.serviciog.actividad = this.serviGloAct.lastActividad;
-			this.serviciog.isSubActivity = this.serviGloAct.lastActividad;
-			var keym = this.serviGloAct.lastActividad.keym;
-			var id_usuario = this.serviGloAct.lastActividad.id_usuario;
-			var id_caracteristica = this.serviGloAct.lastActividad.id_caracteristica;
+			this.serviciog.actividad = lastActividad;
+			this.serviciog.isSubActivity = lastActividad;
+			var keym = lastActividad.keym;
+			var id_usuario = lastActividad.id_usuario;
+			var id_caracteristica = lastActividad.id_caracteristica;
 
-			this.serviciog.titulo = this.serviGloAct.lastActividad.nom_act;
+			this.serviciog.titulo = lastActividad.nom_act;
 			this.serviGloAct.actOpt= 1;
 
 			this.servicios.getActividad(keym,id_usuario,id_caracteristica)
@@ -305,9 +310,27 @@ export class ActividadPanel implements OnInit{
 
 	//////// Eventos  cambio de switch ////////
 	chkEvent(){
-		alert("KELVON");
-	}
+		
 
+		var formData = new FormData();
+		if(this.serviciog.actividad){
+			alert(JSON.stringify(this.serviciog.actividad));
+			formData.append('keym',this.serviciog.actividad.keym);
+			formData.append('id_usuario',this.serviciog.actividad.id_usuario);
+			formData.append('id_caracteristica',this.serviciog.actividad.id_caracteristica);
+
+		}else{
+			alert(JSON.stringify(this.serviciog.proyecto));
+			formData.append('keym',this.serviciog.proyecto.keym);
+			formData.append('id_usuario',this.serviciog.proyecto.id_usuario);
+			formData.append('id_caracteristica',this.serviciog.proyecto.id_caracteristica);
+		}
+		
+		this.servicios.updatePublicCaracteristica(formData)
+		.then(message =>{
+			alert(message);
+		});
+	}
 	/////// Fin eventos cambios switch ////////
 }
 

@@ -41,6 +41,7 @@ export class SubActividadPanel implements OnInit{
 	}
 
 	entrarAct(subActividad){
+		this.serviGloAct.lastActividad.push(this.serviciog.isSubActivity)
 		this.subActivity = [];
 		this.serviciog.actividades = [];
 		this.serviciog.actividad = subActividad;
@@ -59,6 +60,7 @@ export class SubActividadPanel implements OnInit{
 			}		
 		});
 	}
+
 	search(term:string){	
 		console.log(this.subActividad)	
 		if(term==''){

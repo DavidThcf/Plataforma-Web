@@ -95,6 +95,7 @@ module.exports.getListProjects = function (id_user) {
           c.usuario_asignado,
           c.presupuesto,
           c.porcentaje_cumplido,
+          c.public,
           p.nombre as nom_pro,
           p.descripcion,
           u.nombre,
@@ -388,7 +389,7 @@ module.exports.getProyectosPublicos = function (data) {
           c.presupuesto,
           c.porcentaje_cumplido,
           p.nombre as nom_pro,
-          p.descripcion,
+          p.descripcion,         
           u.nombre,
           u.apellido 
 
