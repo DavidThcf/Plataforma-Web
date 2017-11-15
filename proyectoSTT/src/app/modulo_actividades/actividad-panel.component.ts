@@ -92,11 +92,6 @@ export class ActividadPanel implements OnInit{
 		});
 	}
 
-	/*----------------Mapas Metodos----------------*/
-
-	
-	
-	/*-----------------Fin Mapas Metodos-----------*/
 	editarClick(actividad){
 		this.isEditar = !this.isEditar;
 		this.porcentaje_ejecutado = actividad.porcentaje_cumplido;
@@ -293,7 +288,9 @@ export class ActividadPanel implements OnInit{
 	}
 	c8(){		
 		this.serviGloAct.actOpt = 8;
-
+	}
+	c9(){		
+		this.serviGloAct.actOpt = 9;
 	}
 
 
@@ -305,6 +302,13 @@ export class ActividadPanel implements OnInit{
 		this.porcentajeAsignado = percent;
 		this.miPorcentaje = 100 - this.porcentajeAsignado;
 	}	
+
+	//////// Eventos  cambio de switch ////////
+	chkEvent(){
+		alert("KELVON");
+	}
+
+	/////// Fin eventos cambios switch ////////
 }
 
 

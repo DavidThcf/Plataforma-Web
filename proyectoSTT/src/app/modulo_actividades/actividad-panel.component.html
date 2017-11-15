@@ -1,33 +1,33 @@
-
-<div style="margin-top: 51px;">	
-	<div class="myModal"  [style.display] = "this.serviGloAct.isModalShow ? 'block' : 'none'">
+<div style="margin-top: 51px;">
+	<div class="myModal" [style.display]="this.serviGloAct.isModalShow ? 'block' : 'none'">
 		<div class="modal-dialog" style="vertical-align: middle;">
 			<!-- Modal content-->
-			<div class="modal-content" >
+			<div class="modal-content">
 				<div class="modal-body" style="height:auto">
 
 					<div style="margin-top:10px;margin-right:20px">
-						<button type="button" class="close" (click)="this.mapa.closeModal()" >×</button>
-					</div> 
+						<button type="button" class="close" (click)="this.mapa.closeModal()">×</button>
+					</div>
 
 					<form style="margin-right: 5%; margin-left: 5%; margin-top:3%;" enctype="multipart/form-data">
 						<div class="form-group">
 							<label for="agente" class="lab">Agente</label>
-							<input type="text" id="nombre" class="form-control" name="nombre" [(ngModel)]="this.nombreUsuario" required >
+							<input type="text" id="nombre" class="form-control" name="nombre" [(ngModel)]="this.nombreUsuario" required>
 							<!--div *ngIf="formErrors.nombre" class="alert alert-danger">
 								{{ formErrors.nombre }}
 							</div-->
 						</div>
 						<div class="form-group">
 							<label for="direccion" class="lab">Dirección</label>
-							<input type="text" id="descripcion" class="form-control" name="descripcion"  [(ngModel)]="this.serviciog.nombreDireccion" required   >
+							<input type="text" id="descripcion" class="form-control" name="descripcion" [(ngModel)]="this.serviciog.nombreDireccion"
+							 required>
 							<!--div *ngIf="formErrors.descripcion" class="alert alert-danger">
 								{{ formErrors.descripcion }}
 							</div-->
 						</div>
 						<div class="form-group">
 							<label for="fecha" class="lab">Fecha</label>
-							<input type="date" id="fecha_ini" class="form-control" name="fecha_ini"  required >
+							<input type="date" id="fecha_ini" class="form-control" name="fecha_ini" required>
 							<!--div *ngIf="formErrors.fecha_inicio" class="alert alert-danger">
 								{{ formErrors.fecha_inicio }}
 								 [disabled]="!activityForm.form.valid"
@@ -39,40 +39,40 @@
 						<div class="form-group">
 							<label for="categoria" class="lab">Categoria</label>
 							<ul class="form-control categorySelect">
-						        <li class="dropdown">
-						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 
-                                  <div style="display: inline-block; height: 10px; width: 50px; " [style.background-color]="this.serviGloAct.categoriaColor"></div>
-                                  	  {{this.serviGloAct.categoriaNombre}}
-						          	<span class="caret"></span></a>
-						          <ul class="dropdown-menu">
-						            <li  class="categoryList" *ngFor="let categoria of this.serviGloAct.categorias" (click)="this.mapa.categorySelect(categoria)">
-						            	<div [ngStyle]="{ 'background-color':  categoria.color }" style="height: 10px; width: 50px; display: inline-block"></div>
-						            	{{categoria.nombre}}
-															              	
-						            </li>						           
-						          </ul>
-						        </li>
-						     </ul>
-						    
-						      <input type="file" name="files[]" (change)="this.mapa.imageChange($event)"  accept=".jpg"  multiple/> 
-						      					       
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+										<div style="display: inline-block; height: 10px; width: 50px; " [style.background-color]="this.serviGloAct.categoriaColor"></div>
+										{{this.serviGloAct.categoriaNombre}}
+										<span class="caret"></span>
+									</a>
+									<ul class="dropdown-menu">
+										<li class="categoryList" *ngFor="let categoria of this.serviGloAct.categorias" (click)="this.mapa.categorySelect(categoria)">
+											<div [ngStyle]="{ 'background-color':  categoria.color }" style="height: 10px; width: 50px; display: inline-block"></div>
+											{{categoria.nombre}}
+
+										</li>
+									</ul>
+								</li>
+							</ul>
+
+							<input type="file" name="files[]" (change)="this.mapa.imageChange($event)" accept=".jpg" multiple/>
+
 						</div>
 						<button type="submit" class="btn btn-success" name="btnLogin" (click)="this.mapa.addMarker()">Guardar</button>
-					</form>	
-				</div>       
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
 
-
-
 	<table style="width: 100%">
 		<tbody>
 			<tr>
-				<td class="area_1">					
+				<!-- Area lista de Actividades -->
+				<td class="area_1">
 					<table style="margin-left: 10px; margin-right: 10px">
-						<tbody>							    
-							<td *ngIf="this.serviciog.isSubActivity">									
+						<tbody>
+							<td *ngIf="this.serviciog.isSubActivity">
 								<tr>
 									<button class="btn btn1 btn-primary" style="background-color: darkslategray;" (click)="inicio()">
 										<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
@@ -82,28 +82,28 @@
 									<button class="btn1 btn btn-primary" style="background-color: darkslategray;" (click)="regresar()">
 										<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
 									</button>
-								</tr>									
+								</tr>
 							</td>
-							<td *ngIf="!this.serviciog.isSubActivity">									
-								<div style="width: 24px; background-color: white"></div>							
+							<td *ngIf="!this.serviciog.isSubActivity">
+								<div style="width: 24px; background-color: white"></div>
 							</td>
 							<td>
 								<div class="titulo" (click)="tituloClick()" title={{this.serviciog.titulo}}>
-									{{this.serviciog.titulo}} 
-								</div>																	
+									{{this.serviciog.titulo}}
+								</div>
 							</td>
 						</tbody>
 					</table>
 
 
-					<div class="actividades_panel">						 	
+					<div class="actividades_panel">
 						<table>
 							<tbody>
 								<tr style="border-bottom:1px solid rgba(44,106,34,.5)">
 									<td>
 										<div style="margin: auto;">
 											<div class="input-group" style="margin-left:auto; margin-right:auto; margin-bottom: 2px; margin-top: 3px;">
-												<input #searchBox type="text" class="form-control"  (keyup)="search(searchBox.value)" placeholder="Buscar...">
+												<input #searchBox type="text" class="form-control" (keyup)="search(searchBox.value)" placeholder="Buscar...">
 												<span class="input-group-btn">
 													<button type="button" style="background-color: lightseagreen;" class="btn btn-primary" aria-label="Left Align">
 														<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -118,15 +118,17 @@
 									<td>
 										<div class="listaActividades">
 											<ul *ngIf="!this.isSearch">
-												<li   *ngFor="let activity of this.serviciog.actividades" [class.selected]="activity === this.serviciog.actividad" (click)="onSelectActivity(activity)" (dblclick)="entrarACtividad(activity)">
+												<li *ngFor="let activity of this.serviciog.actividades" [class.selected]="activity === this.serviciog.actividad" (click)="onSelectActivity(activity)"
+												 (dblclick)="entrarACtividad(activity)">
 													<a>{{activity.nom_act}}</a>
 												</li>
 											</ul>
 											<ul *ngIf="this.isSearch">
-												<li   *ngFor="let activity of this.actividades" [class.selected]="activity === this.serviciog.actividad" (click)="onSelectActivity(activity)" (dblclick)="entrarACtividad(activity)">
+												<li *ngFor="let activity of this.actividades" [class.selected]="activity === this.serviciog.actividad" (click)="onSelectActivity(activity)"
+												 (dblclick)="entrarACtividad(activity)">
 													<a>{{activity.nom_act}}</a>
 												</li>
-											</ul>			
+											</ul>
 										</div>
 									</td>
 								</tr>
@@ -134,16 +136,17 @@
 						</table>
 					</div>
 
-					<button class="btn btn-primary" style=" margin: auto; display: block;" 							data-toggle="modal" data-target="#mod-reg-act">
+					<button class="btn btn-primary" style=" margin: auto; display: block;" data-toggle="modal" data-target="#mod-reg-act">
 						Nueva Actividad
 					</button>
 				</td>
+				<!--Fin Area lista de Actividades -->
 
 				<td class="area_2">
-					<div  style="background-color: rgb(222,220,221);">
+					<div style="background-color: rgb(222,220,221);">
 						<div class="menuActividades">
 							<ul>
-								<li *ngIf="!this.serviciog.isSelAct" (click)="c0()" [class.itemSelected]="this.serviGloAct.actOpt===0" >
+								<li *ngIf="!this.serviciog.isSelAct" (click)="c0()" [class.itemSelected]="this.serviGloAct.actOpt===0">
 									<a>Detalles Proyecto</a>
 								</li>
 								<li *ngIf="!this.serviciog.isSelAct" (click)="c7()" [class.itemSelected]="this.serviGloAct.actOpt===7">
@@ -159,7 +162,7 @@
 									<a>Reporte</a>
 								</li>
 								<li *ngIf="this.serviciog.isSelAct" (click)="c4()" [class.itemSelected]="this.serviGloAct.actOpt===4">
-									<a>Multimedia 
+									<a>Multimedia
 									</a>
 								</li>
 								<li (click)="c5()" [class.itemSelected]="this.serviGloAct.actOpt===5">
@@ -172,33 +175,36 @@
 								<li (click)="c8()" [class.itemSelected]="this.serviGloAct.actOpt===8">
 									<a>Porcentajes</a>
 								</li>
-							</ul>				
+								<li (click)="c9()" [class.itemSelected]="this.serviGloAct.actOpt===9">
+									<a>Permisos</a>
+								</li>
+							</ul>
 						</div>
 
 						<div style="height: 79vh; overflow-y: auto;">
 							<div *ngIf="this.serviGloAct.actOpt === 0">
-								<div class="proyect_form">					
+								<div class="proyect_form">
 									<form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
-										<div class="form-group" >						
+										<div class="form-group">
 
-											<img  class="imgPro" src="http://www2.udenar.edu.co/recursos/wp-content/uploads/2016/10/udenar.png" />
+											<img class="imgPro" src="http://www2.udenar.edu.co/recursos/wp-content/uploads/2016/10/udenar.png" />
 											<hr/>
 
 											<label for="nombre" class="lab">Nombres</label>
-											<input name="" type="text" id="nombre" class="form-control" name="nombres" readonly [(ngModel)]="this.serviciog.proyecto.nom_pro" >
+											<input name="" type="text" id="nombre" class="form-control" name="nombres" readonly [(ngModel)]="this.serviciog.proyecto.nom_pro">
 
 											<label for="descripción" class="lab">Descripción</label>
-											<input name="" type="text" id="de" class="form-control" name="descripcion" readonly [(ngModel)]="this.serviciog.proyecto.descripcion"  >
+											<input name="" type="text" id="de" class="form-control" name="descripcion" readonly [(ngModel)]="this.serviciog.proyecto.descripcion">
 
 											<label for="estado" class="lab">Estado</label>
-											<input name="" type="text" id="estado" class="form-control" name="estado" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.estado" >
+											<input name="" type="text" id="estado" class="form-control" name="estado" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.estado">
 
 											<label for="tiempo_inicial" class="lab">Fecha de Inicio</label>
-											<input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.fecha_inicio" >
+											<input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.fecha_inicio">
 
 											<label for="tiempo_fin" class="lab">Fecha Final</label>
-											<input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.fecha_fin" >											
-										</div>						
+											<input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.fecha_fin">
+										</div>
 									</form>
 								</div>
 								<button class="btn btn-primary" style="margin: auto; display: block; margin-top: 2px;">
@@ -211,12 +217,12 @@
 									<div class="form-group">
 										<div class="formulario" style="height: 48vh; overflow-y: auto;">
 											<label for="nombre" class="lab">Nombres</label>
-											<input name="" type="text" id="nombre" class="form-control" name="nombres" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.nom_act" >
+											<input name="" type="text" id="nombre" class="form-control" name="nombres" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.nom_act">
 
 											<label for="descripción" class="lab">Descripción</label>
-											<input name="" type="text" id="de" class="form-control" name="descripcion"  [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.desc_act"  >
+											<input name="" type="text" id="de" class="form-control" name="descripcion" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.desc_act">
 
-										<!--
+											<!--
 											<label for="porcentaje" class="lab">Porcentaje Esta Actividad</label>
 											<input name="" type="text" id="porcentaje" class="form-control" name="porcentaje" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.porcentaje" >
 
@@ -225,136 +231,171 @@
 											<input name="" type="text" id="porcentaje_asignado" class="form-control" name="porcentaje_asignado" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.porcentaje_asignado" >	
 										-->
 
-										<label for="tiempo_inicial" class="lab">Tiempo Inicio</label>
-										<input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.fecha_inicio" >
+											<label for="tiempo_inicial" class="lab">Tiempo Inicio</label>
+											<input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.fecha_inicio">
 
-										<label for="tiempo_fin" class="lab">Tiempo Final</label>
-										<input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.fecha_fin" >
+											<label for="tiempo_fin" class="lab">Tiempo Final</label>
+											<input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.fecha_fin">
 
-										<label for="estado" class="lab">Estado</label>
-										<input type="text" id="estado" class="form-control" name="estado"  [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.estado" >
+											<label for="estado" class="lab">Estado</label>
+											<input type="text" id="estado" class="form-control" name="estado" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.estado">
 
-										<label for="porcentaje_cumplido" class="lab">Porcentaje Cumplido</label>
-										<input name="" type="text" id="estado" class="form-control" name="porcentaje_cumplido" [(ngModel)]="this.serviciog.actividad.porcentaje_cumplido" [readonly]="!this.isEditar" >
-									</div>
+											<label for="porcentaje_cumplido" class="lab">Porcentaje Cumplido</label>
+											<input name="" type="text" id="estado" class="form-control" name="porcentaje_cumplido" [(ngModel)]="this.serviciog.actividad.porcentaje_cumplido"
+											 [readonly]="!this.isEditar">
+										</div>
 
-									<label for="Usuario">Usuario</label>
-									<div  (click)="getUsers()" class="center-block" data-toggle="modal" data-target="#mod-list-usu"  style="display: block; height: 100px; width: 100%; margin: auto; background-color: rgb(36,36,36); border:1px solid rgb(87,87,87)" >						
-										<div class="row">
-											<div class="col-md-3">
-												<img src=" assets/img/manprofile.png" style="width: 85px;height: 85px; margin-left: 7px; margin-top: 7px;">
-											</div>
-											<div class="col-md-9">
-												<div style="color: rgb(245,245,245);     text-decoration: underline;   text-transform: uppercase; font-weight: bold;">
-													{{this.serviciog.actividad.usr_nom}} {{this.serviciog.actividad.usr_ape}}
+										<label for="Usuario">Usuario</label>
+										<div (click)="getUsers()" class="center-block" data-toggle="modal" data-target="#mod-list-usu" style="display: block; height: 100px; width: 100%; margin: auto; background-color: rgb(36,36,36); border:1px solid rgb(87,87,87)">
+											<div class="row">
+												<div class="col-md-3">
+													<img src=" assets/img/manprofile.png" style="width: 85px;height: 85px; margin-left: 7px; margin-top: 7px;">
 												</div>
-												<div style="color: rgb(209,209,209);font-style: italic;">
-													{{this.serviciog.actividad.e_mail}} 
-												</div>
-												<div style="color: rgb(209,209,209);">
-													{{this.serviciog.actividad.cargo}}
+												<div class="col-md-9">
+													<div style="color: rgb(245,245,245);     text-decoration: underline;   text-transform: uppercase; font-weight: bold;">
+														{{this.serviciog.actividad.usr_nom}} {{this.serviciog.actividad.usr_ape}}
+													</div>
+													<div style="color: rgb(209,209,209);font-style: italic;">
+														{{this.serviciog.actividad.e_mail}}
+													</div>
+													<div style="color: rgb(209,209,209);">
+														{{this.serviciog.actividad.cargo}}
+													</div>
 												</div>
 											</div>
 										</div>
+
+										<br/>
+										<button class="btn btn-success center-block" *ngIf="this.isEditar" (click)="actualizarActividad(this.serviciog.actividad)">Guardar</button>
+
+										<button class="btn btn-primary center-block" *ngIf="!this.isEditar" (click)="editarClick(this.serviciog.actividad)">Editar</button>
 									</div>
-
-									<br/>
-									<button class="btn btn-success center-block" *ngIf="this.isEditar" (click)="actualizarActividad(this.serviciog.actividad)">Guardar</button>
-
-									<button class="btn btn-primary center-block" *ngIf="!this.isEditar" (click)="editarClick(this.serviciog.actividad)">Editar</button>			
-								</div>						
-							</form>					
-						</div>
-
-						<div *ngIf="this.serviGloAct.actOpt === 2" >	
-							<subactividad-panel></subactividad-panel>
-						</div>
-
-						<div *ngIf="this.serviGloAct.actOpt === 3" >
-							<embed  src="http://knower.udenar.edu.co/imgSTT/CONVENIO.pdf" style="width: 100%; height:76vh; margin: 2px 10px;" fullframe />					
-						</div>
-
-						<div *ngIf="this.serviGloAct.actOpt === 4" >
-							<multimedia></multimedia>
-						</div>
-
-						<div *ngIf="this.serviGloAct.actOpt === 5" >
-							<estadisticas></estadisticas>								
-						</div>
-
-						<div *ngIf="this.serviGloAct.actOpt === 6">
-							<mapa></mapa>
-						</div>
-
-						<div *ngIf="this.serviGloAct.actOpt === 7">
-							<categorias></categorias>
-						</div>
-
-						<div *ngIf="this.serviGloAct.actOpt === 8">
-							<h1>Porcentajes</h1>
-							<hr/>
-							<table style="width: 100%">
-								<tbody>
-									<tr>
-										<td style="text-align: center;">Mi Porcentaje
-											<span class="numPerc">{{this.miPorcentaje}} %</span>
-										</td>
-										<td style="text-align: center;">Porcentaje Asignado 
-											<span class="numPerc">{{this.porcentajeAsignado}} %</span>
-										</td>
-									</tr>										
-								</tbody>									
-							</table>
-
-							<div class="tablePercent" >				
-								<table class="table table-striped">
-									<thead>
-										<tr>								
-											<th style="width: 70%">Actividad</th>
-											<th style="width: 30%">Porcentaje Asignado</th>	
-										</tr>
-									</thead>
-									<tbody  *ngIf="!this.serviciog.isSelAct || this.serviciog.isSubActivity === this.serviciog.actividad" >
-										<tr *ngFor="let activity of this.serviciog.actividades; let i = index">
-											<td>{{activity.nom_act}}</td>
-											<td>
-												<input type="number" class="form-control"  min="0" max="100" [(ngModel)]="activity.porcentaje" (change)="valPor(true,i)">
-											</td>								
-										</tr>
-									</tbody>
-									<tbody  *ngIf="this.serviciog.isSelAct && this.serviciog.isSubActivity != this.serviciog.actividad ">
-										<tr *ngFor="let subactividad of this.serviGloAct.subActividades; let i = index">
-											<td>{{subactividad.nom_act}}</td>
-											<td>
-												<input type="number" class="form-control" name="val" min="0" max="100" [(ngModel)]="subactividad.porcentaje" (change)="valPor(false,i)">
-											</td>
-											<td>Subact</td>							
-										</tr>
-									</tbody>
-								</table>				
+								</form>
 							</div>
-							<button class="btn btn-success center-block" (click)="sendPercentage()"  [disabled]="this.miPorcentaje < 0">Guardar</button> 
+
+							<div *ngIf="this.serviGloAct.actOpt === 2">
+								<subactividad-panel></subactividad-panel>
+							</div>
+
+							<div *ngIf="this.serviGloAct.actOpt === 3">
+								<embed src="http://knower.udenar.edu.co/imgSTT/CONVENIO.pdf" style="width: 100%; height:76vh; margin: 2px 10px;" fullframe
+								/>
+							</div>
+
+							<div *ngIf="this.serviGloAct.actOpt === 4">
+								<multimedia></multimedia>
+							</div>
+
+							<div *ngIf="this.serviGloAct.actOpt === 5">
+								<estadisticas></estadisticas>
+							</div>
+
+							<div *ngIf="this.serviGloAct.actOpt === 6">
+								<mapa></mapa>
+							</div>
+
+							<div *ngIf="this.serviGloAct.actOpt === 7">
+								<categorias></categorias>
+							</div>
+
+							<div *ngIf="this.serviGloAct.actOpt === 8">
+								<h1>Porcentajes</h1>
+								<hr/>
+								<table style="width: 100%">
+									<tbody>
+										<tr>
+											<td style="text-align: center;">Mi Porcentaje
+												<span class="numPerc">{{this.miPorcentaje}} %</span>
+											</td>
+											<td style="text-align: center;">Porcentaje Asignado
+												<span class="numPerc">{{this.porcentajeAsignado}} %</span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+
+								<div class="tablePercent">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th style="width: 70%">Actividad</th>
+												<th style="width: 30%">Porcentaje Asignado</th>
+											</tr>
+										</thead>
+										<tbody *ngIf="!this.serviciog.isSelAct || this.serviciog.isSubActivity === this.serviciog.actividad">
+											<tr *ngFor="let activity of this.serviciog.actividades; let i = index">
+												<td>{{activity.nom_act}}</td>
+												<td>
+													<input type="number" class="form-control" min="0" max="100" [(ngModel)]="activity.porcentaje" (change)="valPor(true,i)">
+												</td>
+											</tr>
+										</tbody>
+										<tbody *ngIf="this.serviciog.isSelAct && this.serviciog.isSubActivity != this.serviciog.actividad ">
+											<tr *ngFor="let subactividad of this.serviGloAct.subActividades; let i = index">
+												<td>{{subactividad.nom_act}}</td>
+												<td>
+													<input type="number" class="form-control" name="val" min="0" max="100" [(ngModel)]="subactividad.porcentaje" (change)="valPor(false,i)">
+												</td>
+												<td>Subact</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<button class="btn btn-success center-block" (click)="sendPercentage()" [disabled]="this.miPorcentaje < 0">Guardar</button>
+							</div>
+
+							<div *ngIf="this.serviGloAct.actOpt === 9">
+								<h1>Permisos</h1>
+								<hr/>
+								<table style="width: 100%" >
+									<tbody>
+										<tr>
+											<td class="s1">
+												<label>Publicar Proyecto</label>
+											 </td>
+											<td class="s2" >
+												<label>Si</label>
+												<label class="switch">
+													<input type="checkbox" (change)="chkEvent()">
+													<span class="slider round"></span>
+												</label>
+												<label>No</label>
+											</td>
+
+											<td style="width: 40%">Publicar Proyecto</td>
+											<td style="width: 10%">
+												<label class="switch">
+													<input type="checkbox">
+													<span class="slider round"></span>
+												</label>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
-					</div>		
-				</div>					
-			</td>
-		</tr>
-	</tbody>
-</table>
+					</div>
+				</td>
+
+			</tr>
+		</tbody>
+	</table>
 </div>
 
+<!-- Modal Registro Actividad -->
 <registro-actividad></registro-actividad>
+<!-- Fin Modal Registro Actividad -->
 
+<!-- Modal content Lista de Usuarios-->
 <div id="mod-list-usu" style="margin-top: 50px" class="modal fade" role="dialog">
 	<div class="modal-dialog" style="vertical-align: middle;">
-		<!-- Modal content-->
-		<div class="modal-content" style="background-color: rgb(47,47,47);" >
+		<div class="modal-content" style="background-color: rgb(47,47,47);">
 			<div class="modal-body" style="height:auto">
 
 				<div style="margin-top:10px;margin-right:20px">
 					<button type="button" class="close" data-dismiss="modal" style="opacity: 1; color: white;">×</button>
-				</div> 
-				<br/>				
+				</div>
+				<br/>
 				<div>
 					<div style="display: block; margin: auto;">
 						<div class="input-group" style="margin-left: 5%; margin-right: 5%;">
@@ -364,11 +405,12 @@
 									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 								</button>
 							</span>
-						</div>						
+						</div>
 					</div>
 					<br/>
 					<ul>
-						<div *ngFor="let usuario of this.usuarios" (click)="asignarUsuario(usuario)" style="display: block; height: 100px; width: 90%; margin: auto; background-color: rgb(36,36,36); border:1px solid rgb(87,87,87)" data-dismiss='modal' >
+						<div *ngFor="let usuario of this.usuarios" (click)="asignarUsuario(usuario)" style="display: block; height: 100px; width: 90%; margin: auto; background-color: rgb(36,36,36); border:1px solid rgb(87,87,87)"
+						 data-dismiss='modal'>
 							<div class="row">
 								<div class="col-md-3">
 									<img src=" assets/img/manprofile.png" style="width: 85px;height: 85px; margin-left: 7px; margin-top: 7px;">
@@ -378,7 +420,7 @@
 										{{usuario.nombre}} {{usuario.apellido}}
 									</div>
 									<div style="color: rgb(209,209,209);font-style: italic;">
-										{{usuario.e_mail}} 
+										{{usuario.e_mail}}
 									</div>
 									<div style="color: rgb(209,209,209);">
 										{{usuario.cargo}}
@@ -388,10 +430,8 @@
 						</div>
 					</ul>
 				</div>
-			</div>       
+			</div>
 		</div>
 	</div>
 </div>
-
-
-
+<!-- Fin Modal Content -->

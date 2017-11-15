@@ -50,9 +50,9 @@ export class ActividadPanelPublico implements OnInit{
 
 
 		if(this.serviciog.proyecto_publico){			
-			// this.serviciog.titulo = this.serviciog.proyecto_publico.nom_pro;
+			
 			this.serviciog.proyecto = this.serviciog.proyecto_publico;
-			this.serviciog.titulo = "LA casa"
+			this.serviciog.titulo =  this.serviciog.proyecto.nom_pro;
 			alert(JSON.stringify(this.serviciog.titulo))			
 			var keym = this.serviciog.proyecto_publico.keym;
 			var id_usuario = this.serviciog.proyecto_publico.id_usuario;
