@@ -107,6 +107,7 @@ module.exports.getActivityList = function (data) {
 				c.fecha_inicio,
 				c.fecha_fin,
 				c.publicacion_reporte,
+				c.public,
 
 				u.nombre as usr_nom,
 				u.apellido as usr_ape,

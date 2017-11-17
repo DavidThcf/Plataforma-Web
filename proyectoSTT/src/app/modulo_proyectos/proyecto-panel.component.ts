@@ -23,8 +23,7 @@ export class ProyectoPanel implements OnInit{
 	ngOnInit():void {
 		if(this.serviciog.usuario){
 			this.servicios.getProyecto(this.serviciog.usuario.id_usuario + '')
-			.then(cadena => {
-				alert(JSON.stringify(cadena[0]))
+			.then(cadena => {				
 				this.serviciog.proyecto = cadena
 			});
 		}
@@ -44,7 +43,8 @@ export class ProyectoPanel implements OnInit{
 	}
 
 	entrar(proyect:any){
-		this.serviciog.proyecto = proyect;		
+		this.serviciog.proyecto = proyect;
+		this.serviciog.permiso1 = proyect.public;		
 		let link = ['actividades'];
 		this.router.navigate(link);
 	}

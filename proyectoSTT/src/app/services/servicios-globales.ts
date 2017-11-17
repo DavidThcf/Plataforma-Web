@@ -24,6 +24,10 @@ export class ServiciosGlobales {
 	marcadorAlerta:any;
 	isAlertShow:boolean = false;
 
+	/*--------Variables Actividades Permisos ----------*/
+	permiso1:boolean = false;
+	/* ----------Fin Variables Actividades Permisos ----------*/
+
 	constructor(private persistenceService:PersistenceService){}
 
 	getUserSession(usuario:Usuario){

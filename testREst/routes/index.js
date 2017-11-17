@@ -563,10 +563,9 @@ router.post('/getProyectosPublicos',(req,res,next)=>{
 
 
 /*---------------------SERVICIOS ACTIVIDADES ---------------------------------*/
-router.post('/updatePublicCaracteristica',(req,res,next)=>{
-   	
+router.post('/updatePublicCaracteristica',(req,res,next)=>{   	
 	console.log(' <=====  cambiar permiso publico caracteristica     ==== >  ' + JSON.stringify(req.body));  
-	  var prj = Characteritic.updateCharacteristicPublic(null);
+	  var prj = Characteritic.updateCharacteristicPublic(req.body);
 	  prj.then(x => {
 		
 		

@@ -113,6 +113,7 @@ export class ActividadPanel implements OnInit{
 		var keym = activity.keym;
 		var id_usuario = activity.id_usuario;
 		var id_caracteristica = activity.id_caracteristica;		
+		this.serviciog.permiso1 = activity.public;
 
 		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
 		.then(actividades =>{				
@@ -121,7 +122,6 @@ export class ActividadPanel implements OnInit{
 				this.calculateValue(actividades);												
 			}
 		});
-
 	}
 
 	search(term: string){
@@ -130,7 +130,7 @@ export class ActividadPanel implements OnInit{
 		}
 		this.actividades = this.serviciog.actividades.filter(
 			item  => item.nom_act.toLowerCase().indexOf(term.toLowerCase()) !== -1	 	
-			);			
+		);			
 	}
 
 
@@ -154,6 +154,7 @@ export class ActividadPanel implements OnInit{
 		if(!this.serviciog.isSubActivity){
 			this.serviciog.isSelAct = false;
 			this.serviGloAct.actOpt = 0;
+			this.serviciog.permiso1 = this.serviciog.proyecto;
 			this.serviciog.actividad = null;
 		}else{
 			this.serviciog.actividad = this.serviciog.isSubActivity;
@@ -310,25 +311,26 @@ export class ActividadPanel implements OnInit{
 
 	//////// Eventos  cambio de switch ////////
 	chkEvent(){
-		
-
 		var formData = new FormData();
-		if(this.serviciog.actividad){
-			alert(JSON.stringify(this.serviciog.actividad));
+		if(this.serviciog.actividad){	
+			this.serviciog.actividad.public = !this.serviciog.actividad.public;
+			this.serviciog.permiso1 = this.serviciog.actividad.public;
 			formData.append('keym',this.serviciog.actividad.keym);
 			formData.append('id_usuario',this.serviciog.actividad.id_usuario);
 			formData.append('id_caracteristica',this.serviciog.actividad.id_caracteristica);
-
+			formData.append('publico',this.serviciog.actividad.public);
 		}else{
-			alert(JSON.stringify(this.serviciog.proyecto));
+			this.serviciog.proyecto.public = !this.serviciog.proyecto.public;	
+			this.serviciog.permiso1 = this.serviciog.proyecto.public;		
 			formData.append('keym',this.serviciog.proyecto.keym);
 			formData.append('id_usuario',this.serviciog.proyecto.id_usuario);
 			formData.append('id_caracteristica',this.serviciog.proyecto.id_caracteristica);
+			formData.append('publico',this.serviciog.proyecto.public);
 		}
-		
+
 		this.servicios.updatePublicCaracteristica(formData)
 		.then(message =>{
-			alert(message);
+			// alert(message);
 		});
 	}
 	/////// Fin eventos cambios switch ////////

@@ -340,17 +340,17 @@
 
   /* ------------FIN SWITCH STYLES ---------------*/
 
-  /* Tabla Permisos Estilos ----*/
+  /* -------  -Tabla Permisos Estilos --------------*/
 
   .s1{
-	  width: 40%;
+	 width: 40%;
   }
 
   .s2{
-	width: 10%;
+	 width: 10%;
   }
 
   .s1 label{
 	font-family: 'Playfair Display', serif;
-  }
-  /* Fin Tabla Permisos Estilos */
+  }  
+  /*------ Fin Tabla Permisos Estilos ------------*/

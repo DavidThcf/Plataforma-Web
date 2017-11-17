@@ -424,14 +424,15 @@ module.exports.updateCharacteristic = function (data, isUpdatePercentage, porcen
 }
 
 module.exports.updateCharacteristicPublic = function (data) {
+    console.log(data.publico)
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
         var query1 = `
                UPDATE caracteristicas 
-               SET public = false where 
-               keym = 0 and 
-               id_usuario = 2 and 
-               id_caracteristica = 69;
+               SET public = ` + data.publico +` where 
+               keym = ` + data.keym +` and 
+               id_usuario = ` + data.id_usuario +` and 
+               id_caracteristica =` + data.id_caracteristica +`;
                 `;
 
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
