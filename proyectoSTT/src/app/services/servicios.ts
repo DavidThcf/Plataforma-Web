@@ -217,7 +217,20 @@ export class Servicios {
 		.then(response => response.json())
 		.catch(err => false)
 	}
-	
+	getActividadPublic(keym:number,id_usuario:number,id_caracteristica:number): Promise<any> {
+		var formData = new FormData();
+
+		formData.append('keym',keym+'');
+		formData.append('id_usuario',id_usuario+'');
+		formData.append('id_caracteristica',id_caracteristica+'');
+
+		//alert(formData);
+				
+		return this.http.post(this.url + "getActivityPublicList",formData)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false);
+	}
 	/*-------------- FIN SERVICIOS ACTIVIDADES --------------- */
 
 } 

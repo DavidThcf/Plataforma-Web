@@ -1,22 +1,4 @@
 
-<!--
-<button *ngIf="!isMapSelected" class="btn-select-map" (click)="btnAddImgMap()">
-	M
-</button>
-
-<button *ngIf="!isMapSelected" class="btn-add-img btn-primary" data-toggle="modal" 
-data-target="#mod-reg-mult" >						
-+				
-</button>
-
-<button *ngIf="isMapSelected" class="btn-ok btn-success" (click)="envioCambios()"> 			
-	OK					
-</button>
--->
-<button *ngIf="!isMapSelected" class="btn-add-img btn-primary" data-toggle="modal" 
-data-target="#mod-reg-mult" >						
-+				
-</button>
 <table style="width: 100%">
 	<tbody>
 		<tr>
@@ -75,16 +57,10 @@ data-target="#mod-reg-mult" >
 		<div class="selected1" target='_blank'></div>
 		<div class="options">
 			<label>Titulo</label>
-			<input  [(ngModel)]="imagen.titulo">
+			<input  [(ngModel)]="imagen.titulo" readonly>
 
 			<label>Subtitulo</label>
-			<input  [(ngModel)]="imagen.subtitulo">
-			<label>Publicar</label>
-			<input type="checkbox" class="chk" [checked]=imagen.isViewMap (change)="checked(imagen)" >	
-			<div class="center-block" style="padding-right: 8px;padding-left: 8px;" >
-				<button class="btn btn-success">Guardar</button>
-				<button class="btn btn-danger">Eliminar</button>
-			</div>
+			<input  [(ngModel)]="imagen.subtitulo" readonly>
 		</div>
 		<div class="img_options">
 		</div>

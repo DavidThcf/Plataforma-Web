@@ -53,12 +53,12 @@ export class ActividadPanelPublico implements OnInit{
 			
 			this.serviciog.proyecto = this.serviciog.proyecto_publico;
 			this.serviciog.titulo =  this.serviciog.proyecto.nom_pro;
-			alert(JSON.stringify(this.serviciog.titulo))			
+		
 			var keym = this.serviciog.proyecto_publico.keym;
 			var id_usuario = this.serviciog.proyecto_publico.id_usuario;
 			var id_caracteristica = this.serviciog.proyecto_publico.id_caracteristica;		
 
-			this.servicios.getActividad(keym,id_usuario,id_caracteristica)
+			this.servicios.getActividadPublic(keym,id_usuario,id_caracteristica)
 			.then(actividades =>{				
 				if(actividades){
 					this.serviciog.actividades = actividades;					
@@ -117,7 +117,7 @@ export class ActividadPanelPublico implements OnInit{
 		var id_usuario = activity.id_usuario;
 		var id_caracteristica = activity.id_caracteristica;		
 
-		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
+		this.servicios.getActividadPublic(keym,id_usuario,id_caracteristica)
 		.then(actividades =>{				
 			if(actividades){
 				this.serviGloAct.subActividades = actividades;
@@ -188,7 +188,7 @@ export class ActividadPanelPublico implements OnInit{
 		this.serviciog.isSubActivity = null;
 		this.serviciog.isSelAct = false;
 		this.serviGloAct.actOpt = 0;
-		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
+		this.servicios.getActividadPublic(keym,id_usuario,id_caracteristica)
 		.then(actividad => this.serviciog.actividades = actividad );
 	}
 
@@ -209,7 +209,7 @@ export class ActividadPanelPublico implements OnInit{
 		this.serviGloAct.actOpt= 1;
 		
 
-		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
+		this.servicios.getActividadPublic(keym,id_usuario,id_caracteristica)
 		.then(actividad => { 
 			if(actividad){
 				this.serviciog.actividades = actividad;
@@ -230,7 +230,7 @@ export class ActividadPanelPublico implements OnInit{
 			this.serviciog.titulo = this.serviGloAct.lastActividad.nom_act;
 			this.serviGloAct.actOpt= 1;
 
-			this.servicios.getActividad(keym,id_usuario,id_caracteristica)
+			this.servicios.getActividadPublic(keym,id_usuario,id_caracteristica)
 			.then(actividad => { 
 				if(actividad){
 					this.serviciog.actividades = actividad;

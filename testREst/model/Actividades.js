@@ -148,7 +148,82 @@ module.exports.getActivityList = function (data) {
 	});
 }
 
+module.exports.getActivityPublicList = function (data) {
+	jsn = [];
+	//variables del usuario
+	//==> Informacion de la actividad
+	var keym = data.keym;
+	var id_usuario = data.id_usuario;
+	var id_caracteristica = data.id_caracteristica;
 
+	return new Promise((resolve, reject) => {
+		var sequelize = sqlCon.configConnection();
+		var query1 = `
+				select
+								a.nombre as nom_act,
+				a.descripcion as desc_act,
+				a.folder,
+				a.pos,
+
+				c.keym,
+				c.id_caracteristica,
+				c.id_usuario,
+
+        c.usuario_asignado,
+
+				c.keym_padre,
+				c.id_caracteristica_padre,
+				c.id_usuario_padre,
+
+				c.estado,
+				c.porcentaje_asignado,
+				c.porcentaje_cumplido,
+				c.publicacion_web,
+				c.porcentaje,
+				c.fecha_inicio,
+				c.fecha_fin,
+				c.publicacion_reporte,
+				c.public,
+
+				u.nombre as usr_nom,
+				u.apellido as usr_ape,
+        u.e_mail as e_mail,
+        u.cargo as cargo
+
+				from actividades a join caracteristicas c
+ 				on 	a.keym_car = c.keym
+				and 	a.id_usuario_car = c.id_usuario
+				and 	a.id_caracteristica = c.id_caracteristica
+				join usuarios u
+				on c.usuario_asignado=u.id_usuario
+
+				where c.keym_padre = ` + keym + `
+				and c.id_caracteristica_padre = ` + id_caracteristica + `
+				and c.id_usuario_padre = ` + id_usuario + `
+				and c.public = true
+
+				order by a.nombre ; `;
+
+		var i = 0;
+		//console.log('POLSA');
+		sequelize.query(query1, {
+			type: sequelize.QueryTypes.SELECT
+		})
+			.then(x => {
+
+				console.log('\n\nDATA ACTIVITY LIST =>  '+JSON.stringify(x)+'\n\n')
+				resolve(x);
+
+			}).catch(x => {
+				console.log('Error al registrar actividad ' + x);
+				reject(false);
+			}).done(x => {
+				sequelize.close();
+				console.log('Se ha cerrado sesion de la conexion a la base de datos');
+			});
+
+	});
+}
 
 function getRecursiveActivity(keym, car, usu, sequelize, element, i) {
 	var query1 = `

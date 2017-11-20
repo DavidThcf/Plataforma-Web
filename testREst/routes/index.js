@@ -112,26 +112,6 @@ router.post('/getUserProjectList', (req, res, next) => {
 	});
 });
 
-//service to get user's activity with theirs characteristics
-router.post('/getActivityList', (req, res, next) => {
-	console.log("GET ACTIVITY LIST");
-	var act = Activity.getActivityList(req.body);
-	act.then(x => {
-		console.log(JSON.stringify(x));
-		if (x != false) {
-			res.header("Access-Control-Allow-Origin", "*");
-			res.send(x);
-		}
-		else {
-			res.header("Access-Control-Allow-Origin", "*");
-			res.json(false);
-		}
-	}).catch(x => {
-		console.log('ERROR =>  ' + x)
-		res.header("Access-Control-Allow-Origin", "*");
-		res.json(false);
-	});
-});
 
 //Service to register a new category for work with the map
 router.post('/createCategory', (req, res, next) => {
@@ -563,12 +543,33 @@ router.post('/getProyectosPublicos',(req,res,next)=>{
 
 
 /*---------------------SERVICIOS ACTIVIDADES ---------------------------------*/
+//Consigue lista de Actividades
+router.post('/getActivityList', (req, res, next) => {
+	console.log("GET ACTIVITY LIST");
+	var act = Activity.getActivityList(req.body);
+	act.then(x => {
+		console.log(JSON.stringify(x));
+		if (x != false) {
+			res.header("Access-Control-Allow-Origin", "*");
+			res.send(x);
+		}
+		else {
+			res.header("Access-Control-Allow-Origin", "*");
+			res.json(false);
+		}
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});
+});
+
+//Actualiza los permisos de publicacion
 router.post('/updatePublicCaracteristica',(req,res,next)=>{   	
 	console.log(' <=====  cambiar permiso publico caracteristica     ==== >  ' + JSON.stringify(req.body));  
 	  var prj = Characteritic.updateCharacteristicPublic(req.body);
 	  prj.then(x => {
-		
-		
+			
 		res.header("Access-Control-Allow-Origin", "*");
 		res.send(x);
   
@@ -578,5 +579,26 @@ router.post('/updatePublicCaracteristica',(req,res,next)=>{
 		res.json(false);
 	  });
   });
+
+  //Obtiene la lista de actividades publico
+  router.post('/getActivityPublicList', (req, res, next) => {
+	console.log("GET ACTIVITY LIST");
+	var act = Activity.getActivityPublicList(req.body);
+	act.then(x => {
+		console.log(JSON.stringify(x));
+		if (x != false) {
+			res.header("Access-Control-Allow-Origin", "*");
+			res.send(x);
+		}
+		else {
+			res.header("Access-Control-Allow-Origin", "*");
+			res.json(false);
+		}
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});
+});
 /*-------------------FIN SERVICIOS ACTIVIDADES ---------------------------------*/
 module.exports = router;

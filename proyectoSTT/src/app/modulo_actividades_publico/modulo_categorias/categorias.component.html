@@ -6,8 +6,6 @@
 	No existen Categorias registradas
 </div>
 
-<button class="btn btn-primary bncategoria" (click)="btnCategoriaClick()" *ngIf="!this.isNewCategory" >Nueva Categoria</button>
-
 <div class="newCategoryForm" *ngIf="this.isNewCategory">
 	<form #categoryForm="ngForm" (ngSubmit)="onSubmit()" style="margin:auto; display: block; margin-bottom: 5px;">		<label class="titulo">Nueva Categoria</label>
 		<input type="text"   name="name" placeholder="Nombre..." class="form-control"  [(ngModel)]="categoria.nombre" required/>
@@ -59,8 +57,8 @@
 			<label class="titulo">
 				{{category.nombre}}
 			</label>
-			<input type="text"   name="name" placeholder="Nombre..." class="form-control"  [(ngModel)]="category.nombre" required [disabled]="!isEditar && category === this.categoryValid" />
-			<input type="color" name="color"  [(ngModel)]="category.color" [disabled]="!isEditar"/> 
+			<input type="text"   name="name" placeholder="Nombre..." class="form-control"  [(ngModel)]="category.nombre" required [disabled]="!isEditar && category === this.categoryValid" readonly />
+			<input type="color" name="color"  [(ngModel)]="category.color" [disabled]="!isEditar"  readonly/> 
 
 			<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 491.582 491.582" enable-background="new 0 0 491.582 491.582" xml:space="preserve">
 				<defs>
@@ -95,17 +93,6 @@
 					</g>
 				</g>
 			</svg>
-
-			<button class="btn btn-primary" style="width: 120px" *ngIf = "!isEditar  && category != this.categoryValid" (click)="editar(category)" >
-				Editar
-			</button>
-
-			<button type="submit" class="btn btn-success" style="width: 120px" *ngIf="isEditar && category === this.categoryValid" (click)="onSubmitEdit(category)" [disabled]="!categoryForm.form.valid">
-				Guardar
-			</button>
-
-			<button class="btn btn-danger" style="width: 120px;" *ngIf="!isEditar && category != this.categoryValid" (click)="eliminar(category)">Eliminar</button> 
-			<button class="btn btn-danger" style="width: 120px" *ngIf="isEditar && category === this.categoryValid"  (click)="cancelar(category)">Cancelar</button> 
 		</form>
 	</div>	
 </div>
