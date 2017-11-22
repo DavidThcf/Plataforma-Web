@@ -118,6 +118,8 @@ export class AppComponent implements OnInit {
 	}
 
 	logout() {
+		this.serviciog.alert = null;
+		this.serviciog.alertCont = 0;
 		this.persistenceService.remove('user', StorageType.SESSION);
 		this.serviciog.usuario = this.persistenceService.get('user', StorageType.SESSION);
 		let link = [''];
