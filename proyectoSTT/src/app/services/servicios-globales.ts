@@ -25,7 +25,12 @@ export class ServiciosGlobales {
 	isAlertShow:boolean = false;
 
 	/*--------Variables Actividades Permisos ----------*/
-	permiso1:boolean = false;
+	permisoPublicar:boolean = false;
+	permisoReporte:boolean = false;
+	permisoCategorias:boolean = false;
+	permisoMultimedia:boolean = false;
+	permisoMapa:boolean = false;
+	permisoPorcentajes:boolean = false;
 	/* ----------Fin Variables Actividades Permisos ----------*/
 
 	constructor(private persistenceService:PersistenceService){}

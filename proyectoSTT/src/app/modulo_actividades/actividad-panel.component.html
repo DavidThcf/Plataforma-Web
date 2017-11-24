@@ -65,7 +65,7 @@
 		</div>
 	</div>
 
-	<table style="width: 100%">
+	<table style="width: 100%"  class="permitTable" >
 		<tbody>
 			<tr>
 				<!-- Area lista de Actividades -->
@@ -140,8 +140,8 @@
 						Nueva Actividad
 					</button>
 				</td>
-				<!--Fin Area lista de Actividades -->
 
+				<!--Fin Area lista de Actividades -->
 				<td class="area_2">
 					<div style="background-color: rgb(222,220,221);">
 						<div class="menuActividades">
@@ -347,7 +347,7 @@
 							<div *ngIf="this.serviGloAct.actOpt === 9">
 								<h1>Permisos</h1>
 								<hr/>
-								<table style="width: 100%">
+								<table style="width: 100%;" >
 									<tbody>
 										<tr>
 											<td class="s1">
@@ -356,18 +356,72 @@
 											<td class="s2">
 												<label>No</label>
 												<label class="switch">
-													<input type="checkbox" [checked]="this.serviciog.permiso1" (change)="chkEvent()">
+													<input type="checkbox" [checked]="this.serviciog.permisoPublicar" (change)="chkEvent()">
 													<span class="slider round"></span>
 												</label>
 												<label>Si</label>
 											</td>
 
-											<td style="width: 40%">Publicar Proyecto</td>
-											<td style="width: 10%">
+											<td class="s1">
+												<label>Publicar Categorias</label>
+											</td>
+											<td class="s2">
+												<label>No</label>
 												<label class="switch">
-													<input type="checkbox">
+													<input type="checkbox" [checked]="this.serviciog.permisoCategorias" (change)="chkEvent()">
 													<span class="slider round"></span>
 												</label>
+												<label>Si</label>
+											</td>
+										</tr>
+										<tr>
+											<td class="s1">
+												<label>Publicar Reporte</label>
+											</td>
+											<td class="s2">
+												<label>No</label>
+												<label class="switch">
+													<input type="checkbox" [checked]="this.serviciog.permisoReporte" (change)="chkEvent()">
+													<span class="slider round"></span>
+												</label>
+												<label>Si</label>
+											</td>
+
+											<td class="s1">
+												<label>Publicar Multimedia</label>
+											</td>
+											<td class="s2">
+												<label>No</label>
+												<label class="switch">
+													<input type="checkbox" [checked]="this.serviciog.permisoMultimedia" (change)="chkEvent()">
+													<span class="slider round"></span>
+												</label>
+												<label>Si</label>
+											</td>
+										</tr>
+										<tr>
+											<td class="s1">
+												<label>Publicar Mapa</label>
+											</td>
+											<td class="s2">
+												<label>No</label>
+												<label class="switch">
+													<input type="checkbox" [checked]="this.serviciog.permisoMapa" (change)="chkEvent()">
+													<span class="slider round"></span>
+												</label>
+												<label>Si</label>
+											</td>
+
+											<td class="s1">
+												<label>Publicar Porcentajes</label>
+											</td>
+											<td class="s2">
+												<label>No</label>
+												<label class="switch">
+													<input type="checkbox" [checked]="this.serviciog.permisoporcentajes" (change)="chkEvent()">
+													<span class="slider round"></span>
+												</label>
+												<label>Si</label>
 											</td>
 										</tr>
 									</tbody>
@@ -376,7 +430,6 @@
 						</div>
 					</div>
 				</td>
-
 			</tr>
 		</tbody>
 	</table>

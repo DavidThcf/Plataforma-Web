@@ -341,9 +341,13 @@
   /* ------------FIN SWITCH STYLES ---------------*/
 
   /* -------  -Tabla Permisos Estilos --------------*/
+  .permitTable{
+	  width: 100%;
+  }
 
   .s1{
-	 width: 40%;
+	 width: 16%;	 
+	 margin-bottom: 10px;
   }
 
   .s2{
@@ -352,5 +356,10 @@
 
   .s1 label{
 	font-family: 'Playfair Display', serif;
+	margin-left: 30%;
   }  
+
+  .s2 label{
+	  vertical-align: middle;
+  }
   /*------ Fin Tabla Permisos Estilos ------------*/

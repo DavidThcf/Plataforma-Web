@@ -158,8 +158,10 @@ export class ActividadPanelPublico implements OnInit{
 			this.serviciog.isSelAct = false;
 			this.serviGloAct.actOpt = 0;
 			this.serviciog.actividad = null;
+			this.calculateValue(this.serviciog.actividades)
 		}else{
 			this.serviciog.actividad = this.serviciog.isSubActivity;
+			this.calculateValue(this.serviciog.actividades);
 		}		
 	}
 

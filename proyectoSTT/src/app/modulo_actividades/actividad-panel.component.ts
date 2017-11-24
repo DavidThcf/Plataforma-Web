@@ -38,7 +38,6 @@ export class ActividadPanel implements OnInit{
 		private servicios: Servicios,
 		private mapa: Mapa  
 		){
-
 		 };
 
 
@@ -103,6 +102,7 @@ export class ActividadPanel implements OnInit{
 	}
 
 	onSelectActivity(activity){		
+		alert(activity);
 		this.miPorcentaje = 100;
 		this.porcentajeAsignado =0;
 		this.serviciog.actividad = activity;
@@ -113,7 +113,7 @@ export class ActividadPanel implements OnInit{
 		var keym = activity.keym;
 		var id_usuario = activity.id_usuario;
 		var id_caracteristica = activity.id_caracteristica;		
-		this.serviciog.permiso1 = activity.public;
+		this.serviciog.permisoPublicar = activity.public;
 
 		this.servicios.getActividad(keym,id_usuario,id_caracteristica)
 		.then(actividades =>{				
@@ -154,10 +154,13 @@ export class ActividadPanel implements OnInit{
 		if(!this.serviciog.isSubActivity){
 			this.serviciog.isSelAct = false;
 			this.serviGloAct.actOpt = 0;
-			this.serviciog.permiso1 = this.serviciog.proyecto;
+			this.serviciog.permisoPublicar = this.serviciog.proyecto.public;
 			this.serviciog.actividad = null;
+			this.calculateValue(this.serviciog.actividades);			
 		}else{
 			this.serviciog.actividad = this.serviciog.isSubActivity;
+			this.serviciog.permisoPublicar = this.serviciog.actividad.public;
+			this.calculateValue(this.serviciog.actividades);			
 		}		
 	}
 
@@ -299,7 +302,7 @@ export class ActividadPanel implements OnInit{
 		this.serviGloAct.actOpt = 9;
 	}
 
-
+	///Calcula los porcentajes
 	calculateValue(actividades){
 		var percent = 0;
 		for(let i = 0; i <actividades.length; i++){
@@ -314,14 +317,14 @@ export class ActividadPanel implements OnInit{
 		var formData = new FormData();
 		if(this.serviciog.actividad){	
 			this.serviciog.actividad.public = !this.serviciog.actividad.public;
-			this.serviciog.permiso1 = this.serviciog.actividad.public;
+			this.serviciog.permisoPublicar = this.serviciog.actividad.public;
 			formData.append('keym',this.serviciog.actividad.keym);
 			formData.append('id_usuario',this.serviciog.actividad.id_usuario);
 			formData.append('id_caracteristica',this.serviciog.actividad.id_caracteristica);
 			formData.append('publico',this.serviciog.actividad.public);
 		}else{
 			this.serviciog.proyecto.public = !this.serviciog.proyecto.public;	
-			this.serviciog.permiso1 = this.serviciog.proyecto.public;		
+			this.serviciog.permisoPublicar = this.serviciog.proyecto.public;		
 			formData.append('keym',this.serviciog.proyecto.keym);
 			formData.append('id_usuario',this.serviciog.proyecto.id_usuario);
 			formData.append('id_caracteristica',this.serviciog.proyecto.id_caracteristica);

@@ -96,6 +96,12 @@ module.exports.getListProjects = function (id_user) {
           c.presupuesto,
           c.porcentaje_cumplido,
           c.public,
+          c.p_reporte,
+          c.p_categorias,
+          c.p_multimedia,
+          c.p_mapa,
+          c.p_porcentajes,
+          
           p.nombre as nom_pro,
           p.descripcion,
           u.nombre,

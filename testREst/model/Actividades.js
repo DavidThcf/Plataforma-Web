@@ -108,6 +108,11 @@ module.exports.getActivityList = function (data) {
 				c.fecha_fin,
 				c.publicacion_reporte,
 				c.public,
+				c.p_reporte,
+				c.p_categorias,
+				c.p_multimedia,
+				c.p_mapa,
+				c.p_porcentajes,
 
 				u.nombre as usr_nom,
 				u.apellido as usr_ape,
@@ -184,6 +189,11 @@ module.exports.getActivityPublicList = function (data) {
 				c.fecha_fin,
 				c.publicacion_reporte,
 				c.public,
+				c.p_reporte,
+				c.p_categorias,
+				c.p_multimedia,
+				c.p_mapa,
+				c.p_porcentajes,
 
 				u.nombre as usr_nom,
 				u.apellido as usr_ape,
