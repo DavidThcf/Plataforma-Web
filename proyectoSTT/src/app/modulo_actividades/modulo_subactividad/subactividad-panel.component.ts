@@ -49,6 +49,14 @@ export class SubActividadPanel implements OnInit{
 		var keym = subActividad.keym;
 		var id_usuario = subActividad.id_usuario;
 		var id_caracteristica = subActividad.id_caracteristica;
+
+		this.serviciog.permisoPublicar = subActividad.public;
+		this.serviciog.permisoReporte = subActividad.p_reporte;
+		this.serviciog.permisoCategorias = subActividad.p_categorias;
+		this.serviciog.permisoMultimedia = subActividad.p_multimedia;
+		this.serviciog.permisoMapa = subActividad.p_mapa;
+		this.serviciog.permisoPorcentajes = subActividad.p_porcentajes;
+		this.serviciog.permisoEstadisticas = subActividad.p_estadisticas;
 		
 		this.serviciog.titulo = subActividad.nom_act;
 		this.serviGloAct.actOpt= 1;

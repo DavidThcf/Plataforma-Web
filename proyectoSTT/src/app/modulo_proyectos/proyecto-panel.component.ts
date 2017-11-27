@@ -44,7 +44,14 @@ export class ProyectoPanel implements OnInit{
 
 	entrar(proyect:any){
 		this.serviciog.proyecto = proyect;
-		this.serviciog.permiso1 = proyect.public;		
+		this.serviciog.permisoPublicar = proyect.public;
+		this.serviciog.permisoReporte = proyect.p_reporte;
+		this.serviciog.permisoCategorias = proyect.p_categorias;
+		this.serviciog.permisoMultimedia = proyect.p_multimedia;
+		this.serviciog.permisoMapa = proyect.p_mapa;
+		this.serviciog.permisoPorcentajes = proyect.p_porcentajes;
+		this.serviciog.permisoEstadisticas = proyect.p_estadisticas;
+		
 		let link = ['actividades'];
 		this.router.navigate(link);
 	}

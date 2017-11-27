@@ -82,7 +82,7 @@
 								<li *ngIf="!this.serviciog.isSelAct" (click)="c0()" [class.itemSelected]="this.serviGloAct.actOpt===0">
 									<a>Detalles Proyecto</a>
 								</li>
-								<li *ngIf="!this.serviciog.isSelAct" (click)="c7()" [class.itemSelected]="this.serviGloAct.actOpt===7">
+								<li *ngIf="!this.serviciog.isSelAct && this.serviciog.proyecto.p_categorias" (click)="c7()" [class.itemSelected]="this.serviGloAct.actOpt===7">
 									<a>Categorias</a>
 								</li>
 								<li *ngIf="this.serviciog.isSelAct" (click)="c1()" [class.itemSelected]="this.serviGloAct.actOpt===1">
@@ -91,21 +91,21 @@
 								<li *ngIf="this.serviciog.isSelAct && this.serviciog.actividad != this.serviciog.isSubActivity" (click)="c2()" [class.itemSelected]="this.serviGloAct.actOpt===2">
 									<a>Sub - Actividades</a>
 								</li>
-								<li *ngIf="this.serviciog.isSelAct" (click)="c3()" [class.itemSelected]="this.serviGloAct.actOpt===3">
+								<li *ngIf="this.serviciog.isSelAct && this.serviciog.permisoReporte" (click)="c3()" [class.itemSelected]="this.serviGloAct.actOpt===3">
 									<a>Reporte</a>
 								</li>
-								<li *ngIf="this.serviciog.isSelAct" (click)="c4()" [class.itemSelected]="this.serviGloAct.actOpt===4">
+								<li *ngIf="this.serviciog.isSelAct && this.serviciog.permisoMultimedia" (click)="c4()" [class.itemSelected]="this.serviGloAct.actOpt===4">
 									<a>Multimedia
 									</a>
 								</li>
-								<li (click)="c5()" [class.itemSelected]="this.serviGloAct.actOpt===5">
+								<li *ngIf="this.serviciog.permisoEstadisticas" (click)="c5()" [class.itemSelected]="this.serviGloAct.actOpt===5">
 									<a>Estadisticas </a>
 								</li>
-								<li *ngIf="this.serviciog.isSelAct" (click)="c6()" [class.itemSelected]="this.serviGloAct.actOpt===6">
+								<li *ngIf="this.serviciog.isSelAct  && this.serviciog.permisoMapa" (click)="c6()" [class.itemSelected]="this.serviGloAct.actOpt===6">
 									<a>Mapa</a>
 								</li>
 
-								<li (click)="c8()" [class.itemSelected]="this.serviGloAct.actOpt===8">
+								<li *ngIf="this.serviciog.permisoPorcentajes" (click)="c8()" [class.itemSelected]="this.serviGloAct.actOpt===8">
 									<a>Porcentajes</a>
 								</li>
 							</ul>

@@ -34,7 +34,7 @@ export class ProyectosPublico implements OnInit {
 			this.isSearch = true
 		}
 		console.log(this.proyectos)
-		this.proyectos = this.serviciog.proyecto.filter(
+		this.proyectos = this.serviciog.proyectos_publico.filter(
 			item => item.nombre.toLowerCase().indexOf(term.toLowerCase()) !== -1 ||
 				item.descripcion.toLowerCase().indexOf(term.toLowerCase()) !== -1
 
@@ -44,6 +44,13 @@ export class ProyectosPublico implements OnInit {
 
 	entrar(proyect: any) {
 		this.serviciog.proyecto_publico = proyect;
+		this.serviciog.permisoReporte = proyect.p_reporte;
+		this.serviciog.permisoCategorias = proyect.p_categorias;
+		this.serviciog.permisoMultimedia = proyect.p_multimedia;
+		this.serviciog.permisoMapa = proyect.p_mapa;
+		this.serviciog.permisoPorcentajes = proyect.p_porcentajes;
+		this.serviciog.permisoEstadisticas = proyect.p_estadisticas;
+		
 		let link = ['actividadespublico'];
 		this.router.navigate(link);
 	}

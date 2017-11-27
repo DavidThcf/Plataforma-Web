@@ -1,11 +1,12 @@
-<div id="mod-log" class="modal fade" role="dialog" [hidden]="hideModal">
+<!-- [style.display]="this.serviciog.showModalLogin? 'block' : 'none'" -->
+<div class="myModal" [style.display]="this.serviciog.showModalLogin? 'block' : 'none'">
   <div class="modal-dialog" style="vertical-align: middle;">
     <!-- Modal content-->
     <div class="modal-content" >
       <div class="modal-body" style="height:auto">
 
-        <div style="margin-top:10px;margin-right:20px">
-          <button type="button" class="close" data-dismiss="modal">×</button>
+        <div style="margin-top:10px;margin-right:20px" (click)="this.serviciog.showModalLogin = !this.serviciog.showModalLogin">
+          <button type="button" class="close" >×</button>
         </div>
 
         <div style="margin-top:3%">
@@ -42,10 +43,9 @@
               <p style="margin-top:-10px">¿Olvidaste tu <a  class="btn_forget">Contraseña?</a></p>
             </div>
             <div class="col-xs-12 col-md-4">
-              <button type="submit" class="btn btn-success" name="btnLogin" style="float: right;" [disabled]="!loginForm.form.valid">Login</button>
+              <button type="submit" (click)="onSubmit()" class="btn btn-success" name="btnLogin" style="float: right;" [disabled]="!loginForm.form.valid">Login</button>
             </div>
-          </div> 
-
+          </div>
 
         </form>       
       </div>       

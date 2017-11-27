@@ -113,6 +113,7 @@ module.exports.getActivityList = function (data) {
 				c.p_multimedia,
 				c.p_mapa,
 				c.p_porcentajes,
+				c.p_estadisticas,
 
 				u.nombre as usr_nom,
 				u.apellido as usr_ape,
@@ -194,6 +195,7 @@ module.exports.getActivityPublicList = function (data) {
 				c.p_multimedia,
 				c.p_mapa,
 				c.p_porcentajes,
+				c.p_estadisticas,
 
 				u.nombre as usr_nom,
 				u.apellido as usr_ape,

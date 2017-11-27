@@ -117,6 +117,8 @@ export class AppComponent implements OnInit {
 		this.router.navigate(link);
 	}
 
+	
+
 	logout() {
 		this.serviciog.alert = null;
 		this.serviciog.alertCont = 0;

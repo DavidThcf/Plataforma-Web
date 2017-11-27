@@ -39,6 +39,7 @@ export class Modallogin {
 				if (usuario) {
 					this.nuevoUsuario(usuario.id_usuario);
 					this.serviciog.getUserSession(usuario);
+					this.serviciog.showModalLogin = false;
 					let link = ['administrador'];
 					this.router.navigate(link);
 				} else {

@@ -31,7 +31,13 @@ export class ServiciosGlobales {
 	permisoMultimedia:boolean = false;
 	permisoMapa:boolean = false;
 	permisoPorcentajes:boolean = false;
+	permisoEstadisticas:boolean = false;
 	/* ----------Fin Variables Actividades Permisos ----------*/
+
+
+	/*-------------Variables Desarrollo------------------------*/
+	showModalLogin:boolean = false;
+	/*-------------Fin Variables Desarrollo---------------------*/
 
 	constructor(private persistenceService:PersistenceService){}
 

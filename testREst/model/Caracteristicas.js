@@ -424,16 +424,36 @@ module.exports.updateCharacteristic = function (data, isUpdatePercentage, porcen
 }
 
 module.exports.updateCharacteristicPublic = function (data) {
-    console.log(data.publico)
+    
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
-        var query1 = `
-               UPDATE caracteristicas 
-               SET public = ` + data.publico +` where 
-               keym = ` + data.keym +` and 
+        var query1 = `  UPDATE caracteristicas `;
+        var queryChange = '';
+
+        if(data.opcion == '1'){
+            queryChange = `SET public = ` + data.permiso + ` where `;
+        }else if(data.opcion == '2'){
+            queryChange = `SET p_categorias = ` + data.permiso +` where `;
+        }else if(data.opcion == '3'){
+            queryChange = `SET p_reporte = ` + data.permiso +` where `;
+        }else if(data.opcion == '4'){
+            queryChange = `SET p_multimedia = ` + data.permiso +` where `;
+        }else if(data.opcion == '5'){
+            queryChange = `SET p_mapa = ` + data.permiso +` where `;
+        }else if(data.opcion == '6'){
+            queryChange = `SET p_porcentajes = ` + data.permiso +` where `;
+        }else if(data.opcion == '7'){
+            queryChange = `SET p_estadisticas = ` + data.permiso +` where `;
+        }
+        
+        var query2 = `keym = ` + data.keym +` and 
                id_usuario = ` + data.id_usuario +` and 
                id_caracteristica =` + data.id_caracteristica +`;
                 `;
+
+
+        query1 = query1 + queryChange + query2;
+        
 
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
             .then(x => {

@@ -101,6 +101,7 @@ module.exports.getListProjects = function (id_user) {
           c.p_multimedia,
           c.p_mapa,
           c.p_porcentajes,
+          c.p_estadisticas,
           
           p.nombre as nom_pro,
           p.descripcion,
@@ -395,7 +396,14 @@ module.exports.getProyectosPublicos = function (data) {
           c.presupuesto,
           c.porcentaje_cumplido,
           p.nombre as nom_pro,
-          p.descripcion,         
+          p.descripcion, 
+          c.p_reporte,
+          c.p_categorias,
+          c.p_multimedia,
+          c.p_mapa,
+          c.p_porcentajes,
+          c.p_estadisticas,
+                  
           u.nombre,
           u.apellido 
 
