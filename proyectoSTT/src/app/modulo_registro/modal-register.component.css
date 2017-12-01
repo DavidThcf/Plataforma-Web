@@ -11,8 +11,31 @@
 
 .formulario{
   overflow-y: auto;
-  height: 45vh;
+  height: 44vh;
+  overflow-x: hidden;
+  padding-right: 5%;
+  padding-left: 5%;
+  margin-bottom: 5px;
 }
+
+/* ---------------Style Scroll Formulario--------------*/
+.formulario::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+.formulario::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+.formulario::-webkit-scrollbar-thumb
+{
+	background-color: #2b3627;
+}
+/* ---------------Fin Style Scroll Formulario-------------*/
 
 #mod-log-tit {
   margin-top: 40px;

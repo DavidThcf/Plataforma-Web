@@ -87,6 +87,7 @@ module.exports.getPointList = function(data){
         select keym,
             id_caracteristica,
             id_usuario,
+            id_marcador,
             latitud,
             longitud,
             id_categoria from marcador 

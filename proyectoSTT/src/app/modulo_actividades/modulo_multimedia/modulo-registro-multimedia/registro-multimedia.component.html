@@ -1,15 +1,16 @@
-<div id="mod-reg-mult" style="margin-top: 50px" class="modal fade" role="dialog">
+<!-- [style.display]="this.serviciog.showModalRegistroActividad? 'block' : 'none'" -->
+<!-- (click)="this.serviciog.showModalRegistroMultimedia= !this.serviciog.showModalRegistroMultimedia" -->
+<div id="mod-reg-mult" style="margin-top: 50px" class="myModal" [style.display]="this.serviciog.showModalRegistroMultimedia? 'block' : 'none'" >
 	<div class="modal-dialog" style="vertical-align: middle;">
 		<!-- Modal content-->
 		<div class="modal-content" >
 			<div class="modal-body" style="height:auto">
 
 				<div style="margin-top:10px;margin-right:20px">
-					<button type="button" class="close" data-dismiss="modal">×</button>
+					<button type="button" class="close" (click)="this.serviciog.showModalRegistroMultimedia= !this.serviciog.showModalRegistroMultimedia">×</button>
 				</div> 
 				
-				<form #multimediaForm="ngForm" 
-				(ngSubmit)="onSubmitPro(multimediaForm)" 
+				<form #multimediaForm="ngForm"
 				style="margin-right: 5%; margin-left: 5%; margin-top:3%;"
 				enctype="multipart/form-data">
 
@@ -59,7 +60,8 @@
 
 				<button type="submit" 
 				class="btn btn-success" 
-				name="btnLogin" [disabled]="!multimediaForm.form.valid">Guardar
+				(click)="onSubmitPro()"
+				name="btnLogin" [disabled]="!multimediaForm.form.valid" >Guardar
 			</button>
 		</form>	
 	</div>       

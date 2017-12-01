@@ -1,11 +1,11 @@
-<div class="myModal">
+<div class="myModal"  [style.display]="this.serviciog.showModalRegistro? 'block' : 'none'">
   <div class="modal-dialog" style="vertical-align: middle;">
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-body" style="height:auto">
 
         <div style="margin-top:10px;margin-right:20px">
-          <button type="button" class="close" data-dismiss="modal">×</button>
+          <button type="button" class="close" (click)="this.serviciog.showModalRegistro = !this.serviciog.showModalRegistro">×</button>
         </div>
 
         <div style="margin-top:3%">
@@ -18,7 +18,7 @@
         </div>
 
 
-        <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
+        <form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
           <div class="formulario">
             <div class="form-group">
               <label for="Nombre" class="lab">Nombres</label>
@@ -93,7 +93,7 @@
 
             </div>
             <div class="col-xs-12 col-md-4">
-              <button type="submit" class="btn btn-success" name="btnLogin" style="float: right;" [disabled]="!loginForm.form.valid">Registrar</button>
+              <button type="submit" class="btn btn-success" (click)="onSubmit()" name="btnLogin" style="float: right;" [disabled]="!loginForm.form.valid">Registrar</button>
             </div>
           </div>
         </form>

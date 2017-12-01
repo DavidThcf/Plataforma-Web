@@ -188,7 +188,6 @@ export class Mapa implements OnInit {
 		}
 
 		this.paths.push(nPointPol);
-		alert(this.paths)
 		
 	}
 

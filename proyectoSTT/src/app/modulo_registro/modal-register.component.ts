@@ -28,8 +28,8 @@ export class ModalRegister {
 	submit: boolean = false;
 	files: any;
 
-	onSubmit(loginForm: NgForm) {
-		this.submit = true;
+	onSubmit() {
+		
 		var formData = new FormData();
 		formData.append('usuario', JSON.stringify(this.usuario));
 		if (this.files) {
@@ -37,9 +37,8 @@ export class ModalRegister {
 		}
 		this.servicios.createUser(formData)
 			.then(message => {
+				this.serviciog.showModalRegistro = !this.serviciog.showModalRegistro;
 				alert("" + message);
-				this.submit = false;
-
 			});
 	}
 

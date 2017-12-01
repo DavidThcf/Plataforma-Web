@@ -13,8 +13,7 @@ data-target="#mod-reg-mult" >
 	OK					
 </button>
 -->
-<button *ngIf="!isMapSelected" class="btn-add-img btn-primary" data-toggle="modal" 
-data-target="#mod-reg-mult" >						
+<button *ngIf="!isMapSelected" class="btn-add-img btn-primary" (click)="this.serviciog.showModalRegistroMultimedia= !this.serviciog.showModalRegistroMultimedia" >						
 +				
 </button>
 <table style="width: 100%">

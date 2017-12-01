@@ -92,6 +92,9 @@
 	border-radius: 5px; 
 	border: 2px solid #a1a1a1;
 }
+
+
+/* ----------Scrollbar Lista Actividades ---------------- */
 .listaActividades{
 	overflow-y: auto;
 	height: 69vh;	
@@ -115,6 +118,10 @@
 {
 	background-color: #2f5f30;
 }
+
+/* ---------- Fin Scrollbar Lista Actividades ---------------- */
+
+
 .selected a{
 	background-color: rgba(0,0,0,0.2);
 	text-overflow: ellipsis;	
@@ -130,7 +137,7 @@
 	text-decoration: none;
 	padding: 10px 10px;
 	color: white;
-	//background-color: rgb(153,191,78);
+	/* background-color: rgb(153,191,78); */
 }
 
 .listaActividades a:hover{
@@ -216,7 +223,7 @@
 	background-color: #555;
 }
 
-.proyect_form:: hr{
+.proyect_form  hr{
 	margin-bottom: 5px;
 }
 /*Fin estilos Formulario proyecto*/

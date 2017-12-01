@@ -166,8 +166,6 @@ module.exports.createProject = function (data, files) {
                                 `+ x.id_caracteristica + `,
 
                                 '`+ nombre + `',
-                                '',
-                                `+ false + `,
                                 '`+ icon + `',
                                 '`+ descripcion + `',
                                 `+ 0 + `,

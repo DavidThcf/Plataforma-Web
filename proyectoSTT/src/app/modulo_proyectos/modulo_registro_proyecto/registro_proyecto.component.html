@@ -1,14 +1,15 @@
-<div id="mod-reg-pro" style="margin-top: 50px" class="modal fade" role="dialog">
+<!--  -->
+<div id="mod-reg-pro" style="margin-top: 50px" class="myModal"  [style.display]="this.serviciog.showModalRegistroProyecto? 'block' : 'none'">
 	<div class="modal-dialog" style="vertical-align: middle;">
 		<!-- Modal content-->
 		<div class="modal-content" >
 			<div class="modal-body" style="height:auto">
 
 				<div style="margin-top:10px;margin-right:20px">
-					<button type="button" class="close" data-dismiss="modal">×</button>
+					<button type="button" class="close" (click) = "this.serviciog.showModalRegistroProyecto  = !this.serviciog.showModalRegistroProyecto">×</button>
 				</div> 
 				
-				<form #projectForm="ngForm" (ngSubmit)="onSubmitPro(projectForm)" style="margin-right: 5%; margin-left: 5%; margin-top:3%;" enctype="multipart/form-data">
+				<form #projectForm="ngForm" style="margin-right: 5%; margin-left: 5%; margin-top:3%;" enctype="multipart/form-data">
 
 					<div class="form-group">
 						<label for="nombre" class="lab">Nombre</label>
@@ -47,7 +48,7 @@
 						<input  type="file" id="upload2" accept=".jpg" (change)="imageChange($event)" />         
 					</div>
 
-					<button type="submit" class="btn btn-success" name="btnLogin" [disabled]="!projectForm.form.valid">Guardar</button>
+					<button type="submit" class="btn btn-success" (click)="onSubmitPro()" name="btnLogin" [disabled]="!projectForm.form.valid">Guardar</button>
 				</form>	
 			</div>       
 		</div>

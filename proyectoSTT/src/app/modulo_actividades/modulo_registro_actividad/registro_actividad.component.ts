@@ -51,6 +51,7 @@ export class RegistroActividad{
 		.then(message => { 
 			alert(message);
 			if(message){
+				this.serviciog.showModalRegistroActividad = !this.serviciog.showModalRegistroActividad;
 				if(this.serviGloAct.actOpt == 2){
 					this.serviGloAct.actOpt = 1;
 				}

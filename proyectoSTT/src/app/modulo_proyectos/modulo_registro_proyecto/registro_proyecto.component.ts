@@ -25,7 +25,7 @@ export class RegistroProyecto{
 		){ };
 	
 	
-	onSubmitPro(projectForm:NgForm) {	
+	onSubmitPro() {	
 		var formData = new FormData();
 		this.proyecto.id_usuario = this.serviciog.usuario.id_usuario + '';
 		//formData.append('id_usuario',JSON.stringify (this.serviciog.usuario.id_usuario));
@@ -39,6 +39,7 @@ export class RegistroProyecto{
 		.then(message => { 
 			alert("" + message);
 			if(message){
+				this.serviciog.showModalRegistroProyecto = false;
 				this.servicios.getProyecto(this.serviciog.usuario.id_usuario + '')
 				.then(cadena => {
 					this.serviciog.proyecto = cadena

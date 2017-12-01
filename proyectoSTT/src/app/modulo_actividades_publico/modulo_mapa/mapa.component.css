@@ -2,7 +2,7 @@ agm-map {
 	height: 69vh;
 }
 .map-div{
-	width: 95%;
+	width: 98%;
 	margin: auto;
 	border: 0.5px solid gray;
 }
@@ -54,4 +54,9 @@ agm-map {
 	border: 1px solid transparent;
 	border-radius: 3px;
 	box-shadow: 1px 1px 15px black;
+}
+
+.mapContent{
+	width: 100%;
+	height: 79vh;
 }

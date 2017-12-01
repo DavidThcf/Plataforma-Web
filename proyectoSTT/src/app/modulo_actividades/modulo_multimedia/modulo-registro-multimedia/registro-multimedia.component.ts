@@ -26,7 +26,7 @@ export class RegistroMultimedia{
 		){ };
 	
 	
-	onSubmitPro(multimediaForm:NgForm) {	
+	onSubmitPro() {	
 		var formData = new FormData();
 		this.archivo.keym = this.serviciog.actividad.keym;
 		this.archivo.id_usuario = this.serviciog.actividad.id_usuario;
@@ -44,6 +44,7 @@ export class RegistroMultimedia{
 		.then(message => {			 
 			alert("" + message);
 			if(message){
+				this.serviciog.showModalRegistroMultimedia= !this.serviciog.showModalRegistroMultimedia;
 				var formData = new FormData();
 				//alert(JSON.stringify(this.serviciog.actividad));
 				formData.append('keym',this.serviciog.actividad.keym);

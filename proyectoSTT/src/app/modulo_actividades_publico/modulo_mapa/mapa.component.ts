@@ -43,6 +43,9 @@ export class Mapa implements OnInit {
 	latB = 1;
 	lngA = 21;
 	lngB = 11;
+	ax_markers: any;
+	imagenes:any =[];
+	tipo:string = "img";
 	public searchControl: FormControl; //variableusada en busqueda direcciones
 
 
@@ -76,7 +79,7 @@ export class Mapa implements OnInit {
 				this.categorias = categorias;
 				this.serviGloAct.categorias = this.categorias;
 				if (categorias[0]) {
-					this.categoria = categorias[0];
+					//this.categoria = categorias[0];
 					this.serviGloAct.categoria = this.categoria;
 					this.serviGloAct.categoriaColor = this.categoria.color;
 					this.serviGloAct.categoriaNombre = this.categoria.nombre;
@@ -86,11 +89,13 @@ export class Mapa implements OnInit {
 		var formData = new FormData();
 		formData.append('caracteristica', JSON.stringify(this.serviciog.actividad));
 		this.servicios.getPointList(formData)
-			.then(marcador => {
-				if (marcador) {
-					console.log(marcador);
-					this.id_categoria = marcador[0].id_categoria;
-					this.serviGloAct.markers = marcador;
+			.then(marcadores => {
+				if (marcadores) {
+					
+					
+					this.id_categoria = marcadores[0].id_categoria;
+					this.serviGloAct.markers = marcadores;
+					this.ax_markers = marcadores;
 				}
 			});
 	}
@@ -148,7 +153,6 @@ export class Mapa implements OnInit {
 
 			this.serviciog.socket.emit('NuevaAlerta', JSON.stringify(alerta), function (data) {
 				if (data) {
-					alert(JSON.stringify(data));
 					console.log(data);
 				} else {
 
@@ -175,8 +179,6 @@ export class Mapa implements OnInit {
 		this.files = event.target.files || event.srcElement.files;
 	}
 
-
-
 	mapClicked($event: any) {
 		this.serviGloAct.isModalShow = true;
 		this.serviGloAct.tempLat = $event.coords.lat;
@@ -188,8 +190,7 @@ export class Mapa implements OnInit {
 		}
 
 		this.paths.push(nPointPol);
-		alert(this.paths)
-		
+
 	}
 
 	buscarLugar() {
@@ -252,25 +253,40 @@ export class Mapa implements OnInit {
 			});
 		}
 	}
-	/*
-	btnCat(category){		
+
+	btnCat(category) {
 		this.categoria = category;
-		this.serviGloAct.categoria = category;	
-		this.serviGloAct.categoriaColor = category.color;	
-		this.serviGloAct.categoriaNombre = category.nombre;
-	}	
-	guardarPunto(marker){
+		if (category != undefined) {
+			this.serviGloAct.markers = this.ax_markers.filter(x => {
+				return x.id_categoria == category.id_categoria;
+			});
+
+		}
+		else {
+			this.serviGloAct.markers = this.ax_markers;
+		}
+	}
+	markerClicks(marcador) {		
+		/*----------Consigue las imagenes que muestran al inicio-----------*/
 		var formData = new FormData();
-		formData.append('marcador',JSON.stringify(marker));
-		this.servicios.updatePointMap(formData).
-		then(message => {
-			if(!message){
-				alert("Error al actualizar");
-			}else{
-				this.serviGloAct.markers.push(marker);
-			}
-		});
-	}*/
+		//alert(JSON.stringify(this.serviciog.actividad));
+		formData.append('keym', marcador.keym);
+		formData.append('id_caracteristica', marcador.id_caracteristica);
+		formData.append('id_usuario', marcador.id_usuario);
+		formData.append('id_marcador', marcador.id_marcador);
+		formData.append('tipo', this.tipo);
+		formData.append('flag', "false")
+
+		this.servicios.getMultimedia(formData)
+			.then(imagenes => {				
+				if (imagenes) {
+					this.imagenes = imagenes
+				} else {
+					this.imagenes = []
+				}
+			});
+		/*---------------------------------FIN----------------------------------*/
+	}
 }
 
 

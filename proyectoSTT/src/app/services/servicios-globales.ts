@@ -37,6 +37,10 @@ export class ServiciosGlobales {
 
 	/*-------------Variables Desarrollo------------------------*/
 	showModalLogin:boolean = false;
+	showModalRegistro:boolean = false;
+	showModalRegistroProyecto:boolean = false;
+	showModalRegistroActividad:boolean = false;
+	showModalRegistroMultimedia:boolean= false;
 	/*-------------Fin Variables Desarrollo---------------------*/
 
 	constructor(private persistenceService:PersistenceService){}

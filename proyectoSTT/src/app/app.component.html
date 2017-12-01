@@ -37,7 +37,7 @@
       <div *ngIf="!this.serviciog.usuario" class="navbar-right" style="margin-top:9px;margin-bottom:5px">
         <div id="btn_account">
           <button type="button" class="btn btn-success btn-sm btn_log " (click)="this.serviciog.showModalLogin = !this.serviciog.showModalLogin" style="position:relative">Ingresar</button>
-          <button type="button" class="btn btn-danger btn-sm btn_reg " data-toggle="modal" data-target="#mod-reg" style="position:relative">Registrarse</button>
+          <button type="button" class="btn btn-danger btn-sm btn_reg " (click)="this.serviciog.showModalRegistro = !this.serviciog.showModalRegistro" style="position:relative">Registrarse</button>
         </div>
       </div>
 
