@@ -25,16 +25,17 @@ export class ProyectosPublico implements OnInit {
 		this.servicios.getProyectosPublicos(new FormData())
 			.then(proyectos=> {				
 				this.serviciog.proyectos_publico = proyectos
+				this.proyectos = proyectos;
 		});
 
 	}
 
-	search(term: string) {
+	search(term: string) {		
 		if (term != '') {
 			this.isSearch = true
 		}
 		console.log(this.proyectos)
-		this.proyectos = this.serviciog.proyectos_publico.filter(
+		this.serviciog.proyectos_publico = this.proyectos.filter(
 			item => item.nombre.toLowerCase().indexOf(term.toLowerCase()) !== -1 ||
 				item.descripcion.toLowerCase().indexOf(term.toLowerCase()) !== -1
 
