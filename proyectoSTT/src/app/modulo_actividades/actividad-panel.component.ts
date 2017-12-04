@@ -30,6 +30,10 @@ export class ActividadPanel implements OnInit {
 	http: string = this.serviciog.servidor + "Category/";
 	nombreUsuario: string = "";
 	public nombreDireccion: string = "";
+	documentName: string = "Cargar Archivo PDF";
+	documentNameValid: string;
+	files: any;
+	reporte:any;
 
 	constructor(
 		private serviciog: ServiciosGlobales,
@@ -218,7 +222,7 @@ export class ActividadPanel implements OnInit {
 
 	entrarACtividad(actividad) {
 		this.serviGloAct.lastActividad.push(this.serviciog.isSubActivity);
-		
+
 		this.subActivity = [];
 		this.serviciog.actividades = [];
 		this.serviciog.actividad = actividad;
@@ -353,113 +357,113 @@ export class ActividadPanel implements OnInit {
 
 	//////// Eventos  cambio de switch ////////
 	chkEvent(opt) {
-		
+
 		var formData = new FormData();
 		if (this.serviciog.actividad) {
 			formData.append('keym', this.serviciog.actividad.keym);
 			formData.append('id_usuario', this.serviciog.actividad.id_usuario);
-			formData.append('id_caracteristica', this.serviciog.actividad.id_caracteristica);			
+			formData.append('id_caracteristica', this.serviciog.actividad.id_caracteristica);
 			formData.append('opcion', opt);
-			
+
 			switch (opt) {
 				case 1: {
 					this.serviciog.actividad.public = !this.serviciog.actividad.public;
-					this.serviciog.permisoPublicar = this.serviciog.actividad.public;	
-					formData.append('permiso', this.serviciog.actividad.public);				
+					this.serviciog.permisoPublicar = this.serviciog.actividad.public;
+					formData.append('permiso', this.serviciog.actividad.public);
 					break;
 				}
-				case 2:{
+				case 2: {
 					this.serviciog.actividad.p_categorias = !this.serviciog.actividad.p_categorias;
 					this.serviciog.permisoCategorias = this.serviciog.actividad.p_categorias;
-					formData.append('permiso', this.serviciog.actividad.p_categorias);									
+					formData.append('permiso', this.serviciog.actividad.p_categorias);
 					break;
 
 				}
-				case 3:{
+				case 3: {
 					this.serviciog.actividad.p_reporte = !this.serviciog.actividad.p_reporte;
 					this.serviciog.permisoReporte = this.serviciog.actividad.p_reporte;
-					formData.append('permiso', this.serviciog.actividad.p_reporte);											
+					formData.append('permiso', this.serviciog.actividad.p_reporte);
 					break;
 				}
-				case 4:{
+				case 4: {
 					this.serviciog.actividad.p_multimedia = !this.serviciog.actividad.p_multimedia;
-					this.serviciog.permisoMultimedia = this.serviciog.actividad.p_multimedia;	
-					formData.append('permiso', this.serviciog.actividad.p_multimedia);						
+					this.serviciog.permisoMultimedia = this.serviciog.actividad.p_multimedia;
+					formData.append('permiso', this.serviciog.actividad.p_multimedia);
 					break;
 				}
-				case 5:{
+				case 5: {
 					this.serviciog.actividad.p_mapa = !this.serviciog.actividad.p_mapa;
-					this.serviciog.permisoMapa = this.serviciog.actividad.p_mapa;	
-					formData.append('permiso', this.serviciog.actividad.p_mapa);						
+					this.serviciog.permisoMapa = this.serviciog.actividad.p_mapa;
+					formData.append('permiso', this.serviciog.actividad.p_mapa);
 					break;
 				}
-				case 6:{
+				case 6: {
 					this.serviciog.actividad.p_porcentajes = !this.serviciog.actividad.p_porcentajes;
-					this.serviciog.permisoPorcentajes = this.serviciog.actividad.p_porcentajes;	
-					formData.append('permiso', this.serviciog.actividad.p_porcentajes);					
+					this.serviciog.permisoPorcentajes = this.serviciog.actividad.p_porcentajes;
+					formData.append('permiso', this.serviciog.actividad.p_porcentajes);
 					break;
 
 				}
-				case 7:{
+				case 7: {
 					this.serviciog.actividad.p_estadisticas = !this.serviciog.actividad.p_estadisticas;
-					this.serviciog.permisoEstadisticas = this.serviciog.actividad.p_estadisticas;	
-					formData.append('permiso', this.serviciog.actividad.p_estadisticas);					
+					this.serviciog.permisoEstadisticas = this.serviciog.actividad.p_estadisticas;
+					formData.append('permiso', this.serviciog.actividad.p_estadisticas);
 					break;
 
 				}
-			}			
+			}
 		} else {
-		
+
 			formData.append('keym', this.serviciog.proyecto.keym);
 			formData.append('id_usuario', this.serviciog.proyecto.id_usuario);
-			formData.append('id_caracteristica', this.serviciog.proyecto.id_caracteristica);			
+			formData.append('id_caracteristica', this.serviciog.proyecto.id_caracteristica);
 			formData.append('opcion', opt);
 
-			
+
 			switch (opt) {
 				case 1: {
 					this.serviciog.proyecto.public = !this.serviciog.proyecto.public;
-					this.serviciog.permisoPublicar = this.serviciog.proyecto.public;	
-					formData.append('permiso', this.serviciog.proyecto.public);				
+					this.serviciog.permisoPublicar = this.serviciog.proyecto.public;
+					formData.append('permiso', this.serviciog.proyecto.public);
 					break;
 				}
-				case 2:{					
+				case 2: {
 					this.serviciog.proyecto.p_categorias = !this.serviciog.proyecto.p_categorias;
 					this.serviciog.permisoCategorias = this.serviciog.proyecto.p_categorias;
-					formData.append('permiso', this.serviciog.proyecto.p_categorias);	
+					formData.append('permiso', this.serviciog.proyecto.p_categorias);
 					break;
 
 				}
-				case 3:{					
+				case 3: {
 					this.serviciog.proyecto.p_reporte = !this.serviciog.proyecto.p_reporte;
 					this.serviciog.permisoReporte = this.serviciog.proyecto.p_reporte;
-					formData.append('permiso', this.serviciog.proyecto.p_reporte);	
-										
+					formData.append('permiso', this.serviciog.proyecto.p_reporte);
+
 					break;
 				}
-				case 4:{
+				case 4: {
 					this.serviciog.proyecto.p_multimedia = !this.serviciog.proyecto.p_multimedia;
-					this.serviciog.permisoMultimedia = this.serviciog.proyecto.p_multimedia;	
-					formData.append('permiso', this.serviciog.proyecto.p_multimedia);					
+					this.serviciog.permisoMultimedia = this.serviciog.proyecto.p_multimedia;
+					formData.append('permiso', this.serviciog.proyecto.p_multimedia);
 					break;
 				}
-				case 5:{
+				case 5: {
 					this.serviciog.proyecto.p_mapa = !this.serviciog.proyecto.p_mapa;
 					this.serviciog.permisoMapa = this.serviciog.proyecto.p_mapa;
-					formData.append('permiso', this.serviciog.proyecto.p_mapa);						
+					formData.append('permiso', this.serviciog.proyecto.p_mapa);
 					break;
 				}
-				case 6:{
+				case 6: {
 					this.serviciog.proyecto.p_porcentajes = !this.serviciog.proyecto.p_porcentajes;
 					this.serviciog.permisoPorcentajes = this.serviciog.proyecto.p_porcentajes;
-					formData.append('permiso', this.serviciog.proyecto.p_porcentajes);						
+					formData.append('permiso', this.serviciog.proyecto.p_porcentajes);
 					break;
 
 				}
-				case 7:{
+				case 7: {
 					this.serviciog.proyecto.p_estadisticas = !this.serviciog.proyecto.p_estadisticas;
-					this.serviciog.permisoEstadisticas = this.serviciog.proyecto.p_estadisticas;	
-					formData.append('permiso', this.serviciog.proyecto.p_estadisticas);					
+					this.serviciog.permisoEstadisticas = this.serviciog.proyecto.p_estadisticas;
+					formData.append('permiso', this.serviciog.proyecto.p_estadisticas);
 					break;
 
 				}
@@ -472,6 +476,54 @@ export class ActividadPanel implements OnInit {
 			});
 	}
 	/////// Fin eventos cambios switch ////////
+
+
+	// EVENTOS REPORTE////////////////////////
+	documentChangeMult(event) {
+		this.documentName = event.target.files[0].name || event.srcElement.files[0].name;
+		// if(this.document.titulo  == ''){
+		// 	this.document.titulo = this.documentName;
+		// }
+		this.documentNameValid = this.documentName;
+		this.files = event.target.files[0] || event.srcElement.files[0];
+
+	}
+
+	onSubmitFile() {
+		var formData = new FormData();
+		this.reporte.keym = this.serviciog.actividad.keym;
+		this.reporte.id_usuario = this.serviciog.actividad.id_usuario;
+		this.reporte.id_caracteristica = this.serviciog.actividad.id_caracteristica;
+
+		this.reporte.id_usuario_act = this.serviciog.usuario.id_usuario + '';
+
+		//formData.append('id_usuario',JSON.stringify (this.serviciog.usuario.id_usuario));
+		formData.append('archivo', JSON.stringify(this.reporte));
+
+		if (this.files) {
+			formData.append('file', this.files);
+		}
+		this.servicios.createMultimedia(formData)
+			.then(message => {
+				alert("" + message);
+				if (message) {
+					this.serviciog.showModalRegistroMultimedia = !this.serviciog.showModalRegistroMultimedia;
+					var formData = new FormData();
+					//alert(JSON.stringify(this.serviciog.actividad));
+					formData.append('keym', this.serviciog.actividad.keym);
+					formData.append('id_caracteristica', this.serviciog.actividad.id_caracteristica);
+					formData.append('id_usuario', this.serviciog.actividad.id_usuario);
+					formData.append('tipo', this.serviciog.tipo);
+
+					this.servicios.getMultimedia(formData)
+						.then(imagenes => {
+							this.serviciog.imagenes = imagenes;
+							//alert(JSON.stringify(imagenes));
+						});
+				}
+			});
+	}
+	//FIN EVENTOS REPORTE
 }
 
 

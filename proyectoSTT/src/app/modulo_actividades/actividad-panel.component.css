@@ -370,3 +370,16 @@
 	  vertical-align: middle;
   }
   /*------ Fin Tabla Permisos Estilos ------------*/
+  /* -----Estilos boton Subir Reporte -----------*/
+  #uploadMult{
+	display: none;
+  }
+  
+  .uploaderMult {
+	border: 1px solid #ccc;
+	border-left:5px solid #a94442;  
+	display: inline-block;
+	padding: 6px 12px;
+	cursor: pointer;
+  }
+  /* -----Estilos boton Subir Reporte -----------*/
