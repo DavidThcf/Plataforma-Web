@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ServiciosGlobales } from '../services/servicios-globales';
 import { Servicios } from '../services/servicios';
 import { ServiciosGlobalesActividades } from './servicios-globales-actividades'
+import {DomSanitizer,SafeResourceUrl} from '@angular/platform-browser';
 
 import { Mapa } from './modulo_mapa/mapa.component';
 
@@ -33,14 +34,17 @@ export class ActividadPanel implements OnInit {
 	documentName: string = "Cargar Archivo PDF";
 	documentNameValid: string;
 	files: any;
-	reporte:any;
+	reporte:Reporte = new Reporte('','','');
+	reportdir:string;
+	url:SafeResourceUrl;
 
 	constructor(
 		private serviciog: ServiciosGlobales,
 		private serviGloAct: ServiciosGlobalesActividades,
 		private router: Router,
 		private servicios: Servicios,
-		private mapa: Mapa
+		private mapa: Mapa,
+		public sanitizer:DomSanitizer
 	) {
 	};
 
@@ -322,7 +326,9 @@ export class ActividadPanel implements OnInit {
 	}
 
 	c3() {
-		this.serviGloAct.actOpt = 3;
+		this.reportdir = this.serviciog.servidor+"reportes/"+this.serviciog.actividad.keym+"-"+this.serviciog.actividad.id_caracteristica+"-"+this.serviciog.actividad.id_usuario+".pdf";
+		this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.reportdir)		
+		this.serviGloAct.actOpt = 3;	
 	}
 
 	c4() {
@@ -490,40 +496,38 @@ export class ActividadPanel implements OnInit {
 	}
 
 	onSubmitFile() {
+		
 		var formData = new FormData();
 		this.reporte.keym = this.serviciog.actividad.keym;
 		this.reporte.id_usuario = this.serviciog.actividad.id_usuario;
 		this.reporte.id_caracteristica = this.serviciog.actividad.id_caracteristica;
 
-		this.reporte.id_usuario_act = this.serviciog.usuario.id_usuario + '';
+		//this.reporte.id_usuario_act = this.serviciog.usuario.id_usuario + '';
 
 		//formData.append('id_usuario',JSON.stringify (this.serviciog.usuario.id_usuario));
-		formData.append('archivo', JSON.stringify(this.reporte));
-
+		formData.append('reporte', JSON.stringify(this.reporte));
+		
 		if (this.files) {
 			formData.append('file', this.files);
 		}
-		this.servicios.createMultimedia(formData)
-			.then(message => {
-				alert("" + message);
-				if (message) {
-					this.serviciog.showModalRegistroMultimedia = !this.serviciog.showModalRegistroMultimedia;
-					var formData = new FormData();
-					//alert(JSON.stringify(this.serviciog.actividad));
-					formData.append('keym', this.serviciog.actividad.keym);
-					formData.append('id_caracteristica', this.serviciog.actividad.id_caracteristica);
-					formData.append('id_usuario', this.serviciog.actividad.id_usuario);
-					formData.append('tipo', this.serviciog.tipo);
 
-					this.servicios.getMultimedia(formData)
-						.then(imagenes => {
-							this.serviciog.imagenes = imagenes;
-							//alert(JSON.stringify(imagenes));
-						});
-				}
+		
+		this.servicios.createNewReport(formData)
+			.then(message => {
+				this.url = null;
+				alert("" + message);
+				this.reportdir = this.serviciog.servidor+"reportes/"+this.serviciog.actividad.keym+"-"+this.serviciog.actividad.id_caracteristica+"-"+this.serviciog.actividad.id_usuario+".pdf";
+				this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.reportdir)		
+				this.serviGloAct.actOpt = 3;
 			});
 	}
 	//FIN EVENTOS REPORTE
 }
 
-
+class Reporte{
+	constructor(
+		public keym:string,
+		public id_usuario:string,
+		public id_caracteristica:string
+		) {  }
+}

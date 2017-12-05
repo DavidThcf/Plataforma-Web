@@ -279,33 +279,28 @@
 
 							<div *ngIf="this.serviGloAct.actOpt === 3">
 								<div style="border: 1px solid gray; margin: 5px 20px">
-									<embed src="http://knower.udenar.edu.co/imgSTT/CONVENIO.pdf" style="width: 99%;	height: 66vh; margin: 2px 10px;" fullframe
-									/>
+									
+									<iframe [attr.src]="this.url" style="width: 99%; height: 66vh; margin: 2px 10px;" 
+									></iframe>
 								</div>
-								
-								<div class="form-group center-block" >
 
-									<label class="uploaderMult" for="uploadMult" [class.inValid]="this.documentNameValid">
-											{{ this.documentName }}
-									</label>
+								<label class="uploaderMult center-block" for="uploadMult" [class.inValid]="this.documentNameValid">
+									{{ this.documentName }}					
+								</label>
 
-									<input type="file" id="uploadMult" name="file[]" accept=".pdf" (change)="documentChangeMult($event)">
+								<input type="file" id="uploadMult" name="file[]" accept=".pdf" (change)="documentChangeMult($event)">
 
-									<input type="text" id="imagen" name="imagen"  required [(ngModel)]="this.documentNameValid" style="display: none">
+								<input type="file" id="imagen" name="imagen" required [(ngModel)]="this.documentNameValid" style="display: none">
 
-									<!-- <div *ngIf="formErrors.imagen" class="alert alert-danger">
+								<!-- <div *ngIf="formErrors.imagen" class="alert alert-danger">
 										{{ formErrors.documento }}
 									</div> -->
-
-									<button type="submit" 
-									class="btn btn-success" 
-									(click)="onSubmitFile()"
-									name="btnLogin" [disabled]="this.documentName=='Cargar Archivo PDF'" >
+								<button type="submit" class="btn btn-success center-block" (click)="onSubmitFile()" name="btnLogin" [disabled]="this.documentName=='Cargar Archivo PDF'">
 									Subir Reporte
-									</button>
+								</button>
 
-								</div>
 							</div>
+
 
 							<div *ngIf="this.serviGloAct.actOpt === 4">
 								<multimedia></multimedia>

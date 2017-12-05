@@ -601,4 +601,24 @@ router.post('/updatePublicCaracteristica',(req,res,next)=>{
 	});
 });
 /*-------------------FIN SERVICIOS ACTIVIDADES ---------------------------------*/
+
+
+/*------------------SERVICIOS REPORTES -----------------------------------------*/
+router.post('/createNewReport', (req, res, next) => {
+	console.log('New Report===>   ' + JSON.stringify(req.body));
+	var fls = File.createNewReport(JSON.parse(req.body.reporte), req.files);
+
+	fls.then(x => {
+
+		console.log('Se ha actualizado correctamente el reporte');
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(true);
+
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});
+});
+/*------------------FIN SERVICIOS REPORTES -----------------------------------------*/
 module.exports = router;
