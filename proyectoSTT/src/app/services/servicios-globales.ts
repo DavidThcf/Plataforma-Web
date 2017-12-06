@@ -23,6 +23,7 @@ export class ServiciosGlobales {
 	alert:any = 0;
 	marcadorAlerta:any;
 	isAlertShow:boolean = false;
+	showModalRestart:boolean = true;
 
 	/*--------Variables Actividades Permisos ----------*/
 	permisoPublicar:boolean = false;

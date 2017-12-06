@@ -1,3 +1,14 @@
+.myModal{
+	position: absolute;
+	width: 100%;
+	height: 92vh;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 5;
+	top: 0px;
+	margin-top: 50px;
+	/* display: none; */
+}
+
 .badge{
     margin-top: -23px;
     padding-bottom: 3px;
@@ -33,3 +44,47 @@
     top:80%; 
     left: 34%;
 }
+/* ------ESTILOS MODAL RECUPERQACION --------- */
+
+#mod-log-tit {
+    margin-top: 40px;
+    margin-left: -45px;
+    text-align: center;
+    font-size: 60px;
+    color:cadetblue;
+  }
+  
+  #mod-log-tit2{
+      margin-top: -20px;
+      color: gray;
+      text-align: center;
+      margin-left: 20px;
+      font-size: 25px;
+  }
+  
+  .ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #42A948; /* green */
+  }
+  
+  .ng-invalid:not(form)  {
+    border-left: 5px solid #a94442; /* red */
+  }
+  
+  .lab {
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .modal{
+    margin-top: 50px;
+  }
+  
+  .user-options li:hover{
+      background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .user-options li{
+    padding: 5px;
+    border: 1px solid gray;
+    cursor: pointer;
+   }
+  /* ------FIN ESTILOS MODAL RECUPERQACION --------- */

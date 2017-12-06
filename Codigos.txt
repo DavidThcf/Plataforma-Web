@@ -1,1 +1,4 @@
 npm2 start
+
+email: plataformatransitopasto@hotmail.com
+pass:  7hujikolp8

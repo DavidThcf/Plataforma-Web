@@ -175,6 +175,31 @@ module.exports.getUserList = function (data) {
   });
 }
 
+module.exports.restartPassword = function (email, password) {
+  var sequelize = sqlCon.configConnection();
+  var query1 = `
+  update usuarios set pass ='`+ password +
+    `' where e_mail = '` + email + `';`;
+
+    console.log(query1);
+  return new Promise((resolve, reject) => {
+    sequelize.query(query1, { type: sequelize.QueryTypes.UPDATE })
+      .then(x => {
+        if (x[1] > 0)
+          resolve(true);
+        else
+          resolve(false);
+      }).catch(x => {
+        console.log('Error Usuario: ' + x);
+        reject(false);
+      }).done(x => {
+        sequelize.close();
+        console.log('Se ha cerrado sesion de la conexion a la base de datos');
+      });
+
+  });
+
+}
 
 
 
@@ -188,61 +213,4 @@ module.exports.getUserList = function (data) {
 
 
 
-/*
-////////// 			Otros ejemplos de servicios
 
-
-
-
-
-
-
-router.get('/:email/:password', function (req, res, next) {
-	Usuario.findAll({console.lo
-		where: {
-			e_mail: req.params.email,
-			pass: req.params.password
-		}
-	}).then(heroe => {
-		var obj = JSON.stringify(heroe).replace(/\[/g, "").replace(/\]/g, "");
-		res.header("Access-Control-Allow-Origin", "*");
-		res.send(obj);
-	});
-});
-
-
-router.get('/:id_usuario', function (req, res, next) {
-	var cad = "select * from proyectos join caracteristicas on proyectos.keym_car = caracteristicas.keym and proyectos.id_usuario_car = caracteristicas.id_usuario and proyectos.id_caracteristica = caracteristicas.id_caracteristica  where caracteristicas.id_usuario =" + req.params.id_usuario;
-	sequelize.query(cad, {
-		type: sequelize.QueryTypes.SELECT
-	})
-		.then(proyectos => {
-			var obj = JSON.stringify(proyectos).replace(/\[/g, "").replace(/\]/g, "");
-			res.header("Access-Control-Allow-Origin", "*");
-			res.send(proyectos);
-		})
-});
-
-
-
-router.post('/', function (req, res, next) {
-	console.log(req);
-	var email = data.email;
-	var password = data.password;
-	console.log(email + '  ' + password);
-	var usuario = [{
-		"email": email,
-		"password": password,
-		"nombre": 'Luis',
-		"apellido": 'Perez'
-	}];
-
-	res.header("Access-Control-Allow-Origin", "*");
-	res.send(JSON.stringify(usuario));
-});
-
-
-
-
-
-*/

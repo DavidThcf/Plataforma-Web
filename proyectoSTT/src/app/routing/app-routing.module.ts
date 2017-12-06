@@ -12,6 +12,8 @@ import { ProyectosPublico } from '../modulo_proyectos_publico/proyectos-publico.
 import { ActividadPanelPublico } from '../modulo_actividades_publico/actividad-panel-publico.component';
 /*-----------FIN PROYECTOS PUBLICOS------------*/
 
+import { RecuperacionComponent } from '../recuperacion/recuperacion.component';
+
 
 
 const routes: Routes = [
@@ -22,7 +24,8 @@ const routes: Routes = [
   { path: 'actividades',  component: ActividadPanel},
   { path: 'proyectos',  component: ActividadPanel},
   { path: 'proyectospublico',  component: ProyectosPublico},
-  { path: 'actividadespublico',  component: ActividadPanelPublico}
+  { path: 'actividadespublico',  component: ActividadPanelPublico},
+  { path: 'recuperacion',  component: RecuperacionComponent}
 ];
  
 @NgModule({

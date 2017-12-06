@@ -39,8 +39,7 @@
 
           <div class="row" >            
             <div class="col-xs-12 col-md-8" style="font-size:12px">          
-              <p>¿No estas registrado? <a  class="btn_reg">Registrate!!</a></p>
-              <p style="margin-top:-10px">¿Olvidaste tu <a  class="btn_forget">Contraseña?</a></p>
+                <p style="margin-top:-10px" (click)="showModalRecuperacion()">¿Olvidaste tu <a  class="btn_forget">Contraseña?</a></p>
             </div>
             <div class="col-xs-12 col-md-4">
               <button type="submit" (click)="onSubmit()" class="btn btn-success" name="btnLogin" style="float: right;" [disabled]="!loginForm.form.valid">Login</button>

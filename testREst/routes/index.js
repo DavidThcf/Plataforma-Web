@@ -13,6 +13,7 @@ var File = require('../model/Archivos');
 var Marker = require('../model/Marcadores');
 var Characteritic = require('../model/Caracteristicas');
 var Alertas = require('../model//Alertas');
+var configmail = require("../config/emailconfig.js");
 //POST Services
 
 //Service for createa new User
@@ -158,7 +159,7 @@ router.post('/updateCategory', (req, res, next) => {
 });
 
 //Service to register a new point in the map
-router.post('/regPointMap', (req, res, next) => {	
+router.post('/regPointMap', (req, res, next) => {
 	console.log("ARCHIVOS ====> " + JSON.stringify(req.files));
 	var map = Map.regPoint(JSON.parse(req.body.marcador));
 	map.then(x => {
@@ -436,109 +437,109 @@ router.post('/updatePercentage', (req, res, next) => {
 	});
 });
 
-router.post('/updateCharacteristic',(req,res,next)=>{
+router.post('/updateCharacteristic', (req, res, next) => {
 	console.log(' <=====    Update Characteristic      ==== >   ' + JSON.stringify(req.body));
 
-  var car = Characteritic.updateCharacteristic(JSON.parse(req.body.actividad),req.body.isUpdatePercentage,req.body.porcentaje_cumplido);
-		car.then(x => {
+	var car = Characteritic.updateCharacteristic(JSON.parse(req.body.actividad), req.body.isUpdatePercentage, req.body.porcentaje_cumplido);
+	car.then(x => {
 
-			console.log('Se ha Acctualizado correctamente la caracteristica');
-			res.header("Access-Control-Allow-Origin", "*");
-			res.json(true);
+		console.log('Se ha Acctualizado correctamente la caracteristica');
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(true);
 
-		}).catch(x => {
-			console.log('ERROR al actualizar la caracteristica  =>  ' + x)
-			res.header("Access-Control-Allow-Origin", "*");
-			res.json(false);
-		});
+	}).catch(x => {
+		console.log('ERROR al actualizar la caracteristica  =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});
 });
 
 //Assign an activity to new user
-router.post('/assignActivityToUser',(req,res,next)=>{
-  console.log(' <=====    Assign Activity To User      ==== >   ' + JSON.stringify(req.body));
+router.post('/assignActivityToUser', (req, res, next) => {
+	console.log(' <=====    Assign Activity To User      ==== >   ' + JSON.stringify(req.body));
 
-    var prj = Project.assignActivityToUser(JSON.parse(JSON.stringify(req.body)));
-    prj.then(x => {
-      console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(true);
+	var prj = Project.assignActivityToUser(JSON.parse(JSON.stringify(req.body)));
+	prj.then(x => {
+		console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(true);
 
-    }).catch(x => {
-      console.log('ERROR al actualizar el porcentaje  =>  ' + x)
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+	}).catch(x => {
+		console.log('ERROR al actualizar el porcentaje  =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});
 });
 
 
 /*--------Servicios de Creacion y lectura de alertas -------------*/
-router.post('/newAlert',(req,res,next)=>{
+router.post('/newAlert', (req, res, next) => {
 	console.log(' <=====    Assign Activity To User      ==== >   ' + JSON.stringify(req.body));
-  
-	  var prj = Alertas.newAlert(req.body);
-	  prj.then(x => {
+
+	var prj = Alertas.newAlert(req.body);
+	prj.then(x => {
 		console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
 		res.header("Access-Control-Allow-Origin", "*");
 		res.send(x);
-  
-	  }).catch(x => {
+
+	}).catch(x => {
 		console.log('ERROR al actualizar el porcentaje  =>  ' + x)
 		res.header("Access-Control-Allow-Origin", "*");
 		res.json(false);
-	  });
-  });
+	});
+});
 
-  router.post('/deleteAlert',(req,res,next)=>{
+router.post('/deleteAlert', (req, res, next) => {
 	console.log(' <=====    Assign Activity To User      ==== >   ' + JSON.stringify(req.body.alerta));
-  
-	  var prj = Alertas.deleteAlert(JSON.parse(req.body.alerta));
-	  prj.then(x => {
+
+	var prj = Alertas.deleteAlert(JSON.parse(req.body.alerta));
+	prj.then(x => {
 		console.log('!!!!!!!!!!!!!Se ha eleminado la alerta!!!!!!!!!!!');
 		res.header("Access-Control-Allow-Origin", "*");
 		res.json(true);
-  
-	  }).catch(x => {
+
+	}).catch(x => {
 		console.log('ERROR al actualizar el porcentaje  =>  ' + x)
 		res.header("Access-Control-Allow-Origin", "*");
 		res.json(false);
-	  });
-  });
+	});
+});
 
-  router.post('/changeVistoAlert',(req,res,next)=>{
+router.post('/changeVistoAlert', (req, res, next) => {
 	console.log(' <=====    Assign Activity To User      ==== >   ' + JSON.stringify(req.body.alerta));
-  
-	  var prj = Alertas.changeVistoAlert(JSON.parse(req.body.alerta),JSON.parse(req.body.visto));
-	  prj.then(x => {
+
+	var prj = Alertas.changeVistoAlert(JSON.parse(req.body.alerta), JSON.parse(req.body.visto));
+	prj.then(x => {
 		console.log('!!!!!!!!!!!!!Se ha eleminado actualizado la alerta!!!!!!!!!!!');
 		res.header("Access-Control-Allow-Origin", "*");
 		res.json(true);
-  
-	  }).catch(x => {
+
+	}).catch(x => {
 		console.log('ERROR al actualizar el porcentaje  =>  ' + x)
 		res.header("Access-Control-Allow-Origin", "*");
 		res.json(false);
-	  });
-  });
+	});
+});
 /*-------- Fin Servicios de Creacion y lectura de alertas -------------*/
 
 
 /*----------------PROYECTOS PUBLICOS----------------------------------*/
-router.post('/getProyectosPublicos',(req,res,next)=>{
+router.post('/getProyectosPublicos', (req, res, next) => {
 	console.log(' <=====    Proyectos Publicos     ==== >   ');
-  
-	  var prj = Project.getProyectosPublicos(null);
-	  prj.then(x => {
-		
+
+	var prj = Project.getProyectosPublicos(null);
+	prj.then(x => {
+
 
 		res.header("Access-Control-Allow-Origin", "*");
 		res.send(x);
-  
-	  }).catch(x => {
+
+	}).catch(x => {
 		console.log('ERROR al actualizar el porcentaje  =>  ' + x)
 		res.header("Access-Control-Allow-Origin", "*");
 		res.json(false);
-	  });
-  });
+	});
+});
 /*----------------FIN PROYECTOS PUBLICOS----------------------------------*/
 
 
@@ -565,23 +566,23 @@ router.post('/getActivityList', (req, res, next) => {
 });
 
 //Actualiza los permisos de publicacion
-router.post('/updatePublicCaracteristica',(req,res,next)=>{   	
-	console.log(' <=====  cambiar permiso publico caracteristica     ==== >  ' + JSON.stringify(req.body));  
-	  var prj = Characteritic.updateCharacteristicPublic(req.body);
-	  prj.then(x => {
-			
+router.post('/updatePublicCaracteristica', (req, res, next) => {
+	console.log(' <=====  cambiar permiso publico caracteristica     ==== >  ' + JSON.stringify(req.body));
+	var prj = Characteritic.updateCharacteristicPublic(req.body);
+	prj.then(x => {
+
 		res.header("Access-Control-Allow-Origin", "*");
 		res.send(x);
-  
-	  }).catch(x => {
+
+	}).catch(x => {
 		console.log('ERROR al actualizar el porcentaje  =>  ' + x)
 		res.header("Access-Control-Allow-Origin", "*");
 		res.json(false);
-	  });
-  });
+	});
+});
 
-  //Obtiene la lista de actividades publico
-  router.post('/getActivityPublicList', (req, res, next) => {
+//Obtiene la lista de actividades publico
+router.post('/getActivityPublicList', (req, res, next) => {
 	console.log("GET ACTIVITY LIST");
 	var act = Activity.getActivityPublicList(req.body);
 	act.then(x => {
@@ -621,4 +622,52 @@ router.post('/createNewReport', (req, res, next) => {
 	});
 });
 /*------------------FIN SERVICIOS REPORTES -----------------------------------------*/
+
+
+/*-----------------SERVICIO RECUPERAR CONTRASEÑA ----------------------------------- */
+router.post('/restartPassword', (req, res, next) => {
+	console.log('Restart Password===>   ' + JSON.stringify(req.body));
+	var data = JSON.parse(JSON.stringify(req.body));
+	var password = generar();
+	var fls = User.restartPassword(data.email, password);
+
+	fls.then(x => {		
+		console.log('calor d ex ' + x);
+		if (x === true) {
+			console.log('entrar si correo good');
+			/* enviarmensaje */
+			let transporter = configmail.configmail();
+			// setup email data with unicode symbols
+			let mailOptions = {
+				from: '"Transito Pasto" <plataformatransitopasto@hotmail.com>', // sender address
+				to: '' + data.email, // list of receivers
+				subject: 'Recuperar contraseña ✔', // Subject line
+				text: 'Contraseña: ' + password,
+			};
+
+			// send mail with defined transport object
+			transporter.sendMail(mailOptions, (error, info) => {
+				if (error) {
+					return console.log(error);
+				}
+				console.log('Message %s sent: %s', info.messageId, info.response);
+			});
+
+		}
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(x);
+	}).catch(x => {
+		console.log('ERROR =>  ' + x)
+		res.header("Access-Control-Allow-Origin", "*");
+		res.json(false);
+	});
+});
+
+/*-----------------  RECUPERAR CONTRASEÑA ----------------------------------- */
+function generar() {
+	var caracteres = "abcdefghijkmnpqrtuvwxyzABCDEFGHIJKLMNPQRTUVWXYZ2346789";
+	var contraseña = "";
+	for (i = 0; i < 8; i++) contraseña += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+	return contraseña;
+}
 module.exports = router;

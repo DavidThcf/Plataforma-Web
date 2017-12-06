@@ -24,6 +24,7 @@ import { ProyectoModule } from './modulo_proyectos/proyecto-panel.module';
 /*-------------PROYECTOS PUBLICOS--------------*/
 import { ProyectosPublico } from './modulo_proyectos_publico/proyectos-publico.component';
 import { ActividadModulePublico } from './modulo_actividades_publico/actividad-panel-publico.module';
+import { RecuperacionComponent } from './recuperacion/recuperacion.component';
 /*-----------FIN PROYECTOS PUBLICOS------------*/
 
 
@@ -53,7 +54,8 @@ import { ActividadModulePublico } from './modulo_actividades_publico/actividad-p
     InicioView,
     Mapa,
     Mapa2,
-    ProyectosPublico
+    ProyectosPublico,
+    RecuperacionComponent
   ],
   providers: [
     Servicios,

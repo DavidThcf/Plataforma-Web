@@ -84,6 +84,11 @@ export class Modallogin {
 		});
 	}
 
+	showModalRecuperacion(){
+		this.serviciog.showModalRestart = !this.serviciog.showModalRestart;
+		this.serviciog.showModalLogin = !this.serviciog.showModalLogin;
+	}
+
 
 	loginForm: NgForm;
 

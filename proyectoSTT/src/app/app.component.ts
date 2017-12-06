@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Usuario } from './model/usuario';
 import { Modallogin } from './modulo_login/modal-login.component'
 import { ServiciosGlobales } from './services/servicios-globales';
 import { Servicios } from './services/servicios';
 import { PersistenceService, StorageType } from 'angular-persistence';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 
 @Component({
@@ -18,6 +20,7 @@ export class AppComponent implements OnInit {
 	maxAlertas: number = 4;
 	//isAlertShow: boolean = false;
 	heightAlert: number = 200;
+	e_mail: string;
 
 	constructor(private serviciog: ServiciosGlobales,
 		private persistenceService: PersistenceService,
@@ -93,31 +96,31 @@ export class AppComponent implements OnInit {
 			});
 	}
 
-	changeVisble(alerta){
-		var visto =	!alerta.visto;	
+	changeVisble(alerta) {
+		var visto = !alerta.visto;
 		var formData = new FormData();
 		formData.append('alerta', alerta.id_alerta);
-		formData.append('visto', visto+"");
+		formData.append('visto', visto + "");
 		this.servicios.changeVistoAlert(formData)
-		.then(message =>{
-			if(message){
-				alerta.visto = visto;
-				if(alerta.visto){
-					this.serviciog.alertCont = this.serviciog.alertCont-1;
-				}else{
-					this.serviciog.alertCont = this.serviciog.alertCont+1;
+			.then(message => {
+				if (message) {
+					alerta.visto = visto;
+					if (alerta.visto) {
+						this.serviciog.alertCont = this.serviciog.alertCont - 1;
+					} else {
+						this.serviciog.alertCont = this.serviciog.alertCont + 1;
+					}
 				}
-			}
-		});
+			});
 	}
 
-	goToMap(alerta){		
+	goToMap(alerta) {
 		this.serviciog.marcadorAlerta = alerta;
 		let link = ['mapa2'];
 		this.router.navigate(link);
 	}
 
-	
+
 
 	logout() {
 		this.serviciog.alert = null;
@@ -127,5 +130,67 @@ export class AppComponent implements OnInit {
 		let link = [''];
 		this.router.navigate(link);
 	}
+	/*-----------       RECUPERAR CONTRASEÑA     -----*/
+	loginForm: NgForm;
+
+	@ViewChild('loginForm') currentForm: NgForm;
+
+	ngAfterViewChecked() {
+		this.formChanged();
+	}
+
+	formChanged() {
+		if (this.currentForm === this.loginForm) { return; }
+		this.loginForm = this.currentForm;
+		if (this.loginForm) {
+			this.loginForm.valueChanges
+				.subscribe(data => this.onValueChanged(data));
+		}
+	}
+
+	onValueChanged(data?: any) {
+		if (!this.loginForm) { return; }
+		const form = this.loginForm.form;
+
+		for (const field in this.formErrors) {
+			// clear previous error message (if any)
+			this.formErrors[field] = '';
+			const control = form.get(field);
+
+			if (control && control.dirty && !control.valid) {
+				const messages = this.validationMessages[field];
+				for (const key in control.errors) {
+					this.formErrors[field] += messages[key] + ' ';
+				}
+			}
+		}
+	}
+
+	formErrors = {
+		'email': '',
+		'password': ''
+	};
+
+	validationMessages = {
+		'email': {
+			'required': 'Email Obligatorio'
+		},
+		'password': {
+			'required': 'Password Obligatorio'
+		}
+	};
+
+
+
+	onSubmitRestart() {
+		var formData = new FormData();
+		formData.append("email", this.e_mail);
+		
+		this.servicios.restartPassword(formData).
+		then(message =>{
+			alert(message);
+		});
+	}
+	/*-----------   FIN  RECUPERAR CONTRASEÑA     -----*/
 
 }
