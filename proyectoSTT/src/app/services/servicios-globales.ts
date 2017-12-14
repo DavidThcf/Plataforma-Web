@@ -23,7 +23,9 @@ export class ServiciosGlobales {
 	alert:any = 0;
 	marcadorAlerta:any;
 	isAlertShow:boolean = false;
-	showModalRestart:boolean = true;
+	alertMessage:string = "";
+	alertM:string = "";
+	
 
 	/*--------Variables Actividades Permisos ----------*/
 	permisoPublicar:boolean = false;
@@ -42,6 +44,7 @@ export class ServiciosGlobales {
 	showModalRegistroProyecto:boolean = false;
 	showModalRegistroActividad:boolean = false;
 	showModalRegistroMultimedia:boolean= false;
+	showModalRestart:boolean = false;
 	/*-------------Fin Variables Desarrollo---------------------*/
 
 	constructor(private persistenceService:PersistenceService){}

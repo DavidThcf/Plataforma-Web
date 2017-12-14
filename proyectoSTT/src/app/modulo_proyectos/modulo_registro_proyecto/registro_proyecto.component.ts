@@ -37,13 +37,35 @@ export class RegistroProyecto{
 
 		this.servicios.createProject(formData)
 		.then(message => { 
-			alert("" + message);
 			if(message){
+				this.serviciog.isAlertShow = true;
+				this.serviciog.alertMessage = "Proyecto creado correctamente";
+				this.serviciog.alertM = "Exito";
+				var audio = new Audio();
+				audio.src = "../assets/audios/alerta.mp3";
+				audio.load();
+				audio.play();
+				setTimeout(() => {
+					this.serviciog.isAlertShow = false;
+				}, 8000);
 				this.serviciog.showModalRegistroProyecto = false;
 				this.servicios.getProyecto(this.serviciog.usuario.id_usuario + '')
 				.then(cadena => {
 					this.serviciog.proyecto = cadena
 				});
+			}else{
+				this.serviciog.showModalRegistroProyecto = false;
+				this.serviciog.isAlertShow = true;
+				this.serviciog.alertMessage = "El proyecto no pudo ser creado";
+				this.serviciog.alertM = "Error";
+				var audio = new Audio();
+				audio.src = "../assets/audios/alerta.mp3";
+				audio.load();
+				audio.play();
+				setTimeout(() => {
+					this.serviciog.isAlertShow = false;
+				}, 8000);
+
 			}
 		} );
 	}

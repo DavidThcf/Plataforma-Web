@@ -1,13 +1,11 @@
-
 <table style="width: 100%">
 	<tbody>
 		<tr>
-			<td style="width: 50%"> 
+			<td style="width: 50%">
 				<h3 style="margin-left: 20px" *ngIf="this.serviciog.tipo === 'img'">
-					Imagenes <span *ngIf="isPointMul && this.serviciog.tipo === 'img'" >Puntos Geograficos </span>
-					<span (click)="changePointOrMul()" 
-					class="glyphicon glyphicon-chevron-right" 
-					aria-hidden="true"></span>
+					Imagenes
+					<span *ngIf="isPointMul && this.serviciog.tipo === 'img'">Puntos Geograficos </span>
+					<span (click)="changePointOrMul()" class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 				</h3>
 				<h3 style="margin-left: 20px" *ngIf="this.serviciog.tipo === 'doc'">Documentos
 					<!-- <span *ngIf="isPointMul" >Puntos Geograficos </span>
@@ -33,42 +31,40 @@
 					class="glyphicon glyphicon-chevron-right" 
 					aria-hidden="true"></span> -->
 				</h3>
-			</td>			
+			</td>
 
 			<td style="width: 50%">
-				<select class="select-mul form-control"
-				name="tipo"
-				[(ngModel)]="this.serviciog.tipo"
-				(change)="cambio($event)">
+				<select class="select-mul form-control" name="tipo" [(ngModel)]="this.serviciog.tipo" (change)="cambio($event)">
 
-				<option value="img">Imagenes</option>
-				<option value="doc">Documentos</option>
-				<option value="sou">Audios</option>
-				<option value="vid">Videos</option>
-				<option value="oth">Otros</option></select>
+					<option value="img">Imagenes</option>
+					<option value="doc">Documentos</option>
+					<!-- <option value="sou">Audios</option>
+					<option value="vid">Videos</option>
+					<option value="oth">Otros</option> -->
+				</select>
 			</td>
 		</tr>
 	</tbody>
 </table>
 
-<div class="row" *ngIf="this.serviciog.tipo === 'img'" >	
-	<div class="col-xs-6 col-md-3 selected" *ngFor="let imagen of this.serviciog.imagenes">	
-		
+<div class="row" *ngIf="this.serviciog.tipo === 'img'">
+	<div class="col-xs-6 col-md-3 selected" *ngFor="let imagen of this.serviciog.imagenes">
+
 		<div class="selected1" target='_blank'></div>
 		<div class="options">
 			<label>Titulo</label>
-			<input  [(ngModel)]="imagen.titulo" readonly>
+			<input [(ngModel)]="imagen.titulo" readonly>
 
 			<label>Subtitulo</label>
-			<input  [(ngModel)]="imagen.subtitulo" readonly>
+			<input [(ngModel)]="imagen.subtitulo" readonly>
 		</div>
 		<div class="img_options">
 		</div>
 		<a (mouseover)="mouseOver()" class="thumbnail">
 			<img src={{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}} alt={{imagen.subtitulo}}>
-			<div class="titleImg" title={{imagen.titulo}} >{{imagen.titulo}}</div>
-		</a>		
-	</div>	
+			<div class="titleImg" title={{imagen.titulo}}>{{imagen.titulo}}</div>
+		</a>
+	</div>
 </div>
 
 <div class="row" *ngIf="this.serviciog.tipo === 'doc'">
@@ -82,12 +78,15 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr style="cursor:pointer" *ngFor="let imagen of this.serviciog.imagenes" >
+			<tr style="cursor:pointer" *ngFor="let imagen of this.serviciog.imagenes">
 				<th scope="row" style="vertical-align:middle">#</th>
 				<td style="vertical-align:middle">{{imagen.titulo}}</td>
 				<td>{{imagen.subtitulo}}</td>
 				<td>
 					<button (click)="show(imagen)" class="btn btn-primary" data-toggle="modal" data-target="#mod-sho-mult">Ver</button>
+				</td>
+				<td>
+					<a href={{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}} class="btn btn-primary" style="border: 1px solid red; color: white; background-color: red;">Descargar</a>
 				</td>
 			</tr>
 		</tbody>
@@ -106,30 +105,30 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr style="cursor:pointer" *ngFor="let imagen of this.serviciog.imagenes" >
+			<tr style="cursor:pointer" *ngFor="let imagen of this.serviciog.imagenes">
 				<th scope="row" style="vertical-align:middle">#</th>
 				<td style="vertical-align:middle">{{imagen.titulo}}</td>
-				<td>{{imagen.subtitulo}}</td>				
+				<td>{{imagen.subtitulo}}</td>
 			</tr>
 
 		</tbody>
-	</table>		
+	</table>
 </div>
 
 <div class="row" *ngIf="this.serviciog.tipo === 'vid'">
-	<div class="col-xs-12 col-md-4" *ngFor="let imagen of this.serviciog.imagenes">	
-		<input type="checkbox" *ngIf="isMapSelected" class="chk" [checked]=imagen.isViewMap (change)="checked(imagen)"  >						
-		<a  class="thumbnail">
-			<video controls  class="video-js" >
-				<source src="{{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}}" type='video/mp4'/>
+	<div class="col-xs-12 col-md-4" *ngFor="let imagen of this.serviciog.imagenes">
+		<input type="checkbox" *ngIf="isMapSelected" class="chk" [checked]=imagen.isViewMap (change)="checked(imagen)">
+		<a class="thumbnail">
+			<video controls class="video-js">
+				<source src="{{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}}" type='video/mp4' />
 			</video>
 			<div class="caption">
-				<h4>{{imagen.titulo}}</h4>															
+				<h4>{{imagen.titulo}}</h4>
 			</div>
 		</a>
 	</div>
 </div>
-<div class="row" *ngIf="this.serviciog.tipo === 'oth'">	
+<div class="row" *ngIf="this.serviciog.tipo === 'oth'">
 </div>
 
 
@@ -138,13 +137,13 @@
 <div id="mod-sho-mult" style="margin-top: 50px" class="modal fade" role="dialog">
 	<div class="modal-dialog" style="vertical-align: middle;">
 		<!-- Modal content-->
-		<div class="modal-content" >
+		<div class="modal-content">
 			<div class="modal-body">
 				<div style="margin-top:10px;margin-right:20px">
 					<button type="button" class="close" data-dismiss="modal">×</button>
-				</div> 
-				<div>										
-					<iframe [attr.src]="this.urlShow"></iframe>					
+				</div>
+				<div>
+					<iframe [attr.src]="this.urlShow"></iframe>
 				</div>
 			</div>
 		</div>

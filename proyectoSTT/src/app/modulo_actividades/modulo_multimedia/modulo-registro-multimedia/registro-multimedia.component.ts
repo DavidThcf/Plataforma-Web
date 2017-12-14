@@ -51,11 +51,12 @@ export class RegistroMultimedia{
 				formData.append('id_caracteristica',this.serviciog.actividad.id_caracteristica);
 				formData.append('id_usuario',this.serviciog.actividad.id_usuario);
 				formData.append('tipo',this.serviciog.tipo);
+				formData.append('flag', true + "")
 
 				this.servicios.getMultimedia(formData)
 				.then(imagenes => {
 					this.serviciog.imagenes = imagenes;
-					//alert(JSON.stringify(imagenes));
+					alert(JSON.stringify(imagenes));
 				});	
 			}
 		} );

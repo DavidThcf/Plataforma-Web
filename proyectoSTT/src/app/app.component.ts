@@ -36,6 +36,8 @@ export class AppComponent implements OnInit {
 				.then(data => {
 					if (data) {
 						this.serviciog.isAlertShow = true;
+						this.serviciog.alertMessage = "Nuevas alertas";
+						this.serviciog.alertM = "Alerta!!!";
 						var audio = new Audio();
 						audio.src = "../assets/audios/alerta.mp3";
 						audio.load();

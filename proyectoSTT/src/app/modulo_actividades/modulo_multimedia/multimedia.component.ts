@@ -77,6 +77,8 @@ export class Multimedia implements OnInit{
 	}
 
 	cambio($event){
+
+		this.isPointMul = true;
 		this.serviciog.imagenes = [];
 		//alert("cambio " + JSON.stringify(this.tipo));
 		var formData = new FormData();
@@ -85,6 +87,7 @@ export class Multimedia implements OnInit{
 		formData.append('id_caracteristica',this.serviciog.actividad.id_caracteristica);
 		formData.append('id_usuario',this.serviciog.actividad.id_usuario);
 		formData.append('tipo',this.serviciog.tipo);
+		formData.append('flag', this.isPointMul + "")
 
 		this.servicios.getMultimedia(formData)
 		.then(imagenes => {
