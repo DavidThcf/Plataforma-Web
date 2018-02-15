@@ -5,7 +5,7 @@ var fls = require('../model/Archivos');
 
 var router = express.Router();
 var Caracteristica = require('./Caracteristicas');
-var repository = 'files/';
+var repository = '../files/';
 
 // Service to create a project from activity
 module.exports.createProjectFromActivity = function (data) {
@@ -35,11 +35,9 @@ module.exports.createProjectFromActivity = function (data) {
                     `+ keym + `,
                     `+ x + `,
                     `+ id_usuario + `,
-
                     `+ keym_car + `,
                     `+ id_usuario_car + `,
                     `+ id_caracteristica_car + `,
-
                     '`+ nombre + `',
                     '',
                     `+ false + `,
@@ -48,10 +46,8 @@ module.exports.createProjectFromActivity = function (data) {
                     `+ 0 + `,
                     '`+ fecha_ultima_modificacion + `'
                 );
-
                 UPDATE caracteristicas
                 SET tipo_caracteristica = 'P'
-
                 WHERE keym= `+ keym_car + `
                 and id_caracteristica = `+ id_caracteristica_car + `
                 and id_usuario = `+ id_usuario_car + `;
@@ -160,11 +156,9 @@ module.exports.createProject = function (data, files) {
                                 `+ keym + `,
                                 `+ id + `,
                                 `+ id_usuario + `,
-
                                 `+ x.keym + `,
                                 `+ x.id_usuario + `,
                                 `+ x.id_caracteristica + `,
-
                                 '`+ nombre + `',
                                 '`+ icon + `',
                                 '`+ descripcion + `',
@@ -237,11 +231,8 @@ module.exports.getVisibleProjects = function () {
     join caracteristicas c on proyectos.keym_car = c.keym
     and proyectos.id_usuario_car = c.id_usuario
     and proyectos.id_caracteristica = c.id_caracteristica
-
     where c.keym || '-'|| c.id_caracteristica || '-' ||c.id_usuario
     in (select keym_car||'-'||id_caracteristica||'-'||id_usuario_car from categorias_mapa)
-
-
         `;
 
 
@@ -277,13 +268,11 @@ module.exports.assignActivityToUser = function (data) {
         if (JSON.stringify(car.usuario_asignado) != JSON.stringify(car.id_usuario)) {
           console.log('\n\n ===========');
           var query1 = `
-
           UPDATE caracteristicas
           SET usuario_asignado  =  `+ usr.id_usuario + `
           WHERE keym = `+ car.keym + `
           AND id_caracteristica = `+ car.id_caracteristica + `
           AND id_usuario = `+ car.id_usuario + `;
-
           UPDATE proyectos
           SET
           keym = `+ keym + `,
@@ -292,7 +281,6 @@ module.exports.assignActivityToUser = function (data) {
           WHERE keym_car = `+ car.keym + `
           AND id_caracteristica = `+ car.id_caracteristica + `
           AND id_usuario_car = `+ car.id_usuario + `;
-
         `;
         }
         else {
@@ -308,15 +296,12 @@ module.exports.assignActivityToUser = function (data) {
           `+ keym + `,
           `+ id_prj + `,
           `+ usr.id_usuario + `,
-
           `+ car.keym + `,
           `+ car.id_usuario + `,
           `+ car.id_caracteristica + `,
-
           '`+ car.nom_act + `',
           '`+ car.desc_act + `'
         );
-
         UPDATE caracteristicas
         SET usuario_asignado  =  `+ usr.id_usuario + `
         WHERE keym = `+ car.keym + `
@@ -404,7 +389,6 @@ module.exports.getProyectosPublicos = function (data) {
                   
           u.nombre,
           u.apellido 
-
           from proyectos p
                 join caracteristicas c on p.keym_car = c.keym
                 and p.id_usuario_car = c.id_usuario

@@ -9,6 +9,8 @@ import { Servicios } from '../services/servicios';
 import { ServiciosGlobalesActividades } from './servicios-globales-actividades'
 
 import { Mapa } from './modulo_mapa/mapa.component';
+import {DomSanitizer,SafeResourceUrl} from '@angular/platform-browser';
+
 
 @Component({
 	selector: 'actividad-panel-publico',
@@ -30,13 +32,17 @@ export class ActividadPanelPublico implements OnInit {
 	http: string = this.serviciog.servidor + "Category/";
 	nombreUsuario: string = "";
 	public nombreDireccion: string = "";
+	reportdir:string;
+	url:SafeResourceUrl;
+
 
 	constructor(
 		private serviciog: ServiciosGlobales,
 		private serviGloAct: ServiciosGlobalesActividades,
 		private router: Router,
 		private servicios: Servicios,
-		private mapa: Mapa
+		private mapa: Mapa,
+		public sanitizer:DomSanitizer
 	) { };
 
 	ngOnInit(): void {
@@ -315,7 +321,9 @@ export class ActividadPanelPublico implements OnInit {
 	}
 
 	c3() {
-		this.serviGloAct.actOpt = 3;
+		this.reportdir = this.serviciog.servidor+"reportes/"+this.serviciog.actividad.keym+"-"+this.serviciog.actividad.id_caracteristica+"-"+this.serviciog.actividad.id_usuario+".pdf";
+		this.url = this.sanitizer.bypassSecurityTrustResourceUrl(this.reportdir)		
+		this.serviGloAct.actOpt = 3;		
 	}
 
 	c4() {

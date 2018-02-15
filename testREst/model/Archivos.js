@@ -4,7 +4,7 @@ var Sequelize = require('sequelize');
 var sqlCon = require('../config/connectionDb');
 var router = express.Router();
 var fs = require('fs');
-var repository = 'files/';
+var repository = '../files/';
 
 //Service to create files
 module.exports.create_file = function (data, files) {

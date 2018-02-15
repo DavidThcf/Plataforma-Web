@@ -23,9 +23,9 @@ app.use(cookieParser());
 app.use(fileUpload({
 	limits: { fileSize: 4 * 1024 * 1024 * 1024 }
 }));
-//app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname + '/files'));
 
-app.use(express.static('files'));
+//app.use(express.static('files'));
 //app.use(express.static('files'));
 //app.use('/static', express.static('public'));
 

@@ -46,7 +46,6 @@ export class RegistroMultimedia{
 			if(message){
 				this.serviciog.showModalRegistroMultimedia= !this.serviciog.showModalRegistroMultimedia;
 				var formData = new FormData();
-				//alert(JSON.stringify(this.serviciog.actividad));
 				formData.append('keym',this.serviciog.actividad.keym);
 				formData.append('id_caracteristica',this.serviciog.actividad.id_caracteristica);
 				formData.append('id_usuario',this.serviciog.actividad.id_usuario);
@@ -55,8 +54,7 @@ export class RegistroMultimedia{
 
 				this.servicios.getMultimedia(formData)
 				.then(imagenes => {
-					this.serviciog.imagenes = imagenes;
-					alert(JSON.stringify(imagenes));
+					this.serviciog.imagenes = imagenes;					
 				});	
 			}
 		} );

@@ -74,7 +74,7 @@ module.exports.regCategories = function (data) {
 
 
             `;
-            fs.writeFile('files/Category/' + x[0][0].cat + '.svg', img, function (err) {
+            fs.writeFile('../files/Category/' + x[0][0].cat + '.svg', img, function (err) {
                 if (err) console.log('\n\n\nHubo un error' + err);
                 console.log('Se creo exitosamente el icono de la categoria');
             });
