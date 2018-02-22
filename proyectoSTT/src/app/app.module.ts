@@ -27,6 +27,10 @@ import { ActividadModulePublico } from './modulo_actividades_publico/actividad-p
 import { RecuperacionComponent } from './recuperacion/recuperacion.component';
 /*-----------FIN PROYECTOS PUBLICOS------------*/
 
+/*-----------AYUDA COMPONENT-------------------*/
+import { AyudaComponent } from './modulo_ayuda/ayuda.component';
+/*-----------FIN AYUDA COMPONENT-------------------*/
+
 
 
 
@@ -55,7 +59,8 @@ import { RecuperacionComponent } from './recuperacion/recuperacion.component';
     Mapa,
     Mapa2,
     ProyectosPublico,
-    RecuperacionComponent
+    RecuperacionComponent,
+    AyudaComponent
   ],
   providers: [
     Servicios,

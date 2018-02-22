@@ -57,6 +57,8 @@ export class Modallogin {
 				if (data) {
 					this.serviciog.isAlertShow = true;
 					var audio = new Audio();
+					this.serviciog.alertMessage = "Nuevas alertas";
+					this.serviciog.alertM = "Alerta!!!";
 					audio.src = "../assets/audios/alerta.mp3";
 					audio.load();
 					audio.play();

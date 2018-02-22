@@ -14,6 +14,9 @@ import { ActividadPanelPublico } from '../modulo_actividades_publico/actividad-p
 
 import { RecuperacionComponent } from '../recuperacion/recuperacion.component';
 
+/* ------------AYUDA ------------------------- */
+import { AyudaComponent } from '../modulo_ayuda/ayuda.component';
+
 
 
 const routes: Routes = [
@@ -25,7 +28,8 @@ const routes: Routes = [
   { path: 'proyectos',  component: ActividadPanel},
   { path: 'proyectospublico',  component: ProyectosPublico},
   { path: 'actividadespublico',  component: ActividadPanelPublico},
-  { path: 'recuperacion',  component: RecuperacionComponent}
+  { path: 'recuperacion',  component: RecuperacionComponent},
+  { path: 'ayuda',  component: AyudaComponent}
 ];
  
 @NgModule({

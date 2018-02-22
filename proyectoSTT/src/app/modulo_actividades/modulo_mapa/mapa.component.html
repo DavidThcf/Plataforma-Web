@@ -26,6 +26,7 @@
 		<agm-marker *ngFor="let marker of this.serviGloAct.markers;" [latitude]="marker.latitud-0" [longitude]="marker.longitud-0"
 		 [iconUrl]="this.http+marker.id_categoria+this.ext">
 		</agm-marker>
+		<!--
 		<agm-circle *ngFor="let marker of this.serviGloAct.markers;" [latitude]="marker.latitud-0" [longitude]="marker.longitud-0"
 		 [circleDraggable]="true" [editable]="true" [fillColor]="red" [radius]="10">
 		</agm-circle>
@@ -36,6 +37,7 @@
 			<agm-polyline-point *ngFor="let marker of this.serviGloAct.markers;"  [latitude]="marker.latitud-0" [longitude]="marker.longitud-0">
 			</agm-polyline-point>			
 		</agm-polyline>
+		-->
 
 	</agm-map>
 </div>

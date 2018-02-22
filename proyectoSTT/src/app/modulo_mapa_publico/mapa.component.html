@@ -26,7 +26,7 @@
 
 		<div class="col-md-10">
 			<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-				<agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+				<!--<agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>-->
 				<agm-marker *ngFor="let marcador of marcadores;" [latitude]="marcador.latitud-0" [longitude]="marcador.longitud-0" [iconUrl]="this.http+marcador.id_categoria+this.ext" (markerClick)="markerClicks(marcador)">
 					<agm-info-window>
 						<div id="carousel-example-generic" class="carousel slide" data-ride="carousel"  style="height: 250px; width:400px">
